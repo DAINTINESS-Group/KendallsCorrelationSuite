@@ -1,4 +1,4 @@
 /target/
 
-#General
-.DS_Store
+.*
+!/.gitignore
