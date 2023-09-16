@@ -1,12 +1,14 @@
-package model;
+package kendall;
 
 public class KendallFactory {
 
-    public ICalculator createKendallCalculator(String method) {
+	public enum KendallCalculatorMethods {BRUTEFORCE, BROPHY};
+	
+    public IKendallCalculator createKendallCalculator(KendallCalculatorMethods method) {
         switch(method) {
-            case "BruteForce":
+            case BRUTEFORCE:
                 return new BruteForceCalculator();
-            case "Brophy":
+            case BROPHY:
                 return new BrophyCalculator();
             default:
                 throw new IllegalArgumentException(

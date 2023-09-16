@@ -1,11 +1,11 @@
-package model;
+package kendall;
 
 import reader.ColumnPair;
 
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class BrophyCalculator implements ICalculator{
+public class BrophyCalculator implements IKendallCalculator{
 
     @Override
     public double calculateKendall(ColumnPair pair) {
@@ -14,6 +14,12 @@ public class BrophyCalculator implements ICalculator{
         ArrayList<Double> y = pair.getYColumn();
 
         int s = 0;
+        
+        /**
+         * FIX FIX FIX
+         * TODO: why bother using tiedSumX without using it? Y also. 
+         * Is it useless? Is it forgotten? Fix anyway...
+         */
         int t, tiedCountX = 0, tiedSumX = 0;
         int u, tiedCountY = 0, tiedSumY = 0;
 

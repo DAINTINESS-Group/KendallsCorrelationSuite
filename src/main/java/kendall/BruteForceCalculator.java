@@ -1,14 +1,14 @@
-package model;
+package kendall;
 
 import reader.ColumnPair;
 
 import java.util.ArrayList;
 
-public class BruteForceCalculator implements ICalculator{
+public class BruteForceCalculator implements IKendallCalculator{
 
     public double calculateKendall(ColumnPair pair) {
-        int n = pair.getXColumn().size();
-        double denominator = (double) (n * (n-1)) / 2.0;
+        int numPairs = pair.getXColumn().size();
+        double denominator = (double) (numPairs * (numPairs-1)) / 2.0;
         double numerator = calculateNumerator(pair);
 
         return numerator / denominator;
@@ -19,11 +19,12 @@ public class BruteForceCalculator implements ICalculator{
 
         ArrayList<Double> x = pair.getXColumn();
         ArrayList<Double> y = pair.getYColumn();
-
-        for (int i = 1; i < x.size(); i++) {
+        int numPairs = x.size();
+        
+        for (int i = 1; i < numPairs; i++) {
             for (int j = 0; j < i; j++) {
-                double diffX = pair.getXColumn().get(i) - pair.getXColumn().get(j);
-                double diffY = pair.getYColumn().get(i) - pair.getYColumn().get(j);
+                double diffX = x.get(i) - x.get(j);
+                double diffY = y.get(i) - y.get(j);
 
                 numerator += Math.signum(diffX) * Math.signum(diffY);
             }
