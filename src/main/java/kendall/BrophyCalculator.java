@@ -17,7 +17,7 @@ public class BrophyCalculator implements IKendallCalculator{
         
         /**
          * FIX FIX FIX
-         * TODO: why bother using tiedSumX without using it? Y also. 
+         * TODO: why bother using tiedSumX without using it? Y also.
          * Is it useless? Is it forgotten? Fix anyway...
          */
         int t, tiedCountX = 0, tiedSumX = 0;

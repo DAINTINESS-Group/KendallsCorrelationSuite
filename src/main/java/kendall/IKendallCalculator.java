@@ -10,10 +10,9 @@ import reader.ColumnPair;
  */
 public interface IKendallCalculator {
 	/**
-	 * TODO: complete  the JavaDoc!!!
-	 * 
-	 * @param pair
-	 * @return
+	 * Calculate Kendall's tau given a pair of columns
+	 * @param pair Contains the column pair selected
+	 * @return Kendall's tau
 	 */
     public double calculateKendall(ColumnPair pair);
 }

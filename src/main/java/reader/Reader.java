@@ -1,26 +1,44 @@
 package reader;
 
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 
 public class Reader {
-    public ColumnPair read(String filePath, String xColumnName, String yColumnName) {
+
+    /**
+     * Reads a CSV file, extracts data from specified columns, and stores it in a ColumnPair object.
+     *
+     * @param filePath    The path to the CSV file to be read.
+     * @param xColumnName The name of the column to use for X-values.
+     * @param yColumnName The name of the column to use for Y-values.
+     * @param delimiter   The delimiter used in the CSV file (e.g., ",", ";", "\t").
+     * @return A ColumnPair object containing the extracted X and Y values.
+     * @throws IOException              If an I/O error occurs while reading the file.
+     * @throws IllegalArgumentException If the specified column names are not found in the header or if
+     *                                  there are not enough columns in the CSV data.
+     */
+    public ColumnPair read(String filePath, String xColumnName, String yColumnName, String delimiter) throws IOException, IllegalArgumentException {
         ColumnPair columnPair = new ColumnPair();
 
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
             String line;
-            String[] headers = reader.readLine().split(";");
+            String[] headers = reader.readLine().split(delimiter);
+
+            if (headers.length < 2) {
+                throw new IllegalArgumentException("Not enough columns in the CSV data.");
+            }
 
             int xColumnIndex = -1;
             int yColumnIndex = -1;
 
             // Find the column indices for the specified column names
             for (int i = 0; i < headers.length; i++) {
-                if (headers[i].equalsIgnoreCase(xColumnName)) {
+                if (headers[i].equals(xColumnName)) {
                     xColumnIndex = i;
                 }
-                if (headers[i].equalsIgnoreCase(yColumnName)) {
+                if (headers[i].equals(yColumnName)) {
                     yColumnIndex = i;
                 }
             }
@@ -30,15 +48,28 @@ public class Reader {
             }
 
             while ((line = reader.readLine()) != null) {
-                String[] row = line.split(";");
-                columnPair.addX(Double.parseDouble(row[xColumnIndex]));
-                columnPair.addY(Double.parseDouble(row[yColumnIndex]));
+                String[] row = line.split(delimiter);
+
+                try {
+                    double xValue = Double.parseDouble(row[xColumnIndex]);
+                    double yValue = Double.parseDouble(row[yColumnIndex]);
+
+                    columnPair.addX(xValue);
+                    columnPair.addY(yValue);
+                } catch (NumberFormatException e) {
+                    throw new IllegalArgumentException("Error parsing data in the CSV: " + e.getMessage());
+                }
             }
+        } catch (FileNotFoundException e) {
+            throw new IOException("File not found: " + e.getMessage());
         } catch (IOException e) {
-            System.err.println("Error reading the file: " + e.getMessage());
+            throw new IOException("Error reading the file: " + e.getMessage());
+        }
+
+        if (columnPair.getXColumn().isEmpty() && columnPair.getYColumn().isEmpty()) {
+            throw new IOException("Empty file: " + filePath);
         }
 
         return columnPair;
     }
 }
-

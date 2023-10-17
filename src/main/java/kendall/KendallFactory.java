@@ -14,6 +14,5 @@ public class KendallFactory {
                 throw new IllegalArgumentException(
                         String.format("%s is not a supported calculation method.", method));
         }
-
     }
 }
