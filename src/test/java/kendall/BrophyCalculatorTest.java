@@ -4,7 +4,7 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import reader.ColumnPair;
+import model.ColumnPair;
 import reader.Reader;
 
 import java.io.IOException;
@@ -15,10 +15,10 @@ public class BrophyCalculatorTest {
 
 	@Test
 	public final void testCalculateKendallHappy() throws IOException {
-		String filePath = "src/test/resources/input/TauAData.csv";
+		String filePath = "src/test/resources/input/TauAData.tsv";
 		Reader reader = new Reader();
 
-		ColumnPair pair = reader.read(filePath, "X", "Z", ";");
+		ColumnPair pair = reader.read(filePath, "X", "Y", "\t");
 
 		ApacheCommonsKendall commons = new ApacheCommonsKendall();
 		double expected = commons.calculateKendallTau(pair.getXColumn(), pair.getYColumn());

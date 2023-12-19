@@ -23,6 +23,7 @@ public class KendallMethodsService {
         methods = new HashMap<>();
         methods.put("Brophy", factory.createKendallCalculator(KendallCalculatorMethods.BROPHY));
         methods.put("BruteForce", factory.createKendallCalculator(KendallCalculatorMethods.BRUTEFORCE));
+        //methods.put("Tile_Method", factory.createKendallCalculator(KendallCalculatorMethods.TILE_METHOD));
         //Further methods can be added here
     }
 

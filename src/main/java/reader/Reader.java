@@ -1,5 +1,7 @@
 package reader;
 
+import model.ColumnPair;
+
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;

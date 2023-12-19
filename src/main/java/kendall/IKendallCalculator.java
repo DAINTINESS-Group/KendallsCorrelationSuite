@@ -1,6 +1,6 @@
 package kendall;
 
-import reader.ColumnPair;
+import model.ColumnPair;
 
 /**
  * TODO: complete the JavaDoc!!!

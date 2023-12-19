@@ -1,6 +1,6 @@
 package kendall;
 
-import reader.ColumnPair;
+import model.ColumnPair;
 
 import java.util.ArrayList;
 

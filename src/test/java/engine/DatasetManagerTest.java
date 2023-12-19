@@ -34,8 +34,8 @@ public class DatasetManagerTest {
         String path = "src/test/resources/input/TauAData.tsv";
         BinCalculatorFactory.BinCalculatorMethods binCalculationMethod = BinCalculatorFactory.BinCalculatorMethods.SQUARE_ROOT;
 
-        datasetManager.registerDataset(path, binCalculationMethod);
-        double result = datasetManager.calculateKendall("X", "Y");
+        datasetManager.registerDataset(path);
+        double result = datasetManager.calculateKendall("X", "Y", binCalculationMethod);
 
         // TODO Update this test after implementing Tile Calculation
         assertEquals(0.0, result, 0.0);

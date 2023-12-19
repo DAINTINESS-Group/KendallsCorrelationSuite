@@ -4,7 +4,7 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import reader.ColumnPair;
+import model.ColumnPair;
 import reader.Reader;
 
 import java.io.IOException;
@@ -14,8 +14,8 @@ public class BruteForceCalculatorTest {
 	@Test
 	public final void testCalculateKendallHappy() throws IOException {
 		Reader reader = new Reader();
-		String filePath = "src/test/resources/input/TauAData.csv";
-		ColumnPair pair = reader.read(filePath, "Z", "X", ";");
+		String filePath = "src/test/resources/input/TauAData.tsv";
+		ColumnPair pair = reader.read(filePath, "X", "Y", "\t");
 
 		ApacheCommonsKendall commons = new ApacheCommonsKendall();
 		double expected = commons.calculateKendallTau(pair.getXColumn(), pair.getYColumn());

@@ -1,5 +1,6 @@
 package reader;
 
+import model.ColumnPair;
 import org.junit.Test;
 import org.junit.Assert;
 
@@ -64,9 +65,9 @@ public class ReaderTest {
     @Test
     public void testValidCSV() {
         try {
-            String path = "src/test/resources/input/TauBData.csv";
+            String path = "src/test/resources/input/TauBData.tsv";
 
-            ColumnPair columnPair = reader.read(path, "X", "Y", ";");
+            ColumnPair columnPair = reader.read(path, "X", "Y", "\t");
             Assert.assertNotNull(columnPair);
 
             ArrayList<Double> xValues = columnPair.getXColumn();
