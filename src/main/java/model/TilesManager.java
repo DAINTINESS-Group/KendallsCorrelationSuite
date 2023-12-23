@@ -3,7 +3,9 @@ package model;
 import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
 
-public class TilesManager {
+import java.io.Serializable;
+
+public class TilesManager implements Serializable {
 
     private final int numBinsX;
     private final int numBinsY;
@@ -14,7 +16,7 @@ public class TilesManager {
     private double maxValueX;
     private double maxValueY;
 
-    private final Tile[][] tiles;
+    private static Tile[][] tiles;
 
     public TilesManager(int numBinsX, int numBinsY, String column1, String column2) {
         this.numBinsX = numBinsX;
@@ -51,7 +53,7 @@ public class TilesManager {
 
     private void populateTiles(Dataset<Row> dataset, double rangeSizeX, double rangeSizeY) {
 
-        dataset.collectAsList().forEach(row -> {
+        dataset.foreach(row -> {
             double x = row.getDouble(row.fieldIndex(column1));
             double y = row.getDouble(row.fieldIndex(column2));
             long pairId = row.getLong(row.fieldIndex("id"));

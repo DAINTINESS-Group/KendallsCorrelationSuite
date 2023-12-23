@@ -1,9 +1,10 @@
 package model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Tile {
+public class Tile implements Serializable {
     private final double startX;
     private final double endX;
     private final double startY;
