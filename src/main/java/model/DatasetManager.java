@@ -1,4 +1,4 @@
-package engine;
+package model;
 
 import kendall.BinCalculatorFactory;
 import kendall.BinCalculatorFactory.BinCalculatorMethods;
@@ -11,15 +11,13 @@ import org.apache.spark.sql.SparkSession;
 import reader.IDatasetReaderFactory;
 
 public class DatasetManager {
-    SparkSession spark;
-    SparkSetup sparkSetup = new SparkSetup();
     private Dataset<Row> dataset;
     private final IDatasetReaderFactory datasetReaderFactory;
     private final BinCalculatorFactory binFactory = new BinCalculatorFactory();
-    IBinCalculator binCalculator;
 
     public DatasetManager() {
-        spark = sparkSetup.setup();
+        SparkSetup sparkSetup = new SparkSetup();
+        SparkSession spark = sparkSetup.setup();
         datasetReaderFactory = new IDatasetReaderFactory(spark);
     }
 
@@ -29,7 +27,7 @@ public class DatasetManager {
     }
 
     public double calculateKendall(String column1, String column2, BinCalculatorMethods binCalculationMethod) {
-        binCalculator = binFactory.createBinCalculator(binCalculationMethod);
+        IBinCalculator binCalculator = binFactory.createBinCalculator(binCalculationMethod);
         TileMethodCalculator tileMethodCalculator = new TileMethodCalculator(binCalculator);
         return tileMethodCalculator.calculateKendall(dataset, column1, column2);
     }

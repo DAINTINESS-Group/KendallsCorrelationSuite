@@ -1,6 +1,6 @@
 package client;
 
-import engine.DatasetManager;
+import model.DatasetManager;
 import java.io.File;
 
 import kendall.BinCalculatorFactory.BinCalculatorMethods;

@@ -44,7 +44,7 @@ public class DatasetReaderTest {
         DatasetReader datasetReader = new DatasetReader(spark, path, delimiter);
         Dataset<Row> result = datasetReader.read();
 
-        // Received 7 rows. Expected to read 6
+        // Input 7 rows. Expected to read 6
         assertEquals(result.count(), 6, 0);
     }
 

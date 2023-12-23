@@ -23,7 +23,7 @@ public class TilesManager implements Serializable {
         this.numBinsY = numBinsY;
         this.column1 = column1;
         this.column2 = column2;
-        this.tiles = new Tile[this.numBinsY][this.numBinsY];
+        tiles = new Tile[this.numBinsY][this.numBinsY];
     }
 
     public Tile[][] createTilesArray(Dataset<Row> dataset, double rangeSizeX,
@@ -57,7 +57,7 @@ public class TilesManager implements Serializable {
             double x = row.getDouble(row.fieldIndex(column1));
             double y = row.getDouble(row.fieldIndex(column2));
             long pairId = row.getLong(row.fieldIndex("id"));
-
+            
             int tileX = (int) Math.min(Math.floor((x - minValueX) / rangeSizeX), numBinsX - 1);
             int tileY = (int) Math.min(Math.floor((y - minValueY) / rangeSizeY), numBinsY - 1);
 

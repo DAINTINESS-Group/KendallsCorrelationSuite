@@ -11,8 +11,6 @@ import java.io.IOException;
 
 public class BrophyCalculatorTest {
 
-
-
 	@Test
 	public final void testCalculateKendallHappy() throws IOException {
 		String filePath = "src/test/resources/input/TauAData.tsv";

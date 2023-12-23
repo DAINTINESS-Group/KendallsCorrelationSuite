@@ -6,7 +6,6 @@ import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
 import org.apache.spark.sql.functions;
 
-
 public class TileMethodCalculator {
 
     private final IBinCalculator binCalculator;
