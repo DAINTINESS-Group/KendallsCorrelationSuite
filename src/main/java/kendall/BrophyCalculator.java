@@ -21,8 +21,9 @@ public class BrophyCalculator implements IKendallCalculator {
         for (int i = 0; i < size - 1; i++) {
             t = 0;
             u = 0;
-            for (int j = i + 1; j <= size - 1; j++) {
+            for (int j = i + 1; j < size; j++) {
                 double a = (x.get(j) - x.get(i)) * (y.get(j) - y.get(i));
+
                 if (a != 0) {
                     s += Math.signum(a);
                 } else {
@@ -41,7 +42,7 @@ public class BrophyCalculator implements IKendallCalculator {
         }
 
         int totalPairs = (size * (size - 1)) / 2;
-        int b = (totalPairs - tiedCountX) * (totalPairs - tiedCountY);
+        long b = (long) (totalPairs - tiedCountX) * (totalPairs - tiedCountY);
 
         double l = size * (size - 1) * (size - 2);
         double v = ((l / 3 - tiedSumX) * (l / 3 - tiedSumY)) / l + (double) b / totalPairs;
