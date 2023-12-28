@@ -1,4 +1,4 @@
-package kendall;
+package tileBasedKendallAlgorithms.algo;
 
 public class BinCalculatorFactory {
 

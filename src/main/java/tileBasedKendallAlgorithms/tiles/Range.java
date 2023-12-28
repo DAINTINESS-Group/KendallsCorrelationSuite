@@ -1,4 +1,4 @@
-package model;
+package tileBasedKendallAlgorithms.tiles;
 
 import java.io.Serializable;
 

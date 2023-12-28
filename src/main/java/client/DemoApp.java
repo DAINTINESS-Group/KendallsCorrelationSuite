@@ -1,15 +1,19 @@
 package client;
 
-import kendall.ApacheCommonsKendall;
-import model.DatasetManager;
+import tileBasedKendallAlgorithms.SparkBasedKendallManager;
+import tileBasedKendallAlgorithms.algo.BinCalculatorFactory.BinCalculatorMethods;
+
 import java.io.File;
 
-import kendall.BinCalculatorFactory.BinCalculatorMethods;
-import kendall.IKendallCalculator;
-import kendall.KendallMethodsService;
+import listBasedKendallAlgorithms.ApacheCommonsKendall;
+import listBasedKendallAlgorithms.ColumnPair;
+import listBasedKendallAlgorithms.IListBasedKendallCalculator;
+import listBasedKendallAlgorithms.ListBasedKendallMethodsService;
+import listBasedKendallAlgorithms.Reader;
+
 import org.apache.spark.sql.AnalysisException;
-import model.ColumnPair;
-import reader.Reader;
+import org.apache.spark.sql.Dataset;
+import org.apache.spark.sql.Row;
 
 import java.io.IOException;
 
@@ -20,8 +24,8 @@ public class DemoApp {
         String filePath = "src/test/resources/input/AAL_data.csv";
         ColumnPair columnPair = reader.read(filePath, "high", "low", ",");
 
-        KendallMethodsService methods = new KendallMethodsService();
-        IKendallCalculator kendallCalculator = methods.getMethod("BruteForce");
+        ListBasedKendallMethodsService methods = new ListBasedKendallMethodsService();
+        IListBasedKendallCalculator listBasedKendallCalculator = methods.getMethod("BruteForce");
 
         ApacheCommonsKendall apacheKendall = new ApacheCommonsKendall();
         double apacheResult = apacheKendall.calculateKendallTau(columnPair.getXColumn(), columnPair.getYColumn());
@@ -29,26 +33,27 @@ public class DemoApp {
 
 
         /* BRUTE */
-        double actual = kendallCalculator.calculateKendall(columnPair);
+        double actual = listBasedKendallCalculator.calculateKendall(columnPair);
         System.out.println("Brute Force Test for file " + filePath);
         System.out.println("Actual: " + actual);
         System.out.println(" ----- \n");
 
         /* BROPHY */
-        kendallCalculator = methods.getMethod("Brophy");
-        actual = kendallCalculator.calculateKendall(columnPair);
+        listBasedKendallCalculator = methods.getMethod("Brophy");
+        actual = listBasedKendallCalculator.calculateKendall(columnPair);
         System.out.println("Brophy Test for file " + filePath);
         System.out.println("Actual: " + actual);
         System.out.println(" ----- \n");
 
        /* Tile Implementation with SPARK */
-        DatasetManager datasetManager = new DatasetManager();
+        SparkBasedKendallManager sparkBasedKendallManager = new SparkBasedKendallManager();
 
-        datasetManager.registerDataset(
+        Dataset<Row> dataset = sparkBasedKendallManager.registerDataset(
                 String.format("src%stest%sresources%sinput%sA_data.csv",
                         File.separator, File.separator, File.separator, File.separator));
 
-        double kendall = datasetManager.calculateKendall("low", "high", BinCalculatorMethods.SQUARE_ROOT);
+        double kendall = sparkBasedKendallManager.calculateKendall("low", "high", BinCalculatorMethods.SQUARE_ROOT);
+
         System.out.println("Result: " + kendall);
 
     }

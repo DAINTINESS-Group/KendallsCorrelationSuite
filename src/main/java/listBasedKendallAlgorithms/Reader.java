@@ -1,6 +1,4 @@
-package reader;
-
-import model.ColumnPair;
+package listBasedKendallAlgorithms;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;

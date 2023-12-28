@@ -1,16 +1,17 @@
-package kendall;
+package tileBasedKendallAlgorithms.algo;
 
-import model.Tile;
-import model.TilesManager;
 import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
 import org.apache.spark.sql.functions;
 
-public class TileMethodCalculator {
+import tileBasedKendallAlgorithms.tiles.Tile;
+import tileBasedKendallAlgorithms.tiles.TilesManager;
+
+public class TileBasedCalculatorService {
 
     private final IBinCalculator binCalculator;
 
-    public TileMethodCalculator(IBinCalculator binCalculator) {
+    public TileBasedCalculatorService(IBinCalculator binCalculator) {
         this.binCalculator = binCalculator;
     }
 

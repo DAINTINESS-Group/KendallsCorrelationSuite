@@ -1,4 +1,4 @@
-package model;
+package tileBasedKendallAlgorithms.tiles;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -6,7 +6,8 @@ import java.util.List;
 
 public class Tile implements Serializable {
 
-    Range rangeX;
+    private static final long serialVersionUID = 1L;
+	Range rangeX;
     Range rangeY;
 
     private final List<Long> pairIds;

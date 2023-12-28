@@ -1,4 +1,4 @@
-package reader;
+package tileBasedKendallAlgorithms.reader;
 
 import org.sparkproject.guava.io.Files;
 import org.apache.spark.sql.SparkSession;

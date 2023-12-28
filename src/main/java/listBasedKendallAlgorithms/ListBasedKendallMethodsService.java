@@ -1,8 +1,8 @@
-package kendall;
+package listBasedKendallAlgorithms;
 
 import java.util.HashMap;
 
-import kendall.KendallFactory.KendallCalculatorMethods;
+import listBasedKendallAlgorithms.ListBasedKendallFactory.KendallCalculatorMethods;
 
 /**
  * Το σκέτο factory γιατί δε μας κάνει? οέο?
@@ -15,11 +15,11 @@ import kendall.KendallFactory.KendallCalculatorMethods;
  *
  */
 
-public class KendallMethodsService {
-    private final HashMap<String, IKendallCalculator> methods;
-    KendallFactory factory = new KendallFactory();
+public class ListBasedKendallMethodsService {
+    private final HashMap<String, IListBasedKendallCalculator> methods;
+    ListBasedKendallFactory factory = new ListBasedKendallFactory();
 
-    public KendallMethodsService() {
+    public ListBasedKendallMethodsService() {
         methods = new HashMap<>();
         methods.put("Brophy", factory.createKendallCalculator(KendallCalculatorMethods.BROPHY));
         methods.put("BruteForce", factory.createKendallCalculator(KendallCalculatorMethods.BRUTEFORCE));
@@ -27,7 +27,7 @@ public class KendallMethodsService {
         //Further methods can be added here
     }
 
-    public IKendallCalculator getMethod(String method) {
+    public IListBasedKendallCalculator getMethod(String method) {
         return methods.get(method);
     }
 }

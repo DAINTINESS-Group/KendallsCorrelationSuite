@@ -1,10 +1,8 @@
-package kendall;
-
-import model.ColumnPair;
+package listBasedKendallAlgorithms;
 
 import java.util.ArrayList;
 
-public class BruteForceCalculator implements IKendallCalculator{
+public class BruteForceCalculator implements IListBasedKendallCalculator{
 
     public double calculateKendall(ColumnPair pair) {
         int numPairs = pair.getXColumn().size();

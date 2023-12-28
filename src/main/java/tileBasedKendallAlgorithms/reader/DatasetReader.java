@@ -1,4 +1,4 @@
-package reader;
+package tileBasedKendallAlgorithms.reader;
 
 import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;

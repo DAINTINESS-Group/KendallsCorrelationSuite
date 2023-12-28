@@ -4,8 +4,11 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import model.ColumnPair;
-import reader.Reader;
+import listBasedKendallAlgorithms.ApacheCommonsKendall;
+import listBasedKendallAlgorithms.BruteForceCalculator;
+import listBasedKendallAlgorithms.ColumnPair;
+import listBasedKendallAlgorithms.IListBasedKendallCalculator;
+import listBasedKendallAlgorithms.Reader;
 
 import java.io.IOException;
 
@@ -20,8 +23,8 @@ public class BruteForceCalculatorTest {
 		ApacheCommonsKendall commons = new ApacheCommonsKendall();
 		double expected = commons.calculateKendallTau(pair.getXColumn(), pair.getYColumn());
 		
-		IKendallCalculator kendallCalculator = new BruteForceCalculator(); 
-		double actual = kendallCalculator.calculateKendall(pair);
+		IListBasedKendallCalculator listBasedKendallCalculator = new BruteForceCalculator(); 
+		double actual = listBasedKendallCalculator.calculateKendall(pair);
 
 		System.out.println("\nBrophy Test (Tau B)");
 		System.out.println("Expected: " + expected);

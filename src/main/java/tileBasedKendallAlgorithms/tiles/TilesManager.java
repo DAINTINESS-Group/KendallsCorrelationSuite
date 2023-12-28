@@ -1,20 +1,21 @@
-package model;
+package tileBasedKendallAlgorithms.tiles;
 
 import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
 
-import java.io.FileWriter;
-import java.io.IOException;
 import java.io.Serializable;
 
 public class TilesManager implements Serializable {
 
-    private final int numBinsX;
+    private static final long serialVersionUID = 1L;
+	private final int numBinsX;
     private final int numBinsY;
     private final String column1;
     private final String column2;
     private static Tile[][] tiles;
-
+    private double minValueX;
+    private double minValueY;
+    
     public TilesManager(int numBinsX, int numBinsY, String column1, String column2) {
         this.numBinsX = numBinsX;
         this.numBinsY = numBinsY;
@@ -30,8 +31,8 @@ public class TilesManager implements Serializable {
 
     private void populateTiles(Dataset<Row> dataset, double rangeSizeX, double rangeSizeY) {
 
-        double minValueX = calculateMinColumnValue(dataset, column1);
-        double minValueY = calculateMinColumnValue(dataset, column2);
+        this.minValueX = calculateMinColumnValue(dataset, column1);
+        this.minValueY = calculateMinColumnValue(dataset, column2);
 
         dataset.foreach(row -> {
             double x = row.getDouble(row.fieldIndex(column1));

@@ -1,17 +1,17 @@
-package kendall;
+package listBasedKendallAlgorithms;
 
-public class KendallFactory {
+public class ListBasedKendallFactory {
 
 	public enum KendallCalculatorMethods {BRUTEFORCE, BROPHY, TILE_METHOD};
 	
-    public IKendallCalculator createKendallCalculator(KendallCalculatorMethods method) {
+    public IListBasedKendallCalculator createKendallCalculator(KendallCalculatorMethods method) {
         switch(method) {
             case BRUTEFORCE:
                 return new BruteForceCalculator();
             case BROPHY:
                 return new BrophyCalculator();
 //            case TILE_METHOD:
-//                return (IKendallCalculator) new TileMethodKendallCalculator();
+//                return (IListBasedKendallCalculator) new TileMethodKendallCalculator();
             default:
                 throw new IllegalArgumentException(
                         String.format("%s is not a supported calculation method.", method));

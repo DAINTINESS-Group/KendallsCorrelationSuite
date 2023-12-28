@@ -1,4 +1,4 @@
-package reader;
+package tileBasedKendallAlgorithms.reader;
 
 public class DatasetReaderConstants {
     public static final String TSV = "tsv";

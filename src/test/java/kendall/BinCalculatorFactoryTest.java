@@ -2,6 +2,9 @@ package kendall;
 
 import org.junit.Test;
 
+import tileBasedKendallAlgorithms.algo.BinCalculatorFactory;
+import tileBasedKendallAlgorithms.algo.SquareRootBinCalculator;
+
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 

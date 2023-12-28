@@ -49,8 +49,8 @@ calculate_kendalls_tau_c_from_csv <- function(file_path, x_col, y_col) {
     }
   }
 
-  # Calculate Kendall's tau-c using the cor() function from the Kendall package with method = "kendall"
-  tau_c <- cor(x, y, method = "kendall", use = "pairwise.complete.obs")
+  # Calculate Kendall's tau-c using the cor() function from the Kendall package with method = "tileBasedKendallAlgorithms"
+  tau_c <- cor(x, y, method = "tileBasedKendallAlgorithms", use = "pairwise.complete.obs")
 
   # Print the results
   cat("Number of concordant pairs:", concordant, "\n")

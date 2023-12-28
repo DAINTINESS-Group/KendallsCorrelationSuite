@@ -1,11 +1,9 @@
-package kendall;
-
-import model.ColumnPair;
+package listBasedKendallAlgorithms;
 
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class BrophyCalculator implements IKendallCalculator {
+public class BrophyCalculator implements IListBasedKendallCalculator {
 
     @Override
     public double calculateKendall(ColumnPair pair) {

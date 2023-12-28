@@ -1,7 +1,10 @@
 package reader;
 
-import model.ColumnPair;
 import org.junit.Test;
+
+import listBasedKendallAlgorithms.ColumnPair;
+import listBasedKendallAlgorithms.Reader;
+
 import org.junit.Assert;
 
 import java.io.IOException;

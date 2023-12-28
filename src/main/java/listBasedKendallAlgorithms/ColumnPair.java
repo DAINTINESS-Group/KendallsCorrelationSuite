@@ -1,4 +1,4 @@
-package model;
+package listBasedKendallAlgorithms;
 
 import java.util.ArrayList;
 

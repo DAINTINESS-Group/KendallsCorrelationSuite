@@ -1,6 +1,4 @@
-package kendall;
-
-import model.ColumnPair;
+package listBasedKendallAlgorithms;
 
 /**
  * TODO: complete the JavaDoc!!!
@@ -8,7 +6,7 @@ import model.ColumnPair;
  * @author pvassil
  *
  */
-public interface IKendallCalculator {
+public interface IListBasedKendallCalculator {
 	/**
 	 * Calculate Kendall's tau given a pair of columns
 	 * @param pair Contains the column pair selected
