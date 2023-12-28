@@ -16,7 +16,8 @@ public class IDatasetReaderFactory {
         switch(fileExtension) {
             case DatasetReaderConstants.TSV:
                 return new DatasetReader(sparkSession, path, DatasetReaderConstants.TSV_DELIMITER);
-            // Future file extensions here like CSV
+            case DatasetReaderConstants.CSV:
+                return new DatasetReader(sparkSession, path, DatasetReaderConstants.CSV_DELIMITER);
         }
         throw new IllegalArgumentException(String.format("File %s is not a supported dataset type.", path));
     }

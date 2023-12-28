@@ -1,5 +1,6 @@
 package client;
 
+import kendall.ApacheCommonsKendall;
 import model.DatasetManager;
 import java.io.File;
 
@@ -16,11 +17,16 @@ public class DemoApp {
     public static void main(String[] args) throws IOException, AnalysisException {
 
         Reader reader = new Reader();
-        String filePath = "src/test/resources/input/TauBData.tsv";
-        ColumnPair columnPair = reader.read(filePath, "X", "Y", "\t");
+        String filePath = "src/test/resources/input/AAL_data.csv";
+        ColumnPair columnPair = reader.read(filePath, "high", "low", ",");
 
         KendallMethodsService methods = new KendallMethodsService();
         IKendallCalculator kendallCalculator = methods.getMethod("BruteForce");
+
+        ApacheCommonsKendall apacheKendall = new ApacheCommonsKendall();
+        double apacheResult = apacheKendall.calculateKendallTau(columnPair.getXColumn(), columnPair.getYColumn());
+        System.out.println("Apache: " + apacheResult);
+
 
         /* BRUTE */
         double actual = kendallCalculator.calculateKendall(columnPair);
@@ -39,10 +45,10 @@ public class DemoApp {
         DatasetManager datasetManager = new DatasetManager();
 
         datasetManager.registerDataset(
-                String.format("src%stest%sresources%sinput%sTauBData.tsv",
+                String.format("src%stest%sresources%sinput%sA_data.csv",
                         File.separator, File.separator, File.separator, File.separator));
 
-        double kendall = datasetManager.calculateKendall("X", "Y", BinCalculatorMethods.SQUARE_ROOT);
+        double kendall = datasetManager.calculateKendall("low", "high", BinCalculatorMethods.SQUARE_ROOT);
         System.out.println("Result: " + kendall);
 
     }

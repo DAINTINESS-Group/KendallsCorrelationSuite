@@ -5,22 +5,24 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Tile implements Serializable {
-    private final double startX;
-    private final double endX;
-    private final double startY;
-    private final double endY;
+
+    Range rangeX;
+    Range rangeY;
+
     private final List<Long> pairIds;
 
-    public Tile(double startX, double endX, double startY, double endY) {
-        this.startX = startX;
-        this.endX = endX;
-        this.startY = startY;
-        this.endY = endY;
+    public Tile(Range rangeX, Range rangeY) {
+        this.rangeX = rangeX;
+        this.rangeY = rangeY;
         this.pairIds = new ArrayList<>();
     }
 
     public void addPairId(long pairId) {
         pairIds.add(pairId);
+    }
+
+    public boolean containsPairId(long pairId) {
+        return pairIds.contains(pairId);
     }
 
     public boolean isEmpty() {
@@ -30,8 +32,8 @@ public class Tile implements Serializable {
     @Override
     public String toString() {
         return "Tile { " +
-                "X:[" + startX + " - " + endX + "]" +
-                "Y:[" + startY + " - " + endY  + "]" +
+                "X:[" + rangeX.getStart() + " - " + rangeX.getEnd() + ") " +
+                "Y:[" + rangeY.getStart() + " - " + rangeY.getEnd()  + ")" +
                 " -> Ids=" + pairIds +
                 " }";
     }

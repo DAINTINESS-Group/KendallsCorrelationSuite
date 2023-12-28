@@ -52,6 +52,11 @@ public class Reader {
             while ((line = reader.readLine()) != null) {
                 String[] row = line.split(delimiter);
 
+                // Skip lines with empty cells
+                if (row.length <= Math.max(xColumnIndex, yColumnIndex) || row[xColumnIndex].isEmpty() || row[yColumnIndex].isEmpty()) {
+                    continue;
+                }
+
                 try {
                     double xValue = Double.parseDouble(row[xColumnIndex]);
                     double yValue = Double.parseDouble(row[yColumnIndex]);
