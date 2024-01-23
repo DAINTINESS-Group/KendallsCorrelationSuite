@@ -7,58 +7,71 @@ public class BrophyCalculator implements IListBasedKendallCalculator {
 
     @Override
     public double calculateKendall(ColumnPair pair) {
-        int size = pair.getXColumn().size();
-        ArrayList<Double> x = pair.getXColumn();
-        ArrayList<Double> y = pair.getYColumn();
+        // Extracting columns and initializing key variables
+        ArrayList<Double> xColumn = pair.getXColumn();
+        ArrayList<Double> yColumn = pair.getYColumn();
+        int size = xColumn.size();
+        int concordantMinusDiscordant = 0;
 
-        int s = 0;
+        // Variables for tied ranks
+        int tiedPairsInX = 0, tiedPairsSumX = 0;
+        int tiedPairsInY = 0, tiedPairsSumY = 0;
 
-        int t, tiedCountX = 0, tiedSumX = 0;
-        int u, tiedCountY = 0, tiedSumY = 0;
-
+        // Main loop to calculate concordance, discordance, and ties
         for (int i = 0; i < size - 1; i++) {
-            t = 0;
-            u = 0;
+            int tiedRanksX = 0;
+            int tiedRanksY = 0;
             for (int j = i + 1; j < size; j++) {
-                double a = (x.get(j) - x.get(i)) * (y.get(j) - y.get(i));
+                double deltaX = xColumn.get(j) - xColumn.get(i);
+                double deltaY = yColumn.get(j) - yColumn.get(i);
+                double product = deltaX * deltaY;
 
-                if (a != 0) {
-                    s += Math.signum(a);
+                if (product != 0) {
+                    concordantMinusDiscordant += Math.signum(product);
                 } else {
-                    if (Objects.equals(x.get(i), x.get(j))) {
-                        t++;
-                        tiedCountX++;
+                    if (Objects.equals(xColumn.get(i), xColumn.get(j))) {
+                        tiedRanksX++;
+                        tiedPairsInX++;
                     }
-                    if (Objects.equals(y.get(i), y.get(j))) {
-                        u++;
-                        tiedCountY++;
+                    if (Objects.equals(yColumn.get(i), yColumn.get(j))) {
+                        tiedRanksY++;
+                        tiedPairsInY++;
                     }
                 }
             }
-            tiedSumX += t * (t - 1);
-            tiedSumY += u * (u - 1);
+            tiedPairsSumX += tiedRanksX * (tiedRanksX - 1);
+            tiedPairsSumY += tiedRanksY * (tiedRanksY - 1);
         }
 
-        int totalPairs = (size * (size - 1)) / 2;
-        long b = (long) (totalPairs - tiedCountX) * (totalPairs - tiedCountY);
+        // Calculating totals and adjustments for ties
+        int totalPairs = size * (size - 1) / 2;
+        long adjustmentForTies = (long) (totalPairs - tiedPairsInX) * (totalPairs - tiedPairsInY);
 
-        double l = size * (size - 1) * (size - 2);
-        double v = ((l / 3 - tiedSumX) * (l / 3 - tiedSumY)) / l + (double) b / totalPairs;
+        double correctionFactor = size * (size - 1) * (size - 2);
+        double denominator = ((correctionFactor / 3 - tiedPairsSumX) * (correctionFactor / 3 - tiedPairsSumY)) / correctionFactor
+                + (double) adjustmentForTies / totalPairs;
 
-        double kendallTau = s / Math.sqrt(b);
+        // Calculating Kendall Tau
+        double kendallTau = concordantMinusDiscordant / Math.sqrt(adjustmentForTies);
 
-        // Calculate p-value using Normal approximation
-        double z = (Math.abs(s) - 1.0) / Math.sqrt(v);
-        double pValue = 0.5 - Math.sqrt(1 - Math.exp(-z * (0.6366198 - z * (0.009564224 - z * 0.0004)))) / 2;
-        if (z < 0) {
-            pValue = 1.0 - pValue;
-        }
-
-        // Print results
-        System.out.println("Kendall Tau: " + kendallTau);
-        System.out.println("p-Value: " + pValue);
-        System.out.println("Z: " + z);
+        // Calculating p-value using Normal approximation
+        double zScore = (Math.abs(concordantMinusDiscordant) - 1.0) / Math.sqrt(denominator);
+        double pValue = calculatePValue(zScore);
 
         return kendallTau;
+    }
+
+    /**
+     * Calculates the p-value based on the Z-score using a normal approximation.
+     *
+     * @param zScore The Z-score for which to calculate the p-value.
+     * @return The calculated p-value.
+     */
+    private double calculatePValue(double zScore) {
+        double firstPart = 0.5 - Math.sqrt(1 - Math.exp(-zScore * (0.6366198 - zScore * (0.009564224 - zScore * 0.0004)))) / 2;
+        if (zScore < 0) {
+            return 1.0 - firstPart;
+        }
+        return firstPart;
     }
 }

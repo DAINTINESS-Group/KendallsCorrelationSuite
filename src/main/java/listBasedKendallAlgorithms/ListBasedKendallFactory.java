@@ -10,8 +10,7 @@ public class ListBasedKendallFactory {
                 return new BruteForceCalculator();
             case BROPHY:
                 return new BrophyCalculator();
-//            case TILE_METHOD:
-//                return (IListBasedKendallCalculator) new TileMethodKendallCalculator();
+
             default:
                 throw new IllegalArgumentException(
                         String.format("%s is not a supported calculation method.", method));
