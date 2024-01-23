@@ -1,11 +1,5 @@
 package listBasedKendallAlgorithms;
 
-/**
- * TODO: complete the JavaDoc!!!
- * 
- * @author pvassil
- *
- */
 public interface IListBasedKendallCalculator {
 	/**
 	 * Calculate Kendall's tau given a pair of columns

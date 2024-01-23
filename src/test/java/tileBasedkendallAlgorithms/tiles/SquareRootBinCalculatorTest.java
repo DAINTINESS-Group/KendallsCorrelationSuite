@@ -36,7 +36,7 @@ public class SquareRootBinCalculatorTest {
         Dataset<Row> testDataset = createTestDataset();
         SquareRootBinCalculator binCalculator = new SquareRootBinCalculator();
 
-        int numBins = binCalculator.calculateNumberOfBins(testDataset, "value");
+        int numBins = binCalculator.calculateBins(testDataset, "value");
 
         assertEquals(3, numBins);
     }
@@ -46,7 +46,7 @@ public class SquareRootBinCalculatorTest {
         Dataset<Row> emptyDataset = spark.createDataFrame(Collections.emptyList(), createTestDataset().schema());
         SquareRootBinCalculator binCalculator = new SquareRootBinCalculator();
 
-        int numBins = binCalculator.calculateNumberOfBins(emptyDataset, "value");
+        int numBins = binCalculator.calculateBins(emptyDataset, "value");
 
         assertEquals(0, numBins);
     }
@@ -62,7 +62,7 @@ public class SquareRootBinCalculatorTest {
 
         Dataset<Row> largeDataset = spark.createDataFrame(largeData, createTestDataset().schema());
         SquareRootBinCalculator binCalculator = new SquareRootBinCalculator();
-        int numBins = binCalculator.calculateNumberOfBins(largeDataset, "value");
+        int numBins = binCalculator.calculateBins(largeDataset, "value");
         assertEquals(100, numBins);
     }
 
