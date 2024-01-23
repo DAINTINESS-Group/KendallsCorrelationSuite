@@ -8,28 +8,36 @@ import org.apache.spark.sql.SparkSession;
 import tileBasedKendallAlgorithms.algo.BinCalculatorFactory;
 import tileBasedKendallAlgorithms.algo.IBinCalculator;
 import tileBasedKendallAlgorithms.algo.TileBasedCalculatorService;
-import tileBasedKendallAlgorithms.algo.BinCalculatorFactory.BinCalculatorMethods;
 import tileBasedKendallAlgorithms.reader.IDatasetReaderFactory;
 import tileBasedKendallAlgorithms.sparkSetup.SparkSetup;
 
 public class SparkBasedKendallManager {
     private Dataset<Row> dataset;
     private final IDatasetReaderFactory datasetReaderFactory;
-    private final BinCalculatorFactory binFactory = new BinCalculatorFactory();
+    private final BinCalculatorFactory binCalculatorFactory;
 
     public SparkBasedKendallManager() {
+        SparkSession sparkSession = initializeSparkSession();
+        this.datasetReaderFactory = initializeDatasetReaderFactory(sparkSession);
+        this.binCalculatorFactory = new BinCalculatorFactory();
+    }
+
+    private SparkSession initializeSparkSession() {
         SparkSetup sparkSetup = new SparkSetup();
-        SparkSession spark = sparkSetup.setup();
-        datasetReaderFactory = new IDatasetReaderFactory(spark);
+        return sparkSetup.setup();
     }
 
-    public Dataset<Row> registerDataset(String path) throws AnalysisException {
-    	return dataset = datasetReaderFactory.createDatasetReader(path).read();
+    private IDatasetReaderFactory initializeDatasetReaderFactory(SparkSession sparkSession) {
+        return new IDatasetReaderFactory(sparkSession);
     }
 
-    public double calculateKendall(String column1, String column2, BinCalculatorMethods binCalculationMethod) {
-        IBinCalculator binCalculator = binFactory.createBinCalculator(binCalculationMethod);
-        TileBasedCalculatorService tileBasedCalculatorService = new TileBasedCalculatorService(binCalculator);
-        return tileBasedCalculatorService.calculateKendall(dataset, column1, column2);
+    public void loadDataset(String filePath) throws AnalysisException {
+        this.dataset = datasetReaderFactory.createDatasetReader(filePath).read();
+    }
+
+    public double calculateKendallTau(String column1, String column2, BinCalculatorFactory.BinCalculatorMethods calculationMethod) {
+        IBinCalculator binCalculator = binCalculatorFactory.createBinCalculator(calculationMethod);
+        TileBasedCalculatorService calculatorService = new TileBasedCalculatorService(dataset, binCalculator, column1, column2);
+        return calculatorService.calculateKendallTauCorrelation();
     }
 }
