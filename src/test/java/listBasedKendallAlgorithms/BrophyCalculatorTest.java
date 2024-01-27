@@ -18,7 +18,7 @@ public class BrophyCalculatorTest {
 		ApacheCommonsKendall commons = new ApacheCommonsKendall();
 		double expected = commons.calculateKendallTau(pair.getXColumn(), pair.getYColumn());
 		
-		IListBasedKendallCalculator listBasedKendallCalculator = new BrophyCalculator();
+		IListBasedKendallCalculator listBasedKendallCalculator = new BrophyKendallCalculator();
 		double actual = listBasedKendallCalculator.calculateKendall(pair);
 
 		System.out.println("\nBrophy Test (Tau B)");

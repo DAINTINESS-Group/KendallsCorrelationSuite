@@ -7,9 +7,9 @@ public class ListBasedKendallFactory {
     public IListBasedKendallCalculator createKendallCalculator(KendallCalculatorMethods method) {
         switch(method) {
             case BRUTEFORCE:
-                return new BruteForceCalculator();
+                return new BruteForceNoTiesKendallCalculator();
             case BROPHY:
-                return new BrophyCalculator();
+                return new BrophyKendallCalculator();
 
             default:
                 throw new IllegalArgumentException(

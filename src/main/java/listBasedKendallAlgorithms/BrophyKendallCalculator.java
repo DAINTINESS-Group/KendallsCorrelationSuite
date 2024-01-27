@@ -3,24 +3,24 @@ package listBasedKendallAlgorithms;
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class BrophyCalculator implements IListBasedKendallCalculator {
+public class BrophyKendallCalculator implements IListBasedKendallCalculator {
 
     @Override
     public double calculateKendall(ColumnPair pair) {
         // Extracting columns and initializing key variables
         ArrayList<Double> xColumn = pair.getXColumn();
         ArrayList<Double> yColumn = pair.getYColumn();
-        int size = xColumn.size();
-        int concordantMinusDiscordant = 0;
+        long size = xColumn.size();
+        long concordantMinusDiscordant = 0;
 
         // Variables for tied ranks
-        int tiedPairsInX = 0, tiedPairsSumX = 0;
-        int tiedPairsInY = 0, tiedPairsSumY = 0;
+        long tiedPairsInX = 0, tiedPairsSumX = 0;
+        long tiedPairsInY = 0, tiedPairsSumY = 0;
 
         // Main loop to calculate concordance, discordance, and ties
         for (int i = 0; i < size - 1; i++) {
-            int tiedRanksX = 0;
-            int tiedRanksY = 0;
+            long tiedRanksX = 0;
+            long tiedRanksY = 0;
             for (int j = i + 1; j < size; j++) {
                 double deltaX = xColumn.get(j) - xColumn.get(i);
                 double deltaY = yColumn.get(j) - yColumn.get(i);
@@ -44,7 +44,7 @@ public class BrophyCalculator implements IListBasedKendallCalculator {
         }
 
         // Calculating totals and adjustments for ties
-        int totalPairs = size * (size - 1) / 2;
+        long totalPairs = size * (size - 1) / 2;
         long adjustmentForTies = (long) (totalPairs - tiedPairsInX) * (totalPairs - tiedPairsInY);
 
         double correctionFactor = size * (size - 1) * (size - 2);

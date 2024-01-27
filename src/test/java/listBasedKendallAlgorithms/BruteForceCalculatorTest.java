@@ -17,7 +17,7 @@ public class BruteForceCalculatorTest {
 		ApacheCommonsKendall commons = new ApacheCommonsKendall();
 		double expected = commons.calculateKendallTau(pair.getXColumn(), pair.getYColumn());
 		
-		IListBasedKendallCalculator listBasedKendallCalculator = new BruteForceCalculator(); 
+		IListBasedKendallCalculator listBasedKendallCalculator = new BruteForceNoTiesKendallCalculator(); 
 		double actual = listBasedKendallCalculator.calculateKendall(pair);
 
 		System.out.println("\nBrophy Test (Tau B)");

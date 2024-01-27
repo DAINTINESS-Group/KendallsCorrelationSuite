@@ -2,10 +2,10 @@ package listBasedKendallAlgorithms;
 
 import java.util.ArrayList;
 
-public class BruteForceCalculator implements IListBasedKendallCalculator{
+public class BruteForceNoTiesKendallCalculator implements IListBasedKendallCalculator{
 
     public double calculateKendall(ColumnPair pair) {
-        int numPairs = pair.getXColumn().size();
+        long numPairs = pair.getXColumn().size();
         double denominator = ((double) numPairs * ((double) numPairs-1)) / 2.0;
         double numerator = calculateNumerator(pair);
 
@@ -17,7 +17,7 @@ public class BruteForceCalculator implements IListBasedKendallCalculator{
 
         ArrayList<Double> x = pair.getXColumn();
         ArrayList<Double> y = pair.getYColumn();
-        int numPairs = x.size();
+        long numPairs = x.size();
         
         for (int i = 1; i < numPairs; i++) {
             for (int j = 0; j < i; j++) {

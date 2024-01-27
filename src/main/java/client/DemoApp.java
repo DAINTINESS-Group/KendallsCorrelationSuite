@@ -23,10 +23,10 @@ public class DemoApp {
 //        String column2 = "Y";
 //        String delimiter = "\t";
 
-        String filePath = "src\\test\\resources\\input\\A_Data.csv";
-        String column1 = "low";
-        String column2 = "high";
-        String delimiter = ",";
+//        String filePath = "src\\test\\resources\\input\\A_Data.csv";
+//        String column1 = "low";
+//        String column2 = "high";
+//        String delimiter = ",";
 
 //        String filePath = "src\\test\\resources\\input\\AAL_Data.csv";
 //        String column1 = "low";
@@ -34,11 +34,11 @@ public class DemoApp {
 //        String delimiter = ",";
         
 //        //manufacturer,model,year,price,transmission,mileage,fuelType,tax,mpg,engineSize
-//        String filePath = "src\\test\\resources\\input\\cars_100k.csv";
-//        String column1 = "mpg";
-//        String column2 = "mileage";
-//        String delimiter = ",";
-//        
+        String filePath = "src\\test\\resources\\input\\cars_100k.csv";
+        String column1 = "mpg";
+        String column2 = "mileage";
+        String delimiter = ",";
+        
         
         ColumnPair columnPair = reader.read(filePath, column1, column2, delimiter);
        
