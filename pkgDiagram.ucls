@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <class-diagram version="1.2.4" icons="true" automaticImage="PNG" always-add-relationships="true" generalizations="true" 
   realizations="true" associations="true" dependencies="true" nesting-relationships="true" router="FAN">  
-  <package id="1" language="java" name="tileBasedKendallAlgorithms" project="KendallsCorrelationSuite" 
-    file="/KendallsCorrelationSuite/src/main/java/tileBasedKendallAlgorithms" binary="false" corner="BOTTOM_RIGHT">    
+  <package id="1" language="java" name="toDieSoon" project="KendallsCorrelationSuite" 
+    file="/KendallsCorrelationSuite/src/main/java/toDieSoon" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="265" y="230"/>    
     <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
   </package>  
-  <package id="2" language="java" name="tileBasedKendallAlgorithms.algo" project="KendallsCorrelationSuite" 
-    file="/KendallsCorrelationSuite/src/main/java/tileBasedKendallAlgorithms/algo" binary="false" corner="BOTTOM_RIGHT">    
+  <package id="2" language="java" name="toDieSoon.algo" project="KendallsCorrelationSuite" 
+    file="/KendallsCorrelationSuite/src/main/java/toDieSoon/algo" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="424" y="330"/>    
     <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
   </package>  
-  <package id="3" language="java" name="tileBasedKendallAlgorithms.tiles" project="KendallsCorrelationSuite" 
-    file="/KendallsCorrelationSuite/src/main/java/tileBasedKendallAlgorithms/tiles" binary="false" corner="BOTTOM_RIGHT">    
+  <package id="3" language="java" name="toDieSoon.tiles" project="KendallsCorrelationSuite" 
+    file="/KendallsCorrelationSuite/src/main/java/toDieSoon/tiles" binary="false" corner="BOTTOM_RIGHT">    
     <position height="50" width="208" x="326" y="425"/>    
     <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
   </package>  
@@ -21,8 +21,8 @@
     <position height="-1" width="-1" x="576" y="158"/>    
     <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
   </package>  
-  <package id="5" language="java" name="tileBasedKendallAlgorithms.reader" project="KendallsCorrelationSuite" 
-    file="/KendallsCorrelationSuite/src/main/java/tileBasedKendallAlgorithms/reader" binary="false" 
+  <package id="5" language="java" name="toDieSoon.reader" project="KendallsCorrelationSuite" 
+    file="/KendallsCorrelationSuite/src/main/java/toDieSoon/reader" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="50" width="222" x="64" y="335"/>    
     <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
