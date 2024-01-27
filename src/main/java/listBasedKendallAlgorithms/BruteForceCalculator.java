@@ -6,7 +6,7 @@ public class BruteForceCalculator implements IListBasedKendallCalculator{
 
     public double calculateKendall(ColumnPair pair) {
         int numPairs = pair.getXColumn().size();
-        double denominator = (double) (numPairs * (numPairs-1)) / 2.0;
+        double denominator = ((double) numPairs * ((double) numPairs-1)) / 2.0;
         double numerator = calculateNumerator(pair);
 
         return numerator / denominator;
