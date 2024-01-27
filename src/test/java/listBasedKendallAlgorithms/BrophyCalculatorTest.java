@@ -4,12 +4,6 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import listBasedKendallAlgorithms.ApacheCommonsKendall;
-import listBasedKendallAlgorithms.BrophyCalculator;
-import listBasedKendallAlgorithms.ColumnPair;
-import listBasedKendallAlgorithms.IListBasedKendallCalculator;
-import listBasedKendallAlgorithms.Reader;
-
 import java.io.IOException;
 
 public class BrophyCalculatorTest {

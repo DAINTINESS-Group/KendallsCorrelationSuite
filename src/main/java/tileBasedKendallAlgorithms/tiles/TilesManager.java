@@ -41,7 +41,6 @@ public class TilesManager implements Serializable {
             double valueY = row.getDouble(row.fieldIndex(column2));
             long pairId = row.getLong(row.fieldIndex("id"));
 
-            // TODO maybe add variable for the MATH
             int tileRow = (int) Math.min(Math.floor((valueX - minValueX) / rangeSizeX), tileCountX - 1);
             int tileCol = (int) Math.min(Math.floor((valueY - minValueY) / rangeSizeY), tileCountY - 1);
 

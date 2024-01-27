@@ -48,14 +48,13 @@ public class DemoApp {
 
         actual = listBasedKendallCalculator.calculateKendall(columnPair);
         endTime = System.nanoTime();
+
+        elapsedTimeSeconds = (endTime - startTime) / 1e9;
+
         System.out.println("Brophy Test for file " + filePath);
         System.out.println("Actual: " + actual);
         System.out.println("Brophy elapsed time: " + elapsedTimeSeconds + " seconds");
         System.out.println(" ----- \n");
-
-        elapsedTimeSeconds = (endTime - startTime) / 1e9;
-        System.out.println("brute force elapsed time: " + elapsedTimeSeconds + " seconds");
-
 
         /* Tile Implementation with SPARK */
         SparkBasedKendallManager sparkBasedKendallManager = new SparkBasedKendallManager();
@@ -66,6 +65,6 @@ public class DemoApp {
 
         double kendall = sparkBasedKendallManager.calculateKendallTau("X", "Y", BinCalculatorMethods.SQUARE_ROOT);
 
-        System.out.println("Tiles algorithm result: " + kendall);
+        System.out.println("Tiles algorithm actual result: " + kendall);
     }
 }

@@ -5,14 +5,13 @@ import org.apache.spark.sql.Row;
 import org.apache.spark.sql.functions;
 import tileBasedKendallAlgorithms.tiles.Tile;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 public class TileProcessor {
 
     private final Tile[][] tiles;
     private final Dataset<Row> dataset;
-    private final Set<Pair> comparedPairs = new HashSet<>();
     private final String column1;
     private final String column2;
     private final CorrelationStatistics statistics;
@@ -26,6 +25,7 @@ public class TileProcessor {
     }
 
     public void processTile(Tile tile) {
+
         compareTileWithSelf(tile);
         compareTileWithEastTiles(tile);
         compareTileWithSouthTiles(tile);
@@ -34,15 +34,22 @@ public class TileProcessor {
     }
 
     private void compareTileWithSelf(Tile tile) {
-        compareTiles(tile, tile);
+        List<Long> idsTile1 = new ArrayList<>(tile.getPairIds());
+
+        for (int i = 0; i < idsTile1.size(); i++) {
+            for (int j = i + 1; j < idsTile1.size(); j++) {
+                compareAndUpdateCounts(findRowById(idsTile1.get(i)), findRowById(idsTile1.get(j)));
+            }
+        }
     }
 
     private void compareTileWithEastTiles(Tile tile) {
         int tileColumn = tile.getCol();
+        int row = tile.getRow();
         int maxColumns = tiles[0].length;
 
-        for (int col = tileColumn + 1; col < maxColumns; col++) {
-            Tile eastTile = tiles[tile.getRow()][col];
+        for (int column = tileColumn + 1; column < maxColumns; column++) {
+            Tile eastTile = tiles[row][column];
             if (!eastTile.isEmpty()) {
                 compareTiles(tile, eastTile);
             }
@@ -51,10 +58,11 @@ public class TileProcessor {
 
     private void compareTileWithSouthTiles(Tile tile) {
         int tileRow = tile.getRow();
+        int column = tile.getCol();
         int maxRows = tiles.length;
 
         for (int row = tileRow + 1; row < maxRows; row++) {
-            Tile southTile = tiles[row][tile.getCol()];
+            Tile southTile = tiles[row][column];
             if (!southTile.isEmpty()) {
                 compareTiles(tile, southTile);
             }
@@ -62,42 +70,22 @@ public class TileProcessor {
     }
 
     private void compareTiles(Tile tile1, Tile tile2) {
-        Set<Long> idsTile1 = tile1.getPairIds();
-        Set<Long> idsTile2 = tile2.getPairIds();
+        List<Long> idsTile1 = new ArrayList<>(tile1.getPairIds());
+        List<Long> idsTile2 = new ArrayList<>(tile2.getPairIds());
 
-        idsTile1.forEach(id1 ->
-            idsTile2.forEach(id2 -> {
-                if (!id1.equals(id2) && !comparedPairs.contains(new Pair(id1, id2))) {
-                    comparedPairs.add(new Pair(id1, id2));
-                    compareAndUpdateCounts(findRowById(id1), findRowById(id2));
-                }
-        }));
-    }
-
-    private void processNonCrossTiles(Tile tile) {
-        processNorthEastTiles(tile);
-        processSoutheastTiles(tile);
-        processSouthwestTiles(tile);
-    }
-
-    private void processNorthEastTiles(Tile tile) {
-        int row = tile.getRow();
-        int col = tile.getCol();
-        long tile1IdCount = tile.getCount();
-
-        for (int i = row - 1; i >= 0; i--) {
-            for (int j = col + 1; j < tiles[0].length; j++) {
-                if (tiles[i][j].isEmpty()) {
-                    continue;  // Skip empty tile
-                }
-
-                long tile2IdCount = tiles[i][j].getCount();
-                statistics.incrementConcordantCount(tile1IdCount * tile2IdCount);
+        for (Long id1 : idsTile1) {
+            for (Long id2 : idsTile2) {
+                compareAndUpdateCounts(findRowById(id1), findRowById(id2));
             }
         }
     }
 
-    private void processSoutheastTiles(Tile tile) {
+    private void processNonCrossTiles(Tile tile) {
+        processSouthEastTiles(tile);
+        processSouthWestTiles(tile);
+    }
+
+    private void processSouthEastTiles(Tile tile) {
         int row = tile.getRow();
         int col = tile.getCol();
         long tile1IdCount = tile.getCount();
@@ -107,17 +95,17 @@ public class TileProcessor {
                 if (tiles[i][j].isEmpty()) {
                     continue;  // Skip empty tile
                 }
-
                 long tile2IdCount = tiles[i][j].getCount();
                 statistics.incrementConcordantCount(tile1IdCount * tile2IdCount);
             }
         }
     }
 
-    private void processSouthwestTiles(Tile tile) {
+    private void processSouthWestTiles(Tile tile) {
         int row = tile.getRow();
         int col = tile.getCol();
         long tile1IdCount = tile.getCount();
+
         for (int i = row + 1; i < tiles.length; i++) {
             for (int j = col - 1; j >= 0; j--) {
                 if (tiles[i][j].isEmpty()) {
