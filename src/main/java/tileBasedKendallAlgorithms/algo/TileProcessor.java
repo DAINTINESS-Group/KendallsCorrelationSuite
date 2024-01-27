@@ -15,13 +15,17 @@ public class TileProcessor {
     private final String column1;
     private final String column2;
     private final CorrelationStatistics statistics;
-
+    private final int maxColumns;
+    private final int maxRows;
+    
     public TileProcessor(Tile[][] tiles, Dataset<Row> dataset, CorrelationStatistics statistics, String column1, String column2) {
         this.tiles = tiles;
         this.dataset = dataset;
         this.column1 = column1;
         this.column2 = column2;
         this.statistics = statistics;
+        maxRows = tiles.length;
+        maxColumns = tiles[0].length;
     }
 
     public void processTile(Tile tile) {
@@ -45,11 +49,11 @@ public class TileProcessor {
 
     private void compareTileWithEastTiles(Tile tile) {
         int tileColumn = tile.getCol();
-        int row = tile.getRow();
-        int maxColumns = tiles[0].length;
+        int tileRow = tile.getRow();
+        //int maxColumns = tiles[0].length;
 
         for (int column = tileColumn + 1; column < maxColumns; column++) {
-            Tile eastTile = tiles[row][column];
+            Tile eastTile = tiles[tileRow][column];
             if (!eastTile.isEmpty()) {
                 compareTiles(tile, eastTile);
             }
@@ -58,11 +62,11 @@ public class TileProcessor {
 
     private void compareTileWithSouthTiles(Tile tile) {
         int tileRow = tile.getRow();
-        int column = tile.getCol();
-        int maxRows = tiles.length;
+        int tileColumn = tile.getCol();
+        //int maxRows = tiles.length;
 
         for (int row = tileRow + 1; row < maxRows; row++) {
-            Tile southTile = tiles[row][column];
+            Tile southTile = tiles[row][tileColumn];
             if (!southTile.isEmpty()) {
                 compareTiles(tile, southTile);
             }
@@ -86,12 +90,12 @@ public class TileProcessor {
     }
 
     private void processSouthEastTiles(Tile tile) {
-        int row = tile.getRow();
-        int col = tile.getCol();
+        int tile1Row = tile.getRow();
+        int tile2Col = tile.getCol();
         long tile1IdCount = tile.getCount();
 
-        for (int i = row + 1; i < tiles.length; i++) {
-            for (int j = col + 1; j < tiles[row].length; j++) {
+        for (int i = tile1Row + 1; i < maxRows; i++) {
+            for (int j = tile2Col + 1; j < maxColumns; j++) {
                 if (tiles[i][j].isEmpty()) {
                     continue;  // Skip empty tile
                 }
@@ -106,7 +110,7 @@ public class TileProcessor {
         int col = tile.getCol();
         long tile1IdCount = tile.getCount();
 
-        for (int i = row + 1; i < tiles.length; i++) {
+        for (int i = row + 1; i < maxRows; i++) {
             for (int j = col - 1; j >= 0; j--) {
                 if (tiles[i][j].isEmpty()) {
                     continue;  // Skip empty tile

@@ -29,18 +29,6 @@ public class TileBasedCalculatorService {
         convertColumnsToDouble();
     }
 
-    private void assignUniqueRowIds() {
-        dataset = dataset.withColumn("id", functions.monotonically_increasing_id());
-    }
-
-    private void convertColumnsToDouble() {
-        dataset = dataset.select(
-                dataset.col("id").as("id"),
-                dataset.col(column1).cast("double").as(column1),
-                dataset.col(column2).cast("double").as(column2)
-        );
-    }
-
     private void setupTiles() {
         int numBinsX = determineOptimalBins(column1);
         int numBinsY = determineOptimalBins(column2);
@@ -54,7 +42,7 @@ public class TileBasedCalculatorService {
 
 
     public double calculateKendallTauCorrelation() {
-        long startTime = System.currentTimeMillis();
+        //long startTime = System.currentTimeMillis();
         TileProcessor processor = new TileProcessor(tiles, dataset, statistics, column1, column2);
 
         for (Tile[] rowOfTiles : tiles) {
@@ -67,6 +55,20 @@ public class TileBasedCalculatorService {
 
         return statistics.calculateCorrelationResult();
     }
+    
+    private void assignUniqueRowIds() {
+        dataset = dataset.withColumn("id", functions.monotonically_increasing_id());
+    }
+
+    private void convertColumnsToDouble() {
+        dataset = dataset.select(
+                dataset.col("id").as("id"),
+                dataset.col(column1).cast("double").as(column1),
+                dataset.col(column2).cast("double").as(column2)
+        );
+    }
+
+
 
     private int determineOptimalBins(String columnName) {
         return binCalculator.calculateBins(dataset, columnName);
