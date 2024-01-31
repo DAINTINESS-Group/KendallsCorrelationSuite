@@ -1,80 +1,83 @@
 package tileBasedKendallAlgorithms.tiles;
 
+import tileBasedKendallAlgorithms.algo.IBinCalculator;
+import org.apache.commons.math3.util.Pair;
 import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
 
-import java.io.Serializable;
-
-public class TilesManager implements Serializable {
-
-    private static final long serialVersionUID = 1L;
-	private final int tileCountX;
-    private final int tileCountY;
+public class TilesManager {
+    private final int binCountX;
+    private final int binCountY;
     private final String column1;
     private final String column2;
-    private static Tile[][] tiles;
-    private double minValueX;
-    private double minValueY;
+    private final Tile[][] tiles;
+    private final double minValueX;
+    private final double minValueY;
+    private final double maxValueX;
+    private final double maxValueY;
+    private final double rangeSizeX;
+    private final double rangeSizeY;
     private final Dataset<Row> dataset;
+    private final IBinCalculator calculator;
 
-    public TilesManager(Dataset<Row> dataset, int tileCountX, int tileCountY, String column1, String column2) {
-        this.tileCountX = tileCountX;
-        this.tileCountY = tileCountY;
+    public TilesManager(Dataset<Row> dataset, String column1, String column2, IBinCalculator calculator) {
         this.column1 = column1;
         this.column2 = column2;
         this.dataset = dataset;
-    }
-
-    public Tile[][] createTilesArray(double rangeSizeX, double rangeSizeY) {
-        initializeTilesArray(rangeSizeX, rangeSizeY);
-        populateTiles(rangeSizeX, rangeSizeY);
-        return tiles;
-    }
-
-    private void populateTiles(double rangeSizeX, double rangeSizeY) {
+        this.calculator = calculator;
 
         this.minValueX = calculateMinColumnValue(column1);
         this.minValueY = calculateMinColumnValue(column2);
+        this.maxValueX = calculateMaxColumnValue(column1);
+        this.maxValueY = calculateMaxColumnValue(column2);
 
-        dataset.foreach(row -> {
+        this.binCountX = determineOptimalBins(column1);
+        this.binCountY = determineOptimalBins(column2);
+
+        this.rangeSizeX = Math.ceil((maxValueX - minValueX) / binCountX);
+        this.rangeSizeY = Math.ceil((maxValueY - minValueY) / binCountY);
+
+        this.tiles = new Tile[this.binCountX][this.binCountY];
+    }
+
+    public Tile[][] createTilesArray() {
+        initializeTilesArray();
+        populateTiles();
+
+        return tiles;
+    }
+
+    private void initializeTilesArray() {
+        for (int i = 0; i < this.binCountX; i++) {
+            for (int j = 0; j < this.binCountY; j++) {
+                tiles[i][j] = new Tile();
+            }
+        }
+    }
+
+    private void populateTiles() {
+        dataset.toLocalIterator().forEachRemaining(row -> {
             double valueX = row.getDouble(row.fieldIndex(column1));
             double valueY = row.getDouble(row.fieldIndex(column2));
-            long pairId = row.getLong(row.fieldIndex("id"));
 
-            int tileRow = (int) Math.min(Math.floor((valueX - minValueX) / rangeSizeX), tileCountX - 1);
-            int tileCol = (int) Math.min(Math.floor((valueY - minValueY) / rangeSizeY), tileCountY - 1);
+            int tileRow = (int) Math.min(binCountX - 1, Math.floor((valueX - minValueX) / rangeSizeX));
+            int tileCol = (int) Math.min(binCountY - 1, Math.floor((valueY - minValueY) / rangeSizeY));
 
-            // Check if the data point is within bounds
-            if (tileRow >= 0 && tileRow < tileCountX && tileCol >= 0 && tileCol < tileCountY) {
-                tiles[tileRow][tileCol].addPairId(pairId);
+            if (tileRow >= 0 && tileRow < binCountX && tileCol >= 0 && tileCol < binCountY) {
+                tiles[tileRow][tileCol].addValuePair(new Pair<>(valueX, valueY));
                 tiles[tileRow][tileCol].setRow(tileRow);
                 tiles[tileRow][tileCol].setCol(tileCol);
             } else {
-                throw new IndexOutOfBoundsException("Out-of-bounds tile indices for " + column1 + " =" + valueX + ", " + column2 + " =" + valueY);
+                throw new ArrayIndexOutOfBoundsException("Tried to access out of bounds array cell");
             }
         });
     }
 
-    private void initializeTilesArray(double rangeSizeX, double rangeSizeY) {
-        tiles = new Tile[this.tileCountX][this.tileCountY];
-
-        double minValueX = calculateMinColumnValue(column1);
-        double minValueY = calculateMinColumnValue(column2);
-        double maxValueX = calculateMaxColumnValue(column1);
-        double maxValueY = calculateMaxColumnValue(column2);
-
-        for (int i = 0; i < this.tileCountX; i++) {
-            for (int j = 0; j < this.tileCountY; j++) {
-                double startX = minValueX + i * rangeSizeX;
-                double endX = (i == tileCountX - 1) ? maxValueX : startX + rangeSizeX;
-
-                double startY = minValueY + j * rangeSizeY;
-                double endY = (j == tileCountY - 1) ? maxValueY : startY + rangeSizeY;
-                tiles[i][j] = new Tile(
-                        new Range(startX, endX),
-                        new Range(startY, endY)
-                );
-            }
+    private int determineOptimalBins(String columnName) {
+        if (calculator != null) {
+            return calculator.calculateBins(dataset, columnName);
+        } else {
+            throw new IllegalStateException("Calculator is not initialized");
         }
     }
 

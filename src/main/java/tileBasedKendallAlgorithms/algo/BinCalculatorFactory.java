@@ -24,11 +24,9 @@ public class BinCalculatorFactory {
             throw new IllegalArgumentException("Method cannot be null");
         }
 
-        switch (method) {
-            case SQUARE_ROOT:
-                return new SquareRootBinCalculator();
-            default:
-                throw new IllegalArgumentException("Unsupported bin calculator method: " + method);
+        if (method == BinCalculatorMethods.SQUARE_ROOT) {
+            return new SquareRootBinCalculator();
         }
+        throw new IllegalArgumentException("Unsupported bin calculator method: " + method);
     }
 }

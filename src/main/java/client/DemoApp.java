@@ -1,14 +1,12 @@
 package client;
 
-import java.io.File;
-
 import listBasedKendallAlgorithms.ApacheCommonsKendall;
 import listBasedKendallAlgorithms.ColumnPair;
 import listBasedKendallAlgorithms.IListBasedKendallCalculator;
 import listBasedKendallAlgorithms.ListBasedKendallMethodsService;
 import listBasedKendallAlgorithms.Reader;
-import newTryTiles.algo.BinCalculatorFactory.BinCalculatorMethods;
-import newTryTiles.SparkBasedKendallManager;
+import tileBasedKendallAlgorithms.algo.BinCalculatorFactory.BinCalculatorMethods;
+import tileBasedKendallAlgorithms.SparkBasedKendallManager;
 
 import org.apache.spark.sql.AnalysisException;
 
@@ -33,12 +31,11 @@ public class DemoApp {
 //        String column2 = "high";
 //        String delimiter = ",";
         
-//        //manufacturer,model,year,price,transmission,mileage,fuelType,tax,mpg,engineSize
+//        manufacturer,model,year,price,transmission,mileage,fuelType,tax,mpg,engineSize
         String filePath = "src\\test\\resources\\input\\cars_100k.csv";
         String column1 = "mpg";
         String column2 = "mileage";
         String delimiter = ",";
-        
         
         ColumnPair columnPair = reader.read(filePath, column1, column2, delimiter);
        
@@ -60,7 +57,6 @@ public class DemoApp {
         System.out.println(" ----- \n");
 
 
-
         /* BRUTE */
         startTime = System.nanoTime();
         double actualBruteForce = listBasedKendallCalculator.calculateKendall(columnPair);
@@ -71,7 +67,7 @@ public class DemoApp {
         System.out.println("Actual: " + actualBruteForce);
         System.out.println("brute force elapsed time: " + elapsedTimeSeconds + " seconds");
         System.out.println(" ----- \n");
-        
+
         /* BROPHY */
         listBasedKendallCalculator = methods.getMethod("Brophy");
         startTime = System.nanoTime();
@@ -84,15 +80,11 @@ public class DemoApp {
         System.out.println("Brophy elapsed time: " + elapsedTimeSeconds + " seconds");
         System.out.println(" ----- \n");
 
-        
-        
+
         /* Tile Implementation with SPARK and valuePairs*/
-        
         SparkBasedKendallManager sparkBasedKendallManager = new SparkBasedKendallManager();
 
         sparkBasedKendallManager.loadDataset(filePath);
-   //             String.format("src%stest%sresources%sinput%sTauAData.tsv",
-   //                     File.separator, File.separator, File.separator, File.separator));
         
         startTime = System.nanoTime();
         double kendall = sparkBasedKendallManager.calculateKendallTau(column1, column2, BinCalculatorMethods.SQUARE_ROOT);

@@ -10,17 +10,17 @@ public class BrophyKendallCalculator implements IListBasedKendallCalculator {
         // Extracting columns and initializing key variables
         ArrayList<Double> xColumn = pair.getXColumn();
         ArrayList<Double> yColumn = pair.getYColumn();
-        long size = xColumn.size();
-        long concordantMinusDiscordant = 0;
+        double size = xColumn.size();
+        double concordantMinusDiscordant = 0;
 
         // Variables for tied ranks
-        long tiedPairsInX = 0, tiedPairsSumX = 0;
-        long tiedPairsInY = 0, tiedPairsSumY = 0;
+        double tiedPairsInX = 0, tiedPairsSumX = 0;
+        double tiedPairsInY = 0, tiedPairsSumY = 0;
 
         // Main loop to calculate concordance, discordance, and ties
         for (int i = 0; i < size - 1; i++) {
-            long tiedRanksX = 0;
-            long tiedRanksY = 0;
+            double tiedRanksX = 0;
+            double tiedRanksY = 0;
             for (int j = i + 1; j < size; j++) {
                 double deltaX = xColumn.get(j) - xColumn.get(i);
                 double deltaY = yColumn.get(j) - yColumn.get(i);
@@ -44,12 +44,12 @@ public class BrophyKendallCalculator implements IListBasedKendallCalculator {
         }
 
         // Calculating totals and adjustments for ties
-        long totalPairs = size * (size - 1) / 2;
-        long adjustmentForTies = (long) (totalPairs - tiedPairsInX) * (totalPairs - tiedPairsInY);
+        double totalPairs = size * (size - 1) / 2;
+        double adjustmentForTies = (totalPairs - tiedPairsInX) * (totalPairs - tiedPairsInY);
 
         double correctionFactor = size * (size - 1) * (size - 2);
         double denominator = ((correctionFactor / 3 - tiedPairsSumX) * (correctionFactor / 3 - tiedPairsSumY)) / correctionFactor
-                + (double) adjustmentForTies / totalPairs;
+                + adjustmentForTies / totalPairs;
 
         // Calculating Kendall Tau
         double kendallTau = concordantMinusDiscordant / Math.sqrt(adjustmentForTies);

@@ -2,7 +2,6 @@ package tileBasedKendallAlgorithms.algo;
 
 import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
-import org.apache.spark.sql.functions;
 import tileBasedKendallAlgorithms.tiles.Tile;
 import tileBasedKendallAlgorithms.tiles.TilesManager;
 
@@ -25,25 +24,24 @@ public class TileBasedCalculatorService {
     }
 
     private void prepareDataset() {
-        assignUniqueRowIds();
         convertColumnsToDouble();
     }
 
-    private void setupTiles() {
-        int numBinsX = determineOptimalBins(column1);
-        int numBinsY = determineOptimalBins(column2);
-
-        double rangeSizeX = computeRangeSize(column1, numBinsX);
-        double rangeSizeY = computeRangeSize(column2, numBinsY);
-
-        TilesManager tilesManager = new TilesManager(dataset, numBinsX, numBinsY, column1, column2);
-        tiles = tilesManager.createTilesArray(rangeSizeX, rangeSizeY);
+    private void convertColumnsToDouble() {
+        dataset = dataset.select(
+                dataset.col(column1).cast("double").as(column1),
+                dataset.col(column2).cast("double").as(column2)
+        );
     }
 
+    private void setupTiles() {
+        TilesManager tilesManager = new TilesManager(dataset, column1, column2, binCalculator);
+        tiles = tilesManager.createTilesArray();
+    }
 
     public double calculateKendallTauCorrelation() {
-        //long startTime = System.currentTimeMillis();
-        TileProcessor processor = new TileProcessor(tiles, dataset, statistics, column1, column2);
+        TileProcessor processor = new TileProcessor(tiles, statistics);
+        CalculationTimer timer = new CalculationTimer();
 
         for (Tile[] rowOfTiles : tiles) {
             for (Tile tile : rowOfTiles) {
@@ -52,31 +50,8 @@ public class TileBasedCalculatorService {
                 }
             }
         }
-
+        System.out.println(statistics);
+        System.out.println(timer);
         return statistics.calculateCorrelationResult();
-    }
-    
-    private void assignUniqueRowIds() {
-        dataset = dataset.withColumn("id", functions.monotonically_increasing_id());
-    }
-
-    private void convertColumnsToDouble() {
-        dataset = dataset.select(
-                dataset.col("id").as("id"),
-                dataset.col(column1).cast("double").as(column1),
-                dataset.col(column2).cast("double").as(column2)
-        );
-    }
-
-
-
-    private int determineOptimalBins(String columnName) {
-        return binCalculator.calculateBins(dataset, columnName);
-    }
-
-    private double computeRangeSize(String columnName, int numBins) {
-        double minValue = dataset.selectExpr("min(" + columnName + ")").first().getDouble(0);
-        double maxValue = dataset.selectExpr("max(" + columnName + ")").first().getDouble(0);
-        return Math.ceil((maxValue - minValue) / numBins);
     }
 }

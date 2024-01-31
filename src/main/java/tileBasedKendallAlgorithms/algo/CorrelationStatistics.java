@@ -2,10 +2,10 @@ package tileBasedKendallAlgorithms.algo;
 
 public class CorrelationStatistics {
 
-    private long concordantPairsCount;
-    private long discordantPairsCount;
-    private long tiedXPairsCount;
-    private long tiedYPairsCount;
+    private double concordantPairsCount;
+    private double discordantPairsCount;
+    private double tiedXPairsCount;
+    private double tiedYPairsCount;
 
     public CorrelationStatistics() {
         concordantPairsCount = 0;
@@ -22,11 +22,11 @@ public class CorrelationStatistics {
         discordantPairsCount++;
     }
 
-    public void incrementConcordantCount(long amount) {
+    public void incrementConcordantCount(double amount) {
         concordantPairsCount += amount;
     }
 
-    public void incrementDiscordantCount(long amount) {
+    public void incrementDiscordantCount(double amount) {
         discordantPairsCount += amount;
     }
 
@@ -39,21 +39,21 @@ public class CorrelationStatistics {
     }
 
     public double calculateCorrelationResult() {
-        long nominator = concordantPairsCount - discordantPairsCount;
-        long NonTiedCount = concordantPairsCount + discordantPairsCount;
-        double denominator = Math.sqrt((NonTiedCount + tiedXPairsCount) * (NonTiedCount + tiedYPairsCount));
+        double nominator = concordantPairsCount - discordantPairsCount;
+        double nonTiedCount = concordantPairsCount + discordantPairsCount;
+        double pairsProduct = (nonTiedCount + tiedXPairsCount) * (nonTiedCount + tiedYPairsCount);
+        double denominator = Math.sqrt(pairsProduct);
 
         return nominator / denominator;
     }
 
     @Override
     public String toString() {
-        return "CorrelationStatistics{ " +
-                "concordantPairsCount=" + concordantPairsCount +
-                ", discordantPairsCount=" + discordantPairsCount +
-                ", tiedXPairsCount=" + tiedXPairsCount +
-                ", tiedYPairsCount=" + tiedYPairsCount +
-                ", Correlation Result = " + calculateCorrelationResult() +
-                '}';
+        return "CorrelationStatistics:\n{ " +
+                "  \nconcordantPairsCount = " + concordantPairsCount +
+                ", \ndiscordantPairsCount = " + discordantPairsCount +
+                ", \ntiedXPairsCount = " + tiedXPairsCount +
+                ", \ntiedYPairsCount = " + tiedYPairsCount +
+                "\n}\n";
     }
 }

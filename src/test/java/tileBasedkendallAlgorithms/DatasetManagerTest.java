@@ -1,4 +1,4 @@
-package tileBasedkendallAlgorithms;
+package tileBasedKendallAlgorithms;
 
 import tileBasedKendallAlgorithms.SparkBasedKendallManager;
 import tileBasedKendallAlgorithms.algo.BinCalculatorFactory;

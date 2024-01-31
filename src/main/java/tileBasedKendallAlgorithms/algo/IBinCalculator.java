@@ -20,5 +20,5 @@ public interface IBinCalculator {
      *         be a positive integer indicating the optimal number of bins, based on the implementation's
      *         algorithm and analysis of the column data.
      */
-    public int calculateBins(Dataset<Row> dataset, String columnName);
+    int calculateBins(Dataset<Row> dataset, String columnName);
 }

@@ -1,47 +1,37 @@
 package tileBasedKendallAlgorithms.tiles;
 
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
-public class Tile implements Serializable {
+import org.apache.commons.math3.util.Pair;
 
-    private static final long serialVersionUID = 1L;
-
-	Range rangeX;
-    Range rangeY;
+public class Tile {
 
     private int row;
     private int col;
+    private final List<Pair<Double, Double>> valuePairs;
+    private double pairCounter = 0;
 
-    private final Set<Long> pairIds;
-    private long idCounter = 0;
-
-    public Tile(Range rangeX, Range rangeY) {
-        this.rangeX = rangeX;
-        this.rangeY = rangeY;
-        this.pairIds = new HashSet<>();
-    }
-
-    public void addPairId(long pairId) {
-        pairIds.add(pairId);
-        idCounter++;
+    public Tile() {
+        this.valuePairs = new ArrayList<>();
     }
 
     public boolean isEmpty() {
-        return pairIds.isEmpty();
+        return pairCounter == 0;
     }
 
-    public long getCount() {
-        return idCounter;
+    public double getCount() {
+        return pairCounter;
     }
 
-    public Set<Long> getPairIds() {
-        return pairIds;
+    public List<Pair<Double, Double>> getValuePairs() {
+        return valuePairs;
     }
 
-    public void clearIdList() {
-        pairIds.clear();
+    public void addValuePair(Pair<Double, Double> pair) {
+        valuePairs.add(pair);
+        pairCounter++;
     }
 
     public void setRow(int row) {
@@ -58,14 +48,5 @@ public class Tile implements Serializable {
 
     public int getCol() {
         return col;
-    }
-
-    @Override
-    public String toString() {
-        return "Tile { " +
-                "X:[" + rangeX.getStart() + " - " + rangeX.getEnd() + ") " +
-                "Y:[" + rangeY.getStart() + " - " + rangeY.getEnd()  + ")" +
-                " -> Ids=" + pairIds +
-                " }";
     }
 }

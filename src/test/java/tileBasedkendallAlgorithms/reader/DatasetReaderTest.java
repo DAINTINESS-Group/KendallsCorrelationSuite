@@ -1,4 +1,4 @@
-package tileBasedkendallAlgorithms.reader;
+package tileBasedKendallAlgorithms.reader;
 
 import org.apache.log4j.PropertyConfigurator;
 import org.apache.spark.sql.Dataset;
@@ -8,10 +8,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import tileBasedKendallAlgorithms.reader.DatasetReader;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.*;
 
 public class DatasetReaderTest {
 

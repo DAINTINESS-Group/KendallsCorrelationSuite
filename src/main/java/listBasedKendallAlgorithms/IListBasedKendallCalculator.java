@@ -6,5 +6,5 @@ public interface IListBasedKendallCalculator {
 	 * @param pair Contains the column pair selected
 	 * @return Kendall's tau
 	 */
-    public double calculateKendall(ColumnPair pair);
+	double calculateKendall(ColumnPair pair);
 }

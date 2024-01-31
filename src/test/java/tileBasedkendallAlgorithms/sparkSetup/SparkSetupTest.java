@@ -1,8 +1,7 @@
-package tileBasedkendallAlgorithms.sparkSetup;
+package tileBasedKendallAlgorithms.sparkSetup;
 
 import org.apache.spark.sql.SparkSession;
 import org.junit.Test;
-
 import tileBasedKendallAlgorithms.sparkSetup.SparkSetup;
 
 import static org.junit.Assert.assertEquals;
