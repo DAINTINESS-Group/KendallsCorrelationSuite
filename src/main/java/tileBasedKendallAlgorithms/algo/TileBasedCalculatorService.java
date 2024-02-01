@@ -24,10 +24,10 @@ public class TileBasedCalculatorService {
     }
 
     private void prepareDataset() {
-        convertColumnsToDouble();
+        filterAndConvertSelectedColumnsToDouble();
     }
 
-    private void convertColumnsToDouble() {
+    private void filterAndConvertSelectedColumnsToDouble() {
         dataset = dataset.select(
                 dataset.col(column1).cast("double").as(column1),
                 dataset.col(column2).cast("double").as(column2)

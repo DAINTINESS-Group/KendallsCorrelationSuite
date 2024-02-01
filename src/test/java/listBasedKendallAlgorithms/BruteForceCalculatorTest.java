@@ -26,8 +26,4 @@ public class BruteForceCalculatorTest {
 
 		assertEquals(expected, actual, 0.0);
 	}
-
-	
-	//TODO: rainyday tests!!!! What happens in files with NaN, missing values, ...
-	//Maybe it is the job of Reader to filter out offending records.
 }

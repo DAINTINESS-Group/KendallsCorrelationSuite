@@ -17,8 +17,10 @@ public class DatasetManagerTest {
         BinCalculatorFactory.BinCalculatorMethods binCalculationMethod = BinCalculatorFactory.BinCalculatorMethods.SQUARE_ROOT;
 
         sparkBasedKendallManager.loadDataset(path);
-        double result = sparkBasedKendallManager.calculateKendallTau("X", "Y", binCalculationMethod);
+        double actual = sparkBasedKendallManager.calculateKendallTau("X", "Y", binCalculationMethod);
+        double expected = 0.23076923076923078;
+        double delta = 0.0;
 
-        assertEquals(0.23076923076923078, result, 0.0);
+        assertEquals(expected, actual, delta);
     }
 }

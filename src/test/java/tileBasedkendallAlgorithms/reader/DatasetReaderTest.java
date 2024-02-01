@@ -1,27 +1,14 @@
-package tileBasedKendallAlgorithms.reader;
+package tileBasedkendallAlgorithms.reader;
 
-import org.apache.log4j.PropertyConfigurator;
 import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
-import org.apache.spark.sql.SparkSession;
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
+import tileBasedKendallAlgorithms.reader.DatasetReader;
+import tileBasedkendallAlgorithms.SparkSessionTestSetup;
 
 import static org.junit.Assert.*;
 
-public class DatasetReaderTest {
-
-    private SparkSession spark;
-
-    @Before
-    public void setUp() {
-        PropertyConfigurator.configure("src/test/resources/input/log4j.properties");
-        spark = SparkSession.builder()
-                .appName("DatasetReaderTest")
-                .master("local[*]")
-                .getOrCreate();
-    }
+public class DatasetReaderTest extends SparkSessionTestSetup {
 
     @Test
     public void testRead() {
@@ -29,9 +16,9 @@ public class DatasetReaderTest {
         String delimiter = "\t";
 
         DatasetReader datasetReader = new DatasetReader(spark, path, delimiter);
-        Dataset<Row> result = datasetReader.read();
+        Dataset<Row> dataset = datasetReader.read();
 
-        assertNotNull(result);
+        assertNotNull(dataset);
     }
 
     @Test
@@ -41,16 +28,10 @@ public class DatasetReaderTest {
         String delimiter = "\t";
 
         DatasetReader datasetReader = new DatasetReader(spark, path, delimiter);
-        Dataset<Row> result = datasetReader.read();
+        Dataset<Row> dataset = datasetReader.read();
 
         // Input 7 rows. Expected to read 6
-        assertEquals(result.count(), 6, 0);
-    }
-
-    @After
-    public void tearDown() {
-        // Stop the Spark session after the tests
-        spark.stop();
+        assertEquals(dataset.count(), 6, 0);
     }
 }
 

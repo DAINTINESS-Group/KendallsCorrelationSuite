@@ -15,7 +15,6 @@ public class SparkSetupTest {
     public void testSetup() {
 
         SparkSession sparkSession = sparkSetup.setup();
-
         assertNotNull(sparkSession);
         assertEquals("KendallCorrelator", sparkSession.conf().get("spark.app.name"));
         assertEquals("local[*]", sparkSession.conf().get("spark.master"));

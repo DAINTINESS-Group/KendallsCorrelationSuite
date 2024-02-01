@@ -1,35 +1,22 @@
 package tileBasedKendallAlgorithms.tiles;
 
-import org.apache.log4j.PropertyConfigurator;
 import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
 import org.apache.spark.sql.RowFactory;
-import org.apache.spark.sql.SparkSession;
 import org.apache.spark.sql.types.DataTypes;
 import org.apache.spark.sql.types.StructField;
 import org.apache.spark.sql.types.StructType;
 import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 
 import tileBasedKendallAlgorithms.algo.SquareRootBinCalculator;
+import tileBasedkendallAlgorithms.SparkSessionTestSetup;
 
 import java.util.*;
 
 import static org.junit.Assert.assertEquals;
 
-public class SquareRootBinCalculatorTest {
-
-    private SparkSession spark;
-
-    @Before
-    public void setUp() {
-        PropertyConfigurator.configure("src/test/resources/input/log4j.properties");
-        spark = SparkSession.builder()
-                .appName("SquareRootBinCalculatorTest")
-                .master("local[*]")
-                .getOrCreate();
-    }
+public class SquareRootBinCalculatorTest extends SparkSessionTestSetup {
 
     @Test
     public void testCalculateBin() {

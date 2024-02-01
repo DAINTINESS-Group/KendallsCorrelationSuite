@@ -7,7 +7,6 @@ public class BrophyKendallCalculator implements IListBasedKendallCalculator {
 
     @Override
     public double calculateKendall(ColumnPair pair) {
-        // Extracting columns and initializing key variables
         ArrayList<Double> xColumn = pair.getXColumn();
         ArrayList<Double> yColumn = pair.getYColumn();
         double size = xColumn.size();
@@ -51,10 +50,8 @@ public class BrophyKendallCalculator implements IListBasedKendallCalculator {
         double denominator = ((correctionFactor / 3 - tiedPairsSumX) * (correctionFactor / 3 - tiedPairsSumY)) / correctionFactor
                 + adjustmentForTies / totalPairs;
 
-        // Calculating Kendall Tau
         double kendallTau = concordantMinusDiscordant / Math.sqrt(adjustmentForTies);
 
-        // Calculating p-value using Normal approximation
         double zScore = (Math.abs(concordantMinusDiscordant) - 1.0) / Math.sqrt(denominator);
         double pValue = calculatePValue(zScore);
 
@@ -68,10 +65,10 @@ public class BrophyKendallCalculator implements IListBasedKendallCalculator {
      * @return The calculated p-value.
      */
     private double calculatePValue(double zScore) {
-        double firstPart = 0.5 - Math.sqrt(1 - Math.exp(-zScore * (0.6366198 - zScore * (0.009564224 - zScore * 0.0004)))) / 2;
+        double pValue = 0.5 - Math.sqrt(1 - Math.exp(-zScore * (0.6366198 - zScore * (0.009564224 - zScore * 0.0004)))) / 2;
         if (zScore < 0) {
-            return 1.0 - firstPart;
+            return 1.0 - pValue;
         }
-        return firstPart;
+        return pValue;
     }
 }

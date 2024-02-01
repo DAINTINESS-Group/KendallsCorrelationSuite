@@ -16,7 +16,7 @@ public class DemoApp {
     public static void main(String[] args) throws IOException, AnalysisException {
 
         Reader reader = new Reader();
-//        String filePath = "src\\test\\resources\\input\\TauAData.tsv"; 
+//        String filePath = "src\\test\\resources\\input\\TauAData.tsv";
 //        String column1 = "X";
 //        String column2 = "Y";
 //        String delimiter = "\t";
@@ -31,8 +31,8 @@ public class DemoApp {
 //        String column2 = "high";
 //        String delimiter = ",";
         
-//        manufacturer,model,year,price,transmission,mileage,fuelType,tax,mpg,engineSize
-        String filePath = "src\\test\\resources\\input\\cars_100k.csv";
+//        //manufacturer,model,year,price,transmission,mileage,fuelType,tax,mpg,engineSize
+        String filePath = "src\\test\\resources\\input\\cars_10k.csv";
         String column1 = "mpg";
         String column2 = "mileage";
         String delimiter = ",";
@@ -83,7 +83,6 @@ public class DemoApp {
 
         /* Tile Implementation with SPARK and valuePairs*/
         SparkBasedKendallManager sparkBasedKendallManager = new SparkBasedKendallManager();
-
         sparkBasedKendallManager.loadDataset(filePath);
         
         startTime = System.nanoTime();

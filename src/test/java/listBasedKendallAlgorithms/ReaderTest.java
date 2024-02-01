@@ -21,7 +21,7 @@ public class ReaderTest {
     @Test(expected = IOException.class)
     public void testEmptyFileIOException() throws IOException {
         String path = "src/test/resources/testInput/EmptyFileTest.csv";
-        reader.read(path, "X", "Y", ";");
+        reader.read(path, "X", "Y", ",");
     }
 
     /**
@@ -32,7 +32,7 @@ public class ReaderTest {
     @Test(expected = IllegalArgumentException.class)
     public void testColumnNamesNotFoundException() throws IOException {
         String path = "src/test/resources/testInput/ColumnsNamesNotFoundTest.csv";
-        reader.read(path, "X", "Y", ";");
+        reader.read(path, "X", "Y", ",");
     }
 
     /**
@@ -43,7 +43,7 @@ public class ReaderTest {
     @Test(expected = IllegalArgumentException.class)
     public void testNotEnoughColumnsException() throws IOException {
         String path = "src/test/resources/testInput/NotEnoughColumnsTest.csv";
-        reader.read(path, "X", "Y", ";");
+        reader.read(path, "X", "Y", ",");
     }
 
     /**
@@ -54,7 +54,7 @@ public class ReaderTest {
     @Test(expected = IllegalArgumentException.class)
     public void testParsingErrorIllegalArgumentException() throws IOException {
         String path = "src/test/resources/testInput/ParsingErrorTest.csv";
-        reader.read(path, "X", "Y", ";");
+        reader.read(path, "X", "Y", ",");
     }
 
     /**

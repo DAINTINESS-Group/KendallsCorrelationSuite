@@ -5,8 +5,8 @@ import java.util.ArrayList;
 public class BruteForceNoTiesKendallCalculator implements IListBasedKendallCalculator{
 
     public double calculateKendall(ColumnPair pair) {
-        long numPairs = pair.getXColumn().size();
-        double denominator = ((double) numPairs * ((double) numPairs-1)) / 2.0;
+        double numPairs = pair.getXColumn().size();
+        double denominator = (numPairs * (numPairs-1)) / 2.0;
         double numerator = calculateNumerator(pair);
 
         return numerator / denominator;
