@@ -1,4 +1,4 @@
-package tileBasedKendallAlgorithms.tiles;
+package tileBasedkendallAlgorithms.tiles;
 
 import org.junit.Test;
 

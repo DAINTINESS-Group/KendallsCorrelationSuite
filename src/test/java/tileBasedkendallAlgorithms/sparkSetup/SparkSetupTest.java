@@ -1,4 +1,4 @@
-package tileBasedKendallAlgorithms.sparkSetup;
+package tileBasedkendallAlgorithms.sparkSetup;
 
 import org.apache.spark.sql.SparkSession;
 import org.junit.Test;
