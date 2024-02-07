@@ -3,18 +3,26 @@ package listBasedKendallAlgorithms;
 import java.util.ArrayList;
 import java.util.Objects;
 
+/*
+* THis class calculates kendall's tau b following the algorithm by ALFRED L. BROPHY */
 public class BrophyKendallCalculator implements IListBasedKendallCalculator {
+
+    private double concordantPairs = 0.0;
+    private double discordantPairs = 0.0;
+    private double tiedPairsSumX = 0.0;
+    private double tiedPairsSumY = 0.0;
+    private double tauB = 0.0;
+    private double pValue = 0.0;
 
     @Override
     public double calculateKendall(ColumnPair pair) {
         ArrayList<Double> xColumn = pair.getXColumn();
         ArrayList<Double> yColumn = pair.getYColumn();
         double size = xColumn.size();
-        double concordantMinusDiscordant = 0;
 
         // Variables for tied ranks
-        double tiedPairsInX = 0, tiedPairsSumX = 0;
-        double tiedPairsInY = 0, tiedPairsSumY = 0;
+        double tiedPairsInX = 0;
+        double tiedPairsInY = 0;
 
         // Main loop to calculate concordance, discordance, and ties
         for (int i = 0; i < size - 1; i++) {
@@ -26,7 +34,10 @@ public class BrophyKendallCalculator implements IListBasedKendallCalculator {
                 double product = deltaX * deltaY;
 
                 if (product != 0) {
-                    concordantMinusDiscordant += Math.signum(product);
+                    if (product > 0)
+                        concordantPairs++;
+                    else
+                        discordantPairs++;
                 } else {
                     if (Objects.equals(xColumn.get(i), xColumn.get(j))) {
                         tiedRanksX++;
@@ -50,12 +61,12 @@ public class BrophyKendallCalculator implements IListBasedKendallCalculator {
         double denominator = ((correctionFactor / 3 - tiedPairsSumX) * (correctionFactor / 3 - tiedPairsSumY)) / correctionFactor
                 + adjustmentForTies / totalPairs;
 
-        double kendallTau = concordantMinusDiscordant / Math.sqrt(adjustmentForTies);
+        tauB = (concordantPairs - discordantPairs) / Math.sqrt(adjustmentForTies);
 
-        double zScore = (Math.abs(concordantMinusDiscordant) - 1.0) / Math.sqrt(denominator);
-        double pValue = calculatePValue(zScore);
+        double zScore = (Math.abs(concordantPairs - discordantPairs) - 1.0) / Math.sqrt(denominator);
+        pValue = calculatePValue(zScore);
 
-        return kendallTau;
+        return tauB;
     }
 
     /**
@@ -70,5 +81,15 @@ public class BrophyKendallCalculator implements IListBasedKendallCalculator {
             return 1.0 - pValue;
         }
         return pValue;
+    }
+
+    public String toString() {
+        return "Brophy's { Kendall's Tau b: " + tauB +
+                ", ConcordantPairs: " + concordantPairs +
+                ", DiscordantPairs: " + discordantPairs +
+                ", Tied pairs on X: " + tiedPairsSumX +
+                ", Tied pairs on Y: " + tiedPairsSumY +
+                ", pValue: " + pValue +
+                " }";
     }
 }
