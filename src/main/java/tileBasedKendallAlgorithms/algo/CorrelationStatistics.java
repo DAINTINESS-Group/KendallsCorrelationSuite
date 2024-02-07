@@ -50,10 +50,10 @@ public class CorrelationStatistics {
     @Override
     public String toString() {
         return "CorrelationStatistics:\n{ " +
-                "  \nconcordantPairsCount = " + concordantPairsCount +
-                ", \ndiscordantPairsCount = " + discordantPairsCount +
-                ", \ntiedXPairsCount = " + tiedXPairsCount +
-                ", \ntiedYPairsCount = " + tiedYPairsCount +
-                "\n}\n";
+                "ConcordantPairsCount = " + concordantPairsCount +
+                ",\nDiscordantPairsCount = " + discordantPairsCount +
+                ",\nTiedXPairsCount = " + tiedXPairsCount +
+                ",\nTiedYPairsCount = " + tiedYPairsCount +
+                " }\n";
     }
 }

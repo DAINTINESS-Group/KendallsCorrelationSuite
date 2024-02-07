@@ -3,6 +3,8 @@ package tileBasedKendallAlgorithms.algo;
 import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
 
+import java.io.Serializable;
+
 /**
  * The IBinCalculator interface defines a method for calculating the optimal number of bins
  * for a given column in a dataset. This calculation can be based on various statistical methods
@@ -10,7 +12,7 @@ import org.apache.spark.sql.Row;
  * Implementations of this interface should provide specific algorithms for bin calculation
  * considering the distribution and characteristics of the dataset.
  */
-public interface IBinCalculator {
+public interface IBinCalculator extends Serializable {
 
     /**
      * Calculates the number of bins for a specified column within a dataset.

@@ -26,11 +26,11 @@ public class CalculationTimer {
 
     @Override
     public String toString() {
-        return "CalculationTimer\n{" +
-                "  \ncompareWithSelfTime = " + compareWithSelfTime + " seconds" +
-                ", \ncompareWithEastTime = " + compareWithEastTime + " seconds" +
-                ", \ncompareWithSouthTime = " + compareWithSouthTime + " seconds" +
-                ", \nprocessNonCrossTime = " + processNonCrossTime + " seconds" +
-                "\n}";
+        return "CalculationTimer:\n{" +
+                "Compare With Self Time = " + compareWithSelfTime + " seconds" +
+                ",\nCompare With East Time = " + compareWithEastTime + " seconds" +
+                ",\nCompare With South Time = " + compareWithSouthTime + " seconds" +
+                ",\nProcess Non Cross Time = " + processNonCrossTime + " seconds }";
+
     }
 }

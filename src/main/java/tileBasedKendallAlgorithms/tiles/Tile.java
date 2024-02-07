@@ -6,15 +6,17 @@ import java.util.List;
 
 import org.apache.commons.math3.util.Pair;
 
-public class Tile {
+public class Tile implements Serializable{
 
-    private int row;
-    private int col;
+    private final int row;
+    private final int column;
     private final List<Pair<Double, Double>> valuePairs;
     private double pairCounter = 0;
 
-    public Tile() {
+    public Tile(int row, int col) {
         this.valuePairs = new ArrayList<>();
+        this.row = row;
+        this.column = col;
     }
 
     public boolean isEmpty() {
@@ -34,19 +36,11 @@ public class Tile {
         pairCounter++;
     }
 
-    public void setRow(int row) {
-        this.row = row;
-    }
-
-    public void setCol(int col) {
-        this.col = col;
-    }
-
     public int getRow() {
         return row;
     }
 
-    public int getCol() {
-        return col;
+    public int getColumn() {
+        return column;
     }
 }

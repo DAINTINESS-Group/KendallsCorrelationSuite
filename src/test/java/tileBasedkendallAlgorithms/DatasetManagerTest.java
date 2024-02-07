@@ -14,9 +14,11 @@ public class DatasetManagerTest {
     @Test
     public void testRegisterDatasetAndCalculateKendall() throws Exception {
         String path = "src/test/resources/input/TauAData.tsv";
+        String column1 = "X";
+        String column2 = "Y";
         BinCalculatorFactory.BinCalculatorMethods binCalculationMethod = BinCalculatorFactory.BinCalculatorMethods.SQUARE_ROOT;
 
-        sparkBasedKendallManager.loadDataset(path);
+        sparkBasedKendallManager.loadDataset(path, column1, column2);
         double actual = sparkBasedKendallManager.calculateKendallTau("X", "Y", binCalculationMethod);
         double expected = 0.23076923076923078;
         double delta = 0.0;

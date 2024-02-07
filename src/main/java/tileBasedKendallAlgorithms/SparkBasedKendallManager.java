@@ -31,8 +31,8 @@ public class SparkBasedKendallManager {
         return new IDatasetReaderFactory(sparkSession);
     }
 
-    public void loadDataset(String filePath) throws AnalysisException {
-        this.dataset = datasetReaderFactory.createDatasetReader(filePath).read();
+    public void loadDataset(String filePath, String column1, String column2) throws AnalysisException {
+        this.dataset = datasetReaderFactory.createDatasetReader(filePath).read(column1, column2);
     }
 
     public double calculateKendallTau(String column1, String column2, BinCalculatorFactory.BinCalculatorMethods calculationMethod) {

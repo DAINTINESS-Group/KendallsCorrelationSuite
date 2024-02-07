@@ -48,7 +48,7 @@ public class TileBasedCalculatorServiceTest extends SparkSessionTestSetup {
     public void testCalculateKendallTauCorrelationWithDifferentDatasets() {
         // Arrange
         DatasetReader datasetReader = new DatasetReader(spark, path, delimiter);
-        Dataset<Row> dataset = datasetReader.read();
+        Dataset<Row> dataset = datasetReader.read(column1, column2);
         IBinCalculator binCalculator = new BinCalculatorFactory().createBinCalculator(BinCalculatorFactory.BinCalculatorMethods.SQUARE_ROOT);
         TileBasedCalculatorService service = new TileBasedCalculatorService(dataset, binCalculator, column1, column2);
 

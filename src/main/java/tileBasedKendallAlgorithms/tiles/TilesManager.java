@@ -5,16 +5,16 @@ import org.apache.commons.math3.util.Pair;
 import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
 
-public class TilesManager {
-    private final int binCountX;
-    private final int binCountY;
+import java.io.Serializable;
+
+public class TilesManager implements Serializable {
+    private final int tileCountX;
+    private final int tileCountY;
     private final String column1;
     private final String column2;
-    private final Tile[][] tiles;
+    private static Tile[][] tiles;
     private final double minValueX;
     private final double minValueY;
-    private final double maxValueX;
-    private final double maxValueY;
     private final double rangeSizeX;
     private final double rangeSizeY;
     private final Dataset<Row> dataset;
@@ -28,45 +28,52 @@ public class TilesManager {
 
         this.minValueX = calculateMinColumnValue(column1);
         this.minValueY = calculateMinColumnValue(column2);
-        this.maxValueX = calculateMaxColumnValue(column1);
-        this.maxValueY = calculateMaxColumnValue(column2);
+        double maxValueX = calculateMaxColumnValue(column1);
+        double maxValueY = calculateMaxColumnValue(column2);
 
-        this.binCountX = determineOptimalBins(column1);
-        this.binCountY = determineOptimalBins(column2);
+        this.tileCountX = determineOptimalBins(column1);
+        this.tileCountY = determineOptimalBins(column2);
 
-        this.rangeSizeX = Math.ceil((maxValueX - minValueX) / binCountX);
-        this.rangeSizeY = Math.ceil((maxValueY - minValueY) / binCountY);
+        this.rangeSizeX = Math.ceil((maxValueX - minValueX) / tileCountX);
+        this.rangeSizeY = Math.ceil((maxValueY - minValueY) / tileCountY);
 
-        this.tiles = new Tile[this.binCountX][this.binCountY];
+        tiles = new Tile[this.tileCountX][this.tileCountY];
     }
 
     public Tile[][] createTilesArray() {
         initializeTilesArray();
+        System.out.println("Starting Population");
+        double startTime = System.currentTimeMillis();
+
         populateTiles();
+        double endTime = System.currentTimeMillis();
+
+        double elapsed = (endTime - startTime) / 1000.0;
+        System.out.println("Tiles Population took " + elapsed + " seconds");
 
         return tiles;
     }
 
     private void initializeTilesArray() {
-        for (int i = 0; i < this.binCountX; i++) {
-            for (int j = 0; j < this.binCountY; j++) {
-                tiles[i][j] = new Tile();
+        for (int row = 0; row < this.tileCountX; row++) {
+            for (int col = 0; col < this.tileCountY; col++) {
+                tiles[row][col] = new Tile(row, col);
             }
         }
     }
 
     private void populateTiles() {
-        dataset.toLocalIterator().forEachRemaining(row -> {
+        dataset.foreach(row -> {
             double valueX = row.getDouble(row.fieldIndex(column1));
             double valueY = row.getDouble(row.fieldIndex(column2));
 
-            int tileRow = (int) Math.min(binCountX - 1, Math.floor((valueX - minValueX) / rangeSizeX));
-            int tileCol = (int) Math.min(binCountY - 1, Math.floor((valueY - minValueY) / rangeSizeY));
+            int tileRow = (int) Math.min(tileCountX - 1, Math.floor((valueX - minValueX) / rangeSizeX));
+            int tileCol = (int) Math.min(tileCountY - 1, Math.floor((valueY - minValueY) / rangeSizeY));
 
-            if (tileRow >= 0 && tileRow < binCountX && tileCol >= 0 && tileCol < binCountY) {
-                tiles[tileRow][tileCol].addValuePair(new Pair<>(valueX, valueY));
-                tiles[tileRow][tileCol].setRow(tileRow);
-                tiles[tileRow][tileCol].setCol(tileCol);
+            if (tileRow >= 0 && tileRow < tileCountX && tileCol >= 0 && tileCol < tileCountY) {
+                synchronized (tiles[tileRow][tileCol]) {
+                    tiles[tileRow][tileCol].addValuePair(new Pair<>(valueX, valueY));
+                }
             } else {
                 throw new ArrayIndexOutOfBoundsException("Tried to access out of bounds array cell");
             }

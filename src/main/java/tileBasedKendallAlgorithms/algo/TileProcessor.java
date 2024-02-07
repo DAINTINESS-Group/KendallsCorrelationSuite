@@ -3,7 +3,6 @@ package tileBasedKendallAlgorithms.algo;
 import org.apache.commons.math3.util.Pair;
 import tileBasedKendallAlgorithms.tiles.Tile;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class TileProcessor {
@@ -21,7 +20,6 @@ public class TileProcessor {
     }
 
     public void processTile(Tile tile) {
-        
         long startTime = System.currentTimeMillis();
         compareTileWithSelf(tile);
         long endTime = System.currentTimeMillis();
@@ -48,7 +46,7 @@ public class TileProcessor {
     }
 
     private void compareTileWithSelf(Tile tile) {
-        List<Pair<Double,Double>> tilePairs = new ArrayList<>(tile.getValuePairs());
+        List<Pair<Double,Double>> tilePairs = tile.getValuePairs();
         int numPairs = tilePairs.size();
         for (int i = 0; i < numPairs - 1 ; i++) {
             double x1 = tilePairs.get(i).getFirst();
@@ -63,7 +61,7 @@ public class TileProcessor {
     }
 
     private void compareTileWithEastTiles(Tile tile) {
-        int tileColumn = tile.getCol();
+        int tileColumn = tile.getColumn();
         int tileRow = tile.getRow();
 
         for (int column = tileColumn + 1; column < maxColumns; column++) {
@@ -76,7 +74,7 @@ public class TileProcessor {
 
     private void compareTileWithSouthTiles(Tile tile) {
         int tileRow = tile.getRow();
-        int tileColumn = tile.getCol();
+        int tileColumn = tile.getColumn();
 
         for (int row = tileRow + 1; row < maxRows; row++) {
             Tile southTile = tiles[row][tileColumn];
@@ -87,8 +85,8 @@ public class TileProcessor {
     }
 
     private void compareTiles(Tile tile1, Tile tile2) {
-        List<Pair<Double,Double>> tilePairs1 = new ArrayList<>(tile1.getValuePairs());
-        List<Pair<Double,Double>> tilePairs2 = new ArrayList<>(tile2.getValuePairs());
+        List<Pair<Double,Double>> tilePairs1 = tile1.getValuePairs();
+        List<Pair<Double,Double>> tilePairs2 = tile2.getValuePairs();
 
         for(Pair<Double,Double> p1: tilePairs1) {
             double x1 = p1.getFirst();
@@ -120,15 +118,16 @@ public class TileProcessor {
 
     private void processSouthEastTiles(Tile tile) {
         int tile1Row = tile.getRow();
-        int tile2Col = tile.getCol();
+        int tile2Col = tile.getColumn();
         double tile1PairsCount = tile.getCount();
+        double tile2PairsCount = 0;
 
         for (int i = tile1Row + 1; i < maxRows; i++) {
             for (int j = tile2Col + 1; j < maxColumns; j++) {
                 if (tiles[i][j].isEmpty()) {
                     continue;  // Skip empty tile
                 }
-                double tile2PairsCount = tiles[i][j].getCount();
+                tile2PairsCount = tiles[i][j].getCount();
                 statistics.incrementConcordantCount(tile1PairsCount * tile2PairsCount);
             }
         }
@@ -136,8 +135,9 @@ public class TileProcessor {
 
     private void processSouthWestTiles(Tile tile) {
         int row = tile.getRow();
-        int col = tile.getCol();
+        int col = tile.getColumn();
         double tile1PairsCount = tile.getCount();
+        double tile2PairsCount = 0;
 
         for (int i = row + 1; i < maxRows; i++) {
             for (int j = col - 1; j >= 0; j--) {
@@ -145,7 +145,7 @@ public class TileProcessor {
                     continue;  // Skip empty tile
                 }
 
-                double tile2PairsCount = tiles[i][j].getCount();
+                tile2PairsCount = tiles[i][j].getCount();
                 statistics.incrementDiscordantCount(tile1PairsCount * tile2PairsCount);
             }
         }

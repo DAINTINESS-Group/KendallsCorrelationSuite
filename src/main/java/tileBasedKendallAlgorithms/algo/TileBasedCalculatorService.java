@@ -8,7 +8,7 @@ import tileBasedKendallAlgorithms.tiles.TilesManager;
 public class TileBasedCalculatorService {
 
     private final IBinCalculator binCalculator;
-    private Dataset<Row> dataset;
+    private final Dataset<Row> dataset;
     private final String column1;
     private final String column2;
     private Tile[][] tiles;
@@ -19,19 +19,7 @@ public class TileBasedCalculatorService {
         this.column1 = column1;
         this.column2 = column2;
         this.dataset = dataset;
-        prepareDataset();
         setupTiles();
-    }
-
-    private void prepareDataset() {
-        filterAndConvertSelectedColumnsToDouble();
-    }
-
-    private void filterAndConvertSelectedColumnsToDouble() {
-        dataset = dataset.select(
-                dataset.col(column1).cast("double").as(column1),
-                dataset.col(column2).cast("double").as(column2)
-        );
     }
 
     private void setupTiles() {
