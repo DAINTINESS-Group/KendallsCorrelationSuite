@@ -11,8 +11,6 @@ import java.util.Collection;
 
 import static org.junit.Assert.assertEquals;
 
-import tileBasedKendallAlgorithms.algo.BinCalculatorFactory;
-import tileBasedKendallAlgorithms.algo.IBinCalculator;
 import tileBasedKendallAlgorithms.algo.TileBasedCalculatorService;
 import tileBasedKendallAlgorithms.reader.DatasetReader;
 import tileBasedkendallAlgorithms.SparkSessionTestSetup;
@@ -49,8 +47,7 @@ public class TileBasedCalculatorServiceTest extends SparkSessionTestSetup {
         // Arrange
         DatasetReader datasetReader = new DatasetReader(spark, path, delimiter);
         Dataset<Row> dataset = datasetReader.read(column1, column2);
-        IBinCalculator binCalculator = new BinCalculatorFactory().createBinCalculator(BinCalculatorFactory.BinCalculatorMethods.SQUARE_ROOT);
-        TileBasedCalculatorService service = new TileBasedCalculatorService(dataset, binCalculator, column1, column2);
+        TileBasedCalculatorService service = new TileBasedCalculatorService(dataset, column1, column2);
 
         double actual = service.calculateKendallTauCorrelation();
 

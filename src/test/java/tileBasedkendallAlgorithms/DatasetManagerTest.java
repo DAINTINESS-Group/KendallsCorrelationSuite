@@ -1,7 +1,6 @@
 package tileBasedkendallAlgorithms;
 
 import tileBasedKendallAlgorithms.SparkBasedKendallManager;
-import tileBasedKendallAlgorithms.algo.BinCalculatorFactory;
 
 import org.junit.Test;
 
@@ -16,10 +15,9 @@ public class DatasetManagerTest {
         String path = "src/test/resources/input/TauAData.tsv";
         String column1 = "X";
         String column2 = "Y";
-        BinCalculatorFactory.BinCalculatorMethods binCalculationMethod = BinCalculatorFactory.BinCalculatorMethods.SQUARE_ROOT;
 
         sparkBasedKendallManager.loadDataset(path, column1, column2);
-        double actual = sparkBasedKendallManager.calculateKendallTau("X", "Y", binCalculationMethod);
+        double actual = sparkBasedKendallManager.calculateKendallTau("X", "Y");
         double expected = 0.23076923076923078;
         double delta = 0.0;
 

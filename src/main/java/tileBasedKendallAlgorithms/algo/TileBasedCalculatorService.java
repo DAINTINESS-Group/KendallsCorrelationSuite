@@ -6,16 +6,13 @@ import tileBasedKendallAlgorithms.tiles.Tile;
 import tileBasedKendallAlgorithms.tiles.TilesManager;
 
 public class TileBasedCalculatorService {
-
-    private final IBinCalculator binCalculator;
     private final Dataset<Row> dataset;
     private final String column1;
     private final String column2;
     private Tile[][] tiles;
     private final CorrelationStatistics statistics = new CorrelationStatistics();
 
-    public TileBasedCalculatorService(Dataset<Row> dataset, IBinCalculator binCalculator, String column1, String column2) {
-        this.binCalculator = binCalculator;
+    public TileBasedCalculatorService(Dataset<Row> dataset, String column1, String column2) {
         this.column1 = column1;
         this.column2 = column2;
         this.dataset = dataset;
@@ -23,7 +20,7 @@ public class TileBasedCalculatorService {
     }
 
     private void setupTiles() {
-        TilesManager tilesManager = new TilesManager(dataset, column1, column2, binCalculator);
+        TilesManager tilesManager = new TilesManager(dataset, column1, column2);
         tiles = tilesManager.createTilesArray();
     }
 
@@ -38,8 +35,10 @@ public class TileBasedCalculatorService {
                 }
             }
         }
+
         System.out.println(statistics);
         System.out.println(timer);
+
         return statistics.calculateCorrelationResult();
     }
 }

@@ -1,4 +1,5 @@
 package tileBasedKendallAlgorithms.algo;
+import java.util.Locale;
 
 public class CalculationTimer {
     private static double compareWithSelfTime;
@@ -27,10 +28,11 @@ public class CalculationTimer {
     @Override
     public String toString() {
         return "CalculationTimer:\n{" +
-                "Compare With Self Time = " + compareWithSelfTime + " seconds" +
-                ",\nCompare With East Time = " + compareWithEastTime + " seconds" +
-                ",\nCompare With South Time = " + compareWithSouthTime + " seconds" +
-                ",\nProcess Non Cross Time = " + processNonCrossTime + " seconds }";
-
+                "Compare With Self Time = " + String.format(Locale.US,"%.3f", compareWithSelfTime) + " seconds" +
+                ",\nCompare With East Time = " + String.format(Locale.US,"%.3f", compareWithEastTime) + " seconds" +
+                ",\nCompare With South Time = " + String.format(Locale.US,"%.3f", compareWithSouthTime) + " seconds" +
+                ",\nProcess Non Cross Time = " + String.format(Locale.US,"%.3f", processNonCrossTime) + " seconds }" +
+                ",\nTotal Processing took: " + String.format(Locale.US,"%.3f",(compareWithSelfTime + compareWithEastTime + compareWithSouthTime + processNonCrossTime));
     }
+
 }

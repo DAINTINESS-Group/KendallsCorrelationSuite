@@ -43,4 +43,13 @@ public class Tile implements Serializable{
     public int getColumn() {
         return column;
     }
+
+    @Override
+    public String toString() {
+        return "Tile{" +
+                "row=" + row +
+                ", column=" + column +
+                ", pairCounter=" + pairCounter +
+                '}';
+    }
 }
