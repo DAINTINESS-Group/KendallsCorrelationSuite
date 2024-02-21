@@ -1,7 +1,6 @@
 package tileBasedKendallAlgorithms.tiles;
 
 import static org.apache.spark.sql.functions.*;
-import static tileBasedKendallAlgorithms.tiles.ColumnsMeasures.*;
 
 import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
@@ -15,7 +14,7 @@ public class TilesManager implements Serializable {
     private final String column1;
     private final String column2;
     private static Tile[][] tiles;
-    private double[] columnsStats;
+    private ColumnsStatistics columnsStatistics;
     private final double rangeWidthX;
     private final double rangeWidthY;
     private final Dataset<Row> dataset;
@@ -40,17 +39,17 @@ public class TilesManager implements Serializable {
 
         start = System.currentTimeMillis();
 
-        rangeWidthX = calculateRangesWidth(columnsStats[STD_DEV_X], datasetRowCount);
-        rangeWidthY = calculateRangesWidth(columnsStats[STD_DEV_Y], datasetRowCount);
-        rangeCountX = calculateRangesCount(rangeWidthX, columnsStats[MIN_X], columnsStats[MAX_X]);
-        rangeCountY = calculateRangesCount(rangeWidthY, columnsStats[MIN_Y], columnsStats[MAX_Y]);
+        rangeWidthX = calculateRangesWidth(columnsStatistics.getStdDevX(), datasetRowCount);
+        rangeWidthY = calculateRangesWidth(columnsStatistics.getStdDevY(), datasetRowCount);
+        rangeCountX = calculateRangesCount(rangeWidthX, columnsStatistics.getMinX(), columnsStatistics.getMaxX());
+        rangeCountY = calculateRangesCount(rangeWidthY, columnsStatistics.getMinY(), columnsStatistics.getMaxY());
 
 //        double totalTiles = (datasetRowCount / avgPairsPerTile);
 //        int tilesPerRow = (int) Math.sqrt(totalTiles);
 //        rangeCountX = tilesPerRow;
 //        rangeCountY = tilesPerRow;
-//        rangeWidthX = (columnsStats[MAX_X] - columnsStats[MIN_X]) / rangeCountX;
-//        rangeWidthY = (columnsStats[MAX_Y] - columnsStats[MIN_Y]) / rangeCountY;
+//        rangeWidthX = (measures.getMaxX() - measures.getMinX()) / rangeCountX;
+//        rangeWidthY = (measures.getMaxY() - measures.getMinY()) / rangeCountY;
 
         end = System.currentTimeMillis();
         elapsed = (end - start) / 1000.0;
@@ -88,8 +87,8 @@ public class TilesManager implements Serializable {
             double valueX = row.getDouble(row.fieldIndex(column1));
             double valueY = row.getDouble(row.fieldIndex(column2));
 
-            int tileRow = (int) Math.min(rangeCountY - 1, Math.floor((valueY - columnsStats[MIN_Y]) / rangeWidthY));
-            int tileCol = (int) Math.min(rangeCountX - 1, Math.floor((valueX - columnsStats[MIN_X]) / rangeWidthX));
+            int tileRow = (int) Math.min(rangeCountY - 1, Math.floor((valueY - columnsStatistics.getMinY()) / rangeWidthY));
+            int tileCol = (int) Math.min(rangeCountX - 1, Math.floor((valueX - columnsStatistics.getMinX()) / rangeWidthX));
 
             if (tileRow >= 0 && tileRow < rangeCountY && tileCol >= 0 && tileCol < rangeCountX) {
                 synchronized (tiles[tileRow][tileCol]) {
@@ -111,15 +110,15 @@ public class TilesManager implements Serializable {
                 stddev(column2).alias("stddevY")
         ).first();
 
-        // Extract the min and max values for both columns
-        double minValueX = result.getDouble(MIN_X);
-        double maxValueX = result.getDouble(MAX_X);
-        double minValueY = result.getDouble(MIN_Y);
-        double maxValueY = result.getDouble(MAX_Y);
-        double stdDevX = result.getDouble(STD_DEV_X);
-        double stdDevY = result.getDouble(STD_DEV_Y);
+        // Extract the min, max and standard deviation values for both columns
+        double minValueX = result.getDouble(0);
+        double maxValueX = result.getDouble(1);
+        double minValueY = result.getDouble(2);
+        double maxValueY = result.getDouble(3);
+        double stdDevX = result.getDouble(4);
+        double stdDevY = result.getDouble(5);
 
-        columnsStats = new double[]{minValueX, maxValueX, minValueY, maxValueY, stdDevX, stdDevY};
+        columnsStatistics = new ColumnsStatistics(minValueX, maxValueX, minValueY, maxValueY, stdDevX, stdDevY);
     }
 
     public int calculateRangesCount(double binWidth, double min, double max) {
