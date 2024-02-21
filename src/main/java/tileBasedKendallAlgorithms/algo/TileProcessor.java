@@ -1,155 +1,190 @@
 package tileBasedKendallAlgorithms.algo;
 
-import org.apache.commons.math3.util.Pair;
+import tileBasedKendallAlgorithms.tiles.DoublePair;
 import tileBasedKendallAlgorithms.tiles.Tile;
 
+import java.util.Comparator;
 import java.util.List;
 
 public class TileProcessor {
 
     private final Tile[][] tiles;
-    private final CorrelationStatistics statistics;
+    private final CorrelationStatistics correlationStats;
     private final int maxColumns;
     private final int maxRows;
 
-    public TileProcessor(Tile[][] tiles, CorrelationStatistics statistics) {
+    public TileProcessor(Tile[][] tiles, CorrelationStatistics correlationStats) {
         this.tiles = tiles;
-        this.statistics = statistics;
+        this.correlationStats = correlationStats;
         maxRows = tiles.length;
         maxColumns = tiles[0].length;
     }
 
     public void processTile(Tile tile) {
+        int tileRow = tile.getRow();
+        int tileColumn = tile.getColumn();
+        double tilePairsCount = tile.getCount();
+        List<DoublePair> tilePairs = tile.getValuePairs();
+
         long startTime = System.currentTimeMillis();
-        compareTileWithSelf(tile);
+        compareTileWithSelf(tilePairs, tilePairsCount);
         long endTime = System.currentTimeMillis();
         double elapsedTimeSeconds = (endTime - startTime) / 1000.0;
         CalculationTimer.incrementCompareWithSelfTime(elapsedTimeSeconds);
 
         startTime = System.currentTimeMillis();
-        compareTileWithEastTiles(tile);
+        compareTileWithEastTiles(tilePairs, tileRow, tileColumn);
         endTime = System.currentTimeMillis();
         elapsedTimeSeconds = (endTime - startTime) / 1000.0;
         CalculationTimer.incrementCompareWithEastTime(elapsedTimeSeconds);
 
         startTime = System.currentTimeMillis();
-        compareTileWithSouthTiles(tile);
+        compareTileWithSouthTiles(tilePairs, tileRow, tileColumn);
         endTime = System.currentTimeMillis();
         elapsedTimeSeconds = (endTime - startTime) / 1000.0;
         CalculationTimer.incrementCompareWithSouthTime(elapsedTimeSeconds);
 
         startTime = System.currentTimeMillis();
-        processNonCrossTiles(tile);
+        processNonCrossTiles(tilePairsCount, tileRow, tileColumn);
         endTime = System.currentTimeMillis();
         elapsedTimeSeconds = (endTime - startTime) / 1000.0;
         CalculationTimer.incrementCompareWithNonCrossTime(elapsedTimeSeconds);
     }
 
-    private void compareTileWithSelf(Tile tile) {
-        List<Pair<Double,Double>> tilePairs = tile.getValuePairs();
-        int numPairs = tilePairs.size();
-        for (int i = 0; i < numPairs - 1 ; i++) {
-            double x1 = tilePairs.get(i).getFirst();
-            double y1 = tilePairs.get(i).getSecond();
-            for (int j = i + 1; j < numPairs; j++) {
-                Pair<Double, Double> pair = tilePairs.get(j);
-                double x2 = pair.getFirst();
-                double y2 = pair.getSecond();
-                compareValuePairs(x1, y1, x2, y2);
+    private void compareTileWithSelf(List<DoublePair> tilePairs, double tilePairsCount) {
+        for (int i = 0; i < tilePairsCount - 1; i++) {
+            DoublePair pair1 = tilePairs.get(i);
+            for (int j = i + 1; j < tilePairsCount; j++) {
+                DoublePair pair2 = tilePairs.get(j);
+                compareValuePairs(pair1, pair2);
             }
         }
     }
 
-    private void compareTileWithEastTiles(Tile tile) {
-        int tileColumn = tile.getColumn();
-        int tileRow = tile.getRow();
-
+    private void compareTileWithEastTiles(List<DoublePair> tilePairs, int tileRow, int tileColumn) {
         for (int column = tileColumn + 1; column < maxColumns; column++) {
             Tile eastTile = tiles[tileRow][column];
             if (!eastTile.isEmpty()) {
-                compareTiles(tile, eastTile);
+                List<DoublePair> eastTilePairs = eastTile.getValuePairs();
+                compareWithEast(tilePairs, eastTilePairs);
             }
         }
     }
 
-    private void compareTileWithSouthTiles(Tile tile) {
-        int tileRow = tile.getRow();
-        int tileColumn = tile.getColumn();
-
+    private void compareTileWithSouthTiles(List<DoublePair> tilePairs, int tileRow, int tileColumn) {
         for (int row = tileRow + 1; row < maxRows; row++) {
             Tile southTile = tiles[row][tileColumn];
             if (!southTile.isEmpty()) {
-                compareTiles(tile, southTile);
+                List<DoublePair> southTilePairs = southTile.getValuePairs();
+                compareWithSouth(tilePairs, southTilePairs);
             }
         }
     }
 
-    private void compareTiles(Tile tile1, Tile tile2) {
-        List<Pair<Double,Double>> tilePairs1 = tile1.getValuePairs();
-        List<Pair<Double,Double>> tilePairs2 = tile2.getValuePairs();
+    private void compareWithSouth(List<DoublePair> tilePairs, List<DoublePair> southTilePairs) {
+        // Sort the southTilePairs by X to optimize comparison
+        southTilePairs.sort(Comparator.comparingDouble(DoublePair::getX));
 
-        for(Pair<Double,Double> p1: tilePairs1) {
-            double x1 = p1.getFirst();
-            double y1 = p1.getSecond();
-            for(Pair<Double,Double> p2: tilePairs2) {
-                double x2 = p2.getFirst();
-                double y2 = p2.getSecond();
-                compareValuePairs(x1, y1, x2, y2);
+        for (DoublePair referencePair : tilePairs) {
+            double concordant = 0, discordant = 0, tiedOnX = 0;
+            double referenceTileXValue = referencePair.getX();
+
+            for (DoublePair southPair : southTilePairs) {
+                double southTileXValue = southPair.getX();
+
+                if (referenceTileXValue < southTileXValue) {
+                    break; // Break for the rest are concordant
+                }
+                else if (referenceTileXValue > southTileXValue) {
+                    discordant++;
+                }
+                else if (referenceTileXValue == southTileXValue) {
+                    tiedOnX++;
+                }
             }
+            concordant = southTilePairs.size() - discordant - tiedOnX;
+
+            //System.out.println("South size: " + southTilePairs.size() + " d+c+t = " + (concordant + discordant + tiedOnY));
+            correlationStats.incrementConcordantCount(concordant);
+            correlationStats.incrementDiscordantCount(discordant);
+            correlationStats.incrementTiedXCount(tiedOnX);
         }
     }
 
-    private void compareValuePairs(double x1, double y1, double x2, double y2) {
+    private void compareWithEast(List<DoublePair> tilePairs, List<DoublePair> southTilePairs) {
+        southTilePairs.sort(Comparator.comparingDouble(DoublePair::getY));
+
+        for (DoublePair referencePair : tilePairs) {
+            double concordant = 0, discordant = 0, tiedOnY = 0;
+            double referenceTileYValue = referencePair.getY();
+
+            for (DoublePair southPair : southTilePairs) {
+                double southTileYValue = southPair.getY();
+
+                if (referenceTileYValue < southTileYValue) {
+                    break; // Break for the rest are concordant
+                }
+                else if (referenceTileYValue > southTileYValue) {
+                    discordant++;
+                }
+                else if (referenceTileYValue == southTileYValue) {
+                    tiedOnY++;
+                }
+            }
+            concordant = southTilePairs.size() - discordant - tiedOnY;
+
+            correlationStats.incrementConcordantCount(concordant);
+            correlationStats.incrementDiscordantCount(discordant);
+            correlationStats.incrementTiedYCount(tiedOnY);
+        }
+    }
+
+    private void compareValuePairs(DoublePair pair1, DoublePair pair2) {
+        double x1 = pair1.getX(), y1 = pair1.getY();
+        double x2 = pair2.getX(), y2 = pair2.getY();
+
         if ((x1 < x2 && y1 < y2) || (x1 > x2 && y1 > y2)) {
-            statistics.incrementConcordantCount();
+            correlationStats.incrementConcordantCount();
         } else if ((x1 < x2 && y1 > y2) || (x1 > x2 && y1 < y2)) {
-            statistics.incrementDiscordantCount();
+            correlationStats.incrementDiscordantCount();
         } else if (x1 == x2 && y1 != y2) {
-            statistics.incrementTiedXCount();
+            correlationStats.incrementTiedXCount();
         } else if (x1 != x2 && y1 == y2) {
-            statistics.incrementTiedYCount();
+            correlationStats.incrementTiedYCount();
         }
     }
 
-    private void processNonCrossTiles(Tile tile) {
-        processSouthEastTiles(tile);
-        processSouthWestTiles(tile);
+    private void processNonCrossTiles(double tilePairCount, int tileRow, int tileColumn) {
+        processSouthEastTiles(tilePairCount, tileRow, tileColumn);
+        processSouthWestTiles(tilePairCount, tileRow, tileColumn);
     }
 
-    private void processSouthEastTiles(Tile tile) {
-        int tile1Row = tile.getRow();
-        int tile2Col = tile.getColumn();
-        double tile1PairsCount = tile.getCount();
-        double tile2PairsCount = 0;
+    private void processSouthEastTiles(double tilePairsCount, int tileRow, int tileColumn) {
+        double southEastTilesPairsCount;
 
-        for (int i = tile1Row + 1; i < maxRows; i++) {
-            for (int j = tile2Col + 1; j < maxColumns; j++) {
-                if (tiles[i][j].isEmpty()) {
+        for (int row = tileRow + 1; row < maxRows; row++) {
+            for (int column = tileColumn + 1; column < maxColumns; column++) {
+                if (tiles[row][column].isEmpty()) {
                     continue;  // Skip empty tile
                 }
-                tile2PairsCount = tiles[i][j].getCount();
-                statistics.incrementConcordantCount(tile1PairsCount * tile2PairsCount);
+                southEastTilesPairsCount = tiles[row][column].getCount();
+                correlationStats.incrementConcordantCount(tilePairsCount * southEastTilesPairsCount);
             }
         }
     }
 
-    private void processSouthWestTiles(Tile tile) {
-        int row = tile.getRow();
-        int col = tile.getColumn();
-        double tile1PairsCount = tile.getCount();
-        double tile2PairsCount = 0;
+    private void processSouthWestTiles(double tilePairCount, int tileRow, int tileColumn) {
+        double southWestTilePairsCount;
 
-        for (int i = row + 1; i < maxRows; i++) {
-            for (int j = col - 1; j >= 0; j--) {
-                if (tiles[i][j].isEmpty()) {
+        for (int row = tileRow + 1; row < maxRows; row++) {
+            for (int column = tileColumn - 1; column >= 0; column--) {
+                if (tiles[row][column].isEmpty()) {
                     continue;  // Skip empty tile
                 }
 
-                tile2PairsCount = tiles[i][j].getCount();
-                statistics.incrementDiscordantCount(tile1PairsCount * tile2PairsCount);
+                southWestTilePairsCount = tiles[row][column].getCount();
+                correlationStats.incrementDiscordantCount(tilePairCount * southWestTilePairsCount);
             }
         }
     }
-
-
 }

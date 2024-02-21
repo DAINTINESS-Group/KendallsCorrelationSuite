@@ -4,13 +4,11 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.math3.util.Pair;
-
 public class Tile implements Serializable{
 
     private final int row;
     private final int column;
-    private final List<Pair<Double, Double>> valuePairs;
+    private final List<DoublePair> valuePairs;
     private double pairCounter = 0;
 
     public Tile(int row, int col) {
@@ -27,11 +25,11 @@ public class Tile implements Serializable{
         return pairCounter;
     }
 
-    public List<Pair<Double, Double>> getValuePairs() {
+    public List<DoublePair> getValuePairs() {
         return valuePairs;
     }
 
-    public void addValuePair(Pair<Double, Double> pair) {
+    public void addValuePair(DoublePair pair) {
         valuePairs.add(pair);
         pairCounter++;
     }

@@ -34,8 +34,16 @@ public class CorrelationStatistics {
         tiedXPairsCount++;
     }
 
+    public void incrementTiedXCount(double amount) {
+        tiedXPairsCount += amount;
+    }
+
     public void incrementTiedYCount() {
         tiedYPairsCount++;
+    }
+
+    public void incrementTiedYCount(double amount) {
+        tiedYPairsCount += amount;
     }
 
     public double calculateCorrelationResult() {
