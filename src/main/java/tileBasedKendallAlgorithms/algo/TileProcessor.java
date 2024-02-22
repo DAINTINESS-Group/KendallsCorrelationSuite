@@ -66,7 +66,7 @@ public class TileProcessor {
             Tile eastTile = tiles[tileRow][column];
             if (!eastTile.isEmpty()) {
                 List<DoublePair> eastTilePairs = eastTile.getValuePairs();
-                compareWithEast(tilePairs, eastTilePairs);
+                compareWithEastTile(tilePairs, eastTilePairs);
             }
         }
     }
@@ -76,14 +76,14 @@ public class TileProcessor {
             Tile southTile = tiles[row][tileColumn];
             if (!southTile.isEmpty()) {
                 List<DoublePair> southTilePairs = southTile.getValuePairs();
-                compareWithSouth(tilePairs, southTilePairs);
+                compareWithSouthTile(tilePairs, southTilePairs);
             }
         }
     }
 
-    private void compareWithSouth(List<DoublePair> tilePairs, List<DoublePair> southTilePairs) {
-        // Sort the southTilePairs by X to optimize comparison
+    private void compareWithSouthTile(List<DoublePair> tilePairs, List<DoublePair> southTilePairs) {
         southTilePairs.sort(Comparator.comparingDouble(DoublePair::getX));
+        double southPairsCount = southTilePairs.size();
 
         for (DoublePair referencePair : tilePairs) {
             double concordant = 0, discordant = 0, tiedOnX = 0;
@@ -92,46 +92,41 @@ public class TileProcessor {
             for (DoublePair southPair : southTilePairs) {
                 double southTileXValue = southPair.getX();
 
-                if (referenceTileXValue < southTileXValue) {
+                if (referenceTileXValue < southTileXValue)
                     break; // Break for the rest are concordant
-                }
-                else if (referenceTileXValue > southTileXValue) {
+                else if (referenceTileXValue > southTileXValue)
                     discordant++;
-                }
-                else if (referenceTileXValue == southTileXValue) {
+                else
                     tiedOnX++;
-                }
-            }
-            concordant = southTilePairs.size() - discordant - tiedOnX;
 
-            //System.out.println("South size: " + southTilePairs.size() + " d+c+t = " + (concordant + discordant + tiedOnY));
+            }
+            concordant = southPairsCount - discordant - tiedOnX;
+
             correlationStats.incrementConcordantCount(concordant);
             correlationStats.incrementDiscordantCount(discordant);
             correlationStats.incrementTiedXCount(tiedOnX);
         }
     }
 
-    private void compareWithEast(List<DoublePair> tilePairs, List<DoublePair> southTilePairs) {
-        southTilePairs.sort(Comparator.comparingDouble(DoublePair::getY));
+    private void compareWithEastTile(List<DoublePair> tilePairs, List<DoublePair> eastTilePairs) {
+        eastTilePairs.sort(Comparator.comparingDouble(DoublePair::getY));
+        double eastPairsCount = eastTilePairs.size();
 
         for (DoublePair referencePair : tilePairs) {
             double concordant = 0, discordant = 0, tiedOnY = 0;
             double referenceTileYValue = referencePair.getY();
 
-            for (DoublePair southPair : southTilePairs) {
-                double southTileYValue = southPair.getY();
+            for (DoublePair eastPair : eastTilePairs) {
+                double eastTileYValue = eastPair.getY();
 
-                if (referenceTileYValue < southTileYValue) {
+                if (referenceTileYValue < eastTileYValue)
                     break; // Break for the rest are concordant
-                }
-                else if (referenceTileYValue > southTileYValue) {
+                else if (referenceTileYValue > eastTileYValue)
                     discordant++;
-                }
-                else if (referenceTileYValue == southTileYValue) {
+                else
                     tiedOnY++;
-                }
             }
-            concordant = southTilePairs.size() - discordant - tiedOnY;
+            concordant = eastPairsCount - discordant - tiedOnY;
 
             correlationStats.incrementConcordantCount(concordant);
             correlationStats.incrementDiscordantCount(discordant);
