@@ -34,13 +34,18 @@ public class DemoApp {
 //        String column1 = "FLIGHT_NUMBER";
 //        String column2 = "DEPARTURE_TIME";
 //        String delimiter = ",";
-//
+
 //        String filePath = "src\\test\\resources\\input\\flights2_5m.csv"; // 2.5 million rows (Disclaimer: This takes 10 minutes (On my machine at least))
 //        String column1 = "FLIGHT_NUMBER";
 //        String column2 = "DEPARTURE_TIME";
 //        String delimiter = ",";
 
-        // manufacturer,model,year,price,transmission,mileage,fuelType,tax,mpg,engineSize
+//        manufacturer,model,year,price,transmission,mileage,fuelType,tax,mpg,engineSize
+//        String filePath = "src\\test\\resources\\input\\xy_values.csv";
+//        String column1 = "X";
+//        String column2 = "Y";
+//        String delimiter = ",";
+
         String filePath = "src\\test\\resources\\input\\cars_100k.csv";
         String column1 = "mileage";
         String column2 = "mpg";

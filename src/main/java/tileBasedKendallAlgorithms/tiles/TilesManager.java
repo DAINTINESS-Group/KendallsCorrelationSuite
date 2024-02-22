@@ -39,17 +39,17 @@ public class TilesManager implements Serializable {
 
         start = System.currentTimeMillis();
 
-        rangeWidthX = calculateRangesWidth(columnsStatistics.getStdDevX(), datasetRowCount);
-        rangeWidthY = calculateRangesWidth(columnsStatistics.getStdDevY(), datasetRowCount);
-        rangeCountX = calculateRangesCount(rangeWidthX, columnsStatistics.getMinX(), columnsStatistics.getMaxX());
-        rangeCountY = calculateRangesCount(rangeWidthY, columnsStatistics.getMinY(), columnsStatistics.getMaxY());
+//        rangeWidthX = calculateRangesWidth(columnsStatistics.getStdDevX(), datasetRowCount);
+//        rangeWidthY = calculateRangesWidth(columnsStatistics.getStdDevY(), datasetRowCount);
+//        rangeCountX = calculateRangesCount(rangeWidthX, columnsStatistics.getMinX(), columnsStatistics.getMaxX());
+//        rangeCountY = calculateRangesCount(rangeWidthY, columnsStatistics.getMinY(), columnsStatistics.getMaxY());
 
-//        double totalTiles = (datasetRowCount / avgPairsPerTile);
-//        int tilesPerRow = (int) Math.sqrt(totalTiles);
-//        rangeCountX = tilesPerRow;
-//        rangeCountY = tilesPerRow;
-//        rangeWidthX = (measures.getMaxX() - measures.getMinX()) / rangeCountX;
-//        rangeWidthY = (measures.getMaxY() - measures.getMinY()) / rangeCountY;
+        double totalTiles = (datasetRowCount / avgPairsPerTile);
+        int tilesPerRow = (int) Math.sqrt(totalTiles);
+        rangeCountX = tilesPerRow;
+        rangeCountY = tilesPerRow;
+        rangeWidthX = (columnsStatistics.getMaxX() - columnsStatistics.getMinX()) / rangeCountX;
+        rangeWidthY = (columnsStatistics.getMaxY() - columnsStatistics.getMinY()) / rangeCountY;
 
         end = System.currentTimeMillis();
         elapsed = (end - start) / 1000.0;
@@ -83,12 +83,15 @@ public class TilesManager implements Serializable {
     }
 
     private void populateTiles() {
+        double minX = columnsStatistics.getMinX();
+        double minY = columnsStatistics.getMinY();
+
         dataset.foreach(row -> {
             double valueX = row.getDouble(row.fieldIndex(column1));
             double valueY = row.getDouble(row.fieldIndex(column2));
 
-            int tileRow = (int) Math.min(rangeCountY - 1, Math.floor((valueY - columnsStatistics.getMinY()) / rangeWidthY));
-            int tileCol = (int) Math.min(rangeCountX - 1, Math.floor((valueX - columnsStatistics.getMinX()) / rangeWidthX));
+            int tileRow = (int) Math.min(rangeCountY - 1, Math.floor((valueY - minY) / rangeWidthY));
+            int tileCol = (int) Math.min(rangeCountX - 1, Math.floor((valueX - minX) / rangeWidthX));
 
             if (tileRow >= 0 && tileRow < rangeCountY && tileCol >= 0 && tileCol < rangeCountX) {
                 synchronized (tiles[tileRow][tileCol]) {
