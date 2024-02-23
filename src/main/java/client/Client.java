@@ -1,17 +1,12 @@
 package client;
 
-import listBasedKendallAlgorithms.ApacheCommonsKendall;
-import listBasedKendallAlgorithms.ColumnPair;
-import listBasedKendallAlgorithms.IListBasedKendallCalculator;
-import listBasedKendallAlgorithms.ListBasedKendallMethodsService;
-import listBasedKendallAlgorithms.Reader;
-import tileBasedKendallAlgorithms.SparkBasedKendallManager;
-
+import listBasedKendallAlgorithms.*;
 import org.apache.spark.sql.AnalysisException;
+import tileBasedKendallAlgorithms.SparkBasedKendallManager;
 
 import java.io.IOException;
 
-public class DemoApp {
+public class Client {
     public static void main(String[] args) throws IOException, AnalysisException {
 
         Reader reader = new Reader();
@@ -26,7 +21,7 @@ public class DemoApp {
 //        String delimiter = ",";
 
 //        String filePath = "src\\test\\resources\\input\\AAL_Data.csv";
-//        String column1 = "low";
+//        String column1 = "date";
 //        String column2 = "high";
 //        String delimiter = ",";
 
@@ -88,8 +83,8 @@ public class DemoApp {
 //        System.out.println("Actual: " + bruteForceTauA);
 //        System.out.println("brute force elapsed time: " + elapsedTimeSeconds + " seconds");
 //        System.out.println(" ----- \n");
-//
-//        /* BROPHY */
+////
+////        /* BROPHY */
 //        IListBasedKendallCalculator brophyKendallTauB = methods.getMethod("Brophy");
 //        startTime = System.currentTimeMillis();
 //        double actualBrophy = brophyKendallTauB.calculateKendall(columnPair);
@@ -111,7 +106,7 @@ public class DemoApp {
         System.out.println("Spark InitialSetup and Dataset loading took: " + elapsedTimeSeconds + "\n");
 
         System.out.println(filePath);
-        
+
         startTime = System.currentTimeMillis();
         double kendall = sparkBasedKendallManager.calculateKendallTau(column1, column2);
         endTime = System.currentTimeMillis();

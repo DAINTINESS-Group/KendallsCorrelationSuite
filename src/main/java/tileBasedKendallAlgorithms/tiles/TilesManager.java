@@ -1,24 +1,24 @@
 package tileBasedKendallAlgorithms.tiles;
 
-import static org.apache.spark.sql.functions.*;
-
 import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
 
 import java.io.Serializable;
 
+import static org.apache.spark.sql.functions.*;
+
 
 public class TilesManager implements Serializable {
+    private static Tile[][] tiles;
     private final int rangeCountX;
     private final int rangeCountY;
     private final String column1;
     private final String column2;
-    private static Tile[][] tiles;
-    private ColumnsStatistics columnsStatistics;
     private final double rangeWidthX;
     private final double rangeWidthY;
     private final Dataset<Row> dataset;
-    private final double avgPairsPerTile = 100;
+    private final double avgPairsPerTile = 10;
+    private ColumnsStatistics columnsStatistics;
 
     public TilesManager(Dataset<Row> dataset, String column1, String column2) {
         this.column1 = column1;
@@ -72,8 +72,8 @@ public class TilesManager implements Serializable {
 
     private void initializeTilesArray() {
         double start = System.currentTimeMillis();
-        for (int row = 0; row < this.rangeCountY; row++) {
-            for (int col = 0; col < this.rangeCountX; col++) {
+        for (int row = 0; row < rangeCountY; row++) {
+            for (int col = 0; col < rangeCountX; col++) {
                 tiles[row][col] = new Tile(row, col);
             }
         }
@@ -91,11 +91,11 @@ public class TilesManager implements Serializable {
             double valueY = row.getDouble(row.fieldIndex(column2));
 
             int tileRow = (int) Math.min(rangeCountY - 1, Math.floor((valueY - minY) / rangeWidthY));
-            int tileCol = (int) Math.min(rangeCountX - 1, Math.floor((valueX - minX) / rangeWidthX));
+            int tileColumn = (int) Math.min(rangeCountX - 1, Math.floor((valueX - minX) / rangeWidthX));
 
-            if (tileRow >= 0 && tileRow < rangeCountY && tileCol >= 0 && tileCol < rangeCountX) {
-                synchronized (tiles[tileRow][tileCol]) {
-                    tiles[tileRow][tileCol].addValuePair(new DoublePair(valueX, valueY));
+            if (tileRow >= 0 && tileRow < rangeCountY && tileColumn >= 0 && tileColumn < rangeCountX) {
+                synchronized (tiles[tileRow][tileColumn]) {
+                    tiles[tileRow][tileColumn].addValuePair(new DoublePair(valueX, valueY));
                 }
             } else {
                 throw new ArrayIndexOutOfBoundsException("Tried to access out of bounds array cell");

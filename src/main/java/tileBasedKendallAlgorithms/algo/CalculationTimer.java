@@ -1,4 +1,5 @@
 package tileBasedKendallAlgorithms.algo;
+
 import java.util.Locale;
 
 public class CalculationTimer {
@@ -7,7 +8,8 @@ public class CalculationTimer {
     private static double compareWithSouthTime;
     private static double processNonCrossTime;
 
-    public CalculationTimer() {}
+    public CalculationTimer() {
+    }
 
     public static void incrementCompareWithSelfTime(double time) {
         compareWithSelfTime += time;
@@ -28,11 +30,11 @@ public class CalculationTimer {
     @Override
     public String toString() {
         return "CalculationTimer:\n{" +
-                "Compare With Self Time = " + String.format(Locale.US,"%.3f", compareWithSelfTime) + " seconds" +
-                ",\nCompare With East Time = " + String.format(Locale.US,"%.3f", compareWithEastTime) + " seconds" +
-                ",\nCompare With South Time = " + String.format(Locale.US,"%.3f", compareWithSouthTime) + " seconds" +
-                ",\nProcess Non Cross Time = " + String.format(Locale.US,"%.3f", processNonCrossTime) + " seconds }" +
-                ",\nTotal Processing took: " + String.format(Locale.US,"%.3f",(compareWithSelfTime + compareWithEastTime + compareWithSouthTime + processNonCrossTime));
+                "Compare With Self Time = " + String.format(Locale.US, "%.3f", compareWithSelfTime) + " seconds" +
+                ",\nCompare With East Time = " + String.format(Locale.US, "%.3f", compareWithEastTime) + " seconds" +
+                ",\nCompare With South Time = " + String.format(Locale.US, "%.3f", compareWithSouthTime) + " seconds" +
+                ",\nProcess Non Cross Time = " + String.format(Locale.US, "%.3f", processNonCrossTime) + " seconds }" +
+                ",\nTotal Processing took: " + String.format(Locale.US, "%.3f", (compareWithSelfTime + compareWithEastTime + compareWithSouthTime + processNonCrossTime));
     }
 
 }

@@ -1,8 +1,8 @@
 package listBasedKendallAlgorithms;
 
-import java.util.HashMap;
-
 import listBasedKendallAlgorithms.ListBasedKendallFactory.KendallCalculatorMethods;
+
+import java.util.HashMap;
 
 public class ListBasedKendallMethodsService {
     private final HashMap<String, IListBasedKendallCalculator> methods;

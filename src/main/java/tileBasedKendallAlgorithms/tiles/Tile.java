@@ -4,17 +4,17 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Tile implements Serializable{
+public class Tile implements Serializable {
 
     private final int row;
     private final int column;
     private final List<DoublePair> valuePairs;
     private double pairCounter = 0;
 
-    public Tile(int row, int col) {
+    public Tile(int row, int column) {
         this.valuePairs = new ArrayList<>();
         this.row = row;
-        this.column = col;
+        this.column = column;
     }
 
     public boolean isEmpty() {

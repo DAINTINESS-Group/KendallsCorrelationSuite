@@ -87,8 +87,8 @@ public class TileProcessor {
 
         for (DoublePair referencePair : tilePairs) {
             double concordant = 0, discordant = 0, tiedOnX = 0;
-            double referenceTileXValue = referencePair.getX();
 
+            double referenceTileXValue = referencePair.getX();
             for (DoublePair southPair : southTilePairs) {
                 double southTileXValue = southPair.getX();
 
@@ -98,7 +98,6 @@ public class TileProcessor {
                     discordant++;
                 else
                     tiedOnX++;
-
             }
             concordant = southPairsCount - discordant - tiedOnX;
 

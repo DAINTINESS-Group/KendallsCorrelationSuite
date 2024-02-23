@@ -6,6 +6,11 @@ import java.io.FileReader;
 import java.io.IOException;
 
 public class Reader {
+    private final ColumnPair columnPair;
+
+    public Reader() {
+        columnPair = new ColumnPair();
+    }
 
     /**
      * Reads a CSV file, extracts data from specified columns, and stores it in a ColumnPair object.
@@ -20,8 +25,6 @@ public class Reader {
      *                                  there are not enough columns in the CSV data.
      */
     public ColumnPair read(String filePath, String xColumnName, String yColumnName, String delimiter) throws IOException, IllegalArgumentException {
-        ColumnPair columnPair = new ColumnPair();
-
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
             String line;
             String[] headers = reader.readLine().split(delimiter);

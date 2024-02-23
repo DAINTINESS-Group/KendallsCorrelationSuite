@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 /*
-* THis class calculates kendall's tau b following the algorithm by ALFRED L. BROPHY */
+ * THis class calculates kendall's tau b following the algorithm by ALFRED L. BROPHY */
 public class BrophyKendallCalculator implements IListBasedKendallCalculator {
 
     private double concordantPairs = 0.0;
@@ -16,9 +16,9 @@ public class BrophyKendallCalculator implements IListBasedKendallCalculator {
 
     @Override
     public double calculateKendall(ColumnPair pair) {
-        ArrayList<Double> xColumn = pair.getXColumn();
-        ArrayList<Double> yColumn = pair.getYColumn();
-        double size = xColumn.size();
+        double[] xColumn = pair.getXColumn().stream().mapToDouble(Double::doubleValue).toArray();
+        double[] yColumn = pair.getYColumn().stream().mapToDouble(Double::doubleValue).toArray();
+        double size = xColumn.length;
 
         // Variables for tied ranks
         double tiedPairsInX = 0;
@@ -29,8 +29,8 @@ public class BrophyKendallCalculator implements IListBasedKendallCalculator {
             double tiedRanksX = 0;
             double tiedRanksY = 0;
             for (int j = i + 1; j < size; j++) {
-                double deltaX = xColumn.get(j) - xColumn.get(i);
-                double deltaY = yColumn.get(j) - yColumn.get(i);
+                double deltaX = xColumn[i] - xColumn[j];
+                double deltaY = yColumn[i] - yColumn[j];
                 double product = deltaX * deltaY;
 
                 if (product != 0) {
@@ -39,11 +39,11 @@ public class BrophyKendallCalculator implements IListBasedKendallCalculator {
                     else
                         discordantPairs++;
                 } else {
-                    if (Objects.equals(xColumn.get(i), xColumn.get(j))) {
+                    if (Objects.equals(xColumn[i], xColumn[j])) {
                         tiedRanksX++;
                         tiedPairsInX++;
                     }
-                    if (Objects.equals(yColumn.get(i), yColumn.get(j))) {
+                    if (Objects.equals(yColumn[i], yColumn[j])) {
                         tiedRanksY++;
                         tiedPairsInY++;
                     }

@@ -9,8 +9,8 @@ public class TileBasedCalculatorService {
     private final Dataset<Row> dataset;
     private final String column1;
     private final String column2;
-    private Tile[][] tiles;
     private final CorrelationStatistics statistics = new CorrelationStatistics();
+    private Tile[][] tiles;
 
     public TileBasedCalculatorService(Dataset<Row> dataset, String column1, String column2) {
         this.column1 = column1;
