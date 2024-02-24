@@ -1,6 +1,7 @@
 package listBasedKendallAlgorithms;
 
-import java.util.ArrayList;
+import listBasedKendallAlgorithms.listBasedReader.ColumnPair;
+
 import java.util.Objects;
 
 /*

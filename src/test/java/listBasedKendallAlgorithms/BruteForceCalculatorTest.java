@@ -2,6 +2,8 @@ package listBasedKendallAlgorithms;
 
 import static org.junit.Assert.*;
 
+import listBasedKendallAlgorithms.listBasedReader.ColumnPair;
+import listBasedKendallAlgorithms.listBasedReader.Reader;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -14,8 +16,8 @@ public class BruteForceCalculatorTest {
 		String filePath = "src/test/resources/input/TauAData.tsv";
 		ColumnPair pair = reader.read(filePath, "X", "Y", "\t");
 
-		ApacheCommonsKendall commons = new ApacheCommonsKendall();
-		double expected = commons.calculateKendallTau(pair.getXColumn(), pair.getYColumn());
+		IListBasedKendallCalculator commons = new ApacheCommonsKendall();
+		double expected = commons.calculateKendall(pair);
 		
 		IListBasedKendallCalculator listBasedKendallCalculator = new BruteForceNoTiesKendallCalculator(); 
 		double actual = listBasedKendallCalculator.calculateKendall(pair);

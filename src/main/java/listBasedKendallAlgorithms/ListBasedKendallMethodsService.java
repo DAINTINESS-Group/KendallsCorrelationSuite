@@ -12,6 +12,7 @@ public class ListBasedKendallMethodsService {
         methods = new HashMap<>();
         methods.put("Brophy", factory.createKendallCalculator(KendallCalculatorMethods.BROPHY));
         methods.put("BruteForce", factory.createKendallCalculator(KendallCalculatorMethods.BRUTEFORCE));
+        methods.put("Apache kendall", factory.createKendallCalculator(KendallCalculatorMethods.APACHE_KENDALL));
     }
 
     public IListBasedKendallCalculator getMethod(String method) {

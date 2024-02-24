@@ -1,4 +1,4 @@
-package listBasedKendallAlgorithms;
+package listBasedKendallAlgorithms.listBasedReader;
 
 import java.util.ArrayList;
 

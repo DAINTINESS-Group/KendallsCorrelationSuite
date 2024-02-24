@@ -1,6 +1,8 @@
 package client;
 
 import listBasedKendallAlgorithms.*;
+import listBasedKendallAlgorithms.listBasedReader.ColumnPair;
+import listBasedKendallAlgorithms.listBasedReader.Reader;
 import org.apache.spark.sql.AnalysisException;
 import tileBasedKendallAlgorithms.SparkBasedKendallManager;
 
@@ -20,10 +22,10 @@ public class Client {
 //        String column2 = "high";
 //        String delimiter = ",";
 
-//        String filePath = "src\\test\\resources\\input\\AAL_Data.csv";
-//        String column1 = "date";
-//        String column2 = "high";
-//        String delimiter = ",";
+        String filePath = "src\\test\\resources\\input\\AAL_Data.csv";
+        String column1 = "open";
+        String column2 = "high";
+        String delimiter = ",";
 
 //        String filePath = "src\\test\\resources\\input\\flights5_7m.csv"; // 5.7 million rows (Disclaimer: This takes 30 minutes (On my machine at least))
 //        String column1 = "FLIGHT_NUMBER";
@@ -41,10 +43,10 @@ public class Client {
 //        String column2 = "Y";
 //        String delimiter = ",";
 
-        String filePath = "src\\test\\resources\\input\\cars_100k.csv";
-        String column1 = "mileage";
-        String column2 = "mpg";
-        String delimiter = ",";
+//        String filePath = "src\\test\\resources\\input\\cars_100k.csv";
+//        String column1 = "mileage";
+//        String column2 = "mpg";
+//        String delimiter = ",";
 
 //        String filePath = "src\\test\\resources\\input\\Random1Mil.csv";
 //        String column1 = "X";
@@ -57,19 +59,21 @@ public class Client {
         long endTime = -1;
         double elapsedTimeSeconds = -1.0;
 
+        ListBasedKendallMethodsService methods = new ListBasedKendallMethodsService();
+
         /* APACHE */
         startTime = System.currentTimeMillis();
-        ApacheCommonsKendall apacheKendall = new ApacheCommonsKendall();
-        double apacheResult = apacheKendall.calculateKendallTau(columnPair.getXColumn(), columnPair.getYColumn());
+        IListBasedKendallCalculator apacheKendall = methods.getMethod("Apache kendall");
+        double apacheResult = apacheKendall.calculateKendall(columnPair);
         endTime = System.currentTimeMillis();
         elapsedTimeSeconds = (endTime - startTime) / 1000.0;
+
         // Print the result
         System.out.println("Apache method for file " + filePath);
         System.out.println("Apache: " + apacheResult);
         System.out.println("Apache elapsed time: " + elapsedTimeSeconds + " seconds");
         System.out.println(" ----- \n");
 
-        ListBasedKendallMethodsService methods = new ListBasedKendallMethodsService();
 
 //        /* BRUTE */
 //        IListBasedKendallCalculator bruteForceTauA = methods.getMethod("BruteForce");

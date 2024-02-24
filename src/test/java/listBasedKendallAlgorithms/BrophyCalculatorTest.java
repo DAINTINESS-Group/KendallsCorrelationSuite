@@ -2,6 +2,8 @@ package listBasedKendallAlgorithms;
 
 import static org.junit.Assert.*;
 
+import listBasedKendallAlgorithms.listBasedReader.ColumnPair;
+import listBasedKendallAlgorithms.listBasedReader.Reader;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -15,8 +17,8 @@ public class BrophyCalculatorTest {
 
 		ColumnPair pair = reader.read(filePath, "X", "Y", "\t");
 
-		ApacheCommonsKendall commons = new ApacheCommonsKendall();
-		double expected = commons.calculateKendallTau(pair.getXColumn(), pair.getYColumn());
+		IListBasedKendallCalculator apacheCommons = new ApacheCommonsKendall();
+		double expected = apacheCommons.calculateKendall(pair);
 		
 		IListBasedKendallCalculator listBasedKendallCalculator = new BrophyKendallCalculator();
 		double actual = listBasedKendallCalculator.calculateKendall(pair);
@@ -27,7 +29,4 @@ public class BrophyCalculatorTest {
 
 		assertEquals(expected, actual, 0.0);
 	}
-
-	//TODO: rainyday tests!!!! What happens in files with NaN, missing values, ...
-	//Maybe it is the job of Reader to filter out offending records.
 }

@@ -1,5 +1,7 @@
 package listBasedKendallAlgorithms;
 
+import listBasedKendallAlgorithms.listBasedReader.ColumnPair;
+
 public interface IListBasedKendallCalculator {
     /**
      * Calculate Kendall's tau given a pair of columns

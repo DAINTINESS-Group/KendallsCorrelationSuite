@@ -1,5 +1,7 @@
 package listBasedKendallAlgorithms;
 
+import listBasedKendallAlgorithms.listBasedReader.ColumnPair;
+import listBasedKendallAlgorithms.listBasedReader.Reader;
 import org.junit.Test;
 import org.junit.Assert;
 

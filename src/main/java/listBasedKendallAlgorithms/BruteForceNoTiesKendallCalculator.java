@@ -1,6 +1,6 @@
 package listBasedKendallAlgorithms;
 
-import java.util.ArrayList;
+import listBasedKendallAlgorithms.listBasedReader.ColumnPair;
 
 /*
  * This class calculates kendall's tau_a which means that it does not account for ties
