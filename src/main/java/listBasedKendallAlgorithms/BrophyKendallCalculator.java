@@ -5,7 +5,7 @@ import listBasedKendallAlgorithms.listBasedReader.ColumnPair;
 import java.util.Objects;
 
 /*
- * THis class calculates kendall's tau b following the algorithm by ALFRED L. BROPHY */
+ * This class calculates kendall's tau b following the algorithm by ALFRED L. BROPHY */
 public class BrophyKendallCalculator implements IListBasedKendallCalculator {
 
     private double concordantPairs = 0.0;
@@ -13,7 +13,6 @@ public class BrophyKendallCalculator implements IListBasedKendallCalculator {
     private double tiedPairsSumX = 0.0;
     private double tiedPairsSumY = 0.0;
     private double tauB = 0.0;
-    private double pValue = 0.0;
 
     @Override
     public double calculateKendall(ColumnPair pair) {
@@ -64,24 +63,7 @@ public class BrophyKendallCalculator implements IListBasedKendallCalculator {
 
         tauB = (concordantPairs - discordantPairs) / Math.sqrt(adjustmentForTies);
 
-        double zScore = (Math.abs(concordantPairs - discordantPairs) - 1.0) / Math.sqrt(denominator);
-        pValue = calculatePValue(zScore);
-
         return tauB;
-    }
-
-    /**
-     * Calculates the p-value based on the Z-score using a normal approximation.
-     *
-     * @param zScore The Z-score for which to calculate the p-value.
-     * @return The calculated p-value.
-     */
-    private double calculatePValue(double zScore) {
-        double pValue = 0.5 - Math.sqrt(1 - Math.exp(-zScore * (0.6366198 - zScore * (0.009564224 - zScore * 0.0004)))) / 2;
-        if (zScore < 0) {
-            return 1.0 - pValue;
-        }
-        return pValue;
     }
 
     public String toString() {
@@ -90,7 +72,6 @@ public class BrophyKendallCalculator implements IListBasedKendallCalculator {
                 ", DiscordantPairs: " + discordantPairs +
                 ", Tied pairs on X: " + tiedPairsSumX +
                 ", Tied pairs on Y: " + tiedPairsSumY +
-                ", pValue: " + pValue +
                 " }";
     }
 }

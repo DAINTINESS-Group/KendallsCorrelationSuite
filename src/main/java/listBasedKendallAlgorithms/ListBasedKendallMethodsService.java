@@ -2,20 +2,21 @@ package listBasedKendallAlgorithms;
 
 import listBasedKendallAlgorithms.ListBasedKendallFactory.KendallCalculatorMethods;
 
-import java.util.HashMap;
-
 public class ListBasedKendallMethodsService {
-    private final HashMap<String, IListBasedKendallCalculator> methods;
-    ListBasedKendallFactory factory = new ListBasedKendallFactory();
+    private final ListBasedKendallFactory factory;
 
     public ListBasedKendallMethodsService() {
-        methods = new HashMap<>();
-        methods.put("Brophy", factory.createKendallCalculator(KendallCalculatorMethods.BROPHY));
-        methods.put("BruteForce", factory.createKendallCalculator(KendallCalculatorMethods.BRUTEFORCE));
-        methods.put("Apache kendall", factory.createKendallCalculator(KendallCalculatorMethods.APACHE_KENDALL));
+        this.factory = new ListBasedKendallFactory();
     }
 
     public IListBasedKendallCalculator getMethod(String method) {
-        return methods.get(method);
+        if ("Brophy".equals(method)) {
+            return factory.createKendallCalculator(KendallCalculatorMethods.BROPHY);
+        } else if ("BruteForce".equals(method)) {
+            return factory.createKendallCalculator(KendallCalculatorMethods.BRUTEFORCE);
+        } else if ("Apache kendall".equals(method)) {
+            return factory.createKendallCalculator(KendallCalculatorMethods.APACHE_KENDALL);
+        }
+        throw new IllegalArgumentException("Unknown method: " + method);
     }
 }

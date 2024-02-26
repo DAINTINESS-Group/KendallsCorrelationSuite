@@ -1,7 +1,7 @@
 package listBasedKendallAlgorithms;
 
-import static org.junit.Assert.*;
 import org.junit.Test;
+import static org.junit.Assert.*;
 
 public class ListBasedKendallMethodsServiceTest {
 
@@ -19,8 +19,15 @@ public class ListBasedKendallMethodsServiceTest {
         assertNotNull(bruteForceCalculator);
         assertTrue(bruteForceCalculator instanceof BruteForceNoTiesKendallCalculator);
 
-        // Test invalid method
-        IListBasedKendallCalculator invalidCalculator = service.getMethod("InvalidMethod");
-        assertNull(invalidCalculator);
+        // Test APACHE COMMONS method
+        IListBasedKendallCalculator apacheKendallCalculator = service.getMethod("Apache kendall");
+        assertNotNull(apacheKendallCalculator);
+        assertTrue(apacheKendallCalculator instanceof ApacheCommonsKendall);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testGetMethodWithInvalidMethod() {
+        ListBasedKendallMethodsService service = new ListBasedKendallMethodsService();
+        service.getMethod("InvalidMethod");
     }
 }

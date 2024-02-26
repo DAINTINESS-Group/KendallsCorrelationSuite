@@ -10,20 +10,34 @@ import static org.apache.spark.sql.functions.*;
 
 public class TilesManager implements Serializable {
     private static Tile[][] tiles;
-    private final int rangeCountX;
-    private final int rangeCountY;
+    private int rangeCountX;
+    private int rangeCountY;
     private final String column1;
     private final String column2;
-    private final double rangeWidthX;
-    private final double rangeWidthY;
+    private double rangeWidthX;
+    private double rangeWidthY;
     private final Dataset<Row> dataset;
-    private final double avgPairsPerTile = 10;
+    private final double avgPairsPerTile = 1;
     private ColumnsStatistics columnsStatistics;
 
     public TilesManager(Dataset<Row> dataset, String column1, String column2) {
         this.column1 = column1;
         this.column2 = column2;
         this.dataset = dataset;
+    }
+
+    public Tile[][] createTilesArray() {
+        setupTilesArrayMetadata();
+        initializeTilesArray();
+        double startTime = System.currentTimeMillis(); // Timing population
+        populateTiles();
+        double endTime = System.currentTimeMillis();
+        double elapsed = (endTime - startTime) / 1000.0;
+        System.out.println("Tiles Population took " + elapsed + " seconds\n");
+        return tiles;
+    }
+
+    private void setupTilesArrayMetadata() {
         System.out.println("avg tiles = " + avgPairsPerTile);
 
         double start = System.currentTimeMillis();
@@ -57,17 +71,6 @@ public class TilesManager implements Serializable {
         System.out.println("#RangesX: " + rangeCountX + "\n#RangesY: " + rangeCountY + "\nTotal tiles: " + rangeCountX * rangeCountY);
 
         tiles = new Tile[this.rangeCountY][this.rangeCountX];
-    }
-
-    public Tile[][] createTilesArray() {
-        initializeTilesArray();
-        double startTime = System.currentTimeMillis(); // Timing population
-        populateTiles();
-        double endTime = System.currentTimeMillis();
-        double elapsed = (endTime - startTime) / 1000.0;
-        System.out.println("Tiles Population took " + elapsed + " seconds\n");
-
-        return tiles;
     }
 
     private void initializeTilesArray() {
@@ -109,8 +112,8 @@ public class TilesManager implements Serializable {
                 max(column1).alias("maxValueX"),
                 min(column2).alias("minValueY"),
                 max(column2).alias("maxValueY"),
-                stddev(column1).alias("stddevX"),
-                stddev(column2).alias("stddevY")
+                stddev(column1).alias("std devX"),
+                stddev(column2).alias("std devY")
         ).first();
 
         // Extract the min, max and standard deviation values for both columns

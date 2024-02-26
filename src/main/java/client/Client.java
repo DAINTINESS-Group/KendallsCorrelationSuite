@@ -4,7 +4,7 @@ import listBasedKendallAlgorithms.*;
 import listBasedKendallAlgorithms.listBasedReader.ColumnPair;
 import listBasedKendallAlgorithms.listBasedReader.Reader;
 import org.apache.spark.sql.AnalysisException;
-import tileBasedKendallAlgorithms.SparkBasedKendallManager;
+import tileBasedKendallAlgorithms.sparkSetup.SparkBasedKendallManager;
 
 import java.io.IOException;
 
@@ -22,17 +22,12 @@ public class Client {
 //        String column2 = "high";
 //        String delimiter = ",";
 
-        String filePath = "src\\test\\resources\\input\\AAL_Data.csv";
-        String column1 = "open";
-        String column2 = "high";
-        String delimiter = ",";
-
-//        String filePath = "src\\test\\resources\\input\\flights5_7m.csv"; // 5.7 million rows (Disclaimer: This takes 30 minutes (On my machine at least))
+//        String filePath = "src\\test\\resources\\input\\flights5_7m.csv"; // 5.7 million rows
 //        String column1 = "FLIGHT_NUMBER";
 //        String column2 = "DEPARTURE_TIME";
 //        String delimiter = ",";
 
-//        String filePath = "src\\test\\resources\\input\\flights2_5m.csv"; // 2.5 million rows (Disclaimer: This takes 10 minutes (On my machine at least))
+//        String filePath = "src\\test\\resources\\input\\flights2_5m.csv"; // 2.5 million rows
 //        String column1 = "FLIGHT_NUMBER";
 //        String column2 = "DEPARTURE_TIME";
 //        String delimiter = ",";
@@ -43,10 +38,10 @@ public class Client {
 //        String column2 = "Y";
 //        String delimiter = ",";
 
-//        String filePath = "src\\test\\resources\\input\\cars_100k.csv";
-//        String column1 = "mileage";
-//        String column2 = "mpg";
-//        String delimiter = ",";
+        String filePath = "src\\test\\resources\\input\\cars_100k.csv";
+        String column1 = "mileage";
+        String column2 = "mpg";
+        String delimiter = ",";
 
 //        String filePath = "src\\test\\resources\\input\\Random1Mil.csv";
 //        String column1 = "X";

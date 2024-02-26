@@ -9,24 +9,20 @@ public class TileBasedCalculatorService {
     private final Dataset<Row> dataset;
     private final String column1;
     private final String column2;
-    private final CorrelationStatistics statistics = new CorrelationStatistics();
-    private Tile[][] tiles;
 
     public TileBasedCalculatorService(Dataset<Row> dataset, String column1, String column2) {
         this.column1 = column1;
         this.column2 = column2;
         this.dataset = dataset;
-        setupTiles();
-    }
-
-    private void setupTiles() {
-        TilesManager tilesManager = new TilesManager(dataset, column1, column2);
-        tiles = tilesManager.createTilesArray();
     }
 
     public double calculateKendallTauCorrelation() {
-        TileProcessor processor = new TileProcessor(tiles, statistics);
+        CorrelationStatistics statistics = new CorrelationStatistics();
         CalculationTimer timer = new CalculationTimer();
+
+        TilesManager tilesManager = new TilesManager(dataset, column1, column2);
+        Tile[][] tiles = tilesManager.createTilesArray();
+        TileProcessor processor = new TileProcessor(tiles, statistics);
 
         for (Tile[] rowOfTiles : tiles) {
             for (Tile tile : rowOfTiles) {

@@ -1,6 +1,6 @@
 package tileBasedkendallAlgorithms;
 
-import tileBasedKendallAlgorithms.SparkBasedKendallManager;
+import tileBasedKendallAlgorithms.sparkSetup.SparkBasedKendallManager;
 
 import org.junit.Test;
 
