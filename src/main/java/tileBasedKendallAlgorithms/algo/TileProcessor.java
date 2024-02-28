@@ -6,6 +6,18 @@ import tileBasedKendallAlgorithms.tiles.Tile;
 import java.util.Comparator;
 import java.util.List;
 
+/**
+ * The {@code TileProcessor} class is responsible for processing tiles in a tile-based approach to calculating
+ * Kendall's tau correlation. It involves comparing tiles with themselves and with neighboring tiles (East, South, SouthEast, SouthWest) to count
+ * concordant, discordant, and tied pairs of observations. These counts contribute to the calculation of the
+ * Kendall's tau correlation coefficient.
+ * <p>
+ * This class encapsulates the logic for handling the pairwise comparisons of data points within and across tiles,
+ * facilitating the efficient computation of the Kendall's tau correlation coefficient in a distributed or
+ * data scenario.
+ *
+ * @author Petros Karampas
+ */
 public class TileProcessor {
 
     private final Tile[][] tiles;
@@ -93,13 +105,13 @@ public class TileProcessor {
                 double southTileXValue = southPair.getX();
 
                 if (referenceTileXValue < southTileXValue)
-                    break; // Break for the rest are concordant
+                    break; // Break for the rest are discordant
                 else if (referenceTileXValue > southTileXValue)
-                    discordant++;
+                    concordant++;
                 else
                     tiedOnX++;
             }
-            concordant = southPairsCount - discordant - tiedOnX;
+            discordant = southPairsCount - concordant - tiedOnX;
 
             correlationStats.incrementConcordantCount(concordant);
             correlationStats.incrementDiscordantCount(discordant);
@@ -125,7 +137,7 @@ public class TileProcessor {
                 else
                     tiedOnY++;
             }
-            concordant = eastPairsCount - discordant - tiedOnY;
+           concordant = eastPairsCount - discordant - tiedOnY;
 
             correlationStats.incrementConcordantCount(concordant);
             correlationStats.incrementDiscordantCount(discordant);
@@ -162,7 +174,7 @@ public class TileProcessor {
                     continue;  // Skip empty tile
                 }
                 southEastTilesPairsCount = tiles[row][column].getCount();
-                correlationStats.incrementConcordantCount(tilePairsCount * southEastTilesPairsCount);
+                correlationStats.incrementDiscordantCount(tilePairsCount * southEastTilesPairsCount);
             }
         }
     }
@@ -177,7 +189,7 @@ public class TileProcessor {
                 }
 
                 southWestTilePairsCount = tiles[row][column].getCount();
-                correlationStats.incrementDiscordantCount(tilePairCount * southWestTilePairsCount);
+                correlationStats.incrementConcordantCount(tilePairCount * southWestTilePairsCount);
             }
         }
     }

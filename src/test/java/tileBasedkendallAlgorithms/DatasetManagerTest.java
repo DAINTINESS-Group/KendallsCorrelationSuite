@@ -17,7 +17,7 @@ public class DatasetManagerTest {
         String column2 = "Y";
 
         sparkBasedKendallManager.loadDataset(path, column1, column2);
-        double actual = sparkBasedKendallManager.calculateKendallTau("X", "Y");
+        double actual = sparkBasedKendallManager.calculateKendallTau(column1, column2);
         double expected = 0.23076923076923078;
         double delta = 0.0;
 

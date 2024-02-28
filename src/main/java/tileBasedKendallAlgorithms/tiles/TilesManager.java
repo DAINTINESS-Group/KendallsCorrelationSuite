@@ -17,7 +17,7 @@ public class TilesManager implements Serializable {
     private double rangeWidthX;
     private double rangeWidthY;
     private final Dataset<Row> dataset;
-    private final double avgPairsPerTile = 1;
+    private final double avgPairsPerTile = 10;
     private ColumnsStatistics columnsStatistics;
 
     public TilesManager(Dataset<Row> dataset, String column1, String column2) {
@@ -87,13 +87,13 @@ public class TilesManager implements Serializable {
 
     private void populateTiles() {
         double minX = columnsStatistics.getMinX();
-        double minY = columnsStatistics.getMinY();
+        double maxY = columnsStatistics.getMaxY();
 
         dataset.foreach(row -> {
             double valueX = row.getDouble(row.fieldIndex(column1));
             double valueY = row.getDouble(row.fieldIndex(column2));
 
-            int tileRow = (int) Math.min(rangeCountY - 1, Math.floor((valueY - minY) / rangeWidthY));
+            int tileRow = (int) Math.min(rangeCountY - 1, Math.floor((maxY - valueY) / rangeWidthY));
             int tileColumn = (int) Math.min(rangeCountX - 1, Math.floor((valueX - minX) / rangeWidthX));
 
             if (tileRow >= 0 && tileRow < rangeCountY && tileColumn >= 0 && tileColumn < rangeCountX) {
@@ -105,6 +105,7 @@ public class TilesManager implements Serializable {
             }
         });
     }
+
 
     private void calculateMinMaxColumnValues() {
         Row result = dataset.agg(

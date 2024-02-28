@@ -6,7 +6,6 @@ import org.apache.spark.sql.Row;
 
 /**
  * This interface defines the contract for a DatasetReader.
- * The reader reads a dataset .
  */
 public interface IDatasetReader {
 
