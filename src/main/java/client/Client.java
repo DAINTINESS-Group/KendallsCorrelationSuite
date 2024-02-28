@@ -1,6 +1,8 @@
 package client;
 
-import listBasedKendallAlgorithms.*;
+import listBasedKendallAlgorithms.IListBasedKendallCalculator;
+import listBasedKendallAlgorithms.ListBasedKendallMethodsService;
+//import listBasedKendallAlgorithms.*;
 import listBasedKendallAlgorithms.listBasedReader.ColumnPair;
 import listBasedKendallAlgorithms.listBasedReader.Reader;
 import org.apache.spark.sql.AnalysisException;
