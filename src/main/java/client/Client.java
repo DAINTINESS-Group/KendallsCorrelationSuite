@@ -6,7 +6,7 @@ import listBasedKendallAlgorithms.ListBasedKendallMethodsService;
 import listBasedKendallAlgorithms.listBasedReader.ColumnPair;
 import listBasedKendallAlgorithms.listBasedReader.Reader;
 import org.apache.spark.sql.AnalysisException;
-import tileBasedKendallAlgorithms.sparkSetup.SparkBasedKendallManager;
+import tileBasedKendallAlgorithms.SparkBasedKendallManager;
 
 import java.io.IOException;
 
@@ -14,14 +14,21 @@ public class Client {
     public static void main(String[] args) throws IOException, AnalysisException {
 
         Reader reader = new Reader();
-//        String filePath = "src\\test\\resources\\input\\TauAData.tsv";
-//        String column1 = "X";
-//        String column2 = "Y";
-//        String delimiter = "\t";
 
-//        String filePath = "src\\test\\resources\\input\\A_Data.csv";
+        // manufacturer,model,year,price,transmission,mileage,fuelType,tax,mpg,engineSize
+        String filePath = "src\\test\\resources\\input\\cars_100k.csv";
+        String column1 = "mileage";
+        String column2 = "mpg";
+        String delimiter = ",";
+
+//        String filePath = "src\\test\\resources\\input\\all_stocks_5yr.csv";
 //        String column1 = "low";
 //        String column2 = "high";
+//        String delimiter = ",";
+
+//        String filePath = "src\\test\\resources\\input\\all_stocks_5yr.csv";
+//        String column1 = "close";
+//        String column2 = "volume";
 //        String delimiter = ",";
 
 //        String filePath = "src\\test\\resources\\input\\flights5_7m.csv"; // 5.7 million rows
@@ -29,21 +36,15 @@ public class Client {
 //        String column2 = "DEPARTURE_TIME";
 //        String delimiter = ",";
 
-//        String filePath = "src\\test\\resources\\input\\flights2_5m.csv"; // 2.5 million rows
-//        String column1 = "FLIGHT_NUMBER";
-//        String column2 = "DEPARTURE_TIME";
+//        String filePath = "src\\test\\resources\\input\\acs2017_census_tract_data.csv";
+//        String column1 = "Hispanic";
+//        String column2 = "Native";
 //        String delimiter = ",";
 
-//        manufacturer,model,year,price,transmission,mileage,fuelType,tax,mpg,engineSize
-//        String filePath = "src\\test\\resources\\input\\xy_values.csv";
-//        String column1 = "X";
-//        String column2 = "Y";
+//        String filePath = "src\\test\\resources\\input\\acs2017_census_tract_data.csv";
+//        String column1 = "Men";
+//        String column2 = "Women";
 //        String delimiter = ",";
-
-        String filePath = "src\\test\\resources\\input\\cars_100k.csv";
-        String column1 = "mileage";
-        String column2 = "mpg";
-        String delimiter = ",";
 
 //        String filePath = "src\\test\\resources\\input\\Random1Mil.csv";
 //        String column1 = "X";
@@ -91,7 +92,7 @@ public class Client {
 //        double actualBrophy = brophyKendallTauB.calculateKendall(columnPair);
 //        endTime = System.currentTimeMillis();
 //        elapsedTimeSeconds = (endTime - startTime) / 1000.0;
-//
+
 //        System.out.println("Brophy Test for file " + filePath);
 //        System.out.println("Actual: " + brophyKendallTauB);
 //        System.out.println("Brophy elapsed time: " + elapsedTimeSeconds + " seconds");

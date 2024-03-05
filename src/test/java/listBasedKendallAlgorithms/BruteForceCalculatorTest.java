@@ -13,7 +13,7 @@ public class BruteForceCalculatorTest {
 	@Test
 	public final void testCalculateKendallHappy() throws IOException {
 		Reader reader = new Reader();
-		String filePath = "src/test/resources/input/TauAData.tsv";
+		String filePath = "src/test/resources/testInput/TauAData.tsv";
 		ColumnPair pair = reader.read(filePath, "X", "Y", "\t");
 
 		IListBasedKendallCalculator commons = new ApacheCommonsKendall();

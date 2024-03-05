@@ -66,7 +66,7 @@ public class ReaderTest {
     @Test
     public void testValidCSV() {
         try {
-            String path = "src/test/resources/input/TauBData.tsv";
+            String path = "src/test/resources/testInput/TauAData.tsv";
 
             ColumnPair columnPair = reader.read(path, "X", "Y", "\t");
             Assert.assertNotNull(columnPair);

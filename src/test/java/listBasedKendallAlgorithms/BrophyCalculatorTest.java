@@ -12,7 +12,7 @@ public class BrophyCalculatorTest {
 
 	@Test
 	public final void testCalculateKendallHappy() throws IOException {
-		String filePath = "src/test/resources/input/TauAData.tsv";
+		String filePath = "src/test/resources/testInput/TauAData.tsv";
 		Reader reader = new Reader();
 
 		ColumnPair pair = reader.read(filePath, "X", "Y", "\t");

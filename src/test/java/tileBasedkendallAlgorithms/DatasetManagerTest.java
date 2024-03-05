@@ -1,6 +1,6 @@
 package tileBasedkendallAlgorithms;
 
-import tileBasedKendallAlgorithms.sparkSetup.SparkBasedKendallManager;
+import tileBasedKendallAlgorithms.SparkBasedKendallManager;
 
 import org.junit.Test;
 
@@ -12,7 +12,7 @@ public class DatasetManagerTest {
 
     @Test
     public void testRegisterDatasetAndCalculateKendall() throws Exception {
-        String path = "src/test/resources/input/TauAData.tsv";
+        String path = "src/test/resources/testInput/TauAData.tsv";
         String column1 = "X";
         String column2 = "Y";
 

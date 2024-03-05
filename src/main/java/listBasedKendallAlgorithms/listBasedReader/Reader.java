@@ -6,10 +6,8 @@ import java.io.FileReader;
 import java.io.IOException;
 
 public class Reader {
-    private final ColumnPair columnPair;
 
     public Reader() {
-        columnPair = new ColumnPair();
     }
 
     /**
@@ -25,6 +23,7 @@ public class Reader {
      *                                  there are not enough columns in the CSV data.
      */
     public ColumnPair read(String filePath, String xColumnName, String yColumnName, String delimiter) throws IOException, IllegalArgumentException {
+        ColumnPair columnPair = new ColumnPair();
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
             String line;
             String[] headers = reader.readLine().split(delimiter);
@@ -49,6 +48,7 @@ public class Reader {
             if (xColumnIndex == -1 || yColumnIndex == -1) {
                 throw new IllegalArgumentException("Column names not found in the header.");
             }
+
 
             while ((line = reader.readLine()) != null) {
                 String[] row = line.split(delimiter);

@@ -17,7 +17,6 @@ public class TilesManager implements Serializable {
     private double rangeWidthX;
     private double rangeWidthY;
     private final Dataset<Row> dataset;
-    private final double avgPairsPerTile = 10;
     private ColumnsStatistics columnsStatistics;
 
     public TilesManager(Dataset<Row> dataset, String column1, String column2) {
@@ -38,7 +37,6 @@ public class TilesManager implements Serializable {
     }
 
     private void setupTilesArrayMetadata() {
-        System.out.println("avg tiles = " + avgPairsPerTile);
 
         double start = System.currentTimeMillis();
 
@@ -53,17 +51,10 @@ public class TilesManager implements Serializable {
 
         start = System.currentTimeMillis();
 
-//        rangeWidthX = calculateRangesWidth(columnsStatistics.getStdDevX(), datasetRowCount);
-//        rangeWidthY = calculateRangesWidth(columnsStatistics.getStdDevY(), datasetRowCount);
-//        rangeCountX = calculateRangesCount(rangeWidthX, columnsStatistics.getMinX(), columnsStatistics.getMaxX());
-//        rangeCountY = calculateRangesCount(rangeWidthY, columnsStatistics.getMinY(), columnsStatistics.getMaxY());
-
-        double totalTiles = (datasetRowCount / avgPairsPerTile);
-        int tilesPerRow = (int) Math.sqrt(totalTiles);
-        rangeCountX = tilesPerRow;
-        rangeCountY = tilesPerRow;
-        rangeWidthX = (columnsStatistics.getMaxX() - columnsStatistics.getMinX()) / rangeCountX;
-        rangeWidthY = (columnsStatistics.getMaxY() - columnsStatistics.getMinY()) / rangeCountY;
+        rangeWidthX = calculateRangesWidth(columnsStatistics.getStdDevX(), datasetRowCount);
+        rangeWidthY = calculateRangesWidth(columnsStatistics.getStdDevY(), datasetRowCount);
+        rangeCountX = calculateRangesCount(rangeWidthX, columnsStatistics.getMinX(), columnsStatistics.getMaxX());
+        rangeCountY = calculateRangesCount(rangeWidthY, columnsStatistics.getMinY(), columnsStatistics.getMaxY());
 
         end = System.currentTimeMillis();
         elapsed = (end - start) / 1000.0;
@@ -128,12 +119,12 @@ public class TilesManager implements Serializable {
         columnsStatistics = new ColumnsStatistics(minValueX, maxValueX, minValueY, maxValueY, stdDevX, stdDevY);
     }
 
-    public int calculateRangesCount(double binWidth, double min, double max) {
+    public int calculateRangesCount(double rangeWidth, double min, double max) {
         double range = max - min;
-        return (int) Math.ceil(range / binWidth);
+        return (int) Math.ceil(range / rangeWidth);
     }
 
     private double calculateRangesWidth(double stdDev, double datasetCount) {
-        return 3.5 * (stdDev / Math.pow(datasetCount, 1.0 / 3.0));
+        return 3.49 * (stdDev / Math.pow(datasetCount, 1.0 / 3.0));
     }
 }
