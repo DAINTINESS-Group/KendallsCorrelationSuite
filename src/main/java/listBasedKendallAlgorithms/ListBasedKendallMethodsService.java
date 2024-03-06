@@ -3,13 +3,12 @@ package listBasedKendallAlgorithms;
 import listBasedKendallAlgorithms.ListBasedKendallFactory.KendallCalculatorMethods;
 
 public class ListBasedKendallMethodsService {
-    private final ListBasedKendallFactory factory;
 
     public ListBasedKendallMethodsService() {
-        this.factory = new ListBasedKendallFactory();
     }
 
     public IListBasedKendallCalculator getMethod(String method) {
+        ListBasedKendallFactory factory = new ListBasedKendallFactory();
         if ("Brophy".equals(method)) {
             return factory.createKendallCalculator(KendallCalculatorMethods.BROPHY);
         } else if ("BruteForce".equals(method)) {
