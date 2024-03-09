@@ -4,7 +4,8 @@ import java.io.Serializable;
 
 public class ColumnsStatistics implements Serializable {
 
-    private final double minX;
+    private static final long serialVersionUID = -1503614268476346388L;
+	private final double minX;
     private final double maxX;
     private final double minY;
     private final double maxY;

@@ -9,7 +9,8 @@ import static org.apache.spark.sql.functions.*;
 
 
 public class TilesManager implements Serializable {
-    private static Tile[][] tiles;
+    private static final long serialVersionUID = 8765154256335271048L;
+	private static Tile[][] tiles;
     private int rangeCountX;
     private int rangeCountY;
     private final String column1;

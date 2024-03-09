@@ -6,7 +6,8 @@ import java.util.List;
 
 public class Tile implements Serializable {
 
-    private final int row;
+    private static final long serialVersionUID = 4581980665140154578L;
+	private final int row;
     private final int column;
     private final List<DoublePair> valuePairs;
     private double pairCounter = 0;

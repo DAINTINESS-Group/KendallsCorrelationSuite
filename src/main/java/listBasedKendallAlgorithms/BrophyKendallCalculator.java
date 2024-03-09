@@ -58,7 +58,8 @@ public class BrophyKendallCalculator implements IListBasedKendallCalculator {
         double adjustmentForTies = (totalPairs - tiedPairsInX) * (totalPairs - tiedPairsInY);
 
         double correctionFactor = size * (size - 1) * (size - 2);
-        double denominator = ((correctionFactor / 3 - tiedPairsSumX) * (correctionFactor / 3 - tiedPairsSumY)) / correctionFactor
+        @SuppressWarnings("unused")
+		double denominator = ((correctionFactor / 3 - tiedPairsSumX) * (correctionFactor / 3 - tiedPairsSumY)) / correctionFactor
                 + adjustmentForTies / totalPairs;
 
         tauB = (concordantPairs - discordantPairs) / Math.sqrt(adjustmentForTies);

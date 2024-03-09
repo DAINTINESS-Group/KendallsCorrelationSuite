@@ -1,77 +1,79 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <class-diagram version="1.2.4" icons="true" automaticImage="PNG" always-add-relationships="true" generalizations="true" 
   realizations="true" associations="true" dependencies="true" nesting-relationships="true" router="FAN">  
-  <package id="1" language="java" name="client" project="CorrelationSpeedup" 
-    file="/CorrelationSpeedup/src/main/java/client" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="333" y="96"/>    
+  <package id="1" language="java" name="tileBasedKendallAlgorithms" project="KendallsCorrelationSuite" 
+    file="/KendallsCorrelationSuite/src/main/java/tileBasedKendallAlgorithms" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="729" y="301"/>    
     <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
   </package>  
-  <package id="2" language="java" name="listBasedKendallAlgorithms" project="CorrelationSpeedup" 
-    file="/CorrelationSpeedup/src/main/java/listBasedKendallAlgorithms" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="580" y="276"/>    
+  <package id="2" language="java" name="tileBasedKendallAlgorithms.algo" project="KendallsCorrelationSuite" 
+    file="/KendallsCorrelationSuite/src/main/java/tileBasedKendallAlgorithms/algo" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="495" y="391"/>    
     <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
   </package>  
-  <package id="3" language="java" name="listBasedKendallAlgorithms.listBasedReader" project="CorrelationSpeedup" 
-    file="/CorrelationSpeedup/src/main/java/listBasedKendallAlgorithms/listBasedReader" binary="false" 
+  <package id="3" language="java" name="tileBasedKendallAlgorithms.tiles" project="KendallsCorrelationSuite" 
+    file="/KendallsCorrelationSuite/src/main/java/tileBasedKendallAlgorithms/tiles" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="495" y="481"/>    
+    <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <package id="4" language="java" name="tileBasedKendallAlgorithms.reader" project="KendallsCorrelationSuite" 
+    file="/KendallsCorrelationSuite/src/main/java/tileBasedKendallAlgorithms/reader" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="913" y="280"/>    
+    <position height="-1" width="-1" x="750" y="391"/>    
     <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
   </package>  
-  <package id="4" language="java" name="tileBasedKendallAlgorithms" project="CorrelationSpeedup" 
-    file="/CorrelationSpeedup/src/main/java/tileBasedKendallAlgorithms" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="253" y="273"/>    
+  <package id="5" language="java" name="tileBasedKendallAlgorithms.sparkSetup" project="KendallsCorrelationSuite" 
+    file="/KendallsCorrelationSuite/src/main/java/tileBasedKendallAlgorithms/sparkSetup" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="1026" y="391"/>    
     <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
   </package>  
-  <package id="5" language="java" name="tileBasedKendallAlgorithms.algo" project="CorrelationSpeedup" 
-    file="/CorrelationSpeedup/src/main/java/tileBasedKendallAlgorithms/algo" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="262" y="452"/>    
+  <package id="6" language="java" name="listBasedKendallAlgorithms.listBasedReader" project="KendallsCorrelationSuite" 
+    file="/KendallsCorrelationSuite/src/main/java/listBasedKendallAlgorithms/listBasedReader" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="50" width="278" x="114" y="278"/>    
     <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
   </package>  
-  <package id="6" language="java" name="tileBasedKendallAlgorithms.reader" project="CorrelationSpeedup" 
-    file="/CorrelationSpeedup/src/main/java/tileBasedKendallAlgorithms/reader" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="538" y="452"/>    
+  <package id="7" language="java" name="listBasedKendallAlgorithms" project="KendallsCorrelationSuite" 
+    file="/KendallsCorrelationSuite/src/main/java/listBasedKendallAlgorithms" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="50" width="181" x="114" y="188"/>    
     <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
   </package>  
-  <package id="7" language="java" name="tileBasedKendallAlgorithms.sparkSetup" project="CorrelationSpeedup" 
-    file="/CorrelationSpeedup/src/main/java/tileBasedKendallAlgorithms/sparkSetup" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="836" y="452"/>    
-    <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
-  </package>  
-  <package id="8" language="java" name="tileBasedKendallAlgorithms.tiles" project="CorrelationSpeedup" 
-    file="/CorrelationSpeedup/src/main/java/tileBasedKendallAlgorithms/tiles" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="265" y="576"/>    
+  <package id="8" language="java" name="client" project="KendallsCorrelationSuite" 
+    file="/KendallsCorrelationSuite/src/main/java/client" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="50" width="101" x="614" y="129"/>    
     <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
   </package>  
   <dependency id="9">    
-    <end type="SOURCE" refId="1"/>    
-    <end type="TARGET" refId="3"/>  
+    <end type="SOURCE" refId="7"/>    
+    <end type="TARGET" refId="6"/>  
   </dependency>  
   <dependency id="10">    
     <end type="SOURCE" refId="1"/>    
-    <end type="TARGET" refId="2"/>  
+    <end type="TARGET" refId="5"/>  
   </dependency>  
   <dependency id="11">    
-    <end type="SOURCE" refId="4"/>    
+    <end type="SOURCE" refId="8"/>    
     <end type="TARGET" refId="6"/>  
   </dependency>  
   <dependency id="12">    
-    <end type="SOURCE" refId="4"/>    
-    <end type="TARGET" refId="5"/>  
+    <end type="SOURCE" refId="1"/>    
+    <end type="TARGET" refId="2"/>  
   </dependency>  
   <dependency id="13">    
+    <end type="SOURCE" refId="8"/>    
+    <end type="TARGET" refId="1"/>  
+  </dependency>  
+  <dependency id="14">    
     <end type="SOURCE" refId="1"/>    
     <end type="TARGET" refId="4"/>  
   </dependency>  
-  <dependency id="14">    
+  <dependency id="15">    
     <end type="SOURCE" refId="2"/>    
     <end type="TARGET" refId="3"/>  
   </dependency>  
-  <dependency id="15">    
-    <end type="SOURCE" refId="5"/>    
-    <end type="TARGET" refId="8"/>  
-  </dependency>  
   <dependency id="16">    
-    <end type="SOURCE" refId="4"/>    
+    <end type="SOURCE" refId="8"/>    
     <end type="TARGET" refId="7"/>  
   </dependency>  
   <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
