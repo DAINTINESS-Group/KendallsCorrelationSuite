@@ -1,4 +1,4 @@
-package tileBasedKendallAlgorithms.sparkSetup;
+package sparkBasedKendallAlgorithms.sparkSetup;
 
 import org.apache.log4j.PropertyConfigurator;
 import org.apache.spark.sql.SparkSession;

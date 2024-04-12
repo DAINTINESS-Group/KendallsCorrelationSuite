@@ -1,4 +1,4 @@
-package tileBasedKendallAlgorithms.tiles;
+package tileUtil.tiles;
 
 public class DoublePair {
     private final double x;

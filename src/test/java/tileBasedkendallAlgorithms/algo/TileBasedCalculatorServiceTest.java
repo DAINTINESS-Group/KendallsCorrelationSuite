@@ -6,13 +6,14 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 
+import sparkBasedKendallAlgorithms.TileBasedCalculatorService;
+import sparkBasedKendallAlgorithms.reader.DatasetReader;
+
 import java.util.Arrays;
 import java.util.Collection;
 
 import static org.junit.Assert.assertEquals;
 
-import tileBasedKendallAlgorithms.algo.TileBasedCalculatorService;
-import tileBasedKendallAlgorithms.reader.DatasetReader;
 import tileBasedkendallAlgorithms.SparkSessionTestSetup;
 
 @RunWith(Parameterized.class)

@@ -1,8 +1,6 @@
 package client;
 
-import listBasedKendallAlgorithms.IListBasedKendallCalculator;
-import listBasedKendallAlgorithms.ListBasedKendallMethodsService;
-//import listBasedKendallAlgorithms.*;
+import listBasedKendallAlgorithms.*;
 import listBasedKendallAlgorithms.listBasedReader.ColumnPair;
 import listBasedKendallAlgorithms.listBasedReader.Reader;
 import sparkBasedKendallAlgorithms.SparkBasedKendallManager;
@@ -11,7 +9,7 @@ import org.apache.spark.sql.AnalysisException;
 
 import java.io.IOException;
 
-public class Client {
+public class ClientV2 {
     public static void main(String[] args) throws IOException, AnalysisException {
 
         Reader reader = new Reader();
@@ -67,13 +65,18 @@ public class Client {
         endTime = System.currentTimeMillis();
         elapsedTimeSeconds = (endTime - startTime) / 1000.0;
 
-        // Print the result
-        System.out.println("Apache method for file " + filePath);
-        System.out.println("Apache: " + apacheResult);
-        System.out.println("Apache elapsed time: " + elapsedTimeSeconds + " seconds");
-        System.out.println(" ----- \n");
+        printResults("Apache", filePath, apacheResult, elapsedTimeSeconds);
 
-
+        /* TILES WITH LISTS*/
+        startTime = System.currentTimeMillis();
+        IListBasedKendallCalculator lbtbMgr = methods.getMethod("ListBasedTiles");
+        //ListBasedTileBasedKendallManager lbtbMgr = new ListBasedTileBasedKendallManager();
+        double listTileKendallResult =lbtbMgr.calculateKendall(columnPair);
+        endTime = System.currentTimeMillis();
+        elapsedTimeSeconds = (endTime - startTime) / 1000.0;
+        
+        printResults("List Tiles", filePath, listTileKendallResult, elapsedTimeSeconds);
+        
 //        /* BRUTE */
 //        IListBasedKendallCalculator bruteForceTauA = methods.getMethod("BruteForce");
 //        startTime = System.currentTimeMillis();
@@ -100,7 +103,6 @@ public class Client {
 //        System.out.println(" ----- \n");
 
         /* Tile Implementation with SPARK and valuePairs*/
-
         startTime = System.currentTimeMillis();
         SparkBasedKendallManager sparkBasedKendallManager = new SparkBasedKendallManager();
         sparkBasedKendallManager.loadDataset(filePath, column1, column2);
@@ -108,15 +110,20 @@ public class Client {
         elapsedTimeSeconds = (endTime - startTime) / 1000.0;
         System.out.println("Spark InitialSetup and Dataset loading took: " + elapsedTimeSeconds + "\n");
 
-        System.out.println(filePath);
-
         startTime = System.currentTimeMillis();
-        double kendall = sparkBasedKendallManager.calculateKendallTau(column1, column2);
+        double sparkKendall = sparkBasedKendallManager.calculateKendallTau(column1, column2);
         endTime = System.currentTimeMillis();
         elapsedTimeSeconds = (endTime - startTime) / 1000.0;
 
-        System.out.println("Tiles algorithm actual result: " + kendall);
-        System.out.println("Tile valuePair elapsed time: " + elapsedTimeSeconds + " seconds");
-        System.out.println(" ----- \n");
+        printResults("Spark Kendall", filePath, sparkKendall, elapsedTimeSeconds);
     }
+
+
+	private static void printResults(String methodName, String filePath, double kendallResult, double elapsedTimeSeconds) {
+		// Print the result
+        System.out.println("\n\n" + methodName + " method for file " + filePath);
+        System.out.println(methodName + " kendallValue:\t" + kendallResult);
+        System.out.println(methodName+" elapsed time:\t" + elapsedTimeSeconds + " seconds");
+        System.out.println(" ----- \n");
+	}
 }

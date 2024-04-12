@@ -1,8 +1,8 @@
 package tileBasedkendallAlgorithms;
 
-import tileBasedKendallAlgorithms.SparkBasedKendallManager;
-
 import org.junit.Test;
+
+import sparkBasedKendallAlgorithms.SparkBasedKendallManager;
 
 import static org.junit.Assert.assertEquals;
 

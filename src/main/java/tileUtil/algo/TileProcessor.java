@@ -1,10 +1,10 @@
-package tileBasedKendallAlgorithms.algo;
-
-import tileBasedKendallAlgorithms.tiles.DoublePair;
-import tileBasedKendallAlgorithms.tiles.Tile;
+package tileUtil.algo;
 
 import java.util.Comparator;
 import java.util.List;
+
+import tileUtil.tiles.DoublePair;
+import tileUtil.tiles.Tile;
 
 /**
  * The {@code TileProcessor} class is responsible for processing tiles in a tile-based approach to calculating

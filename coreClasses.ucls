@@ -65,10 +65,9 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="7" language="java" name="tileBasedKendallAlgorithms.tiles.ColumnsStatistics" 
-    project="KendallsCorrelationSuite" 
-    file="/KendallsCorrelationSuite/src/main/java/tileBasedKendallAlgorithms/tiles/ColumnsStatistics.java" 
-    binary="false" corner="BOTTOM_RIGHT">    
+  <class id="7" language="java" name="tileUtil.tiles.ColumnsStatistics" project="KendallsCorrelationSuite" 
+    file="/KendallsCorrelationSuite/src/main/java/tileUtil/tiles/ColumnsStatistics.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
     <position height="315" width="326" x="636" y="673"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -76,9 +75,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="8" language="java" name="tileBasedKendallAlgorithms.tiles.DoublePair" project="KendallsCorrelationSuite" 
-    file="/KendallsCorrelationSuite/src/main/java/tileBasedKendallAlgorithms/tiles/DoublePair.java" binary="false" 
-    corner="BOTTOM_RIGHT">    
+  <class id="8" language="java" name="tileUtil.tiles.DoublePair" project="KendallsCorrelationSuite" 
+    file="/KendallsCorrelationSuite/src/main/java/tileUtil/tiles/DoublePair.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="153" width="152" x="1002" y="1028"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -86,9 +84,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="9" language="java" name="tileBasedKendallAlgorithms.tiles.Tile" project="KendallsCorrelationSuite" 
-    file="/KendallsCorrelationSuite/src/main/java/tileBasedKendallAlgorithms/tiles/Tile.java" binary="false" 
-    corner="BOTTOM_RIGHT">    
+  <class id="9" language="java" name="tileUtil.tiles.Tile" project="KendallsCorrelationSuite" 
+    file="/KendallsCorrelationSuite/src/main/java/tileUtil/tiles/Tile.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="261" width="183" x="1002" y="673"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -96,8 +93,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="10" language="java" name="tileBasedKendallAlgorithms.tiles.TilesManager" project="KendallsCorrelationSuite" 
-    file="/KendallsCorrelationSuite/src/main/java/tileBasedKendallAlgorithms/tiles/TilesManager.java" binary="false" 
+  <class id="10" language="java" name="sparkBasedKendallAlgorithms.TilesManager" project="KendallsCorrelationSuite" 
+    file="/KendallsCorrelationSuite/src/main/java/sparkBasedKendallAlgorithms/TilesManager.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="351" width="258" x="819" y="282"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -106,9 +103,9 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="11" language="java" name="tileBasedKendallAlgorithms.algo.TileBasedCalculatorService" 
+  <class id="11" language="java" name="sparkBasedKendallAlgorithms.TileBasedCalculatorService" 
     project="KendallsCorrelationSuite" 
-    file="/KendallsCorrelationSuite/src/main/java/tileBasedKendallAlgorithms/algo/TileBasedCalculatorService.java" 
+    file="/KendallsCorrelationSuite/src/main/java/sparkBasedKendallAlgorithms/TileBasedCalculatorService.java" 
     binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1499" y="125"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -117,9 +114,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="12" language="java" name="tileBasedKendallAlgorithms.algo.TileProcessor" project="KendallsCorrelationSuite" 
-    file="/KendallsCorrelationSuite/src/main/java/tileBasedKendallAlgorithms/algo/TileProcessor.java" binary="false" 
-    corner="BOTTOM_RIGHT">    
+  <class id="12" language="java" name="tileUtil.algo.TileProcessor" project="KendallsCorrelationSuite" 
+    file="/KendallsCorrelationSuite/src/main/java/tileUtil/algo/TileProcessor.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1512" y="390"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -127,10 +123,9 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="13" language="java" name="tileBasedKendallAlgorithms.algo.CorrelationStatistics" 
-    project="KendallsCorrelationSuite" 
-    file="/KendallsCorrelationSuite/src/main/java/tileBasedKendallAlgorithms/algo/CorrelationStatistics.java" 
-    binary="false" corner="BOTTOM_RIGHT">    
+  <class id="13" language="java" name="tileUtil.algo.CorrelationStatistics" project="KendallsCorrelationSuite" 
+    file="/KendallsCorrelationSuite/src/main/java/tileUtil/algo/CorrelationStatistics.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1729" y="745"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -142,29 +137,31 @@
     <end type="SOURCE" refId="5"/>    
     <end type="TARGET" refId="2"/>  
   </realization>  
-  <dependency id="15">    
-    <end type="SOURCE" refId="1"/>    
-    <end type="TARGET" refId="2"/>  
-  </dependency>  
-  <association id="16">    
-    <end type="SOURCE" refId="10" navigable="false">      
-      <attribute id="17" name="tiles">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </attribute>      
-      <multiplicity id="18" minimum="0" maximum="2147483647">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </multiplicity>    
-    </end>    
-    <end type="TARGET" refId="9" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <realization id="19">    
+  <realization id="15">    
     <end type="SOURCE" refId="4"/>    
     <end type="TARGET" refId="2"/>  
   </realization>  
-  <dependency id="20">    
+  <dependency id="16">    
+    <end type="SOURCE" refId="6"/>    
+    <end type="TARGET" refId="2"/>  
+  </dependency>  
+  <dependency id="17">    
+    <bendpoint x="1174" y="240"/>    
+    <end type="SOURCE" refId="11"/>    
+    <end type="TARGET" refId="10"/>  
+  </dependency>  
+  <realization id="18">    
+    <end type="SOURCE" refId="3"/>    
+    <end type="TARGET" refId="2"/>  
+  </realization>  
+  <dependency id="19">    
     <end type="SOURCE" refId="1"/>    
     <end type="TARGET" refId="6"/>  
+  </dependency>  
+  <dependency id="20">    
+    <bendpoint x="1194" y="314"/>    
+    <end type="SOURCE" refId="11"/>    
+    <end type="TARGET" refId="9"/>  
   </dependency>  
   <association id="21">    
     <end type="SOURCE" refId="9" navigable="false">      
@@ -178,71 +175,69 @@
     <end type="TARGET" refId="8" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <dependency id="24">    
-    <bendpoint x="1194" y="314"/>    
-    <end type="SOURCE" refId="11"/>    
-    <end type="TARGET" refId="9"/>  
-  </dependency>  
-  <association id="25">    
+  <association id="24">    
     <end type="SOURCE" refId="12" navigable="false">      
-      <attribute id="26" name="correlationStats">        
+      <attribute id="25" name="correlationStats">        
         <position height="0" width="0" x="0" y="0"/>      
       </attribute>      
-      <multiplicity id="27" minimum="0" maximum="1">        
+      <multiplicity id="26" minimum="0" maximum="1">        
         <position height="0" width="0" x="0" y="0"/>      
       </multiplicity>    
     </end>    
     <end type="TARGET" refId="13" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <dependency id="28">    
-    <end type="SOURCE" refId="11"/>    
-    <end type="TARGET" refId="12"/>  
+  <dependency id="27">    
+    <end type="SOURCE" refId="1"/>    
+    <end type="TARGET" refId="2"/>  
   </dependency>  
-  <dependency id="29">    
-    <bendpoint x="1174" y="240"/>    
-    <end type="SOURCE" refId="11"/>    
-    <end type="TARGET" refId="10"/>  
-  </dependency>  
-  <association id="30">    
-    <end type="SOURCE" refId="12" navigable="false">      
-      <attribute id="31" name="tiles">        
+  <association id="28">    
+    <end type="SOURCE" refId="10" navigable="false">      
+      <attribute id="29" name="columnsStatistics">        
         <position height="0" width="0" x="0" y="0"/>      
       </attribute>      
-      <multiplicity id="32" minimum="0" maximum="2147483647">        
+      <multiplicity id="30" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="7" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="31">    
+    <end type="SOURCE" refId="12" navigable="false">      
+      <attribute id="32" name="tiles">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="33" minimum="0" maximum="2147483647">        
         <position height="0" width="0" x="0" y="0"/>      
       </multiplicity>    
     </end>    
     <end type="TARGET" refId="9" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <dependency id="33">    
-    <bendpoint x="1724" y="250"/>    
-    <end type="SOURCE" refId="11"/>    
-    <end type="TARGET" refId="13"/>  
-  </dependency>  
   <dependency id="34">    
-    <end type="SOURCE" refId="6"/>    
-    <end type="TARGET" refId="2"/>  
+    <end type="SOURCE" refId="11"/>    
+    <end type="TARGET" refId="12"/>  
   </dependency>  
   <dependency id="35">    
     <end type="SOURCE" refId="12"/>    
     <end type="TARGET" refId="8"/>  
   </dependency>  
-  <realization id="36">    
-    <end type="SOURCE" refId="3"/>    
-    <end type="TARGET" refId="2"/>  
-  </realization>  
+  <dependency id="36">    
+    <bendpoint x="1724" y="250"/>    
+    <end type="SOURCE" refId="11"/>    
+    <end type="TARGET" refId="13"/>  
+  </dependency>  
   <association id="37">    
     <end type="SOURCE" refId="10" navigable="false">      
-      <attribute id="38" name="columnsStatistics">        
+      <attribute id="38" name="tiles">        
         <position height="0" width="0" x="0" y="0"/>      
       </attribute>      
-      <multiplicity id="39" minimum="0" maximum="1">        
+      <multiplicity id="39" minimum="0" maximum="2147483647">        
         <position height="0" width="0" x="0" y="0"/>      
       </multiplicity>    
     </end>    
-    <end type="TARGET" refId="7" navigable="true"/>    
+    <end type="TARGET" refId="9" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
   <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
