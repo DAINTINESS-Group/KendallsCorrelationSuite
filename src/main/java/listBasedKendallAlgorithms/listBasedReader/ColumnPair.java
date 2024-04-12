@@ -26,4 +26,8 @@ public class ColumnPair {
     public ArrayList<Double> getYColumn() {
         return y;
     }
+    
+    public int getSize() {
+    	return x.size();
+    }
 }
