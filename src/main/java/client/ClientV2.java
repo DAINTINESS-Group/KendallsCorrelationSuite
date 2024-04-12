@@ -3,7 +3,7 @@ package client;
 import listBasedKendallAlgorithms.*;
 import listBasedKendallAlgorithms.listBasedReader.ColumnPair;
 import listBasedKendallAlgorithms.listBasedReader.Reader;
-
+import sparkBasedKendallAlgorithms.SparkBasedKendallManager;
 
 import org.apache.spark.sql.AnalysisException;
 
@@ -103,23 +103,19 @@ public class ClientV2 {
 //        System.out.println(" ----- \n");
 
         /* Tile Implementation with SPARK and valuePairs*/
-//        startTime = System.currentTimeMillis();
-//        SparkBasedKendallManager sparkBasedKendallManager = new SparkBasedKendallManager();
-//        sparkBasedKendallManager.loadDataset(filePath, column1, column2);
-//        endTime = System.currentTimeMillis();
-//        elapsedTimeSeconds = (endTime - startTime) / 1000.0;
-//        System.out.println("Spark InitialSetup and Dataset loading took: " + elapsedTimeSeconds + "\n");
-//
-//        System.out.println(filePath);
-//
-//        startTime = System.currentTimeMillis();
-//        double kendall = sparkBasedKendallManager.calculateKendallTau(column1, column2);
-//        endTime = System.currentTimeMillis();
-//        elapsedTimeSeconds = (endTime - startTime) / 1000.0;
-//
-//        System.out.println("Tiles algorithm actual result: " + kendall);
-//        System.out.println("Tile valuePair elapsed time: " + elapsedTimeSeconds + " seconds");
-//        System.out.println(" ----- \n");
+        startTime = System.currentTimeMillis();
+        SparkBasedKendallManager sparkBasedKendallManager = new SparkBasedKendallManager();
+        sparkBasedKendallManager.loadDataset(filePath, column1, column2);
+        endTime = System.currentTimeMillis();
+        elapsedTimeSeconds = (endTime - startTime) / 1000.0;
+        System.out.println("Spark InitialSetup and Dataset loading took: " + elapsedTimeSeconds + "\n");
+
+        startTime = System.currentTimeMillis();
+        double sparkKendall = sparkBasedKendallManager.calculateKendallTau(column1, column2);
+        endTime = System.currentTimeMillis();
+        elapsedTimeSeconds = (endTime - startTime) / 1000.0;
+
+        printResults("Spark Kendall", filePath, sparkKendall, elapsedTimeSeconds);
     }
 
 
