@@ -16,6 +16,9 @@ public class ListBasedKendallMethodsService {
         } else if ("Apache kendall".equals(method)) {
             return factory.createKendallCalculator(KendallCalculatorMethods.APACHE_KENDALL);
         }
+        else if ("ListBasedTiles".equals(method)) {
+            return factory.createKendallCalculator(KendallCalculatorMethods.TILES_LIST);
+        }
         throw new IllegalArgumentException("Unknown method: " + method);
     }
 }

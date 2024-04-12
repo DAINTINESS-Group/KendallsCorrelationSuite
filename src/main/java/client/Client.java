@@ -5,8 +5,9 @@ import listBasedKendallAlgorithms.ListBasedKendallMethodsService;
 //import listBasedKendallAlgorithms.*;
 import listBasedKendallAlgorithms.listBasedReader.ColumnPair;
 import listBasedKendallAlgorithms.listBasedReader.Reader;
+import sparkBasedKendallAlgorithms.SparkBasedKendallManager;
+
 import org.apache.spark.sql.AnalysisException;
-import tileBasedKendallAlgorithms.SparkBasedKendallManager;
 
 import java.io.IOException;
 

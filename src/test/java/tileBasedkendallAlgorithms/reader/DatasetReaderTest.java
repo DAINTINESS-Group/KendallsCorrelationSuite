@@ -3,7 +3,8 @@ package tileBasedkendallAlgorithms.reader;
 import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
 import org.junit.Test;
-import tileBasedKendallAlgorithms.reader.DatasetReader;
+
+import sparkBasedKendallAlgorithms.reader.DatasetReader;
 import tileBasedkendallAlgorithms.SparkSessionTestSetup;
 
 import static org.junit.Assert.*;

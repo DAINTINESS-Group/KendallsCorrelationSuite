@@ -1,26 +1,24 @@
-package tileBasedKendallAlgorithms.algo;
+package listBasedKendallAlgorithms.listBasedTiles;
 
-import org.apache.spark.sql.Dataset;
-import org.apache.spark.sql.Row;
-import tileBasedKendallAlgorithms.tiles.Tile;
-import tileBasedKendallAlgorithms.tiles.TilesManager;
+
+import listBasedKendallAlgorithms.listBasedReader.ColumnPair;
+import tileUtil.algo.CalculationTimer;
+import tileUtil.algo.CorrelationStatistics;
+import tileUtil.algo.TileProcessor;
+import tileUtil.tiles.Tile;
 
 public class TileBasedCalculatorService {
-    private final Dataset<Row> dataset;
-    private final String column1;
-    private final String column2;
+    private final ColumnPair pair;
 
-    public TileBasedCalculatorService(Dataset<Row> dataset, String column1, String column2) {
-        this.column1 = column1;
-        this.column2 = column2;
-        this.dataset = dataset;
+    public TileBasedCalculatorService(ColumnPair pair) {
+        this.pair = pair;
     }
 
     public double calculateKendallTauCorrelation() {
         CorrelationStatistics statistics = new CorrelationStatistics();
         CalculationTimer timer = new CalculationTimer();
 
-        TilesManager tilesManager = new TilesManager(dataset, column1, column2);
+        TilesManager tilesManager = new TilesManager(pair);
         Tile[][] tiles = tilesManager.createTilesArray();
         TileProcessor processor = new TileProcessor(tiles, statistics);
 

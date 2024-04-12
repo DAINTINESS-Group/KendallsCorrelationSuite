@@ -1,4 +1,4 @@
-package listBasedKendallAlgorithms.listBasedTiles.algo;
+package tileUtil.algo;
 
 import java.util.Locale;
 

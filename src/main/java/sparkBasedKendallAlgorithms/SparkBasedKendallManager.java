@@ -1,12 +1,12 @@
-package tileBasedKendallAlgorithms;
+package sparkBasedKendallAlgorithms;
 
 import org.apache.spark.sql.AnalysisException;
 import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
 import org.apache.spark.sql.SparkSession;
-import tileBasedKendallAlgorithms.algo.TileBasedCalculatorService;
-import tileBasedKendallAlgorithms.reader.IDatasetReaderFactory;
-import tileBasedKendallAlgorithms.sparkSetup.SparkSetup;
+
+import sparkBasedKendallAlgorithms.reader.IDatasetReaderFactory;
+import sparkBasedKendallAlgorithms.sparkSetup.SparkSetup;
 
 public class SparkBasedKendallManager {
     private Dataset<Row> dataset;

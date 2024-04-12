@@ -10,11 +10,13 @@ public class ListBasedKendallFactory {
                 return new BrophyKendallCalculator();
             case APACHE_KENDALL:
                 return new ApacheCommonsKendall();
+            case TILES_LIST:
+            	return new ListBasedTileBasedKendallManager();
             default:
                 throw new IllegalArgumentException(
                         String.format("%s is not a supported calculation method.", method));
         }
     }
 
-    public enum KendallCalculatorMethods {BRUTEFORCE, BROPHY, APACHE_KENDALL}
+    public enum KendallCalculatorMethods {BRUTEFORCE, BROPHY, APACHE_KENDALL, TILES_LIST}
 }

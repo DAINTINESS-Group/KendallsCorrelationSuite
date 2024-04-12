@@ -1,4 +1,4 @@
-package tileBasedKendallAlgorithms.reader;
+package sparkBasedKendallAlgorithms.reader;
 
 import org.apache.spark.sql.AnalysisException;
 import org.apache.spark.sql.Dataset;

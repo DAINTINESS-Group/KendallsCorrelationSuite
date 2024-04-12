@@ -1,10 +1,15 @@
-package listBasedKendallAlgorithms.listBasedTiles.tiles;
+package sparkBasedKendallAlgorithms;
+
+import org.apache.spark.sql.Dataset;
+import org.apache.spark.sql.Row;
+
+import tileUtil.tiles.ColumnsStatistics;
+import tileUtil.tiles.DoublePair;
+import tileUtil.tiles.Tile;
 
 import java.io.Serializable;
-import java.util.List;
 
-import listBasedKendallAlgorithms.listBasedReader.ColumnPair;
-
+import static org.apache.spark.sql.functions.*;
 
 
 public class TilesManager implements Serializable {
@@ -12,15 +17,17 @@ public class TilesManager implements Serializable {
 	private static Tile[][] tiles;
     private int rangeCountX;
     private int rangeCountY;
+    private final String column1;
+    private final String column2;
     private double rangeWidthX;
     private double rangeWidthY;
-    private final ColumnPair pair;
+    private final Dataset<Row> dataset;
     private ColumnsStatistics columnsStatistics;
-    double datasetRowCount;
 
-    public TilesManager(ColumnPair pair) {
-        this.pair = pair;
-        this.datasetRowCount = pair.getSize();
+    public TilesManager(Dataset<Row> dataset, String column1, String column2) {
+        this.column1 = column1;
+        this.column2 = column2;
+        this.dataset = dataset;
     }
 
     public Tile[][] createTilesArray() {
@@ -43,6 +50,8 @@ public class TilesManager implements Serializable {
         double end = System.currentTimeMillis();
         double elapsed = (end - start) / 1000.0;
         System.out.println("X,Y min and max and stddev took: " + elapsed + " seconds");
+
+        double datasetRowCount = dataset.count();
         System.out.println("Dataset size: " + datasetRowCount);
 
         start = System.currentTimeMillis();
@@ -73,14 +82,12 @@ public class TilesManager implements Serializable {
     }
 
     private void populateTiles() {
-    	List<Double> xList = pair.getXColumn();
-    	List<Double> yList = pair.getYColumn();
         double minX = columnsStatistics.getMinX();
         double maxY = columnsStatistics.getMaxY();
 
-        for (int i=0; i<this.datasetRowCount;i++ ) {
-        	double valueX = xList.get(i);
-        	double valueY = yList.get(i);
+        dataset.foreach(row -> {
+            double valueX = row.getDouble(row.fieldIndex(column1));
+            double valueY = row.getDouble(row.fieldIndex(column2));
 
             int tileRow = (int) Math.min(rangeCountY - 1, Math.floor((maxY - valueY) / rangeWidthY));
             int tileColumn = (int) Math.min(rangeCountX - 1, Math.floor((valueX - minX) / rangeWidthX));
@@ -92,59 +99,30 @@ public class TilesManager implements Serializable {
             } else {
                 throw new ArrayIndexOutOfBoundsException("Tried to access out of bounds array cell");
             }
-        }
+        });
     }
 
 
     private void calculateMinMaxColumnValues() {
-        double minValueX = Double.MAX_VALUE;
-        double minValueY = Double.MAX_VALUE;
-        double maxValueX = Double.MIN_VALUE;
-        double maxValueY = Double.MIN_VALUE;
-        double sumValueX = 0.0;
-        double sumValueY = 0.0;
-        double stdDevX = 0.0;
-        double stdDevY = 0.0;
-    	
-    	List<Double> xList = pair.getXColumn();
-    	List<Double> yList = pair.getYColumn();
+        Row result = dataset.agg(
+                min(column1).alias("minValueX"),
+                max(column1).alias("maxValueX"),
+                min(column2).alias("minValueY"),
+                max(column2).alias("maxValueY"),
+                stddev(column1).alias("std devX"),
+                stddev(column2).alias("std devY")
+        ).first();
 
-    	for(Double d: xList) {
-    		if (d < minValueX)
-    			minValueX = d;
-    		if (d > maxValueX)
-    			maxValueX = d;
-    		sumValueX += d;
-    	}
+        // Extract the min, max and standard deviation values for both columns
+        double minValueX = result.getDouble(0);
+        double maxValueX = result.getDouble(1);
+        double minValueY = result.getDouble(2);
+        double maxValueY = result.getDouble(3);
+        double stdDevX = result.getDouble(4);
+        double stdDevY = result.getDouble(5);
 
-    	for(Double d: yList) {
-    		if (d < minValueY)
-    			minValueY = d;
-    		if (d > maxValueY)
-    			maxValueY = d;
-    		sumValueY += d;
-    	}
-
-    	stdDevX = computeStdDev(sumValueX, xList);
-    	stdDevY = computeStdDev(sumValueY, yList);
-      
-        
         columnsStatistics = new ColumnsStatistics(minValueX, maxValueX, minValueY, maxValueY, stdDevX, stdDevY);
     }
-
-	private double computeStdDev(double sumValue, List<Double> aList) {
-		double meanValueX = Double.NaN;
-		double stdDevX = 0;;
-		
-		meanValueX = sumValue / (double) this.datasetRowCount;
-    	Double var = 0.0;
-        for (Double d: aList) {
-            var += Math.pow(d - meanValueX, 2);
-        }
-        var = var / (double) this.datasetRowCount;
-        stdDevX =  Math.sqrt(var);
-		return stdDevX;
-	}
 
     public int calculateRangesCount(double rangeWidth, double min, double max) {
         double range = max - min;

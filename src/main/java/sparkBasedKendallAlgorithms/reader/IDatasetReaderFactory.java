@@ -1,9 +1,9 @@
-package tileBasedKendallAlgorithms.reader;
+package sparkBasedKendallAlgorithms.reader;
+
+import static sparkBasedKendallAlgorithms.reader.DatasetReaderConstants.*;
 
 import org.apache.spark.sql.SparkSession;
 import org.sparkproject.guava.io.Files;
-
-import static tileBasedKendallAlgorithms.reader.DatasetReaderConstants.*;
 
 public class IDatasetReaderFactory {
     private final SparkSession sparkSession;

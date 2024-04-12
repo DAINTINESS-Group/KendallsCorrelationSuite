@@ -1,4 +1,4 @@
-package tileBasedKendallAlgorithms.tiles;
+package tileUtil.tiles;
 
 import java.io.Serializable;
 import java.util.ArrayList;

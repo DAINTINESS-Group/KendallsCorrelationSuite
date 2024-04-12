@@ -1,14 +1,11 @@
 package client;
 
-import listBasedKendallAlgorithms.IListBasedKendallCalculator;
-import listBasedKendallAlgorithms.ListBasedKendallMethodsService;
 import listBasedKendallAlgorithms.*;
 import listBasedKendallAlgorithms.listBasedReader.ColumnPair;
 import listBasedKendallAlgorithms.listBasedReader.Reader;
-import listBasedKendallAlgorithms.listBasedTiles.ListBasedTileBasedKendallManager;
+
 
 import org.apache.spark.sql.AnalysisException;
-import tileBasedKendallAlgorithms.SparkBasedKendallManager;
 
 import java.io.IOException;
 
@@ -72,7 +69,8 @@ public class ClientV2 {
 
         /* TILES WITH LISTS*/
         startTime = System.currentTimeMillis();
-        ListBasedTileBasedKendallManager lbtbMgr = new ListBasedTileBasedKendallManager();
+        IListBasedKendallCalculator lbtbMgr = methods.getMethod("ListBasedTiles");
+        //ListBasedTileBasedKendallManager lbtbMgr = new ListBasedTileBasedKendallManager();
         double listTileKendallResult =lbtbMgr.calculateKendall(columnPair);
         endTime = System.currentTimeMillis();
         elapsedTimeSeconds = (endTime - startTime) / 1000.0;
@@ -124,11 +122,7 @@ public class ClientV2 {
 //        System.out.println(" ----- \n");
     }
 
-	/**
-	 * @param filePath
-	 * @param kendallResult
-	 * @param elapsedTimeSeconds
-	 */
+
 	private static void printResults(String methodName, String filePath, double kendallResult, double elapsedTimeSeconds) {
 		// Print the result
         System.out.println("\n\n" + methodName + " method for file " + filePath);

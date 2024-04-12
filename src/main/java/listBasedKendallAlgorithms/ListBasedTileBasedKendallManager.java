@@ -1,8 +1,7 @@
-package listBasedKendallAlgorithms.listBasedTiles;
+package listBasedKendallAlgorithms;
 
-import listBasedKendallAlgorithms.IListBasedKendallCalculator;
 import listBasedKendallAlgorithms.listBasedReader.ColumnPair;
-import listBasedKendallAlgorithms.listBasedTiles.algo.TileBasedCalculatorService;
+import listBasedKendallAlgorithms.listBasedTiles.TileBasedCalculatorService;
 
 public class ListBasedTileBasedKendallManager implements IListBasedKendallCalculator{
 
