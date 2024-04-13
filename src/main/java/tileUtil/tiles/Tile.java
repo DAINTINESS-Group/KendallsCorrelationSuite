@@ -51,4 +51,17 @@ public class Tile implements Serializable {
                 ", pairCounter=" + pairCounter +
                 '}';
     }
+
+    public String toStringDetailed() {
+    	String vStr="";
+    	for(DoublePair p: valuePairs) {
+    		vStr = vStr + p.toString();
+    	}
+    	
+        return "Tile{" +
+                "row=" + row +
+                ", column=" + column +
+                ", pairs=" + vStr +
+                '}';
+    }
 }

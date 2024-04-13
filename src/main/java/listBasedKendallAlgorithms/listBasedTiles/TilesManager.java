@@ -12,6 +12,8 @@ import tileUtil.tiles.Tile;
 
 public class TilesManager implements Serializable {
     private static final long serialVersionUID = 8765154256335271048L;
+    private static final boolean DEBUG_FLAG = false;
+    
 	private static Tile[][] tiles;
     private int rangeCountX;
     private int rangeCountY;
@@ -19,7 +21,7 @@ public class TilesManager implements Serializable {
     private double rangeWidthY;
     private final ColumnPair pair;
     private ColumnsStatistics columnsStatistics;
-    double datasetRowCount;
+    private double datasetRowCount;
 
     public TilesManager(ColumnPair pair) {
         this.pair = pair;
@@ -34,6 +36,21 @@ public class TilesManager implements Serializable {
         double endTime = System.currentTimeMillis();
         double elapsed = (endTime - startTime) / 1000.0;
         System.out.println("Tiles Population took " + elapsed + " seconds\n");
+    
+        if(DEBUG_FLAG) {
+            for (Tile[] rowOfTiles : tiles) {
+                for (Tile tile : rowOfTiles) {
+                	System.err.println(tile.toStringDetailed());
+                    //if (!tile.isEmpty()) {
+                    	//List<DoublePair> pairs = tile.getValuePairs();
+                    	//int row = tile.getRow();
+                    	//int col = tile.getColumn();
+                    	//System.err.println(row + "\t" + col + "\t" + pairs.toString());
+                    //}
+                }
+            }
+        }
+        
         return tiles;
     }
 
