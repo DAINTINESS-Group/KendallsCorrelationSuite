@@ -1,4 +1,4 @@
-package tileBasedkendallAlgorithms.algo;
+package sparkBasedKendallAlgorithms.algo;
 
 import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
@@ -6,6 +6,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 
+import sparkBasedKendallAlgorithms.SparkSessionTestSetup;
 import sparkBasedKendallAlgorithms.TileBasedCalculatorService;
 import sparkBasedKendallAlgorithms.reader.DatasetReader;
 
@@ -13,8 +14,6 @@ import java.util.Arrays;
 import java.util.Collection;
 
 import static org.junit.Assert.assertEquals;
-
-import tileBasedkendallAlgorithms.SparkSessionTestSetup;
 
 @RunWith(Parameterized.class)
 public class TileBasedCalculatorServiceTest extends SparkSessionTestSetup {

@@ -1,11 +1,10 @@
-package tileBasedkendallAlgorithms.reader;
+package sparkBasedKendallAlgorithms.reader;
 
 import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
 import org.junit.Test;
 
-import sparkBasedKendallAlgorithms.reader.DatasetReader;
-import tileBasedkendallAlgorithms.SparkSessionTestSetup;
+import sparkBasedKendallAlgorithms.SparkSessionTestSetup;
 
 import static org.junit.Assert.*;
 
