@@ -11,9 +11,11 @@ public class ColumnsStatistics implements Serializable {
     private final double maxY;
     private final double stdDevX;
     private final double stdDevY;
+    private final long rowCount;
 
-    public ColumnsStatistics(double minX, double maxX, double minY, double maxY, double stdDevX, double stdDevY) {
-        this.minX = minX;
+    public ColumnsStatistics(long rowCount, double minX, double maxX, double minY, double maxY, double stdDevX, double stdDevY) {
+        this.rowCount = rowCount;
+    	this.minX = minX;
         this.maxX = maxX;
         this.minY = minY;
         this.maxY = maxY;
@@ -22,7 +24,11 @@ public class ColumnsStatistics implements Serializable {
         this.stdDevY = stdDevY;
     }
 
-    public double getMinX() {
+    public long getRowCount() {
+		return rowCount;
+	}
+
+	public double getMinX() {
         return minX;
     }
 
@@ -48,7 +54,8 @@ public class ColumnsStatistics implements Serializable {
 
     @Override
     public String toString() {
-        return "ColumnsMeasures{" +
+        return "MetadataStats{" +
+        		"#rows=" + rowCount + 
                 "minX=" + minX +
                 ", maxX=" + maxX +
                 ", minY=" + minY +

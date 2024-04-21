@@ -22,6 +22,7 @@ public class TilesManager implements Serializable {
     private double rangeWidthX;
     private double rangeWidthY;
     private final Dataset<Row> dataset;
+    private long datasetRowCount;
     private ColumnsStatistics columnsStatistics;
 
     public TilesManager(Dataset<Row> dataset, String column1, String column2) {
@@ -50,12 +51,9 @@ public class TilesManager implements Serializable {
         double end = System.currentTimeMillis();
         double elapsed = (end - start) / 1000.0;
         System.out.println("X,Y min and max and stddev took: " + elapsed + " seconds");
-
-        double datasetRowCount = dataset.count();
         System.out.println("Dataset size: " + datasetRowCount);
 
         start = System.currentTimeMillis();
-
         rangeWidthX = calculateRangesWidth(columnsStatistics.getStdDevX(), datasetRowCount);
         rangeWidthY = calculateRangesWidth(columnsStatistics.getStdDevY(), datasetRowCount);
         rangeCountX = calculateRangesCount(rangeWidthX, columnsStatistics.getMinX(), columnsStatistics.getMaxX());
@@ -120,8 +118,9 @@ public class TilesManager implements Serializable {
         double maxValueY = result.getDouble(3);
         double stdDevX = result.getDouble(4);
         double stdDevY = result.getDouble(5);
-
-        columnsStatistics = new ColumnsStatistics(minValueX, maxValueX, minValueY, maxValueY, stdDevX, stdDevY);
+        this.datasetRowCount = dataset.count();
+        
+        columnsStatistics = new ColumnsStatistics(datasetRowCount, minValueX, maxValueX, minValueY, maxValueY, stdDevX, stdDevY);
     }
 
     public int calculateRangesCount(double rangeWidth, double min, double max) {

@@ -21,11 +21,10 @@ public class TilesManager implements Serializable {
     private double rangeWidthY;
     private final ColumnPair pair;
     private ColumnsStatistics columnsStatistics;
-    private double datasetRowCount;
+    private long datasetRowCount;
 
     public TilesManager(ColumnPair pair) {
         this.pair = pair;
-        this.datasetRowCount = pair.getSize();
     }
 
     public Tile[][] createTilesArray() {
@@ -66,10 +65,10 @@ public class TilesManager implements Serializable {
         System.out.println("Dataset size: " + datasetRowCount);
 
         start = System.currentTimeMillis();
-
-        rangeWidthX = calculateRangesWidth(columnsStatistics.getStdDevX(), datasetRowCount);
-        rangeWidthY = calculateRangesWidth(columnsStatistics.getStdDevY(), datasetRowCount);
-        rangeCountX = calculateRangesCount(rangeWidthX, columnsStatistics.getMinX(), columnsStatistics.getMaxX());
+        double datasetRowCountAsDouble = (double) this.datasetRowCount;
+        rangeWidthX = calculateRangesWidth(columnsStatistics.getStdDevX(), datasetRowCountAsDouble);
+        rangeWidthY = calculateRangesWidth(columnsStatistics.getStdDevY(), datasetRowCountAsDouble);       
+		rangeCountX = calculateRangesCount(rangeWidthX, columnsStatistics.getMinX(), columnsStatistics.getMaxX());
         rangeCountY = calculateRangesCount(rangeWidthY, columnsStatistics.getMinY(), columnsStatistics.getMaxY());
 
         end = System.currentTimeMillis();
@@ -110,7 +109,9 @@ public class TilesManager implements Serializable {
                     tiles[tileRow][tileColumn].addValuePair(new DoublePair(valueX, valueY));
                 }
             } else {
-                throw new ArrayIndexOutOfBoundsException("Tried to access out of bounds array cell");
+                throw new ArrayIndexOutOfBoundsException("Tried to access out of bounds array cell.\n" +
+                		"i: " + i + " tileRow: " + tileRow + " tileCol: " + tileColumn
+                		);
             }
         }
     }
@@ -144,17 +145,18 @@ public class TilesManager implements Serializable {
     			maxValueY = d;
     		sumValueY += d;
     	}
-
+    	this.datasetRowCount = pair.getSize();
     	stdDevX = computeStdDev(sumValueX, xList);
     	stdDevY = computeStdDev(sumValueY, yList);
       
         
-        columnsStatistics = new ColumnsStatistics(minValueX, maxValueX, minValueY, maxValueY, stdDevX, stdDevY);
+        
+        columnsStatistics = new ColumnsStatistics(this.datasetRowCount, minValueX, maxValueX, minValueY, maxValueY, stdDevX, stdDevY);
     }
 
 	private double computeStdDev(double sumValue, List<Double> aList) {
 		double meanValueX = Double.NaN;
-		double stdDevX = 0;;
+		double stdDevX = 0;
 		
 		meanValueX = sumValue / (double) this.datasetRowCount;
     	Double var = 0.0;
