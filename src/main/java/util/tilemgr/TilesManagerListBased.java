@@ -27,8 +27,8 @@ public class TilesManagerListBased implements Serializable, ITilesManager {
         this.pair = pair;
     }
 
-    @Override
-	public int calculateRangesCount(double rangeWidth, double min, double max) {
+    //@Override
+	private int calculateRangesCount(double rangeWidth, double min, double max) {
         double range = max - min;
         return (int) Math.ceil(range / rangeWidth);
     }

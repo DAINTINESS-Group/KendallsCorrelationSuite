@@ -54,9 +54,9 @@ public class ColumnsStatistics implements Serializable {
 
     @Override
     public String toString() {
-        return "MetadataStats{" +
+        return "ColumnStatistics{" +
         		"#rows=" + rowCount + 
-                "minX=" + minX +
+                ", minX=" + minX +
                 ", maxX=" + maxX +
                 ", minY=" + minY +
                 ", maxY=" + maxY +

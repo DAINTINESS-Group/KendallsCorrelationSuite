@@ -4,8 +4,8 @@ import util.tiles.Tile;
 
 public interface ITilesManager {
 
-	Tile[][] createTilesArray();
+	public Tile[][] createTilesArray();
 
-	int calculateRangesCount(double rangeWidth, double min, double max);
+	//int calculateRangesCount(double rangeWidth, double min, double max);
 
 }
