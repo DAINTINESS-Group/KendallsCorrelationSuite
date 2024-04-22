@@ -1,8 +1,8 @@
 package client;
 
-import listBasedKendallAlgorithms.IListBasedKendallCalculator;
-import listBasedKendallAlgorithms.ListBasedKendallMethodsService;
-//import listBasedKendallAlgorithms.*;
+//import listBasedKendallAlgorithms.IListBasedKendallCalculator;
+//import listBasedKendallAlgorithms.ListBasedKendallFactory;
+import listBasedKendallAlgorithms.*;
 import listBasedKendallAlgorithms.listBasedReader.ColumnPair;
 import listBasedKendallAlgorithms.listBasedReader.Reader;
 import sparkBasedKendallAlgorithms.SparkBasedKendallManager;
@@ -58,11 +58,11 @@ public class Client {
         long endTime = -1;
         double elapsedTimeSeconds = -1.0;
 
-        ListBasedKendallMethodsService methods = new ListBasedKendallMethodsService();
+        ListBasedKendallFactory methods = new ListBasedKendallFactory();
 
         /* APACHE */
         startTime = System.currentTimeMillis();
-        IListBasedKendallCalculator apacheKendall = methods.getMethod("Apache kendall");
+        IListBasedKendallCalculator apacheKendall = methods.createKendallCalculatorByString("Apache kendall");
         double apacheResult = apacheKendall.calculateKendall(columnPair);
         endTime = System.currentTimeMillis();
         elapsedTimeSeconds = (endTime - startTime) / 1000.0;

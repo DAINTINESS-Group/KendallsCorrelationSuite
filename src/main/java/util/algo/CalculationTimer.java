@@ -1,4 +1,4 @@
-package tileUtil.algo;
+package util.algo;
 
 import java.util.Locale;
 

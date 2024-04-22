@@ -2,7 +2,7 @@ package client;
 
 
 import listBasedKendallAlgorithms.IListBasedKendallCalculator;
-import listBasedKendallAlgorithms.ListBasedKendallMethodsService;
+import listBasedKendallAlgorithms.ListBasedKendallFactory;
 import listBasedKendallAlgorithms.listBasedReader.ColumnPair;
 import listBasedKendallAlgorithms.listBasedReader.Reader;
 
@@ -20,15 +20,15 @@ public class ClientDebug {
 
         ColumnPair columnPair = reader.read(filePath, column1, column2, delimiter);
 
-        ListBasedKendallMethodsService methods = new ListBasedKendallMethodsService();
+        ListBasedKendallFactory methods = new ListBasedKendallFactory();
 
         /* APACHE */
-        IListBasedKendallCalculator apacheKendall = methods.getMethod("Apache kendall");
+        IListBasedKendallCalculator apacheKendall = methods.createKendallCalculatorByString("Apache kendall");
         double apacheResult = apacheKendall.calculateKendall(columnPair);
         printResults("Apache", filePath, apacheResult, 0.0);
 
         /* TILES WITH LISTS*/
-        IListBasedKendallCalculator lbtbMgr = methods.getMethod("ListBasedTiles");
+        IListBasedKendallCalculator lbtbMgr = methods.createKendallCalculatorByString("ListBasedTiles");
         //ListBasedTileBasedKendallManager lbtbMgr = new ListBasedTileBasedKendallManager();
         double listTileKendallResult =lbtbMgr.calculateKendall(columnPair);
 

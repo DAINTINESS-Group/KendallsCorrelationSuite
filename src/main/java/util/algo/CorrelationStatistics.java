@@ -1,4 +1,4 @@
-package tileUtil.algo;
+package util.algo;
 
 public class CorrelationStatistics {
 

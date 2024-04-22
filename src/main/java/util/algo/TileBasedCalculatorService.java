@@ -1,24 +1,21 @@
-package listBasedKendallAlgorithms.listBasedTiles;
+package util.algo;
 
 
-import listBasedKendallAlgorithms.listBasedReader.ColumnPair;
-import tileUtil.algo.CalculationTimer;
-import tileUtil.algo.CorrelationStatistics;
-import tileUtil.algo.TileProcessor;
-import tileUtil.tiles.Tile;
+import util.tilemgr.ITilesManager;
+import util.tiles.Tile;
 
 public class TileBasedCalculatorService {
-    private final ColumnPair pair;
+    private ITilesManager tilesManager;
 
-    public TileBasedCalculatorService(ColumnPair pair) {
-        this.pair = pair;
+
+    public TileBasedCalculatorService(ITilesManager tilesManager) {
+        this.tilesManager = tilesManager;
     }
 
     public double calculateKendallTauCorrelation() {
         CorrelationStatistics statistics = new CorrelationStatistics();
         CalculationTimer timer = new CalculationTimer();
 
-        TilesManager tilesManager = new TilesManager(pair);
         Tile[][] tiles = tilesManager.createTilesArray();
         TileProcessor processor = new TileProcessor(tiles, statistics);
 

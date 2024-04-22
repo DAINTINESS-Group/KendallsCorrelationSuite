@@ -1,8 +1,10 @@
-package tileUtil.tiles;
+package util.tiles;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+
+import util.common.DoublePair;
 
 public class Tile implements Serializable {
 

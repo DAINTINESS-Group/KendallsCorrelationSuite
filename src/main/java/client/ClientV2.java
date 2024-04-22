@@ -56,11 +56,11 @@ public class ClientV2 {
         long endTime = -1;
         double elapsedTimeSeconds = -1.0;
 
-        ListBasedKendallMethodsService methods = new ListBasedKendallMethodsService();
+        ListBasedKendallFactory methods = new ListBasedKendallFactory();
 
         /* APACHE */
         startTime = System.currentTimeMillis();
-        IListBasedKendallCalculator apacheKendall = methods.getMethod("Apache kendall");
+        IListBasedKendallCalculator apacheKendall = methods.createKendallCalculatorByString("Apache kendall");
         double apacheResult = apacheKendall.calculateKendall(columnPair);
         endTime = System.currentTimeMillis();
         elapsedTimeSeconds = (endTime - startTime) / 1000.0;
@@ -69,7 +69,7 @@ public class ClientV2 {
 
         /* TILES WITH LISTS*/
         startTime = System.currentTimeMillis();
-        IListBasedKendallCalculator lbtbMgr = methods.getMethod("ListBasedTiles");
+        IListBasedKendallCalculator lbtbMgr = methods.createKendallCalculatorByString("ListBasedTiles");
         //ListBasedTileBasedKendallManager lbtbMgr = new ListBasedTileBasedKendallManager();
         double listTileKendallResult =lbtbMgr.calculateKendall(columnPair);
         endTime = System.currentTimeMillis();
@@ -78,7 +78,7 @@ public class ClientV2 {
         printResults("List Tiles", filePath, listTileKendallResult, elapsedTimeSeconds);
         
         /* BRUTE */
-        IListBasedKendallCalculator bruteForceTauA = methods.getMethod("BruteForce");
+        IListBasedKendallCalculator bruteForceTauA = methods.createKendallCalculatorByString("BruteForce");
         startTime = System.currentTimeMillis();
         double actualBruteForce = bruteForceTauA.calculateKendall(columnPair);
         endTime = System.currentTimeMillis();
@@ -91,7 +91,7 @@ public class ClientV2 {
         System.out.println(" ----- \n");
 //
 //        /* BROPHY */
-        IListBasedKendallCalculator brophyKendallTauB = methods.getMethod("Brophy");
+        IListBasedKendallCalculator brophyKendallTauB = methods.createKendallCalculatorByString("Brophy");
         startTime = System.currentTimeMillis();
         double actualBrophy = brophyKendallTauB.calculateKendall(columnPair);
         endTime = System.currentTimeMillis();

@@ -1,4 +1,4 @@
-package listBasedKendallAlgorithms.listBasedTiles;
+package listBasedKendallAlgorithms;
 
 import org.junit.Test;
 import static org.junit.Assert.assertEquals;

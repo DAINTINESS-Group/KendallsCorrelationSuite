@@ -1,10 +1,10 @@
-package tileUtil.algo;
+package util.algo;
 
 import java.util.Comparator;
 import java.util.List;
 
-import tileUtil.tiles.DoublePair;
-import tileUtil.tiles.Tile;
+import util.common.DoublePair;
+import util.tiles.Tile;
 
 /**
  * The {@code TileProcessor} class is responsible for processing tiles in a tile-based approach to calculating

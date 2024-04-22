@@ -1,4 +1,4 @@
-package tileUtil.tiles;
+package util.common;
 
 public class DoublePair {
     private final double x;
