@@ -12,7 +12,7 @@ public class Tile implements Serializable {
 	private final int row;
     private final int column;
     private final List<DoublePair> valuePairs;
-    private double pairCounter = 0;
+    private int pairCounter = 0;
 
     public Tile(int row, int column) {
         this.valuePairs = new ArrayList<>();
@@ -24,7 +24,7 @@ public class Tile implements Serializable {
         return pairCounter == 0;
     }
 
-    public double getCount() {
+    public int getCount() {
         return pairCounter;
     }
 

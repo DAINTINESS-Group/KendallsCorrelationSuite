@@ -32,12 +32,16 @@ public class TileProcessor {
         maxColumns = tiles[0].length;
     }
 
-    public void processTile(Tile tile) {
+    public void processTile(Tile tile) {    	
         int tileRow = tile.getRow();
         int tileColumn = tile.getColumn();
-        double tilePairsCount = tile.getCount();
+        int tilePairsCount = (int)tile.getCount();
         List<DoublePair> tilePairs = tile.getValuePairs();
 
+        if(tilePairs.size() != tilePairsCount) {
+        	System.err.println("Tileprocessor.processTile error, parCount and list do not match: " +tilePairsCount + "\t" + tilePairs.size());
+        	System.err.println("Tile: " +tile.toString());
+        }
         long startTime = System.currentTimeMillis();
         compareTileWithSelf(tilePairs, tilePairsCount);
         long endTime = System.currentTimeMillis();
@@ -63,7 +67,7 @@ public class TileProcessor {
         CalculationTimer.incrementCompareWithNonCrossTime(elapsedTimeSeconds);
     }
 
-    private void compareTileWithSelf(List<DoublePair> tilePairs, double tilePairsCount) {
+    private void compareTileWithSelf(List<DoublePair> tilePairs, int tilePairsCount) {    	
         for (int i = 0; i < tilePairsCount - 1; i++) {
             DoublePair pair1 = tilePairs.get(i);
             for (int j = i + 1; j < tilePairsCount; j++) {
@@ -160,13 +164,13 @@ public class TileProcessor {
         }
     }
 
-    private void processNonCrossTiles(double tilePairCount, int tileRow, int tileColumn) {
+    private void processNonCrossTiles(int tilePairCount, int tileRow, int tileColumn) {
         processSouthEastTiles(tilePairCount, tileRow, tileColumn);
         processSouthWestTiles(tilePairCount, tileRow, tileColumn);
     }
 
-    private void processSouthEastTiles(double tilePairsCount, int tileRow, int tileColumn) {
-        double southEastTilesPairsCount;
+    private void processSouthEastTiles(int tilePairsCount, int tileRow, int tileColumn) {
+        int southEastTilesPairsCount;
 
         for (int row = tileRow + 1; row < maxRows; row++) {
             for (int column = tileColumn + 1; column < maxColumns; column++) {
@@ -179,8 +183,8 @@ public class TileProcessor {
         }
     }
 
-    private void processSouthWestTiles(double tilePairCount, int tileRow, int tileColumn) {
-        double southWestTilePairsCount;
+    private void processSouthWestTiles(int tilePairCount, int tileRow, int tileColumn) {
+        int southWestTilePairsCount;
 
         for (int row = tileRow + 1; row < maxRows; row++) {
             for (int column = tileColumn - 1; column >= 0; column--) {
