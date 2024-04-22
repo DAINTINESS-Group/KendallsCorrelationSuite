@@ -6,7 +6,6 @@ import org.junit.runners.Suite.SuiteClasses;
 
 import sparkBasedKendallAlgorithms.reader.DatasetReaderTest;
 import sparkBasedKendallAlgorithms.sparkSetup.SparkSetupTest;
-import util.algo.TileBasedCalculatorServiceTest;
 
 @RunWith(Suite.class)
 @SuiteClasses({ 
