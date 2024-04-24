@@ -9,71 +9,70 @@ public abstract class TilesManagerAbstractClass implements ITilesManager{
 	protected static final boolean DEBUG_FLAG = false;
 	protected static Tile[][] tiles;
 	protected long datasetRowCount;
-	protected int rangeCountX;
-	protected int rangeCountY;
+	protected int numOfBinsX;
+	protected int numOfBinsY;
 	protected double rangeWidthX;
 	protected double rangeWidthY;
 	protected ColumnsStatistics columnsStatistics;
 	
-
 	protected abstract void populateTiles();
 	protected abstract void calculateMinMaxColumnValues();
 
 
 	@Override
 	public Tile[][] createTilesArray() {
+		
+	    	double start = System.currentTimeMillis();
+	    calculateMinMaxColumnValues();
+	    	double end = System.currentTimeMillis();
+	    	double elapsed = (end - start) / 1000.0;
+	    	if(DEBUG_FLAG) {
+	    		System.out.println("X,Y min and max and stddev took: " + elapsed + " seconds");
+	    		System.out.println("Dataset size: " + datasetRowCount);
+	    	}
+	    	
+	    	start = System.currentTimeMillis();
 	    setupTilesArrayMetadata();
+    		end = System.currentTimeMillis();
+    		elapsed = (end - start) / 1000.0;
+    		if(DEBUG_FLAG) {
+    			System.out.println("Tiles bin number and binWidth calculations took: " + elapsed + " seconds");
+    			System.out.println("#SubRangesX: " + numOfBinsX + "\n#SubRangesY: " + numOfBinsY + "\nTotal tiles: " + numOfBinsX * numOfBinsY);
+    			System.out.println("RangeWidthX: " + rangeWidthX + "\n#RangeWidthY: " + rangeWidthY + "\nTotal #tuples: " + datasetRowCount);
+    		}
+    		
+    		start = System.currentTimeMillis();
 	    initializeTilesArray();
-	    double startTime = System.currentTimeMillis(); // Timing population
+    		end = System.currentTimeMillis();
+    		elapsed = (end - start) / 1000.0;
+    		if(DEBUG_FLAG) {
+    			System.out.println("Tiles initialization took: " + elapsed + " seconds");
+    		}
+	    
+	    	start = System.currentTimeMillis(); // Timing population
 	    populateTiles();
-	    double endTime = System.currentTimeMillis();
-	    double elapsed = (endTime - startTime) / 1000.0;
-	    if(DEBUG_FLAG) {
-	    	System.out.println("Tiles Population took " + elapsed + " seconds\n");
-	    }
+	    	end = System.currentTimeMillis();
+	    	elapsed = (end - start) / 1000.0;
+	    	if(DEBUG_FLAG) {
+	    		System.out.println("Tiles Population took " + elapsed + " seconds\n");
+	    	}
 	    return tiles;
 	}
 
 	protected void setupTilesArrayMetadata() {
-	
-	    double start = System.currentTimeMillis();
-	
-	    calculateMinMaxColumnValues();
-	
-	    double end = System.currentTimeMillis();
-	    double elapsed = (end - start) / 1000.0;
-	    if(DEBUG_FLAG) {
-	    	System.out.println("X,Y min and max and stddev took: " + elapsed + " seconds");
-	    	System.out.println("Dataset size: " + datasetRowCount);
-	    }
-	    start = System.currentTimeMillis();
-	    double datasetRowCountAsDouble = (double) this.datasetRowCount;
+		double datasetRowCountAsDouble = (double) this.datasetRowCount;
 	    rangeWidthX = calculateRangesWidth(columnsStatistics.getStdDevX(), datasetRowCountAsDouble);
 	    rangeWidthY = calculateRangesWidth(columnsStatistics.getStdDevY(), datasetRowCountAsDouble);       
-		rangeCountX = calculateRangesCount(rangeWidthX, columnsStatistics.getMinX(), columnsStatistics.getMaxX());
-	    rangeCountY = calculateRangesCount(rangeWidthY, columnsStatistics.getMinY(), columnsStatistics.getMaxY());
-	
-	    end = System.currentTimeMillis();
-	    elapsed = (end - start) / 1000.0;
-	    if(DEBUG_FLAG) {
-	    	System.out.println("Tiles bin number and binWidth calculations took: " + elapsed + " seconds");
-	    	System.out.println("#RangesX: " + rangeCountX + "\n#RangesY: " + rangeCountY + "\nTotal tiles: " + rangeCountX * rangeCountY);
-	    	System.out.println("RangeWidthX: " + rangeWidthX + "\n#RangeWidthY: " + rangeWidthY + "\nTotal #tuples: " + datasetRowCount);
-	    }
-	    tiles = new Tile[this.rangeCountY][this.rangeCountX];
+		numOfBinsX = calculateRangesCount(rangeWidthX, columnsStatistics.getMinX(), columnsStatistics.getMaxX());
+	    numOfBinsY = calculateRangesCount(rangeWidthY, columnsStatistics.getMinY(), columnsStatistics.getMaxY());
 	}
 
 	protected void initializeTilesArray() {
-	    double start = System.currentTimeMillis();
-	    for (int row = 0; row < rangeCountY; row++) {
-	        for (int col = 0; col < rangeCountX; col++) {
+	    tiles = new Tile[this.numOfBinsY][this.numOfBinsX];    	
+	    for (int row = 0; row < numOfBinsY; row++) {
+	        for (int col = 0; col < numOfBinsX; col++) {
 	            tiles[row][col] = new Tile(row, col);
 	        }
-	    }
-	    double end = System.currentTimeMillis();
-	    double elapsed = (end - start) / 1000.0;
-	    if(DEBUG_FLAG) {
-	    	System.out.println("Tiles initialization took: " + elapsed + " seconds");
 	    }
 	}
 

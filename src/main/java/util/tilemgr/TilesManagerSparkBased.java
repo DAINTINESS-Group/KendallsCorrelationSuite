@@ -28,8 +28,8 @@ public class TilesManagerSparkBased extends TilesManagerAbstractClass implements
         double minX = columnsStatistics.getMinX();
         double maxY = columnsStatistics.getMaxY();
     
-    	final int localRangeCountX = this.rangeCountX;
-    	final int localRangeCountY = this.rangeCountY;
+    	final int localRangeCountX = this.numOfBinsX;
+    	final int localRangeCountY = this.numOfBinsY;
     	final double localRangeWidthX = this.rangeWidthX;
     	final double localRangeWidthY = this.rangeWidthY;        
 
@@ -79,8 +79,8 @@ public class TilesManagerSparkBased extends TilesManagerAbstractClass implements
 	@Override
 	public String toString() {
 		return "TilesManagerSparkBased [datasetRowCount=" + datasetRowCount + 
-				", rangeCountX=" + rangeCountX
-				+ ", rangeCountY=" + rangeCountY 
+				", numOfBinsX=" + numOfBinsX
+				+ ", numOfBinsY=" + numOfBinsY 
 				+ ", rangeWidthX=" + rangeWidthX 
 				+ ", rangeWidthY=" + rangeWidthY
 				+ ", columnsStatistics=" + columnsStatistics.toString() 

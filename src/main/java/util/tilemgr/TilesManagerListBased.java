@@ -28,10 +28,10 @@ public class TilesManagerListBased extends TilesManagerAbstractClass implements 
         	double valueX = xList.get(i);
         	double valueY = yList.get(i);
 
-            int tileRow = (int) Math.min(rangeCountY - 1, Math.floor((maxY - valueY) / rangeWidthY));
-            int tileColumn = (int) Math.min(rangeCountX - 1, Math.floor((valueX - minX) / rangeWidthX));
+            int tileRow = (int) Math.min(numOfBinsY - 1, Math.floor((maxY - valueY) / rangeWidthY));
+            int tileColumn = (int) Math.min(numOfBinsX - 1, Math.floor((valueX - minX) / rangeWidthX));
 
-            if (tileRow >= 0 && tileRow < rangeCountY && tileColumn >= 0 && tileColumn < rangeCountX) {
+            if (tileRow >= 0 && tileRow < numOfBinsY && tileColumn >= 0 && tileColumn < numOfBinsX) {
                 synchronized (tiles[tileRow][tileColumn]) {
                     tiles[tileRow][tileColumn].addValuePair(new DoublePair(valueX, valueY));
                 }
