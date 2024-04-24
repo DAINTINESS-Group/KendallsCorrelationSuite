@@ -35,14 +35,14 @@ public class ClientDebug {
         
         printResults("List Tiles", filePath, listTileKendallResult, 0.0);
         
-    }
+    }//end main
 
 
 	private static void printResults(String methodName, String filePath, double kendallResult, double elapsedTimeSeconds) {
 		// Print the result
         System.out.println("\n\n" + methodName + " method for file " + filePath);
-        System.out.println(methodName + " kendallValue:\t" + kendallResult);
-        System.out.println(methodName+" elapsed time:\t" + elapsedTimeSeconds + " seconds");
+        System.out.println(methodName + " Kendall tau value:\t" + kendallResult);
+        System.out.println(methodName+" elapsed time (sec):\t" + elapsedTimeSeconds + " seconds");
         System.out.println(" ----- \n");
 	}
-}
+}//end class

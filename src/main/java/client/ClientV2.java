@@ -84,11 +84,10 @@ public class ClientV2 {
         endTime = System.currentTimeMillis();
         elapsedTimeSeconds = (endTime - startTime) / 1000.0;
 
-        // Print the result
-        System.out.println("Brute Force Test for file " + filePath);
-        System.out.println("Actual: " + actualBruteForce);
-        System.out.println("brute force elapsed time: " + elapsedTimeSeconds + " seconds");
-        System.out.println(" ----- \n");
+
+        printResults("Brute Force", filePath, actualBruteForce, elapsedTimeSeconds);
+
+        
 //
 //        /* BROPHY */
         IListBasedKendallCalculator brophyKendallTauB = methods.createKendallCalculatorByString("Brophy");
@@ -97,11 +96,8 @@ public class ClientV2 {
         endTime = System.currentTimeMillis();
         elapsedTimeSeconds = (endTime - startTime) / 1000.0;
 
-        System.out.println("Brophy Test for file " + filePath);
-        System.out.println("Actual: " + actualBrophy);
-        System.out.println("Brophy elapsed time: " + elapsedTimeSeconds + " seconds");
-        System.out.println(" ----- \n");
-
+        printResults("Brophy", filePath, actualBrophy, elapsedTimeSeconds);
+        
         /* Tile Implementation with SPARK and valuePairs*/
         startTime = System.currentTimeMillis();
         SparkBasedKendallManager sparkBasedKendallManager = new SparkBasedKendallManager();
@@ -119,11 +115,12 @@ public class ClientV2 {
     }
 
 
-	private static void printResults(String methodName, String filePath, double kendallResult, double elapsedTimeSeconds) {
+    private static void printResults(String methodName, String filePath, double kendallResult, double elapsedTimeSeconds) {
 		// Print the result
-        System.out.println("\n\n" + methodName + " method for file " + filePath);
-        System.out.println(methodName + " kendallValue:\t" + kendallResult);
-        System.out.println(methodName+" elapsed time:\t" + elapsedTimeSeconds + " seconds");
+    	System.out.println("\n\n" + " ----- ");
+        System.out.println(methodName + " method for file " + filePath);
+        System.out.println(methodName + " Kendall tau value:\t" + kendallResult);
+        System.out.println(methodName+" elapsed time (sec):\t" + elapsedTimeSeconds + " seconds");
         System.out.println(" ----- \n");
 	}
 }

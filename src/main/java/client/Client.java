@@ -68,10 +68,8 @@ public class Client {
         elapsedTimeSeconds = (endTime - startTime) / 1000.0;
 
         // Print the result
-        System.out.println("Apache method for file " + filePath);
-        System.out.println("Apache: " + apacheResult);
-        System.out.println("Apache elapsed time: " + elapsedTimeSeconds + " seconds");
-        System.out.println(" ----- \n");
+        printResults("Apache", filePath, apacheResult, elapsedTimeSeconds);
+
 
 
 //        /* BRUTE */
@@ -108,15 +106,22 @@ public class Client {
         elapsedTimeSeconds = (endTime - startTime) / 1000.0;
         System.out.println("Spark InitialSetup and Dataset loading took: " + elapsedTimeSeconds + "\n");
 
-        System.out.println(filePath);
-
         startTime = System.currentTimeMillis();
-        double kendall = sparkBasedKendallManager.calculateKendallTau(column1, column2);
+        double sparkTileKendallResult = sparkBasedKendallManager.calculateKendallTau(column1, column2);
         endTime = System.currentTimeMillis();
         elapsedTimeSeconds = (endTime - startTime) / 1000.0;
 
-        System.out.println("Tiles algorithm actual result: " + kendall);
-        System.out.println("Tile valuePair elapsed time: " + elapsedTimeSeconds + " seconds");
-        System.out.println(" ----- \n");
+        printResults("Spark Tiles", filePath, sparkTileKendallResult, elapsedTimeSeconds);
+
     }
-}
+
+    private static void printResults(String methodName, String filePath, double kendallResult, double elapsedTimeSeconds) {
+		// Print the result
+    	System.out.println("\n\n" + " ----- \n");
+        System.out.println(methodName + " method for file " + filePath);
+        System.out.println(methodName + " Kendall tau value:\t" + kendallResult);
+        System.out.println(methodName+" elapsed time (sec):\t" + elapsedTimeSeconds + " seconds");
+        System.out.println(" ----- \n");
+	}
+    
+}//end class
