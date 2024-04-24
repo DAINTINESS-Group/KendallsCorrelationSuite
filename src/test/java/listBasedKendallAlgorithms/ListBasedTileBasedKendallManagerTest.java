@@ -32,7 +32,9 @@ public class ListBasedTileBasedKendallManagerTest {
         double actual =lbtbMgr.calculateKendall(pair);
         double expected = 0.23076923076923078;
         double delta = 0.0;
-
+		System.out.println("\nList-Based Kendall (Tau B)");
+		System.out.println("Expected:\t" + expected);
+		System.out.println("Actual  :\t" + actual);
         assertEquals(expected, actual, delta);
 
 	}//end method
@@ -57,7 +59,9 @@ public class ListBasedTileBasedKendallManagerTest {
         double actual =lbtbMgr.calculateKendall(pair);
         double expected = 0.04957330142836763;
         double delta = 0.0;
-
+		System.out.println("\nList-Based Kendall (Tau B)");
+		System.out.println("Expected:\t" + expected);
+		System.out.println("Actual  :\t" + actual);
         assertEquals(expected, actual, delta);
 
 	}//end method	
@@ -83,7 +87,9 @@ public class ListBasedTileBasedKendallManagerTest {
         double actual =lbtbMgr.calculateKendall(pair);
         double expected = 0.2943112515766309;
         double delta = 0.0;
-
+		System.out.println("\nList-Based Kendall (Tau B)");
+		System.out.println("Expected:\t" + expected);
+		System.out.println("Actual  :\t" + actual);
         assertEquals(expected, actual, delta);
 
 	}//end method	
@@ -109,6 +115,9 @@ public class ListBasedTileBasedKendallManagerTest {
         double expected = 0.23002983829926982;
         double delta = 0.0;
 
+		System.out.println("\nList-Based Kendall (Tau B)");
+		System.out.println("Expected:\t" + expected);
+		System.out.println("Actual  :\t" + actual);
         assertEquals(expected, actual, delta);
 
 	}//end method	

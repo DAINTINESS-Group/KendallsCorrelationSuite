@@ -5,6 +5,8 @@ import util.tilemgr.ITilesManager;
 import util.tiles.Tile;
 
 public class TileBasedCalculatorService {
+	protected static final boolean DEBUG_FLAG = false;
+
     private ITilesManager tilesManager;
 
 
@@ -18,18 +20,14 @@ public class TileBasedCalculatorService {
 
         Tile[][] tiles = tilesManager.createTilesArray();
         TileProcessor processor = new TileProcessor(tiles, statistics);
+        processor.processAllTiles();
 
-        for (Tile[] rowOfTiles : tiles) {
-            for (Tile tile : rowOfTiles) {
-                if (!tile.isEmpty()) {
-                    processor.processTile(tile);
-                }
-            }
+        if(DEBUG_FLAG) {
+        	System.out.println(statistics);
+        	System.out.println(timer);
         }
-
-        System.out.println(statistics);
-        System.out.println(timer);
-
         return statistics.calculateCorrelationResult();
     }
 }
+
+

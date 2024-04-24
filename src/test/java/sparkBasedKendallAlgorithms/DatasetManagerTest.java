@@ -18,7 +18,9 @@ public class DatasetManagerTest {
         double actual = sparkBasedKendallManager.calculateKendallTau(column1, column2);
         double expected = 0.23076923076923078;
         double delta = 0.0;
-
+		System.out.println("\nSpark-Based Kendall (Tau B)");
+		System.out.println("Expected:\t" + expected);
+		System.out.println("Actual  :\t" + actual);
         assertEquals(expected, actual, delta);
     }
 }

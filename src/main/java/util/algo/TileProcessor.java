@@ -32,6 +32,16 @@ public class TileProcessor {
         maxColumns = tiles[0].length;
     }
 
+    public void processAllTiles() {
+        for (Tile[] rowOfTiles : tiles) {
+            for (Tile tile : rowOfTiles) {
+                if (!tile.isEmpty()) {
+                    processTile(tile);
+                }
+            }
+        }
+    }
+    
     public void processTile(Tile tile) {    	
         int tileRow = tile.getRow();
         int tileColumn = tile.getColumn();

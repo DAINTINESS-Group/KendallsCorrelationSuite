@@ -24,8 +24,8 @@ public class BrophyCalculatorTest {
 		double actual = listBasedKendallCalculator.calculateKendall(pair);
 
 		System.out.println("\nBrophy Test (Tau B)");
-		System.out.println("Expected: " + expected);
-		System.out.println("Actual: " + actual);
+		System.out.println("Expected:\t" + expected);
+		System.out.println("Actual  :\t" + actual);
 
 		assertEquals(expected, actual, 0.0);
 	}

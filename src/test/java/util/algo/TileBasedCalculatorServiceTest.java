@@ -59,6 +59,9 @@ public class TileBasedCalculatorServiceTest extends SparkSessionTestSetup {
 
         // Assert
         double delta = 0.0;
+		System.out.println("\nSpark-Based Kendall (Tau B)");
+		System.out.println("Expected:\t" + expected);
+		System.out.println("Actual  :\t" + actual);
         assertEquals(expected, actual, delta);
     }
     
@@ -81,6 +84,9 @@ public class TileBasedCalculatorServiceTest extends SparkSessionTestSetup {
 
         // Assert
         double delta = 0.0;
+		System.out.println("\nList-Based Kendall (Tau B)");
+		System.out.println("Expected:\t" + expected);
+		System.out.println("Actual  :\t" + actual);
         assertEquals(expected, actual, delta);
     }
     

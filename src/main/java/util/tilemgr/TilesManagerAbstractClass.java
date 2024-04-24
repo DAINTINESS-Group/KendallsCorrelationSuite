@@ -28,7 +28,9 @@ public abstract class TilesManagerAbstractClass implements ITilesManager{
 	    populateTiles();
 	    double endTime = System.currentTimeMillis();
 	    double elapsed = (endTime - startTime) / 1000.0;
-	    System.out.println("Tiles Population took " + elapsed + " seconds\n");          
+	    if(DEBUG_FLAG) {
+	    	System.out.println("Tiles Population took " + elapsed + " seconds\n");
+	    }
 	    return tiles;
 	}
 
@@ -40,9 +42,10 @@ public abstract class TilesManagerAbstractClass implements ITilesManager{
 	
 	    double end = System.currentTimeMillis();
 	    double elapsed = (end - start) / 1000.0;
-	    System.out.println("X,Y min and max and stddev took: " + elapsed + " seconds");
-	    System.out.println("Dataset size: " + datasetRowCount);
-	    
+	    if(DEBUG_FLAG) {
+	    	System.out.println("X,Y min and max and stddev took: " + elapsed + " seconds");
+	    	System.out.println("Dataset size: " + datasetRowCount);
+	    }
 	    start = System.currentTimeMillis();
 	    double datasetRowCountAsDouble = (double) this.datasetRowCount;
 	    rangeWidthX = calculateRangesWidth(columnsStatistics.getStdDevX(), datasetRowCountAsDouble);
@@ -52,10 +55,11 @@ public abstract class TilesManagerAbstractClass implements ITilesManager{
 	
 	    end = System.currentTimeMillis();
 	    elapsed = (end - start) / 1000.0;
-	    System.out.println("Tiles bin number and binWidth calculations took: " + elapsed + " seconds");
-	    System.out.println("#RangesX: " + rangeCountX + "\n#RangesY: " + rangeCountY + "\nTotal tiles: " + rangeCountX * rangeCountY);
-	    System.out.println("RangeWidthX: " + rangeWidthX + "\n#RangeWidthY: " + rangeWidthY + "\nTotal #tuples: " + datasetRowCount);
-	
+	    if(DEBUG_FLAG) {
+	    	System.out.println("Tiles bin number and binWidth calculations took: " + elapsed + " seconds");
+	    	System.out.println("#RangesX: " + rangeCountX + "\n#RangesY: " + rangeCountY + "\nTotal tiles: " + rangeCountX * rangeCountY);
+	    	System.out.println("RangeWidthX: " + rangeWidthX + "\n#RangeWidthY: " + rangeWidthY + "\nTotal #tuples: " + datasetRowCount);
+	    }
 	    tiles = new Tile[this.rangeCountY][this.rangeCountX];
 	}
 
@@ -68,7 +72,9 @@ public abstract class TilesManagerAbstractClass implements ITilesManager{
 	    }
 	    double end = System.currentTimeMillis();
 	    double elapsed = (end - start) / 1000.0;
-	    System.out.println("Tiles initialization took: " + elapsed + " seconds");
+	    if(DEBUG_FLAG) {
+	    	System.out.println("Tiles initialization took: " + elapsed + " seconds");
+	    }
 	}
 
 	protected int calculateRangesCount(double rangeWidth, double min, double max) {

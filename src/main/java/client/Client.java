@@ -117,7 +117,7 @@ public class Client {
 
     private static void printResults(String methodName, String filePath, double kendallResult, double elapsedTimeSeconds) {
 		// Print the result
-    	System.out.println("\n\n" + " ----- \n");
+    	System.out.println("\n\n" + " ----- ");
         System.out.println(methodName + " method for file " + filePath);
         System.out.println(methodName + " Kendall tau value:\t" + kendallResult);
         System.out.println(methodName+" elapsed time (sec):\t" + elapsedTimeSeconds + " seconds");
