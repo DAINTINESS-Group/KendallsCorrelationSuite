@@ -2,10 +2,10 @@ package util.algo;
 
 public class CorrelationStatistics {
 
-    private double concordantPairsCount;
-    private double discordantPairsCount;
-    private double tiedXPairsCount;
-    private double tiedYPairsCount;
+    private long concordantPairsCount;
+    private long discordantPairsCount;
+    private long tiedXPairsCount;
+    private long tiedYPairsCount;
 
     public CorrelationStatistics() {
         concordantPairsCount = 0;
@@ -47,8 +47,8 @@ public class CorrelationStatistics {
     }
 
     public double calculateCorrelationResult() {
-        double nominator = concordantPairsCount - discordantPairsCount;
-        double nonTiedCount = concordantPairsCount + discordantPairsCount;
+        double nominator = (double) (concordantPairsCount - discordantPairsCount);
+        double nonTiedCount = (double) (concordantPairsCount + discordantPairsCount);
         double pairsProduct = (nonTiedCount + tiedXPairsCount) * (nonTiedCount + tiedYPairsCount);
         double denominator = Math.sqrt(pairsProduct);
 
