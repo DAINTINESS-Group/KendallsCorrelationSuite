@@ -33,6 +33,7 @@ public class TileProcessor {
     }
 
     public void processAllTiles() {
+    	CalculationTimer.reset();
         for (Tile[] rowOfTiles : tiles) {
             for (Tile tile : rowOfTiles) {
                 if (!tile.isEmpty()) {
