@@ -6,15 +6,20 @@ import org.apache.spark.sql.SparkSession;
 public class SparkSetup {
 
     static {
-        System.setProperty("correlator.home.dir", "C:/hadoop");
-        PropertyConfigurator.configure("src/test/resources/input/log4j.properties");
+    	final String log4jConfigurationFile = "src/test/resources/input/log4j.properties";
+    	final String correlatorHomeDir = "C:/hadoop";
+    	
+		System.setProperty("correlator.home.dir", correlatorHomeDir);
+		PropertyConfigurator.configure(log4jConfigurationFile);
     }
 
     public SparkSession setup() {
-        return SparkSession.builder()
+        final String sparkSQLWarehouseDir = "file:/C:/tmp/spark-warehouse";
+        
+		return SparkSession.builder()
                 .appName("KendallCorrelator")
                 .master("local[*]")
-                .config("spark.sql.warehouse.dir", "file:/C:/tmp/spark-warehouse")
+                .config("spark.sql.warehouse.dir", sparkSQLWarehouseDir)
                 .getOrCreate();
     }
 }
