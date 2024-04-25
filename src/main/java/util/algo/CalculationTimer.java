@@ -3,10 +3,10 @@ package util.algo;
 import java.util.Locale;
 
 public class CalculationTimer {
-    private static double compareWithSelfTime;
-    private static double compareWithEastTime;
-    private static double compareWithSouthTime;
-    private static double processNonCrossTime;
+    private static double compareWithSelfTime  = 0.0;
+    private static double compareWithEastTime  = 0.0;
+    private static double compareWithSouthTime  = 0.0;
+    private static double processNonCrossTime  = 0.0;
 
     public CalculationTimer() {
     }
@@ -27,6 +27,13 @@ public class CalculationTimer {
         processNonCrossTime += time;
     }
 
+    public static void reset() {
+        compareWithSelfTime  = 0.0;
+        compareWithEastTime  = 0.0;
+        compareWithSouthTime = 0.0;
+        processNonCrossTime  = 0.0;
+    	
+    }
     @Override
     public String toString() {
         return "CalculationTimer:\n{" +
