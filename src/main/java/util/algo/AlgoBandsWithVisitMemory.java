@@ -7,25 +7,26 @@ import util.common.DoublePair;
 import util.tiles.ITile;
 
 /**
- * The {@code TileProcessor} class is responsible for processing tiles in a tile-based approach to calculating
- * Kendall's tau correlation. It involves comparing tiles with themselves and with neighboring tiles (East, South, SouthEast, SouthWest) to count
+ * The {@code AlgoBandsWithVisitMemory} class is responsible for processing tiles in a tile-based approach to calculating Kendall's tau correlation.
+ * TO FIX TO FIX TO FIX
+ * It involves comparing tiles with themselves and with neighboring tiles (East, South, SouthEast, SouthWest) to count
  * concordant, discordant, and tied pairs of observations. These counts contribute to the calculation of the
  * Kendall's tau correlation coefficient.
  * <p>
- * This class encapsulates the logic for handling the pairwise comparisons of data points within and across tiles,
- * facilitating the efficient computation of the Kendall's tau correlation coefficient in a distributed or
- * data scenario.
+ * EXPLAIN THE LOGIC !!!
  *
- * @author Petros Karampas
+ * @author pvassil
  */
-public class TileProcessor {
 
+public class AlgoBandsWithVisitMemory {
+//TODO FIX ALL!!!!!!!
     private final ITile[][] tiles;
     private final CorrelationStatistics correlationStats;
     private final int maxColumns;
     private final int maxRows;
 
-    public TileProcessor(ITile[][] tiles, CorrelationStatistics correlationStats) {
+    public AlgoBandsWithVisitMemory(ITile[][] tiles, CorrelationStatistics correlationStats) {
+    	//System.out.println("\n -- \n creating AlgoBandsWithVisitMemory");
         this.tiles = tiles;
         this.correlationStats = correlationStats;
         maxRows = tiles.length;
@@ -33,6 +34,7 @@ public class TileProcessor {
     }
 
     public void processAllTiles() {
+    	System.out.println("\n -- FIX ME -- \n running AlgoBandsWithVisitMemory");
     	CalculationTimer.reset();
         for (ITile[] rowOfTiles : tiles) {
             for (ITile tile : rowOfTiles) {

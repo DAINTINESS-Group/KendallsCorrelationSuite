@@ -11,7 +11,7 @@ import org.apache.spark.sql.AnalysisException;
 
 import java.io.IOException;
 
-public class Client {
+public class ClientV1_ApacheVsSpark {
     public static void main(String[] args) throws IOException, AnalysisException {
 
         Reader reader = new Reader();
@@ -66,8 +66,6 @@ public class Client {
         double apacheResult = apacheKendall.calculateKendall(columnPair);
         endTime = System.currentTimeMillis();
         elapsedTimeSeconds = (endTime - startTime) / 1000.0;
-
-        // Print the result
         printResults("Apache", filePath, apacheResult, elapsedTimeSeconds);
 
 
@@ -110,7 +108,6 @@ public class Client {
         double sparkTileKendallResult = sparkBasedKendallManager.calculateKendallTau(column1, column2);
         endTime = System.currentTimeMillis();
         elapsedTimeSeconds = (endTime - startTime) / 1000.0;
-
         printResults("Spark Tiles", filePath, sparkTileKendallResult, elapsedTimeSeconds);
 
     }

@@ -12,7 +12,9 @@ import sparkBasedKendallAlgorithms.SparkSessionTestSetup;
 
 import sparkBasedKendallAlgorithms.reader.DatasetReader;
 import util.tilemgr.TilesManagerSparkBased;
-import util.tilemgr.TilesManagerListBased;
+import util.tilemgr.ITilesManager;
+import util.tilemgr.TilesManagerListBasedSimpleTiles;
+import util.tilemgr.TilesManagerListBasedTilesWithCounters;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -51,11 +53,11 @@ public class TileBasedCalculatorServiceTest extends SparkSessionTestSetup {
     public void testCalculateSparkKendallTauCorrelationWithDifferentDatasets() {
         DatasetReader datasetReader = new DatasetReader(spark, path, delimiter);
         Dataset<Row> dataset = datasetReader.read(column1, column2);
-        TilesManagerSparkBased tilesManagerSparkBased = new TilesManagerSparkBased(dataset, column1, column2);
+        ITilesManager tilesManagerSparkBased = new TilesManagerSparkBased(dataset, column1, column2);
         TileBasedCalculatorService service = new TileBasedCalculatorService(tilesManagerSparkBased);
         //TileBasedCalculatorService service = new TileBasedCalculatorService(dataset, column1, column2);
 
-        double actual = service.calculateKendallTauCorrelation();
+        double actual = service.calculateKendallTauCorrelation(AlgoEnum.SPARK_TILES_ALGO);
 
         // Assert
         double delta = 0.0;
@@ -66,7 +68,7 @@ public class TileBasedCalculatorServiceTest extends SparkSessionTestSetup {
     }
     
     @Test
-    public void testCalculateListKendallTauCorrelationWithDifferentDatasets() {
+    public void testCalculateListSimpleTilesSimpleSrvc() {
         Reader reader = new Reader();
 		ColumnPair pair = null;
 		try {
@@ -77,18 +79,44 @@ public class TileBasedCalculatorServiceTest extends SparkSessionTestSetup {
 			e.printStackTrace();
 		}
         
-        TilesManagerListBased tilesManagerListBased = new TilesManagerListBased(pair);
+		//SIMPLE TILES MANAGER
+		ITilesManager tilesManagerListBased = new TilesManagerListBasedSimpleTiles(pair);
+        //SIMPLE TILES SERVICE
         TileBasedCalculatorService service = new TileBasedCalculatorService(tilesManagerListBased);
-
-        double actual = service.calculateKendallTauCorrelation();
+        double actual = service.calculateKendallTauCorrelation(AlgoEnum.SIMPLE_TILES_AND_POINT_COMPARISONS);
 
         // Assert
         double delta = 0.0;
-		System.out.println("\nList-Based Kendall (Tau B)");
+		System.out.println("\nSimple List-Based Kendall (Tau B)");
 		System.out.println("Expected:\t" + expected);
 		System.out.println("Actual  :\t" + actual);
         assertEquals(expected, actual, delta);
     }
     
+    @Test
+    public void testCalculateListTilesWithCounters() {
+        Reader reader = new Reader();
+		ColumnPair pair = null;
+		try {
+			pair = reader.read(path, column1, column2, delimiter);
+		} catch (IllegalArgumentException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+        
+		//TILES WITH COUNTERS
+		ITilesManager tilesManagerWithCounters = new TilesManagerListBasedTilesWithCounters(pair);
+        //SERVICE WITH NEW TILES WITH MEMORY
+        TileBasedCalculatorService service = new TileBasedCalculatorService(tilesManagerWithCounters);
+        double actual = service.calculateKendallTauCorrelation(AlgoEnum.BANDS_WITH_VISIT_MEMORY);
+
+        // Assert
+        double delta = 0.0;
+		System.out.println("\nBands With Memory Kendall (Tau B)");
+		System.out.println("Expected:\t" + expected);
+		System.out.println("Actual  :\t" + actual);
+        assertEquals(expected, actual, delta);
+    }
     
 }

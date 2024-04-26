@@ -1,16 +1,17 @@
 package listBasedKendallAlgorithms;
 
 import listBasedKendallAlgorithms.listBasedReader.ColumnPair;
+import util.algo.AlgoEnum;
 import util.algo.TileBasedCalculatorService;
 import util.tilemgr.ITilesManager;
-import util.tilemgr.TilesManagerListBased;
+import util.tilemgr.TilesManagerListBasedSimpleTiles;
 
-public class ListBasedTileBasedKendallManager implements IListBasedKendallCalculator{
+public class ListBasedBandsWithMemoryManager implements IListBasedKendallCalculator{
 
 	@Override
 	public double calculateKendall(ColumnPair pair) {
-		ITilesManager tilesManager = new TilesManagerListBased(pair);
+		ITilesManager tilesManager = new TilesManagerListBasedSimpleTiles(pair);
         TileBasedCalculatorService calculatorService = new TileBasedCalculatorService(tilesManager);
-        return calculatorService.calculateKendallTauCorrelation();	}
+        return calculatorService.calculateKendallTauCorrelation(AlgoEnum.BANDS_WITH_VISIT_MEMORY);	}
 
 }

@@ -8,7 +8,7 @@ import listBasedKendallAlgorithms.listBasedReader.Reader;
 
 import java.io.IOException;
 
-public class ClientDebug {
+public class ClientV0_DebugFast {
     public static void main(String[] args) throws IOException  {
 
         Reader reader = new Reader();
@@ -26,12 +26,16 @@ public class ClientDebug {
         double apacheResult = apacheKendall.calculateKendall(columnPair);
         printResults("Apache", filePath, apacheResult, Double.NaN);
 
-        /* TILES WITH LISTS*/
-        IListBasedKendallCalculator lbtbMgr = methods.createKendallCalculatorByString("ListBasedTiles");
-        //ListBasedTileBasedKendallManager lbtbMgr = new ListBasedTileBasedKendallManager();
-        double listTileKendallResult =lbtbMgr.calculateKendall(columnPair);
-       printResults("List Tiles", filePath, listTileKendallResult, Double.NaN);
+        /* SIMPLE TILES WITH LISTS*/
+        IListBasedKendallCalculator lbtbMgr	= methods.createKendallCalculatorByString("ListBasedTiles");
+        double simpleTileKendallResult 		= lbtbMgr.calculateKendall(columnPair);
+        printResults("Simple Tiles, Simple Algo", filePath, simpleTileKendallResult, Double.NaN);
 
+       /* LIST-BASED BANDS WITH MEMORY*/
+       IListBasedKendallCalculator bwMMgr	= methods.createKendallCalculatorByString("BandsWithMemory");
+       double bandsWithMemoryKendallResult	= bwMMgr.calculateKendall(columnPair);
+       printResults("BandsWithMemory", filePath, bandsWithMemoryKendallResult, Double.NaN);
+       
        /* BRUTE */
        IListBasedKendallCalculator bruteForceTauA = methods.createKendallCalculatorByString("BruteForce");
        double actualBruteForce = bruteForceTauA.calculateKendall(columnPair);

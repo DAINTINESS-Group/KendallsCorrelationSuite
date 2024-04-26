@@ -8,7 +8,7 @@ import org.junit.runners.Suite.SuiteClasses;
 @RunWith(Suite.class)
 @SuiteClasses({ 
 	BrophyCalculatorTest.class, BruteForceCalculatorTest.class, ListBasedKendallFactoryTest.class, ReaderTest.class,
-	ListBasedTileBasedKendallManagerTest.class })
+	ListBasedSimpleTileAndPointsManagerTest.class, ListBasedBandsWithMemoryManagerTest.class })
 public class AllListBasedAlgoTests {
 
 }

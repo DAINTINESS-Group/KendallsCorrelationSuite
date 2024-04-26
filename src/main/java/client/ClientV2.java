@@ -69,11 +69,18 @@ public class ClientV2 {
         /* TILES WITH LISTS*/
         startTime = System.currentTimeMillis();
         IListBasedKendallCalculator lbtbMgr = methods.createKendallCalculatorByString("ListBasedTiles");
-        //ListBasedTileBasedKendallManager lbtbMgr = new ListBasedTileBasedKendallManager();
         double listTileKendallResult =lbtbMgr.calculateKendall(columnPair);
         endTime = System.currentTimeMillis();
         elapsedTimeSeconds = (endTime - startTime) / 1000.0; 
         printResults("List Tiles", filePath, listTileKendallResult, elapsedTimeSeconds);
+        
+        /* TILES WITH MEMORY*/
+        startTime = System.currentTimeMillis();
+        IListBasedKendallCalculator bwmMgr = methods.createKendallCalculatorByString("BandsWithMemory");
+        double bandsWithMemoryKendallResult =bwmMgr.calculateKendall(columnPair);
+        endTime = System.currentTimeMillis();
+        elapsedTimeSeconds = (endTime - startTime) / 1000.0; 
+        printResults("Bands With Memory", filePath, bandsWithMemoryKendallResult, elapsedTimeSeconds);
         
         /* BRUTE */
         IListBasedKendallCalculator bruteForceTauA = methods.createKendallCalculatorByString("BruteForce");
@@ -103,7 +110,6 @@ public class ClientV2 {
         double sparkKendall = sparkBasedKendallManager.calculateKendallTau(column1, column2);
         endTime = System.currentTimeMillis();
         elapsedTimeSeconds = (endTime - startTime) / 1000.0;
-
         printResults("Spark Kendall", filePath, sparkKendall, elapsedTimeSeconds);
     }
 

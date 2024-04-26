@@ -1,16 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <class-diagram version="1.2.4" icons="true" automaticImage="PNG" always-add-relationships="true" generalizations="true" 
   realizations="true" associations="true" dependencies="true" nesting-relationships="true" router="FAN">  
-  <class id="1" language="java" name="client.Client" project="KendallsCorrelationSuite" 
-    file="/KendallsCorrelationSuite/src/main/java/client/Client.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="221" y="66"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
-      sort-features="false" accessors="true" visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
-    </display>  
-  </class>  
-  <interface id="2" language="java" name="listBasedKendallAlgorithms.IListBasedKendallCalculator" 
+  <interface id="1" language="java" name="listBasedKendallAlgorithms.IListBasedKendallCalculator" 
     project="KendallsCorrelationSuite" 
     file="/KendallsCorrelationSuite/src/main/java/listBasedKendallAlgorithms/IListBasedKendallCalculator.java" 
     binary="false" corner="BOTTOM_RIGHT">    
@@ -21,7 +12,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <class id="3" language="java" name="listBasedKendallAlgorithms.BruteForceNoTiesKendallCalculator" 
+  <class id="2" language="java" name="listBasedKendallAlgorithms.BruteForceNoTiesKendallCalculator" 
     project="KendallsCorrelationSuite" 
     file="/KendallsCorrelationSuite/src/main/java/listBasedKendallAlgorithms/BruteForceNoTiesKendallCalculator.java" 
     binary="false" corner="BOTTOM_RIGHT">    
@@ -32,7 +23,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="4" language="java" name="listBasedKendallAlgorithms.BrophyKendallCalculator" 
+  <class id="3" language="java" name="listBasedKendallAlgorithms.BrophyKendallCalculator" 
     project="KendallsCorrelationSuite" 
     file="/KendallsCorrelationSuite/src/main/java/listBasedKendallAlgorithms/BrophyKendallCalculator.java" 
     binary="false" corner="BOTTOM_RIGHT">    
@@ -43,7 +34,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="5" language="java" name="listBasedKendallAlgorithms.ApacheCommonsKendall" 
+  <class id="4" language="java" name="listBasedKendallAlgorithms.ApacheCommonsKendall" 
     project="KendallsCorrelationSuite" 
     file="/KendallsCorrelationSuite/src/main/java/listBasedKendallAlgorithms/ApacheCommonsKendall.java" binary="false" 
     corner="BOTTOM_RIGHT">    
@@ -54,7 +45,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="6" language="java" name="util.tilemgr.TilesManagerSparkBased" project="KendallsCorrelationSuite" 
+  <class id="5" language="java" name="util.tilemgr.TilesManagerSparkBased" project="KendallsCorrelationSuite" 
     file="/KendallsCorrelationSuite/src/main/java/util/tilemgr/TilesManagerSparkBased.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1375" y="368"/>    
@@ -64,7 +55,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="7" language="java" name="sparkBasedKendallAlgorithms.SparkBasedKendallManager" 
+  <class id="6" language="java" name="sparkBasedKendallAlgorithms.SparkBasedKendallManager" 
     project="KendallsCorrelationSuite" 
     file="/KendallsCorrelationSuite/src/main/java/sparkBasedKendallAlgorithms/SparkBasedKendallManager.java" 
     binary="false" corner="BOTTOM_RIGHT">    
@@ -75,9 +66,9 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="8" language="java" name="listBasedKendallAlgorithms.ListBasedTileBasedKendallManager" 
+  <class id="7" language="java" name="listBasedKendallAlgorithms.ListBasedSimpleTileAndPointsManager" 
     project="KendallsCorrelationSuite" 
-    file="/KendallsCorrelationSuite/src/main/java/listBasedKendallAlgorithms/ListBasedTileBasedKendallManager.java" 
+    file="/KendallsCorrelationSuite/src/main/java/listBasedKendallAlgorithms/ListBasedSimpleTileAndPointsManager.java" 
     binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="189" y="733"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -86,7 +77,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <interface id="9" language="java" name="util.tilemgr.ITilesManager" project="KendallsCorrelationSuite" 
+  <interface id="8" language="java" name="util.tilemgr.ITilesManager" project="KendallsCorrelationSuite" 
     file="/KendallsCorrelationSuite/src/main/java/util/tilemgr/ITilesManager.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="659" y="734"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -95,7 +86,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <class id="10" language="java" name="util.tilemgr.TilesManagerAbstractClass" project="KendallsCorrelationSuite" 
+  <class id="9" language="java" name="util.tilemgr.TilesManagerAbstractClass" project="KendallsCorrelationSuite" 
     file="/KendallsCorrelationSuite/src/main/java/util/tilemgr/TilesManagerAbstractClass.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1054" y="500"/>    
@@ -105,7 +96,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="11" language="java" name="util.tilemgr.TilesManagerListBased" project="KendallsCorrelationSuite" 
+  <class id="10" language="java" name="util.tilemgr.TilesManagerListBased" project="KendallsCorrelationSuite" 
     file="/KendallsCorrelationSuite/src/main/java/util/tilemgr/TilesManagerListBased.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="699" y="509"/>    
@@ -115,7 +106,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="12" language="java" name="util.algo.TileBasedCalculatorService" project="KendallsCorrelationSuite" 
+  <class id="11" language="java" name="util.algo.TileBasedCalculatorService" project="KendallsCorrelationSuite" 
     file="/KendallsCorrelationSuite/src/main/java/util/algo/TileBasedCalculatorService.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="790" y="1000"/>    
@@ -125,8 +116,9 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="13" language="java" name="util.algo.TileProcessor" project="KendallsCorrelationSuite" 
-    file="/KendallsCorrelationSuite/src/main/java/util/algo/TileProcessor.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="12" language="java" name="util.algo.AlgoSimpleTilesAndPointComparison" project="KendallsCorrelationSuite" 
+    file="/KendallsCorrelationSuite/src/main/java/util/algo/AlgoSimpleTilesAndPointComparison.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1120" y="1112"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -134,118 +126,86 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="14" language="java" name="util.tiles.TileSimpleSimple" project="KendallsCorrelationSuite" 
-    file="/KendallsCorrelationSuite/src/main/java/util/tiles/TileSimple.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="1450" y="984"/>    
+  <class id="13" language="java" name="client.ClientV2" project="KendallsCorrelationSuite" 
+    file="/KendallsCorrelationSuite/src/main/java/client/ClientV2.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="643" y="93"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
+  <dependency id="14">    
+    <end type="SOURCE" refId="7"/>    
+    <end type="TARGET" refId="8"/>  
+  </dependency>  
   <dependency id="15">    
-    <end type="SOURCE" refId="1"/>    
-    <end type="TARGET" refId="7"/>  
+    <end type="SOURCE" refId="11"/>    
+    <end type="TARGET" refId="12"/>  
   </dependency>  
-  <dependency id="16">    
-    <end type="SOURCE" refId="8"/>    
-    <end type="TARGET" refId="9"/>  
-  </dependency>  
-  <realization id="17">    
-    <end type="SOURCE" refId="8"/>    
-    <end type="TARGET" refId="2"/>  
-  </realization>  
-  <realization id="18">    
+  <generalization id="16">    
     <end type="SOURCE" refId="10"/>    
     <end type="TARGET" refId="9"/>  
-  </realization>  
-  <dependency id="19">    
+  </generalization>  
+  <dependency id="17">    
     <bendpoint x="1718" y="146"/>    
     <bendpoint x="1730" y="1318"/>    
     <bendpoint x="788" y="1322"/>    
-    <end type="SOURCE" refId="7"/>    
-    <end type="TARGET" refId="12"/>  
+    <end type="SOURCE" refId="6"/>    
+    <end type="TARGET" refId="11"/>  
   </dependency>  
-  <dependency id="20">    
-    <end type="SOURCE" refId="8"/>    
-    <end type="TARGET" refId="12"/>  
+  <dependency id="18">    
+    <end type="SOURCE" refId="13"/>    
+    <end type="TARGET" refId="1"/>  
   </dependency>  
-  <association id="21">    
-    <end type="SOURCE" refId="13" navigable="false">      
-      <attribute id="22" name="tiles">        
+  <dependency id="19">    
+    <end type="SOURCE" refId="13"/>    
+    <end type="TARGET" refId="6"/>  
+  </dependency>  
+  <association id="20">    
+    <end type="SOURCE" refId="11" navigable="false">      
+      <attribute id="21" name="tilesManager">        
         <position height="0" width="0" x="0" y="0"/>      
       </attribute>      
-      <multiplicity id="23" minimum="0" maximum="2147483647">        
+      <multiplicity id="22" minimum="0" maximum="1">        
         <position height="0" width="0" x="0" y="0"/>      
       </multiplicity>    
     </end>    
-    <end type="TARGET" refId="14" navigable="true"/>    
+    <end type="TARGET" refId="8" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
+  <realization id="23">    
+    <end type="SOURCE" refId="7"/>    
+    <end type="TARGET" refId="1"/>  
+  </realization>  
   <dependency id="24">    
-    <end type="SOURCE" refId="1"/>    
-    <end type="TARGET" refId="2"/>  
+    <end type="SOURCE" refId="6"/>    
+    <end type="TARGET" refId="5"/>  
   </dependency>  
   <realization id="25">    
     <end type="SOURCE" refId="3"/>    
-    <end type="TARGET" refId="2"/>  
+    <end type="TARGET" refId="1"/>  
   </realization>  
-  <association id="26">    
-    <end type="SOURCE" refId="10" navigable="false">      
-      <attribute id="27" name="tiles">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </attribute>      
-      <multiplicity id="28" minimum="0" maximum="2147483647">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </multiplicity>    
-    </end>    
-    <end type="TARGET" refId="14" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <realization id="29">    
-    <end type="SOURCE" refId="5"/>    
-    <end type="TARGET" refId="2"/>  
-  </realization>  
-  <realization id="30">    
-    <end type="SOURCE" refId="4"/>    
-    <end type="TARGET" refId="2"/>  
-  </realization>  
-  <generalization id="31">    
-    <end type="SOURCE" refId="6"/>    
-    <end type="TARGET" refId="10"/>  
-  </generalization>  
-  <dependency id="32">    
-    <end type="SOURCE" refId="8"/>    
+  <dependency id="26">    
+    <end type="SOURCE" refId="7"/>    
     <end type="TARGET" refId="11"/>  
   </dependency>  
-  <generalization id="33">    
-    <end type="SOURCE" refId="11"/>    
-    <end type="TARGET" refId="10"/>  
+  <realization id="27">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="1"/>  
+  </realization>  
+  <realization id="28">    
+    <end type="SOURCE" refId="9"/>    
+    <end type="TARGET" refId="8"/>  
+  </realization>  
+  <realization id="29">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="1"/>  
+  </realization>  
+  <generalization id="30">    
+    <end type="SOURCE" refId="5"/>    
+    <end type="TARGET" refId="9"/>  
   </generalization>  
-  <dependency id="34">    
-    <end type="SOURCE" refId="12"/>    
-    <end type="TARGET" refId="13"/>  
-  </dependency>  
-  <dependency id="35">    
-    <end type="SOURCE" refId="7"/>    
-    <end type="TARGET" refId="6"/>  
-  </dependency>  
-  <dependency id="36">    
-    <end type="SOURCE" refId="11"/>    
-    <end type="TARGET" refId="14"/>  
-  </dependency>  
-  <association id="37">    
-    <end type="SOURCE" refId="12" navigable="false">      
-      <attribute id="38" name="tilesManager">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </attribute>      
-      <multiplicity id="39" minimum="0" maximum="1">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </multiplicity>    
-    </end>    
-    <end type="TARGET" refId="9" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
   <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
     sort-features="false" accessors="true" visibility="true">    
     <attributes public="true" package="true" protected="true" private="true" static="true"/>    

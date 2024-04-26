@@ -8,9 +8,9 @@ import java.io.IOException;
 import listBasedKendallAlgorithms.listBasedReader.ColumnPair;
 import listBasedKendallAlgorithms.listBasedReader.Reader;
 
-public class ListBasedTileBasedKendallManagerTest {
+public class ListBasedBandsWithMemoryManagerTest {
 	private static 	Reader reader = new Reader();
-	private static ListBasedTileBasedKendallManager lbtbMgr = new ListBasedTileBasedKendallManager();
+	private static ListBasedBandsWithMemoryManager bwmMgr = new ListBasedBandsWithMemoryManager();
 	
 	@Test
 	public final void testCalculateKendallTauA() {
@@ -29,10 +29,10 @@ public class ListBasedTileBasedKendallManagerTest {
 			e.printStackTrace();
 		}
 
-        double actual =lbtbMgr.calculateKendall(pair);
+        double actual =bwmMgr.calculateKendall(pair);
         double expected = 0.23076923076923078;
         double delta = 0.0;
-		System.out.println("\nList-Based Kendall (Tau B)");
+		System.out.println("\nBandsWithMemory Kendall (Tau B)");
 		System.out.println("Expected:\t" + expected);
 		System.out.println("Actual  :\t" + actual);
         assertEquals(expected, actual, delta);
@@ -56,10 +56,10 @@ public class ListBasedTileBasedKendallManagerTest {
 			e.printStackTrace();
 		}
 
-        double actual =lbtbMgr.calculateKendall(pair);
+        double actual =bwmMgr.calculateKendall(pair);
         double expected = 0.04957330142836763;
         double delta = 0.0;
-		System.out.println("\nList-Based Kendall (Tau B)");
+		System.out.println("\nBandsWithMemory Kendall (Tau B)");
 		System.out.println("Expected:\t" + expected);
 		System.out.println("Actual  :\t" + actual);
         assertEquals(expected, actual, delta);
@@ -84,10 +84,10 @@ public class ListBasedTileBasedKendallManagerTest {
 			e.printStackTrace();
 		}
 
-        double actual =lbtbMgr.calculateKendall(pair);
+        double actual =bwmMgr.calculateKendall(pair);
         double expected = 0.2943112515766309;
         double delta = 0.0;
-		System.out.println("\nList-Based Kendall (Tau B)");
+		System.out.println("\nBandsWithMemoryKendall (Tau B)");
 		System.out.println("Expected:\t" + expected);
 		System.out.println("Actual  :\t" + actual);
         assertEquals(expected, actual, delta);
@@ -111,11 +111,11 @@ public class ListBasedTileBasedKendallManagerTest {
 			e.printStackTrace();
 		}
 
-        double actual =lbtbMgr.calculateKendall(pair);
+        double actual =bwmMgr.calculateKendall(pair);
         double expected = 0.23002983829926982;
         double delta = 0.0;
 
-		System.out.println("\nList-Based Kendall (Tau B)");
+		System.out.println("\nBandsWithMemory Kendall (Tau B)");
 		System.out.println("Expected:\t" + expected);
 		System.out.println("Actual  :\t" + actual);
         assertEquals(expected, actual, delta);

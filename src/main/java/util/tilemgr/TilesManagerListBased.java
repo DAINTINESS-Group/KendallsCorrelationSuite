@@ -1,37 +1,21 @@
 package util.tilemgr;
 
-import java.io.Serializable;
+
 import java.util.List;
 
 import listBasedKendallAlgorithms.listBasedReader.ColumnPair;
 import util.common.ColumnsStatistics;
 import util.common.DoublePair;
-import util.tiles.ITile;
-import util.tiles.ITileFactory;
-import util.tiles.ITileType;
-import util.tiles.TileSimple;
 
-
-
-public class TilesManagerListBased extends TilesManagerAbstractClass implements Serializable {
-    private static final long serialVersionUID = 8765154256335271048L;
+public abstract class TilesManagerListBased extends TilesManagerAbstractClass  {
+    
     private final ColumnPair pair;
 
+    protected abstract void initializeTilesArray();
+    
     public TilesManagerListBased(ColumnPair pair) {
         this.pair = pair;
-        this.tileType = ITileType.SIMPLE;
-        this.tileFactory = new ITileFactory();
     }
-
-	protected void initializeTilesArray() {
-	    tiles = new ITile[this.numOfBinsY][this.numOfBinsX];    	
-	    for (int row = 0; row < numOfBinsY; row++) {
-	        for (int col = 0; col < numOfBinsX; col++) {
-	            tiles[row][col] = tileFactory.createTile(this.tileType, row, col); 
-	            		//new TileSimple(row, col);
-	        }
-	    }
-	}
 
     protected final void populateTiles() {
     	List<Double> xList = pair.getXColumn();

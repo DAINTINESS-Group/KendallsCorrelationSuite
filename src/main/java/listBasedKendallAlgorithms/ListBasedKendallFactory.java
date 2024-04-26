@@ -1,7 +1,8 @@
 package listBasedKendallAlgorithms;
 
 public class ListBasedKendallFactory {
-
+    public enum KendallCalculatorMethods {BRUTEFORCE, BROPHY, APACHE_KENDALL, SIMPLE_TILES_LIST, BANDS_WITH_MEMORY}
+    
     public IListBasedKendallCalculator createKendallCalculatorByString(String method) {
         
         if ("Brophy".equals(method)) {
@@ -11,7 +12,9 @@ public class ListBasedKendallFactory {
         } else if ("Apache kendall".equals(method)) {
             return createKendallCalculator(KendallCalculatorMethods.APACHE_KENDALL);
         } else if ("ListBasedTiles".equals(method)) {
-            return createKendallCalculator(KendallCalculatorMethods.TILES_LIST);
+            return createKendallCalculator(KendallCalculatorMethods.SIMPLE_TILES_LIST);
+        }else if ("BandsWithMemory".equals(method)) {
+            return createKendallCalculator(KendallCalculatorMethods.BANDS_WITH_MEMORY);
         }
         throw new IllegalArgumentException(
         		String.format("%s is not a supported calculation method.", method));
@@ -25,13 +28,15 @@ public class ListBasedKendallFactory {
                 return new BrophyKendallCalculator();
             case APACHE_KENDALL:
                 return new ApacheCommonsKendall();
-            case TILES_LIST:
-            	return new ListBasedTileBasedKendallManager();
+            case SIMPLE_TILES_LIST:
+            	return new ListBasedSimpleTileAndPointsManager();
+            case BANDS_WITH_MEMORY:
+            	return new ListBasedBandsWithMemoryManager();	
             default:
                 throw new IllegalArgumentException(
                         String.format("%s is not a supported calculation method.", method));
         }
     }
 
-    public enum KendallCalculatorMethods {BRUTEFORCE, BROPHY, APACHE_KENDALL, TILES_LIST}
+
 }
