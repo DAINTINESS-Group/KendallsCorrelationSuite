@@ -14,7 +14,7 @@ public class TileBasedCalculatorService {
         this.tilesManager = tilesManager;
     }
 
-    public double calculateKendallTauCorrelation(AlgoEnum algorithm) {
+    public double calculateKendallTauCorrelation(AlgoEnum algorithm) throws IllegalArgumentException {
         CorrelationStatistics statistics = new CorrelationStatistics();
         CalculationTimer timer = new CalculationTimer();
 
@@ -26,18 +26,18 @@ public class TileBasedCalculatorService {
         	AlgoSimpleTilesAndPointComparison processorSimple = new AlgoSimpleTilesAndPointComparison(tiles, statistics);
         	processorSimple.processAllTiles();
         	break;
-        case BANDS_WITH_VISIT_MEMORY:
-            AlgoBandsWithVisitMemory processorWithMemory = new AlgoBandsWithVisitMemory(tiles, statistics);
-            processorWithMemory.processAllTiles();
-            break;
+//        case BANDS_WITH_VISIT_MEMORY:
+//            AlgoBandsWithVisitMemory processorWithMemory = new AlgoBandsWithVisitMemory(tiles, statistics);
+//            processorWithMemory.processAllTiles();
+//            break;
         case SPARK_TILES_ALGO:
         	AlgoSimpleTilesAndPointComparison processorSimpleSpark = new AlgoSimpleTilesAndPointComparison(tiles, statistics);
         	processorSimpleSpark.processAllTiles();
         	break;
         default:
-//            throw new IllegalArgumentException(
-//                    String.format("%s is not a supported calculation method.", algorithm));
-			break;
+            throw new IllegalArgumentException(
+                    String.format("%s is not a supported calculation method.", algorithm));
+//			break;
         }
 
         if(DEBUG_FLAG) {
