@@ -19,28 +19,36 @@ public class ClientDebug {
         String delimiter = "\t";
 
         ColumnPair columnPair = reader.read(filePath, column1, column2, delimiter);
-
         ListBasedKendallFactory methods = new ListBasedKendallFactory();
 
         /* APACHE */
         IListBasedKendallCalculator apacheKendall = methods.createKendallCalculatorByString("Apache kendall");
         double apacheResult = apacheKendall.calculateKendall(columnPair);
-        printResults("Apache", filePath, apacheResult, 0.0);
+        printResults("Apache", filePath, apacheResult, Double.NaN);
 
         /* TILES WITH LISTS*/
         IListBasedKendallCalculator lbtbMgr = methods.createKendallCalculatorByString("ListBasedTiles");
         //ListBasedTileBasedKendallManager lbtbMgr = new ListBasedTileBasedKendallManager();
         double listTileKendallResult =lbtbMgr.calculateKendall(columnPair);
+       printResults("List Tiles", filePath, listTileKendallResult, Double.NaN);
 
-        
-        printResults("List Tiles", filePath, listTileKendallResult, 0.0);
-        
+       /* BRUTE */
+       IListBasedKendallCalculator bruteForceTauA = methods.createKendallCalculatorByString("BruteForce");
+       double actualBruteForce = bruteForceTauA.calculateKendall(columnPair);
+       printResults("Brute Force", filePath, actualBruteForce, Double.NaN);      
+
+       /* BROPHY */
+       IListBasedKendallCalculator brophyKendallTauB = methods.createKendallCalculatorByString("Brophy");
+       double actualBrophy = brophyKendallTauB.calculateKendall(columnPair);
+       printResults("Brophy", filePath, actualBrophy, Double.NaN);
+       
+       
     }//end main
 
 
 	private static void printResults(String methodName, String filePath, double kendallResult, double elapsedTimeSeconds) {
 		// Print the result
-        System.out.println("\n\n" + methodName + " method for file " + filePath);
+        System.out.println("\n ----- \n" + methodName + " method for file " + filePath);
         System.out.println(methodName + " Kendall tau value:\t" + kendallResult);
         System.out.println(methodName+" elapsed time (sec):\t" + elapsedTimeSeconds + " seconds");
         System.out.println(" ----- \n");

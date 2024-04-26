@@ -64,7 +64,6 @@ public class ClientV2 {
         double apacheResult = apacheKendall.calculateKendall(columnPair);
         endTime = System.currentTimeMillis();
         elapsedTimeSeconds = (endTime - startTime) / 1000.0;
-
         printResults("Apache", filePath, apacheResult, elapsedTimeSeconds);
 
         /* TILES WITH LISTS*/
@@ -73,8 +72,7 @@ public class ClientV2 {
         //ListBasedTileBasedKendallManager lbtbMgr = new ListBasedTileBasedKendallManager();
         double listTileKendallResult =lbtbMgr.calculateKendall(columnPair);
         endTime = System.currentTimeMillis();
-        elapsedTimeSeconds = (endTime - startTime) / 1000.0;
-        
+        elapsedTimeSeconds = (endTime - startTime) / 1000.0; 
         printResults("List Tiles", filePath, listTileKendallResult, elapsedTimeSeconds);
         
         /* BRUTE */
@@ -83,19 +81,14 @@ public class ClientV2 {
         double actualBruteForce = bruteForceTauA.calculateKendall(columnPair);
         endTime = System.currentTimeMillis();
         elapsedTimeSeconds = (endTime - startTime) / 1000.0;
+        printResults("Brute Force", filePath, actualBruteForce, elapsedTimeSeconds);      
 
-
-        printResults("Brute Force", filePath, actualBruteForce, elapsedTimeSeconds);
-
-        
-//
-//        /* BROPHY */
+        /* BROPHY */
         IListBasedKendallCalculator brophyKendallTauB = methods.createKendallCalculatorByString("Brophy");
         startTime = System.currentTimeMillis();
         double actualBrophy = brophyKendallTauB.calculateKendall(columnPair);
         endTime = System.currentTimeMillis();
         elapsedTimeSeconds = (endTime - startTime) / 1000.0;
-
         printResults("Brophy", filePath, actualBrophy, elapsedTimeSeconds);
         
         /* Tile Implementation with SPARK and valuePairs*/

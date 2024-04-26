@@ -7,8 +7,8 @@ import listBasedKendallAlgorithms.listBasedReader.ColumnPair;
  * In case there are tries in the dataset the result will not be accurate
  */
 public class BruteForceNoTiesKendallCalculator implements IListBasedKendallCalculator {
-    private double concordantPairs = 0.0;
-    private double discordantPairs = 0.0;
+    private long concordantPairs = 0L;
+    private long discordantPairs = 0L;
     private double tauA = 0.0;
 
     public double calculateKendall(ColumnPair pair) {
@@ -16,7 +16,7 @@ public class BruteForceNoTiesKendallCalculator implements IListBasedKendallCalcu
         calculateConcordantAndDiscordantPairs(pair);
 
         double denominator = (numPairs * (numPairs - 1)) / 2.0;
-        double numerator = concordantPairs - discordantPairs;
+        double numerator = (double)(concordantPairs - discordantPairs);
         tauA = numerator / denominator;
 
         return tauA;

@@ -43,7 +43,7 @@ public class TileProcessor {
         }
     }
     
-    public void processTile(ITile tile) {    	
+    protected void processTile(ITile tile) {    	
         int tileRow = tile.getRow();
         int tileColumn = tile.getColumn();
         int tilePairsCount = (int)tile.getCount();
@@ -78,7 +78,7 @@ public class TileProcessor {
         CalculationTimer.incrementCompareWithNonCrossTime(elapsedTimeSeconds);
     }
 
-    private void compareTileWithSelf(List<DoublePair> tilePairs, int tilePairsCount) {    	
+    protected void compareTileWithSelf(List<DoublePair> tilePairs, int tilePairsCount) {    	
         for (int i = 0; i < tilePairsCount - 1; i++) {
             DoublePair pair1 = tilePairs.get(i);
             for (int j = i + 1; j < tilePairsCount; j++) {
@@ -88,7 +88,7 @@ public class TileProcessor {
         }
     }
 
-    private void compareTileWithEastTiles(List<DoublePair> tilePairs, int tileRow, int tileColumn) {
+    protected void compareTileWithEastTiles(List<DoublePair> tilePairs, int tileRow, int tileColumn) {
         for (int column = tileColumn + 1; column < maxColumns; column++) {
             ITile eastTile = tiles[tileRow][column];
             if (!eastTile.isEmpty()) {
@@ -98,7 +98,7 @@ public class TileProcessor {
         }
     }
 
-    private void compareTileWithSouthTiles(List<DoublePair> tilePairs, int tileRow, int tileColumn) {
+    protected void compareTileWithSouthTiles(List<DoublePair> tilePairs, int tileRow, int tileColumn) {
         for (int row = tileRow + 1; row < maxRows; row++) {
             ITile southTile = tiles[row][tileColumn];
             if (!southTile.isEmpty()) {
@@ -108,7 +108,7 @@ public class TileProcessor {
         }
     }
 
-    private void compareWithSouthTile(List<DoublePair> tilePairs, List<DoublePair> southTilePairs) {
+    protected void compareWithSouthTile(List<DoublePair> tilePairs, List<DoublePair> southTilePairs) {
         southTilePairs.sort(Comparator.comparingDouble(DoublePair::getX));
         double southPairsCount = southTilePairs.size();
 
@@ -134,7 +134,7 @@ public class TileProcessor {
         }
     }
 
-    private void compareWithEastTile(List<DoublePair> tilePairs, List<DoublePair> eastTilePairs) {
+    protected void compareWithEastTile(List<DoublePair> tilePairs, List<DoublePair> eastTilePairs) {
         eastTilePairs.sort(Comparator.comparingDouble(DoublePair::getY));
         double eastPairsCount = eastTilePairs.size();
 
@@ -160,7 +160,7 @@ public class TileProcessor {
         }
     }
 
-    private void compareValuePairs(DoublePair pair1, DoublePair pair2) {
+    protected void compareValuePairs(DoublePair pair1, DoublePair pair2) {
         double x1 = pair1.getX(), y1 = pair1.getY();
         double x2 = pair2.getX(), y2 = pair2.getY();
 
@@ -175,12 +175,12 @@ public class TileProcessor {
         }
     }
 
-    private void processNonCrossTiles(int tilePairCount, int tileRow, int tileColumn) {
+    protected void processNonCrossTiles(int tilePairCount, int tileRow, int tileColumn) {
         processSouthEastTiles(tilePairCount, tileRow, tileColumn);
         processSouthWestTiles(tilePairCount, tileRow, tileColumn);
     }
 
-    private void processSouthEastTiles(int tilePairsCount, int tileRow, int tileColumn) {
+    protected void processSouthEastTiles(int tilePairsCount, int tileRow, int tileColumn) {
         int southEastTilesPairsCount;
 
         for (int row = tileRow + 1; row < maxRows; row++) {
@@ -194,7 +194,7 @@ public class TileProcessor {
         }
     }
 
-    private void processSouthWestTiles(int tilePairCount, int tileRow, int tileColumn) {
+    protected void processSouthWestTiles(int tilePairCount, int tileRow, int tileColumn) {
         int southWestTilePairsCount;
 
         for (int row = tileRow + 1; row < maxRows; row++) {

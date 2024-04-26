@@ -8,8 +8,8 @@ import java.util.Objects;
  * This class calculates kendall's tau b following the algorithm by ALFRED L. BROPHY */
 public class BrophyKendallCalculator implements IListBasedKendallCalculator {
 
-    private double concordantPairs = 0.0;
-    private double discordantPairs = 0.0;
+    private long concordantPairs = 0L;
+    private long discordantPairs = 0L;
     private double tiedPairsSumX = 0.0;
     private double tiedPairsSumY = 0.0;
     private double tauB = 0.0;
@@ -62,7 +62,7 @@ public class BrophyKendallCalculator implements IListBasedKendallCalculator {
 		double denominator = ((correctionFactor / 3 - tiedPairsSumX) * (correctionFactor / 3 - tiedPairsSumY)) / correctionFactor
                 + adjustmentForTies / totalPairs;
 
-        tauB = (concordantPairs - discordantPairs) / Math.sqrt(adjustmentForTies);
+        tauB = ((double)(concordantPairs - discordantPairs)) / Math.sqrt(adjustmentForTies);
 
         return tauB;
     }
