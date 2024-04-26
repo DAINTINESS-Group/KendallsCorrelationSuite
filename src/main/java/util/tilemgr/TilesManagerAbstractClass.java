@@ -1,26 +1,32 @@
 package util.tilemgr;
 
 import util.common.ColumnsStatistics;
-import util.tiles.Tile;
+import util.tiles.ITile;
+import util.tiles.ITileFactory;
+import util.tiles.ITileType;
+import util.tiles.TileSimple;
 
 
 public abstract class TilesManagerAbstractClass implements ITilesManager{
 
 	protected static final boolean DEBUG_FLAG = false;
-	protected static Tile[][] tiles;
+	protected static ITile[][] tiles;
 	protected long datasetRowCount;
 	protected int numOfBinsX;
 	protected int numOfBinsY;
 	protected double rangeWidthX;
 	protected double rangeWidthY;
 	protected ColumnsStatistics columnsStatistics;
-	
+    protected ITileType tileType;
+    protected ITileFactory tileFactory;
+
+    protected abstract void initializeTilesArray();
 	protected abstract void populateTiles();
 	protected abstract void calculateMinMaxColumnValues();
 
 
 	@Override
-	public Tile[][] createTilesArray() {
+	public ITile[][] createTilesArray() {
 		
 	    	double start = System.currentTimeMillis();
 	    calculateMinMaxColumnValues();
@@ -67,14 +73,14 @@ public abstract class TilesManagerAbstractClass implements ITilesManager{
 	    numOfBinsY = calculateRangesCount(rangeWidthY, columnsStatistics.getMinY(), columnsStatistics.getMaxY());
 	}
 
-	protected void initializeTilesArray() {
-	    tiles = new Tile[this.numOfBinsY][this.numOfBinsX];    	
-	    for (int row = 0; row < numOfBinsY; row++) {
-	        for (int col = 0; col < numOfBinsX; col++) {
-	            tiles[row][col] = new Tile(row, col);
-	        }
-	    }
-	}
+//	protected void initializeTilesArray() {
+//	    tiles = new ITile[this.numOfBinsY][this.numOfBinsX];    	
+//	    for (int row = 0; row < numOfBinsY; row++) {
+//	        for (int col = 0; col < numOfBinsX; col++) {
+//	            tiles[row][col] = new TileSimple(row, col);
+//	        }
+//	    }
+//	}
 
 	protected int calculateRangesCount(double rangeWidth, double min, double max) {
 	    double range = max - min;

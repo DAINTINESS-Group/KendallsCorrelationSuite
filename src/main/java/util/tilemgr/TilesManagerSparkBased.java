@@ -8,6 +8,9 @@ import static org.apache.spark.sql.functions.*;
 
 import util.common.ColumnsStatistics;
 import util.common.DoublePair;
+import util.tiles.ITile;
+import util.tiles.ITileFactory;
+import util.tiles.ITileType;
 
 
 public class TilesManagerSparkBased extends TilesManagerAbstractClass implements Serializable {
@@ -21,9 +24,19 @@ public class TilesManagerSparkBased extends TilesManagerAbstractClass implements
         this.column1 = column1;
         this.column2 = column2;
         this.dataset = dataset;
+        this.tileType = ITileType.WITH_COUNTER_MAPS;
+        this.tileFactory = new ITileFactory();
     }
 
-
+	protected void initializeTilesArray() {
+	    tiles = new ITile[this.numOfBinsY][this.numOfBinsX];    	
+	    for (int row = 0; row < numOfBinsY; row++) {
+	        for (int col = 0; col < numOfBinsX; col++) {
+	            tiles[row][col] = tileFactory.createTile(this.tileType, row, col); 
+	        }
+	    }
+	}
+	
     protected final void populateTiles() {
         double minX = columnsStatistics.getMinX();
         double maxY = columnsStatistics.getMaxY();

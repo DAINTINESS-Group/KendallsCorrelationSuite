@@ -2,7 +2,7 @@ package util.algo;
 
 
 import util.tilemgr.ITilesManager;
-import util.tiles.Tile;
+import util.tiles.ITile;
 
 public class TileBasedCalculatorService {
 	protected static final boolean DEBUG_FLAG = false;
@@ -18,7 +18,7 @@ public class TileBasedCalculatorService {
         CorrelationStatistics statistics = new CorrelationStatistics();
         CalculationTimer timer = new CalculationTimer();
 
-        Tile[][] tiles = tilesManager.createTilesArray();
+        ITile[][] tiles = tilesManager.createTilesArray();
         TileProcessor processor = new TileProcessor(tiles, statistics);
         processor.processAllTiles();
 

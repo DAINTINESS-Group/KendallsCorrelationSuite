@@ -4,7 +4,7 @@ import java.util.Comparator;
 import java.util.List;
 
 import util.common.DoublePair;
-import util.tiles.Tile;
+import util.tiles.ITile;
 
 /**
  * The {@code TileProcessor} class is responsible for processing tiles in a tile-based approach to calculating
@@ -20,12 +20,12 @@ import util.tiles.Tile;
  */
 public class TileProcessor {
 
-    private final Tile[][] tiles;
+    private final ITile[][] tiles;
     private final CorrelationStatistics correlationStats;
     private final int maxColumns;
     private final int maxRows;
 
-    public TileProcessor(Tile[][] tiles, CorrelationStatistics correlationStats) {
+    public TileProcessor(ITile[][] tiles, CorrelationStatistics correlationStats) {
         this.tiles = tiles;
         this.correlationStats = correlationStats;
         maxRows = tiles.length;
@@ -34,8 +34,8 @@ public class TileProcessor {
 
     public void processAllTiles() {
     	CalculationTimer.reset();
-        for (Tile[] rowOfTiles : tiles) {
-            for (Tile tile : rowOfTiles) {
+        for (ITile[] rowOfTiles : tiles) {
+            for (ITile tile : rowOfTiles) {
                 if (!tile.isEmpty()) {
                     processTile(tile);
                 }
@@ -43,7 +43,7 @@ public class TileProcessor {
         }
     }
     
-    public void processTile(Tile tile) {    	
+    public void processTile(ITile tile) {    	
         int tileRow = tile.getRow();
         int tileColumn = tile.getColumn();
         int tilePairsCount = (int)tile.getCount();
@@ -51,7 +51,7 @@ public class TileProcessor {
 
         if(tilePairs.size() != tilePairsCount) {
         	System.err.println("Tileprocessor.processTile error, parCount and list do not match: " +tilePairsCount + "\t" + tilePairs.size());
-        	System.err.println("Tile: " +tile.toString());
+        	System.err.println("TileSimple: " +tile.toString());
         }
         long startTime = System.currentTimeMillis();
         compareTileWithSelf(tilePairs, tilePairsCount);
@@ -90,7 +90,7 @@ public class TileProcessor {
 
     private void compareTileWithEastTiles(List<DoublePair> tilePairs, int tileRow, int tileColumn) {
         for (int column = tileColumn + 1; column < maxColumns; column++) {
-            Tile eastTile = tiles[tileRow][column];
+            ITile eastTile = tiles[tileRow][column];
             if (!eastTile.isEmpty()) {
                 List<DoublePair> eastTilePairs = eastTile.getValuePairs();
                 compareWithEastTile(tilePairs, eastTilePairs);
@@ -100,7 +100,7 @@ public class TileProcessor {
 
     private void compareTileWithSouthTiles(List<DoublePair> tilePairs, int tileRow, int tileColumn) {
         for (int row = tileRow + 1; row < maxRows; row++) {
-            Tile southTile = tiles[row][tileColumn];
+            ITile southTile = tiles[row][tileColumn];
             if (!southTile.isEmpty()) {
                 List<DoublePair> southTilePairs = southTile.getValuePairs();
                 compareWithSouthTile(tilePairs, southTilePairs);
