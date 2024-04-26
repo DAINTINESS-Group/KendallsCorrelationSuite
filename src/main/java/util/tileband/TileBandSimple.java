@@ -29,5 +29,8 @@ public class TileBandSimple {
 		return occurencesPerValue;
 	}
 
-	
+	@Override
+	public String toString() {
+		return type + "\t" + position + "\t" + occurencesPerValue.values().toString();
+	}
 }//end class
