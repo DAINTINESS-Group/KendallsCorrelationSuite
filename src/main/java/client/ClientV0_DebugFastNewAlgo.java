@@ -14,7 +14,8 @@ public class ClientV0_DebugFastNewAlgo {
         Reader reader = new Reader();
 
         //String filePath = "src\\test\\resources\\testInput\\TauAData.tsv";
-        String filePath = "src\\test\\resources\\testInput\\TestFile.tsv";
+        //String filePath = "src\\test\\resources\\testInput\\TestFile.tsv";
+        String filePath = "src\\test\\resources\\testInput\\ReferenceTestFile.tsv";
         String column1 = "X";
         String column2 = "Y";
         String delimiter = "\t";

@@ -31,6 +31,6 @@ public class TileBandSimple {
 
 	@Override
 	public String toString() {
-		return type + "\t" + position + "\t" + occurencesPerValue.values().toString();
+		return type + "\t" + position + "\t" + occurencesPerValue.keySet().toString() +"\t" +  occurencesPerValue.values().toString();
 	}
 }//end class
