@@ -9,7 +9,7 @@ import org.apache.spark.sql.AnalysisException;
 
 import java.io.IOException;
 
-public class ClientV2 {
+public class ClientV9_FullTestAll {
     public static void main(String[] args) throws IOException, AnalysisException {
 
         Reader reader = new Reader();
@@ -74,13 +74,13 @@ public class ClientV2 {
         elapsedTimeSeconds = (endTime - startTime) / 1000.0;
         printResults("Apache", filePath, apacheResult, elapsedTimeSeconds);
 
-//        /* TILES WITH LISTS*/
-//        startTime = System.currentTimeMillis();
-//        IListBasedKendallCalculator lbtbMgr = methods.createKendallCalculatorByString("ListBasedTiles");
-//        double listTileKendallResult =lbtbMgr.calculateKendall(columnPair);
-//        endTime = System.currentTimeMillis();
-//        elapsedTimeSeconds = (endTime - startTime) / 1000.0; 
-//        printResults("List Tiles", filePath, listTileKendallResult, elapsedTimeSeconds);
+        /* TILES WITH LISTS*/
+        startTime = System.currentTimeMillis();
+        IListBasedKendallCalculator lbtbMgr = methods.createKendallCalculatorByString("ListBasedTiles");
+        double listTileKendallResult =lbtbMgr.calculateKendall(columnPair);
+        endTime = System.currentTimeMillis();
+        elapsedTimeSeconds = (endTime - startTime) / 1000.0; 
+        printResults("List Tiles", filePath, listTileKendallResult, elapsedTimeSeconds);
         
         /* TILES WITH MEMORY*/
         startTime = System.currentTimeMillis();
@@ -90,6 +90,35 @@ public class ClientV2 {
         elapsedTimeSeconds = (endTime - startTime) / 1000.0; 
         printResults("Bands With Memory", filePath, bandsWithMemoryKendallResult, elapsedTimeSeconds);
         
+        /* BRUTE */
+        IListBasedKendallCalculator bruteForceTauA = methods.createKendallCalculatorByString("BruteForce");
+        startTime = System.currentTimeMillis();
+        double actualBruteForce = bruteForceTauA.calculateKendall(columnPair);
+        endTime = System.currentTimeMillis();
+        elapsedTimeSeconds = (endTime - startTime) / 1000.0;
+        printResults("Brute Force", filePath, actualBruteForce, elapsedTimeSeconds);      
+
+        /* BROPHY */
+        IListBasedKendallCalculator brophyKendallTauB = methods.createKendallCalculatorByString("Brophy");
+        startTime = System.currentTimeMillis();
+        double actualBrophy = brophyKendallTauB.calculateKendall(columnPair);
+        endTime = System.currentTimeMillis();
+        elapsedTimeSeconds = (endTime - startTime) / 1000.0;
+        printResults("Brophy", filePath, actualBrophy, elapsedTimeSeconds);
+        
+        /* Tile Implementation with SPARK and valuePairs*/
+        startTime = System.currentTimeMillis();
+        SparkBasedKendallManager sparkBasedKendallManager = new SparkBasedKendallManager();
+        sparkBasedKendallManager.loadDataset(filePath, column1, column2);
+        endTime = System.currentTimeMillis();
+        elapsedTimeSeconds = (endTime - startTime) / 1000.0;
+        System.out.println("Spark InitialSetup and Dataset loading took: " + elapsedTimeSeconds + "\n");
+
+        startTime = System.currentTimeMillis();
+        double sparkKendall = sparkBasedKendallManager.calculateKendallTau(column1, column2);
+        endTime = System.currentTimeMillis();
+        elapsedTimeSeconds = (endTime - startTime) / 1000.0;
+        printResults("Spark Kendall", filePath, sparkKendall, elapsedTimeSeconds);
     }
 
 
