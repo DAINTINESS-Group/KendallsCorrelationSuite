@@ -1,7 +1,5 @@
 package util.algo;
 
-import org.apache.spark.sql.Dataset;
-import org.apache.spark.sql.Row;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -10,10 +8,6 @@ import listBasedKendallAlgorithms.listBasedReader.ColumnPair;
 import listBasedKendallAlgorithms.listBasedReader.Reader;
 import sparkBasedKendallAlgorithms.SparkSessionTestSetup;
 
-import sparkBasedKendallAlgorithms.reader.DatasetReader;
-import util.tilemgr.TilesManagerSparkBased;
-import util.tilemgr.ITilesManager;
-import util.tilemgr.TilesManagerListBasedSimpleTiles;
 import util.tilemgr.TilesManagerListBasedTilesWithCounters;
 
 import java.io.IOException;

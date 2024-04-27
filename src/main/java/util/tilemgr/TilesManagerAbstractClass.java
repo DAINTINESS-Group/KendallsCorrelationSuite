@@ -4,7 +4,6 @@ import util.common.ColumnsStatistics;
 import util.tiles.ITile;
 import util.tiles.ITileFactory;
 import util.tiles.ITileType;
-import util.tiles.TileSimple;
 
 
 public abstract class TilesManagerAbstractClass implements ITilesManager{
