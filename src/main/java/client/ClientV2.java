@@ -3,7 +3,7 @@ package client;
 import listBasedKendallAlgorithms.*;
 import listBasedKendallAlgorithms.listBasedReader.ColumnPair;
 import listBasedKendallAlgorithms.listBasedReader.Reader;
-import sparkBasedKendallAlgorithms.SparkBasedKendallManager;
+//import sparkBasedKendallAlgorithms.SparkBasedKendallManager;
 
 import org.apache.spark.sql.AnalysisException;
 
@@ -15,10 +15,10 @@ public class ClientV2 {
         Reader reader = new Reader();
 
         //74001 tuples
-        String filePath = "src\\test\\resources\\input\\acs2017_census_tract_data.csv";
-        String column1 = "Hispanic";
-        String column2 = "Native";
-        String delimiter = ",";
+//        String filePath = "src\\test\\resources\\input\\acs2017_census_tract_data.csv";
+//        String column1 = "Hispanic";
+//        String column2 = "Native";
+//        String delimiter = ",";
 
         //74001 tuples
 //        String filePath = "src\\test\\resources\\input\\acs2017_census_tract_data.csv";
@@ -28,10 +28,10 @@ public class ClientV2 {
         
         //108,539 tuples
         // manufacturer,model,year,price,transmission,mileage,fuelType,tax,mpg,engineSize
-//        String filePath = "src\\test\\resources\\input\\cars_100k.csv";
-//        String column1 = "mileage";
-//        String column2 = "mpg";
-//        String delimiter = ",";
+        String filePath = "src\\test\\resources\\input\\cars_100k.csv";
+        String column1 = "mileage";
+        String column2 = "mpg";
+        String delimiter = ",";
         
       //619,040 tuples
 //        String filePath = "src\\test\\resources\\input\\all_stocks_5yr.csv";
@@ -58,13 +58,14 @@ public class ClientV2 {
 //        String delimiter = ",";
 
 
-        ColumnPair columnPair = reader.read(filePath, column1, column2, delimiter);
 
         long startTime = -1;
         long endTime = -1;
         double elapsedTimeSeconds = -1.0;
 
         ListBasedKendallFactory methods = new ListBasedKendallFactory();
+        
+        ColumnPair columnPair = reader.read(filePath, column1, column2, delimiter);
 
         /* APACHE */
         startTime = System.currentTimeMillis();
@@ -74,13 +75,13 @@ public class ClientV2 {
         elapsedTimeSeconds = (endTime - startTime) / 1000.0;
         printResults("Apache", filePath, apacheResult, elapsedTimeSeconds);
 
-//        /* TILES WITH LISTS*/
-//        startTime = System.currentTimeMillis();
-//        IListBasedKendallCalculator lbtbMgr = methods.createKendallCalculatorByString("ListBasedTiles");
-//        double listTileKendallResult =lbtbMgr.calculateKendall(columnPair);
-//        endTime = System.currentTimeMillis();
-//        elapsedTimeSeconds = (endTime - startTime) / 1000.0; 
-//        printResults("List Tiles", filePath, listTileKendallResult, elapsedTimeSeconds);
+        /* TILES WITH LISTS*/
+        startTime = System.currentTimeMillis();
+        IListBasedKendallCalculator lbtbMgr = methods.createKendallCalculatorByString("ListBasedTiles");
+        double listTileKendallResult =lbtbMgr.calculateKendall(columnPair);
+        endTime = System.currentTimeMillis();
+        elapsedTimeSeconds = (endTime - startTime) / 1000.0; 
+        printResults("List Tiles", filePath, listTileKendallResult, elapsedTimeSeconds);
         
         /* TILES WITH MEMORY*/
         startTime = System.currentTimeMillis();
@@ -90,7 +91,7 @@ public class ClientV2 {
         elapsedTimeSeconds = (endTime - startTime) / 1000.0; 
         printResults("Bands With Memory", filePath, bandsWithMemoryKendallResult, elapsedTimeSeconds);
         
-    }
+    }//end main
 
 
     private static void printResults(String methodName, String filePath, double kendallResult, double elapsedTimeSeconds) {

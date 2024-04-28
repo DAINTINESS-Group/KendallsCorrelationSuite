@@ -4,7 +4,7 @@ import util.tilemgr.TilesManagerListBasedTilesWithCounters;
 import util.tiles.TileWithCounters;
 
 public class TileXBasedCalculatorService {
-	protected static final boolean DEBUG_FLAG = true;
+	protected static final boolean DEBUG_FLAG = false;
 
     private TilesManagerListBasedTilesWithCounters tilesManager;
 

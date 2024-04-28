@@ -8,7 +8,10 @@ public class ListBasedBandsWithMemoryManager implements IListBasedKendallCalcula
 
 	@Override
 	public double calculateKendall(ColumnPair pair) {
-		TilesManagerListBasedTilesWithCounters tilesManager = new TilesManagerListBasedTilesWithCounters(pair);
+		
+		TilesManagerListBasedTilesWithCounters tilesManager = new TilesManagerListBasedTilesWithCounters(pair); 
+//		TilesManagerListBasedTilesWithCounters tilesManager = new TilesManagerListBasedTilesWithCounters(pair, 
+//				TilesManagerListBasedTilesWithCounters.RangeMakerMethodEnum.FIXED);
         TileXBasedCalculatorService calculatorService = new TileXBasedCalculatorService(tilesManager);
         return calculatorService.calculateKendallTauCorrelation();	}
 
