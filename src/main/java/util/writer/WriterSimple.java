@@ -46,7 +46,7 @@ public class WriterSimple {
 		if(stuff.endsWith("\n"))
 			;
 		else
-			stuff.concat("\n");
+			stuff = stuff.concat("\n");
 		writeText(stuff);
 	}
 	

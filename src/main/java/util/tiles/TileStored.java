@@ -100,6 +100,8 @@ public class TileStored implements Serializable, ITile {
     }
 
     public void finalizeTilePopulation() {
+    	if(null == writer)
+    		return;
     	try {
 			writer.closeFile();
 		} catch (IOException e) {

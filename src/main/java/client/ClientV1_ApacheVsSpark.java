@@ -76,43 +76,43 @@ public class ClientV1_ApacheVsSpark {
 
         
         /* Tile Implementation with SPARK and valuePairs*/
-        startTime = System.currentTimeMillis();
-        SparkBasedKendallManagerSimple sparkBasedKendallManagerSimple = new SparkBasedKendallManagerSimple();
-        sparkBasedKendallManagerSimple.loadDataset(filePath, column1, column2);
-        endTime = System.currentTimeMillis();
-        elapsedTimeSeconds = (endTime - startTime) / 1000.0;
-        System.out.println("Spark InitialSetup and Dataset loading took: " + elapsedTimeSeconds + "\n");
-
-        startTime = System.currentTimeMillis();
-        double sparkTileKendallResult = sparkBasedKendallManagerSimple.calculateKendallTau(column1, column2);
-        endTime = System.currentTimeMillis();
-        elapsedTimeSeconds = (endTime - startTime) / 1000.0;
-        printResults("Spark Tiles", filePath, sparkTileKendallResult, elapsedTimeSeconds);
-
-
-        /* Tile Implementation with SPARK and stored tiles*/
-//        
-//        /* Produces an out of memory error, as it opens one filewriter per tile.
-//         * And we have thousands of tiles. 
-//         * Is there any way to incrementally write each tile's tuples to a tile-dedicated file?*/
-//        
 //        startTime = System.currentTimeMillis();
-//        
-//        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(Calendar.getInstance().getTime());
-//        WriterSetup.OUTPUT_CUR_DIR = "try" + timeStamp + File.separator;
-//        System.err.println("Writing tiles at " + WriterSetup.getOutputExecDir());
-//        
-//        SparkBasedKendallManager sparkBasedKendallManager= new SparkBasedKendallManager();
-//        sparkBasedKendallManager.loadDataset(filePath, column1, column2);
+//        SparkBasedKendallManagerSimple sparkBasedKendallManagerSimple = new SparkBasedKendallManagerSimple();
+//        sparkBasedKendallManagerSimple.loadDataset(filePath, column1, column2);
 //        endTime = System.currentTimeMillis();
 //        elapsedTimeSeconds = (endTime - startTime) / 1000.0;
 //        System.out.println("Spark InitialSetup and Dataset loading took: " + elapsedTimeSeconds + "\n");
 //
 //        startTime = System.currentTimeMillis();
-//        double sparkTileKendallResult = sparkBasedKendallManager.calculateKendallTau(column1, column2);
+//        double sparkTileKendallResult = sparkBasedKendallManagerSimple.calculateKendallTau(column1, column2);
 //        endTime = System.currentTimeMillis();
 //        elapsedTimeSeconds = (endTime - startTime) / 1000.0;
 //        printResults("Spark Tiles", filePath, sparkTileKendallResult, elapsedTimeSeconds);
+
+
+        /* Tile Implementation with SPARK and stored tiles*/
+        
+        /* Produces an out of memory error, as it opens one filewriter per tile.
+         * And we have thousands of tiles. 
+         * Is there any way to incrementally write each tile's tuples to a tile-dedicated file?*/
+        
+        startTime = System.currentTimeMillis();
+        
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(Calendar.getInstance().getTime());
+        WriterSetup.OUTPUT_CUR_DIR = "try" + timeStamp + File.separator;
+        System.err.println("Writing tiles at " + WriterSetup.getOutputExecDir());
+        
+        SparkBasedKendallManager sparkBasedKendallManager= new SparkBasedKendallManager();
+        sparkBasedKendallManager.loadDataset(filePath, column1, column2);
+        endTime = System.currentTimeMillis();
+        elapsedTimeSeconds = (endTime - startTime) / 1000.0;
+        System.out.println("Spark InitialSetup and Dataset loading took: " + elapsedTimeSeconds + "\n");
+
+        startTime = System.currentTimeMillis();
+        double sparkTileKendallResult = sparkBasedKendallManager.calculateKendallTau(column1, column2);
+        endTime = System.currentTimeMillis();
+        elapsedTimeSeconds = (endTime - startTime) / 1000.0;
+        printResults("Spark Tiles", filePath, sparkTileKendallResult, elapsedTimeSeconds);
 
     }//end main
 

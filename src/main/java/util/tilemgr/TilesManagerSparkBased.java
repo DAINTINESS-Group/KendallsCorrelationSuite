@@ -8,6 +8,10 @@ import static org.apache.spark.sql.functions.*;
 
 import util.common.ColumnsStatistics;
 import util.common.DoublePair;
+import util.tilemgr.TilesManagerListBasedTilesWithCounters.RangeMakerMethodEnum;
+import util.tilemgr.rangemaker.RangeMakerFactory;
+import util.tilemgr.rangemaker.RangeMakerInterface;
+import util.tilemgr.rangemaker.RangeMakerResult;
 import util.tiles.TileStored;
 
 
@@ -24,6 +28,8 @@ public class TilesManagerSparkBased implements Serializable {
 	protected double rangeWidthY;
 	protected ColumnsStatistics columnsStatistics;
 
+	protected RangeMakerMethodEnum rangeMakerMethod;
+	
     private final String column1;
     private final String column2;
     private final Dataset<Row> dataset;
@@ -32,8 +38,16 @@ public class TilesManagerSparkBased implements Serializable {
         this.column1 = column1;
         this.column2 = column2;
         this.dataset = dataset;
+		this.rangeMakerMethod = RangeMakerMethodEnum.FIXED; //DECIDE: FIXED or SCOTT?
     }
 
+    
+    public TilesManagerSparkBased(Dataset<Row> dataset, String column1, String column2, RangeMakerMethodEnum method) {
+        this.column1 = column1;
+        this.column2 = column2;
+        this.dataset = dataset;
+    	this.rangeMakerMethod = method;
+    }
 
 	public TileStored[][] createTilesArray() {
 		
@@ -85,15 +99,34 @@ public class TilesManagerSparkBased implements Serializable {
 	}
 
 	protected void setupTilesArrayMetadata() {
-		double datasetRowCountAsDouble = (double) this.datasetRowCount;
-	    rangeWidthX = calculateRangesWidth(columnsStatistics.getStdDevX(), datasetRowCountAsDouble);
-	    rangeWidthY = calculateRangesWidth(columnsStatistics.getStdDevY(), datasetRowCountAsDouble);       
-		numOfBinsX = calculateRangesCount(rangeWidthX, columnsStatistics.getMinX(), columnsStatistics.getMaxX());
-	    numOfBinsY = calculateRangesCount(rangeWidthY, columnsStatistics.getMinY(), columnsStatistics.getMaxY());
+		RangeMakerFactory factory = new RangeMakerFactory();
+		RangeMakerInterface rangeMaker = null;
+		switch(this.rangeMakerMethod) {
+		//TODO IMPROVE IMPROVE IMPROVE
+		//obviously deserves better.
+		//Constructor should get a hashmap of strings with various parameters and move on.
+			case FIXED: 
+				final int BINS_X = 10;
+				final int BINS_Y = 10;
+				rangeMaker = factory.makeRangeMakerFixedNumBins(columnsStatistics, BINS_X, BINS_Y);
+				break;
+			default://implies SCOTT too
+				rangeMaker = factory.makeRangeMakerScottRule(columnsStatistics);
+		}
+		RangeMakerResult result = rangeMaker.divideColumnsInBinsAndRanges();
+		rangeWidthX = result.getRangeWidthX();
+		rangeWidthY = result.getRangeWidthY();
+		numOfBinsX = result.getNumberOfBinsX();
+		numOfBinsY = result.getNumberOfBinsY();
+//System.err.println("RANGEMAKER " + result.toString()+"\n");	
+//		double datasetRowCountAsDouble = (double) this.datasetRowCount;
+//	    rangeWidthX = calculateRangesWidth(columnsStatistics.getStdDevX(), datasetRowCountAsDouble);
+//	    rangeWidthY = calculateRangesWidth(columnsStatistics.getStdDevY(), datasetRowCountAsDouble);       
+//		numOfBinsX = calculateRangesCount(rangeWidthX, columnsStatistics.getMinX(), columnsStatistics.getMaxX());
+//	    numOfBinsY = calculateRangesCount(rangeWidthY, columnsStatistics.getMinY(), columnsStatistics.getMaxY());
 	}
 
 	protected void closeFileWriters() {
-	    tiles = new TileStored[this.numOfBinsY][this.numOfBinsX];    	
 	    for (int row = 0; row < numOfBinsY; row++) {
 	        for (int col = 0; col < numOfBinsX; col++) {
 	            TileStored tile = tiles[row][col] ;
