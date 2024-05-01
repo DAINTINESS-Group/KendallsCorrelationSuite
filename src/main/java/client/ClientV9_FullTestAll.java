@@ -3,7 +3,7 @@ package client;
 import listBasedKendallAlgorithms.*;
 import listBasedKendallAlgorithms.listBasedReader.ColumnPair;
 import listBasedKendallAlgorithms.listBasedReader.Reader;
-import sparkBasedKendallAlgorithms.SparkBasedKendallManager;
+import sparkBasedKendallAlgorithms.SparkBasedKendallManagerSimple;
 
 import org.apache.spark.sql.AnalysisException;
 
@@ -108,14 +108,14 @@ public class ClientV9_FullTestAll {
         
         /* Tile Implementation with SPARK and valuePairs*/
         startTime = System.currentTimeMillis();
-        SparkBasedKendallManager sparkBasedKendallManager = new SparkBasedKendallManager();
-        sparkBasedKendallManager.loadDataset(filePath, column1, column2);
+        SparkBasedKendallManagerSimple sparkBasedKendallManagerSimple = new SparkBasedKendallManagerSimple();
+        sparkBasedKendallManagerSimple.loadDataset(filePath, column1, column2);
         endTime = System.currentTimeMillis();
         elapsedTimeSeconds = (endTime - startTime) / 1000.0;
         System.out.println("Spark InitialSetup and Dataset loading took: " + elapsedTimeSeconds + "\n");
 
         startTime = System.currentTimeMillis();
-        double sparkKendall = sparkBasedKendallManager.calculateKendallTau(column1, column2);
+        double sparkKendall = sparkBasedKendallManagerSimple.calculateKendallTau(column1, column2);
         endTime = System.currentTimeMillis();
         elapsedTimeSeconds = (endTime - startTime) / 1000.0;
         printResults("Spark Kendall", filePath, sparkKendall, elapsedTimeSeconds);

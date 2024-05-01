@@ -3,7 +3,7 @@ package client;
 import listBasedKendallAlgorithms.*;
 import listBasedKendallAlgorithms.listBasedReader.ColumnPair;
 import listBasedKendallAlgorithms.listBasedReader.Reader;
-//import sparkBasedKendallAlgorithms.SparkBasedKendallManager;
+//import sparkBasedKendallAlgorithms.SparkBasedKendallManagerSimple;
 
 import org.apache.spark.sql.AnalysisException;
 

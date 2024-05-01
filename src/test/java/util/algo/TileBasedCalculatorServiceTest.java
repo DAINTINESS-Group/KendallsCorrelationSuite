@@ -11,7 +11,7 @@ import listBasedKendallAlgorithms.listBasedReader.Reader;
 import sparkBasedKendallAlgorithms.SparkSessionTestSetup;
 
 import sparkBasedKendallAlgorithms.reader.DatasetReader;
-import util.tilemgr.TilesManagerSparkBased;
+import util.tilemgr.TilesManagerSparkBasedSimple;
 import util.tilemgr.ITilesManager;
 import util.tilemgr.TilesManagerListBasedSimpleTiles;
 //import util.tilemgr.TilesManagerListBasedTilesWithCounters;
@@ -53,7 +53,7 @@ public class TileBasedCalculatorServiceTest extends SparkSessionTestSetup {
     public void testCalculateSparkKendallTauCorrelationWithDifferentDatasets() {
         DatasetReader datasetReader = new DatasetReader(spark, path, delimiter);
         Dataset<Row> dataset = datasetReader.read(column1, column2);
-        ITilesManager tilesManagerSparkBased = new TilesManagerSparkBased(dataset, column1, column2);
+        ITilesManager tilesManagerSparkBased = new TilesManagerSparkBasedSimple(dataset, column1, column2);
         TileBasedCalculatorService service = new TileBasedCalculatorService(tilesManagerSparkBased);
         //TileBasedCalculatorService service = new TileBasedCalculatorService(dataset, column1, column2);
 
