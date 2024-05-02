@@ -1,0 +1,62 @@
+package sparkBasedKendallAlgorithms;
+
+import org.apache.spark.sql.AnalysisException;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
+
+import java.util.Arrays;
+import java.util.Collection;
+
+import static org.junit.Assert.assertEquals;
+
+@SuppressWarnings("unused")
+@RunWith(Parameterized.class)
+public class SparkBasedKendallManagerTest extends SparkSessionTestSetup {
+
+    private final String path;
+    private final String column1;
+    private final String column2;
+	private final String delimiter;
+    private final double expected;
+    private final SparkBasedKendallManager sparkBasedKendallManager = new SparkBasedKendallManager();
+
+    public SparkBasedKendallManagerTest(
+            String path, String column1, String column2, String delimiter, double expected) {
+        this.path = path;
+        this.column1 = column1;
+        this.column2 = column2;
+        this.delimiter = delimiter;
+        this.expected = expected;
+    }
+
+    @Parameterized.Parameters
+    public static Collection<Object[]> data() {
+        return Arrays.asList(new Object[][]{
+                {"src\\test\\resources\\testInput\\TestFile.tsv", "X", "Y", "\t", 0.04957330142836763},
+                {"src\\test\\resources\\testInput\\cars_10kTest.csv", "mpg", "mileage", ",", 0.2943112515766309},
+                {"src\\test\\resources\\input\\cars_100k.csv", "mpg", "mileage", ",", 0.23002983829926982},
+        });
+    }
+
+   
+    @Test
+    public void testCalculateKendall() {
+        
+        try {
+			sparkBasedKendallManager.loadDataset(path, column1, column2);
+		} catch (AnalysisException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        double actual = sparkBasedKendallManager.calculateKendallTau(column1, column2);
+
+        // Assert
+        double delta = 0.0;
+		System.out.println("\nHard-Disk Tiles Kendall (Tau B)");
+		System.out.println("Expected:\t" + expected);
+		System.out.println("Actual  :\t" + actual);
+        assertEquals(expected, actual, delta);
+    }
+    
+}

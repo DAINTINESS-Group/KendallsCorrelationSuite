@@ -9,7 +9,8 @@ import sparkBasedKendallAlgorithms.sparkSetup.SparkSetupTest;
 
 @RunWith(Suite.class)
 @SuiteClasses({ 
-	DatasetManagerTest.class, // no test, just setup for SparkSessionTestSetup.class, 
+	SparkBasedKendallManagerSimpleTest.class, 
+	SparkBasedKendallManagerTest.class, 
 	DatasetReaderTest.class,
 	SparkSetupTest.class	
 })
