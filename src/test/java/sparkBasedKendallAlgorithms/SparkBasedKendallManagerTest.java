@@ -5,7 +5,12 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 
+import util.writer.WriterSetup;
+
+import java.io.File;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Collection;
 
 import static org.junit.Assert.assertEquals;
@@ -49,6 +54,9 @@ public class SparkBasedKendallManagerTest extends SparkSessionTestSetup {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(Calendar.getInstance().getTime());
+        WriterSetup.OUTPUT_CUR_DIR = "try" + timeStamp + File.separator;
+        System.err.println("Writing tiles at " + WriterSetup.getOutputExecDir());
         double actual = sparkBasedKendallManager.calculateKendallTau(column1, column2);
 
         // Assert
