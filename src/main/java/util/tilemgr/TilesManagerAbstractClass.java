@@ -76,7 +76,7 @@ public abstract class TilesManagerAbstractClass implements ITilesManager{
 //	    tiles = new ITile[this.numOfBinsY][this.numOfBinsX];    	
 //	    for (int row = 0; row < numOfBinsY; row++) {
 //	        for (int col = 0; col < numOfBinsX; col++) {
-//	            tiles[row][col] = new TileSimple(row, col);
+//	            tiles[row][col] = new TileInMemSimple(row, col);
 //	        }
 //	    }
 //	}

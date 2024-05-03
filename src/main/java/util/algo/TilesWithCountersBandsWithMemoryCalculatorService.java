@@ -1,15 +1,15 @@
 package util.algo;
 
-import util.tilemgr.TilesManagerListBasedTilesWithCounters;
-import util.tiles.TileWithCounters;
+import util.tilemgr.TilesManagerListReaderTilesInMemWCounters;
+import util.tiles.TileInMemWCounters;
 
 public class TilesWithCountersBandsWithMemoryCalculatorService {
 	protected static final boolean DEBUG_FLAG = false;
 
-	private TilesManagerListBasedTilesWithCounters tilesManager;
+	private TilesManagerListReaderTilesInMemWCounters tilesManager;
 
 
-	public TilesWithCountersBandsWithMemoryCalculatorService(TilesManagerListBasedTilesWithCounters tilesManager) {
+	public TilesWithCountersBandsWithMemoryCalculatorService(TilesManagerListReaderTilesInMemWCounters tilesManager) {
 		this.tilesManager = tilesManager;
 	}
 
@@ -17,7 +17,7 @@ public class TilesWithCountersBandsWithMemoryCalculatorService {
 		CorrelationStatistics statistics = new CorrelationStatistics();
 		CalculationTimer timer = new CalculationTimer();
 
-		TileWithCounters[][] tiles = tilesManager.createTilesArray();
+		TileInMemWCounters[][] tiles = tilesManager.createTilesArray();
 
 		AlgoBandsWithVisitMemory processorWithMemory = new AlgoBandsWithVisitMemory(tiles, statistics);
 		processorWithMemory.processAllTiles();

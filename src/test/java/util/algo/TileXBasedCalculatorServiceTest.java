@@ -8,7 +8,7 @@ import listBasedKendallAlgorithms.listBasedReader.ColumnPair;
 import listBasedKendallAlgorithms.listBasedReader.Reader;
 import sparkBasedKendallAlgorithms.SparkSessionTestSetup;
 
-import util.tilemgr.TilesManagerListBasedTilesWithCounters;
+import util.tilemgr.TilesManagerListReaderTilesInMemWCounters;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -57,7 +57,7 @@ public class TileXBasedCalculatorServiceTest extends SparkSessionTestSetup {
 		}
         
 		//TILES WITH COUNTERS
-		TilesManagerListBasedTilesWithCounters tilesManagerWithCounters = new TilesManagerListBasedTilesWithCounters(pair);
+		TilesManagerListReaderTilesInMemWCounters tilesManagerWithCounters = new TilesManagerListReaderTilesInMemWCounters(pair);
         //SERVICE WITH NEW TILES WITH MEMORY
         TilesWithCountersBandsWithMemoryCalculatorService service = new TilesWithCountersBandsWithMemoryCalculatorService(tilesManagerWithCounters);
         double actual = service.calculateKendallTauCorrelation();

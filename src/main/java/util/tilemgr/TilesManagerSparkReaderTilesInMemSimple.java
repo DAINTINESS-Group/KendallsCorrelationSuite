@@ -13,14 +13,14 @@ import util.tiles.ITileFactory;
 import util.tiles.ITileType;
 
 
-public class TilesManagerSparkBasedSimple extends TilesManagerAbstractClass implements Serializable {
+public class TilesManagerSparkReaderTilesInMemSimple extends TilesManagerAbstractClass implements Serializable {
     private static final long serialVersionUID = 8765154256335271048L;
 
     private final String column1;
     private final String column2;
     private final Dataset<Row> dataset;
 
-    public TilesManagerSparkBasedSimple(Dataset<Row> dataset, String column1, String column2) {
+    public TilesManagerSparkReaderTilesInMemSimple(Dataset<Row> dataset, String column1, String column2) {
         this.column1 = column1;
         this.column2 = column2;
         this.dataset = dataset;
@@ -91,7 +91,7 @@ public class TilesManagerSparkBasedSimple extends TilesManagerAbstractClass impl
 
 	@Override
 	public String toString() {
-		return "TilesManagerSparkBasedSimple [datasetRowCount=" + datasetRowCount + 
+		return "TilesManagerSparkReaderTilesInMemSimple [datasetRowCount=" + datasetRowCount + 
 				", numOfBinsX=" + numOfBinsX
 				+ ", numOfBinsY=" + numOfBinsY 
 				+ ", rangeWidthX=" + rangeWidthX 

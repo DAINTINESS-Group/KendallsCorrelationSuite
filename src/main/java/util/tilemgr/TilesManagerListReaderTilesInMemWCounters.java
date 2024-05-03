@@ -10,16 +10,16 @@ import util.tilemgr.rangemaker.RangeMakerInterface;
 import util.tilemgr.rangemaker.RangeMakerResult;
 //import util.tiles.ITileFactory;
 //import util.tiles.ITileType;
-import util.tiles.TileWithCounters;
+import util.tiles.TileInMemWCounters;
 
-public class TilesManagerListBasedTilesWithCounters  {
+public class TilesManagerListReaderTilesInMemWCounters implements ITilesManager  {
 	public enum RangeMakerMethodEnum{FIXED, SCOTT};
 	
 	protected final ColumnPair pair;
 	protected RangeMakerMethodEnum rangeMakerMethod;
 	protected static final boolean DEBUG_FLAG = false;
 	protected static final boolean EXP_FLAG = false;
-	protected static TileWithCounters[][] tiles;
+	protected static TileInMemWCounters[][] tiles;
 	protected long datasetRowCount;
 	protected int numOfBinsX;
 	protected int numOfBinsY;
@@ -29,17 +29,17 @@ public class TilesManagerListBasedTilesWithCounters  {
 	//	    protected ITileType tileType;
 	//	    protected ITileFactory tileFactory;
 
-	public TilesManagerListBasedTilesWithCounters(ColumnPair pair) {
+	public TilesManagerListReaderTilesInMemWCounters(ColumnPair pair) {
 		this.pair = pair;
 		this.rangeMakerMethod = RangeMakerMethodEnum.SCOTT;
 	}
 
-	public TilesManagerListBasedTilesWithCounters(ColumnPair pair, RangeMakerMethodEnum method) {
+	public TilesManagerListReaderTilesInMemWCounters(ColumnPair pair, RangeMakerMethodEnum method) {
 		this.pair = pair;
 		this.rangeMakerMethod = method;
 	}
 
-	public TileWithCounters[][] createTilesArray() {
+	public TileInMemWCounters[][] createTilesArray() {
 		
 			double start = System.currentTimeMillis();
 		calculateMinMaxColumnValues();
@@ -78,8 +78,8 @@ public class TilesManagerListBasedTilesWithCounters  {
 			}
 			if(DEBUG_FLAG) {
 				int row, column, count = -1;
-				for (TileWithCounters[] rowOfTiles : tiles) {
-					for (TileWithCounters tile : rowOfTiles) {
+				for (TileInMemWCounters[] rowOfTiles : tiles) {
+					for (TileInMemWCounters tile : rowOfTiles) {
 						if (!tile.isEmpty()) {
 							row = tile.getRow();
 							column = tile.getColumn();
@@ -211,10 +211,10 @@ public class TilesManagerListBasedTilesWithCounters  {
 	}
 
 	protected void initializeTilesArray() {
-		tiles = new TileWithCounters[this.numOfBinsY][this.numOfBinsX];    	
+		tiles = new TileInMemWCounters[this.numOfBinsY][this.numOfBinsX];    	
 		for (int row = 0; row < numOfBinsY; row++) {
 			for (int col = 0; col < numOfBinsX; col++) {
-				tiles[row][col] = new TileWithCounters(row, col); 
+				tiles[row][col] = new TileInMemWCounters(row, col); 
 			}
 		}
 	}

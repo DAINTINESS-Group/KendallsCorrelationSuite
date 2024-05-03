@@ -9,7 +9,7 @@ import java.util.SortedMap;
 
 import util.common.DoublePair;
 import util.tileband.TileBandSimple;
-import util.tiles.TileWithCounters;
+import util.tiles.TileInMemWCounters;
 
 /**
  * The {@code AlgoBandsWithVisitMemory} class is responsible for processing tiles in a tile-based approach to calculating Kendall's tau correlation.
@@ -27,14 +27,14 @@ public class AlgoBandsWithVisitMemory {
 	protected static final boolean DEBUG_FLAG = false;
 
 	//TODO FIX ALL!!!!!!!
-	private final TileWithCounters[][] tiles;
+	private final TileInMemWCounters[][] tiles;
 	private final CorrelationStatistics correlationStats;
 	private final int maxColumns;
 	private final int maxRows;
 	private final List<TileBandSimple> rowMetadata;
 	private final List<TileBandSimple> columnMetadata;
 
-	public AlgoBandsWithVisitMemory(TileWithCounters[][] tiles, CorrelationStatistics correlationStats) {
+	public AlgoBandsWithVisitMemory(TileInMemWCounters[][] tiles, CorrelationStatistics correlationStats) {
 		//System.out.println("\n -- \n creating AlgoBandsWithVisitMemory");
 		this.tiles = tiles;
 		this.correlationStats = correlationStats;
@@ -54,12 +54,12 @@ public class AlgoBandsWithVisitMemory {
 	}//end constructor
 
 	protected void preprocessAllTiles() {
-		for (TileWithCounters[] rowOfTiles : tiles) {
+		for (TileInMemWCounters[] rowOfTiles : tiles) {
 			
-			for (TileWithCounters tile : rowOfTiles) {
+			for (TileInMemWCounters tile : rowOfTiles) {
 				if (!tile.isEmpty()) {
 	if(DEBUG_FLAG) {
-		System.err.println(tile.toStringDetailed());
+		System.err.println(tile.toString());
 	}
 					int tileRow = tile.getRow();
 					int tileColumn = tile.getColumn();
@@ -99,8 +99,8 @@ public class AlgoBandsWithVisitMemory {
 
 	public void processAllTiles() {
 		CalculationTimer.reset();
-		for (TileWithCounters[] rowOfTiles : tiles) {
-			for (TileWithCounters tile : rowOfTiles) {
+		for (TileInMemWCounters[] rowOfTiles : tiles) {
+			for (TileInMemWCounters tile : rowOfTiles) {
 				if (!tile.isEmpty()) {
 					processTile(tile);
 				}
@@ -113,7 +113,7 @@ public class AlgoBandsWithVisitMemory {
 		}
 	}//end processAllTiles
 
-	protected void processTile(TileWithCounters tile) {    	
+	protected void processTile(TileInMemWCounters tile) {    	
 		int tileRow = tile.getRow();
 		int tileColumn = tile.getColumn();
 		int tilePairsCount = tile.getCount();
@@ -122,7 +122,7 @@ public class AlgoBandsWithVisitMemory {
 
 		if(tilePairs.size() != tilePairsCount) {
 			System.err.println("Tileprocessor.processTile error, parCount and list do not match: " +tilePairsCount + "\t" + tilePairs.size());
-			System.err.println("TileSimple: " +tile.toString());
+			System.err.println("TileInMemSimple: " +tile.toString());
 		}
 		
 			long startTime = System.currentTimeMillis();
@@ -180,7 +180,7 @@ public class AlgoBandsWithVisitMemory {
 		}
 	}
 
-	protected void compareTileWithSouthTiles(TileWithCounters testedTile) {
+	protected void compareTileWithSouthTiles(TileInMemWCounters testedTile) {
 		//int tileRow = testedTile.getRow();
 		int tileColumn = testedTile.getColumn();
 
@@ -215,7 +215,7 @@ public class AlgoBandsWithVisitMemory {
 	}//end East
 	
 	
-	protected void compareTileWithEastTiles(TileWithCounters testedTile) {
+	protected void compareTileWithEastTiles(TileInMemWCounters testedTile) {
 		int tileRow = testedTile.getRow();
 		//int tileColumn = testedTile.getColumn();
 
@@ -249,7 +249,7 @@ public class AlgoBandsWithVisitMemory {
 		}//endFor
 	}//end East
 	
-//	protected void compareTileWithEastTiles(TileWithCounters testedTile) {
+//	protected void compareTileWithEastTiles(TileInMemWCounters testedTile) {
 //		int tileRow = testedTile.getRow();
 //		//int tileColumn = testedTile.getColumn();
 //		
@@ -287,7 +287,7 @@ public class AlgoBandsWithVisitMemory {
 	@Deprecated
 	protected void compareTileWithEastTiles(List<DoublePair> tilePairs, int tileRow, int tileColumn) {
 		for (int column = tileColumn + 1; column < maxColumns; column++) {
-			TileWithCounters eastTile = tiles[tileRow][column];
+			TileInMemWCounters eastTile = tiles[tileRow][column];
 			if (!eastTile.isEmpty()) {
 				List<DoublePair> eastTilePairs = eastTile.getValuePairs();
 				compareWithEastTile(tilePairs, eastTilePairs);
@@ -329,7 +329,7 @@ public class AlgoBandsWithVisitMemory {
 	
 	protected void compareTileWithSouthTiles(List<DoublePair> tilePairs, int tileRow, int tileColumn) {
 		for (int row = tileRow + 1; row < maxRows; row++) {
-			TileWithCounters southTile = tiles[row][tileColumn];
+			TileInMemWCounters southTile = tiles[row][tileColumn];
 			if (!southTile.isEmpty()) {
 				List<DoublePair> southTilePairs = southTile.getValuePairs();
 				compareWithSouthTile(tilePairs, southTilePairs);

@@ -11,10 +11,10 @@ import listBasedKendallAlgorithms.listBasedReader.Reader;
 import sparkBasedKendallAlgorithms.SparkSessionTestSetup;
 
 import sparkBasedKendallAlgorithms.reader.DatasetReader;
-import util.tilemgr.TilesManagerSparkBasedSimple;
+import util.tilemgr.TilesManagerSparkReaderTilesInMemSimple;
 import util.tilemgr.ITilesManager;
-import util.tilemgr.TilesManagerListBasedSimpleTiles;
-//import util.tilemgr.TilesManagerListBasedTilesWithCounters;
+import util.tilemgr.TilesManagerListReaderTilesInMemSimple;
+//import util.tilemgr.TilesManagerListReaderTilesInMemWCounters;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -53,7 +53,7 @@ public class TileBasedCalculatorServiceTest extends SparkSessionTestSetup {
     public void testCalculateSparkKendallTauCorrelationWithDifferentDatasets() {
         DatasetReader datasetReader = new DatasetReader(spark, path, delimiter);
         Dataset<Row> dataset = datasetReader.read(column1, column2);
-        ITilesManager tilesManagerSparkBased = new TilesManagerSparkBasedSimple(dataset, column1, column2);
+        ITilesManager tilesManagerSparkBased = new TilesManagerSparkReaderTilesInMemSimple(dataset, column1, column2);
         TileBasedCalculatorService service = new TileBasedCalculatorService(tilesManagerSparkBased);
         //TileBasedCalculatorService service = new TileBasedCalculatorService(dataset, column1, column2);
 
@@ -80,7 +80,7 @@ public class TileBasedCalculatorServiceTest extends SparkSessionTestSetup {
 		}
         
 		//SIMPLE TILES MANAGER
-		ITilesManager tilesManagerListBased = new TilesManagerListBasedSimpleTiles(pair);
+		ITilesManager tilesManagerListBased = new TilesManagerListReaderTilesInMemSimple(pair);
         //SIMPLE TILES SERVICE
         TileBasedCalculatorService service = new TileBasedCalculatorService(tilesManagerListBased);
         double actual = service.calculateKendallTauCorrelation(AlgoEnum.SIMPLE_TILES_AND_POINT_COMPARISONS);
@@ -106,7 +106,7 @@ public class TileBasedCalculatorServiceTest extends SparkSessionTestSetup {
 //		}
 //        
 //		//TILES WITH COUNTERS
-//		ITilesManager tilesManagerWithCounters = new TilesManagerListBasedTilesWithCounters(pair);
+//		ITilesManager tilesManagerWithCounters = new TilesManagerListReaderTilesInMemWCounters(pair);
 //        //SERVICE WITH NEW TILES WITH MEMORY
 //        TileBasedCalculatorService service = new TileBasedCalculatorService(tilesManagerWithCounters);
 //        double actual = service.calculateKendallTauCorrelation(AlgoEnum.BANDS_WITH_VISIT_MEMORY);

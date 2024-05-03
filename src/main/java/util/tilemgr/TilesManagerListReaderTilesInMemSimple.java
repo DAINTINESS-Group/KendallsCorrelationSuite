@@ -5,9 +5,9 @@ import util.tiles.ITile;
 import util.tiles.ITileFactory;
 import util.tiles.ITileType;
 
-public class TilesManagerListBasedSimpleTiles extends TilesManagerListBasedAbstractClass {
+public class TilesManagerListReaderTilesInMemSimple extends TilesManagerListBasedAbstractClass {
 	
-	public TilesManagerListBasedSimpleTiles(ColumnPair pair) {
+	public TilesManagerListReaderTilesInMemSimple(ColumnPair pair) {
 		super(pair);
         this.tileType = ITileType.SIMPLE;
         this.tileFactory = new ITileFactory();
@@ -20,7 +20,7 @@ public class TilesManagerListBasedSimpleTiles extends TilesManagerListBasedAbstr
 	    for (int row = 0; row < numOfBinsY; row++) {
 	        for (int col = 0; col < numOfBinsX; col++) {
 	            tiles[row][col] = tileFactory.createTile(this.tileType, row, col); 
-	            		//new TileSimple(row, col);
+	            		//new TileInMemSimple(row, col);
 	        }
 	    }
 	}

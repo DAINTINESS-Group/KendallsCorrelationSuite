@@ -1,23 +1,65 @@
 package util.tiles;
 
 import java.util.List;
+import java.util.SortedMap;
 
 import util.common.DoublePair;
 
 public interface ITile {
 
-	boolean isEmpty();
+	/**
+	 * 
+	 * @return
+	 */
+	public boolean isEmpty();
 
-	int getCount();
+	/**
+	 * 
+	 * @return
+	 */
+	public int getCount();
 
-	List<DoublePair> getValuePairs();
+	/**
+	 * 
+	 * @return
+	 */
+	public List<DoublePair> getValuePairs();
 
-	void addValuePair(DoublePair pair);
+	/**
+	 * 
+	 * @param pair
+	 */
+	public void addValuePair(DoublePair pair);
 
-	int getRow();
+	/**
+	 * 
+	 * @return
+	 */
+	public int getRow();
 
-	int getColumn();
+	/**
+	 * 
+	 * @return
+	 */
+	public int getColumn();
+	
+	/**
+	 * Returns null (if the method does not support counting #occcurrences per value or a sorted map otherwise
+	 * @return null if there are no value maps, sorted maps of pairs <value, how many times it occurs in the map>
+	 */
+	public SortedMap<Double, Integer> getOccurencesPerX();
 
-	String toString();
+	/**
+	 * Returns null (if the method does not support counting #occcurrences per value or a sorted map otherwise
+	 * @return null if there are no value maps, sorted maps of pairs <value, how many times it occurs in the map>
+	 */
+	public SortedMap<Double, Integer> getOccurencesPerY();
+
+	/**
+	 * Returns a string that describes the tile
+	 * 
+	 * @return a string that describes the tile
+	 */
+	public String toString();
 
 }

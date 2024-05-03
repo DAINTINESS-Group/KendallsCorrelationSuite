@@ -5,13 +5,14 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.SortedMap;
 
 import util.common.DoublePair;
 import util.writer.CsvReaderSimplest;
 import util.writer.WriterSetup;
 import util.writer.WriterSimple;
 
-public class TileStored implements Serializable, ITile {
+public class TileStoredSimple implements Serializable, ITile {
 
     private static final long serialVersionUID = 4581980665140154578L;
     private static final String DELIMITER = "\t";
@@ -26,7 +27,7 @@ public class TileStored implements Serializable, ITile {
     private WriterSimple writer = null;
     private boolean loadedStatus = false;
     
-    public TileStored(int row, int column) {
+    public TileStoredSimple(int row, int column) {
         this.valuePairs = new ArrayList<>();
         this.row = row;
         this.column = column;
@@ -90,14 +91,24 @@ public class TileStored implements Serializable, ITile {
         return column;
     }
 
-    @Override
-    public String toString() {
-        return "TileSimple{" +
-                "row=" + row +
-                ", column=" + column +
-                ", pairCounter=" + pairCounter +
-                '}';
-    }
+//    @Override
+//    public String toString() {
+//        return "TileInMemSimple{" +
+//                "row=" + row +
+//                ", column=" + column +
+//                ", pairCounter=" + pairCounter +
+//                '}';
+//    }
+    
+	@Override
+	public SortedMap<Double, Integer> getOccurencesPerX() {
+		return null;
+	}
+
+	@Override
+	public SortedMap<Double, Integer> getOccurencesPerY() {
+		return null;
+	}
 
     public void finalizeTilePopulation() {
     	if(null == writer)
@@ -111,13 +122,14 @@ public class TileStored implements Serializable, ITile {
 		}
     }
     
-    public String toStringDetailed() {
+    @Override
+    public String toString() {
     	String vStr="";
     	for(DoublePair p: getValuePairs()) {
     		vStr = vStr + p.toString();
     	}
     	
-        return "TileSimple{" +
+        return "TileInMemSimple{" +
                 "row=" + row +
                 ", column=" + column +
                 ", pairs=" + vStr +

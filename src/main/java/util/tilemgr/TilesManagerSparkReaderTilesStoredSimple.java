@@ -8,19 +8,19 @@ import static org.apache.spark.sql.functions.*;
 
 import util.common.ColumnsStatistics;
 import util.common.DoublePair;
-import util.tilemgr.TilesManagerListBasedTilesWithCounters.RangeMakerMethodEnum;
+import util.tilemgr.TilesManagerListReaderTilesInMemWCounters.RangeMakerMethodEnum;
 import util.tilemgr.rangemaker.RangeMakerFactory;
 import util.tilemgr.rangemaker.RangeMakerInterface;
 import util.tilemgr.rangemaker.RangeMakerResult;
-import util.tiles.TileStored;
+import util.tiles.TileStoredSimple;
 
 
 
-public class TilesManagerSparkBased implements Serializable {
+public class TilesManagerSparkReaderTilesStoredSimple implements Serializable, ITilesManager {
     private static final long serialVersionUID = 8765154256335271048L;
 	protected static final boolean DEBUG_FLAG = false;
 	
-	protected static TileStored[][] tiles;
+	protected static TileStoredSimple[][] tiles;
 	protected long datasetRowCount;
 	protected int numOfBinsX;
 	protected int numOfBinsY;
@@ -34,7 +34,7 @@ public class TilesManagerSparkBased implements Serializable {
     private final String column2;
     private final Dataset<Row> dataset;
 
-    public TilesManagerSparkBased(Dataset<Row> dataset, String column1, String column2) {
+    public TilesManagerSparkReaderTilesStoredSimple(Dataset<Row> dataset, String column1, String column2) {
         this.column1 = column1;
         this.column2 = column2;
         this.dataset = dataset;
@@ -42,14 +42,14 @@ public class TilesManagerSparkBased implements Serializable {
     }
 
     
-    public TilesManagerSparkBased(Dataset<Row> dataset, String column1, String column2, RangeMakerMethodEnum method) {
+    public TilesManagerSparkReaderTilesStoredSimple(Dataset<Row> dataset, String column1, String column2, RangeMakerMethodEnum method) {
         this.column1 = column1;
         this.column2 = column2;
         this.dataset = dataset;
     	this.rangeMakerMethod = method;
     }
 
-	public TileStored[][] createTilesArray() {
+	public TileStoredSimple[][] createTilesArray() {
 		
 	    	double start = System.currentTimeMillis();
 	    calculateMinMaxColumnValues();
@@ -129,7 +129,7 @@ public class TilesManagerSparkBased implements Serializable {
 	protected void closeFileWriters() {
 	    for (int row = 0; row < numOfBinsY; row++) {
 	        for (int col = 0; col < numOfBinsX; col++) {
-	            TileStored tile = tiles[row][col] ;
+	            TileStoredSimple tile = tiles[row][col] ;
 	            tile.finalizeTilePopulation();
 	        }
 	    }
@@ -149,10 +149,10 @@ public class TilesManagerSparkBased implements Serializable {
 
     
 	protected void initializeTilesArray() {
-	    tiles = new TileStored[this.numOfBinsY][this.numOfBinsX];    	
+	    tiles = new TileStoredSimple[this.numOfBinsY][this.numOfBinsX];    	
 	    for (int row = 0; row < numOfBinsY; row++) {
 	        for (int col = 0; col < numOfBinsX; col++) {
-	            tiles[row][col] = new TileStored(row, col); 
+	            tiles[row][col] = new TileStoredSimple(row, col); 
 
 	        }
 	    }
@@ -212,7 +212,7 @@ public class TilesManagerSparkBased implements Serializable {
 
 	@Override
 	public String toString() {
-		return "TilesManagerSparkBasedSimple [datasetRowCount=" + datasetRowCount + 
+		return "TilesManagerSparkReaderTilesInMemSimple [datasetRowCount=" + datasetRowCount + 
 				", numOfBinsX=" + numOfBinsX
 				+ ", numOfBinsY=" + numOfBinsY 
 				+ ", rangeWidthX=" + rangeWidthX 

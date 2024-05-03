@@ -3,10 +3,11 @@ package util.tiles;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.SortedMap;
 
 import util.common.DoublePair;
 
-public class TileSimple implements Serializable, ITile {
+public class TileInMemSimple implements Serializable, ITile {
 
     private static final long serialVersionUID = 4581980665140154578L;
 	private final int row;
@@ -14,7 +15,7 @@ public class TileSimple implements Serializable, ITile {
     private final List<DoublePair> valuePairs;
     private int pairCounter = 0;
 
-    public TileSimple(int row, int column) {
+    public TileInMemSimple(int row, int column) {
         this.valuePairs = new ArrayList<>();
         this.row = row;
         this.column = column;
@@ -53,7 +54,7 @@ public class TileSimple implements Serializable, ITile {
 
     @Override
     public String toString() {
-        return "TileSimple{" +
+        return "TileInMemSimple{" +
                 "row=" + row +
                 ", column=" + column +
                 ", pairCounter=" + pairCounter +
@@ -66,10 +67,20 @@ public class TileSimple implements Serializable, ITile {
     		vStr = vStr + p.toString();
     	}
     	
-        return "TileSimple{" +
+        return "TileInMemSimple{" +
                 "row=" + row +
                 ", column=" + column +
                 ", pairs=" + vStr +
                 '}';
     }
+
+	@Override
+	public SortedMap<Double, Integer> getOccurencesPerX() {
+		return null;
+	}
+
+	@Override
+	public SortedMap<Double, Integer> getOccurencesPerY() {
+		return null;
+	}
 }

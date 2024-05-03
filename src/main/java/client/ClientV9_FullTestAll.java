@@ -3,11 +3,16 @@ package client;
 import listBasedKendallAlgorithms.*;
 import listBasedKendallAlgorithms.listBasedReader.ColumnPair;
 import listBasedKendallAlgorithms.listBasedReader.Reader;
+import sparkBasedKendallAlgorithms.SparkBasedKendallManager;
 import sparkBasedKendallAlgorithms.SparkBasedKendallManagerSimple;
+import util.writer.WriterSetup;
 
 import org.apache.spark.sql.AnalysisException;
 
+import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 public class ClientV9_FullTestAll {
     public static void main(String[] args) throws IOException, AnalysisException {
@@ -118,7 +123,27 @@ public class ClientV9_FullTestAll {
         double sparkKendall = sparkBasedKendallManagerSimple.calculateKendallTau(column1, column2);
         endTime = System.currentTimeMillis();
         elapsedTimeSeconds = (endTime - startTime) / 1000.0;
-        printResults("Spark Kendall", filePath, sparkKendall, elapsedTimeSeconds);
+        printResults("Spark w. Simple InMem Tiles", filePath, sparkKendall, elapsedTimeSeconds);
+        
+        
+        /* Tile Implementation with SPARK and stored tiles*/
+        startTime = System.currentTimeMillis();        
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(Calendar.getInstance().getTime());
+        WriterSetup.OUTPUT_CUR_DIR = "try" + timeStamp + File.separator;
+        System.err.println("Writing tiles at " + WriterSetup.getOutputExecDir());
+        
+        SparkBasedKendallManager sparkBasedKendallManager= new SparkBasedKendallManager();
+        sparkBasedKendallManager.loadDataset(filePath, column1, column2);
+        endTime = System.currentTimeMillis();
+        elapsedTimeSeconds = (endTime - startTime) / 1000.0;
+        System.out.println("Spark InitialSetup and Dataset loading took: " + elapsedTimeSeconds + "\n");
+
+        startTime = System.currentTimeMillis();
+        double sparkTileKendallResult = sparkBasedKendallManager.calculateKendallTau(column1, column2);
+        endTime = System.currentTimeMillis();
+        elapsedTimeSeconds = (endTime - startTime) / 1000.0;
+        printResults("Spark w. Simple Stored Tiles", filePath, sparkTileKendallResult, elapsedTimeSeconds);
+        
     }
 
 

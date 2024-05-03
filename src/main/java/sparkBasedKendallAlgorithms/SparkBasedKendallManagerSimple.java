@@ -7,7 +7,7 @@ import org.apache.spark.sql.SparkSession;
 
 import sparkBasedKendallAlgorithms.reader.IDatasetReaderFactory;
 import sparkBasedKendallAlgorithms.sparkSetup.SparkSetup;
-import util.tilemgr.TilesManagerSparkBasedSimple;
+import util.tilemgr.TilesManagerSparkReaderTilesInMemSimple;
 import util.algo.AlgoEnum;
 import util.algo.TileBasedCalculatorService;
 
@@ -26,8 +26,8 @@ public class SparkBasedKendallManagerSimple {
     }
 
     public double calculateKendallTau(String column1, String column2) {
-        TilesManagerSparkBasedSimple tilesManagerSparkBasedSimple = new TilesManagerSparkBasedSimple(dataset, column1, column2);
-        TileBasedCalculatorService calculatorService = new TileBasedCalculatorService(tilesManagerSparkBasedSimple);
+        TilesManagerSparkReaderTilesInMemSimple tilesManagerSparkReaderTilesInMemSimple = new TilesManagerSparkReaderTilesInMemSimple(dataset, column1, column2);
+        TileBasedCalculatorService calculatorService = new TileBasedCalculatorService(tilesManagerSparkReaderTilesInMemSimple);
         return calculatorService.calculateKendallTauCorrelation(AlgoEnum.SPARK_TILES_ALGO);
     }
 }

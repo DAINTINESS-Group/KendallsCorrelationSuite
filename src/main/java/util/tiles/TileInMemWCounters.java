@@ -8,7 +8,7 @@ import java.util.TreeMap;
 
 import util.common.DoublePair;
 
-public class TileWithCounters implements Serializable, ITile {
+public class TileInMemWCounters implements Serializable, ITile{
 
     private static final long serialVersionUID = 4581980665140154578L;
 	private final int row;
@@ -18,7 +18,7 @@ public class TileWithCounters implements Serializable, ITile {
     private SortedMap<Double,Integer> occurencesPerX;
     private SortedMap<Double,Integer> occurencesPerY;
     
-    public TileWithCounters(int row, int column) {
+    public TileInMemWCounters(int row, int column) {
         this.valuePairs = new ArrayList<>();
         this.row = row;
         this.column = column;
@@ -66,30 +66,32 @@ public class TileWithCounters implements Serializable, ITile {
 		return serialVersionUID;
 	}
 
+	@Override
 	public SortedMap<Double, Integer> getOccurencesPerX() {
 		return occurencesPerX;
 	}
 
+	@Override
 	public SortedMap<Double, Integer> getOccurencesPerY() {
 		return occurencesPerY;
 	}
 
 	@Override
     public String toString() {
-        return "TileSimple{" +
-                "row=" + row +
-                ", column=" + column +
-                ", pairCounter=" + pairCounter +
-                '}';
-    }
-
-    public String toStringDetailed() {
+//        return "TileInMemSimple{" +
+//                "row=" + row +
+//                ", column=" + column +
+//                ", pairCounter=" + pairCounter +
+//                '}';
+//    }
+//
+//    public String toStringDetailed() {
     	String vStr="";
     	for(DoublePair p: valuePairs) {
     		vStr = vStr + p.toString();
     	}
     	
-        return "TileSimple{" +
+        return "TileInMemSimple{" +
                 "row=" + row +
                 ", column=" + column +
                 ", pairs=" + vStr +

@@ -15,10 +15,10 @@ public class ClientV2 {
         Reader reader = new Reader();
 
         //74001 tuples
-//        String filePath = "src\\test\\resources\\input\\acs2017_census_tract_data.csv";
-//        String column1 = "Hispanic";
-//        String column2 = "Native";
-//        String delimiter = ",";
+        String filePath = "src\\test\\resources\\input\\acs2017_census_tract_data.csv";
+        String column1 = "Hispanic";
+        String column2 = "Native";
+        String delimiter = ",";
 
         //74001 tuples
 //        String filePath = "src\\test\\resources\\input\\acs2017_census_tract_data.csv";
@@ -28,10 +28,10 @@ public class ClientV2 {
         
         //108,539 tuples
         // manufacturer,model,year,price,transmission,mileage,fuelType,tax,mpg,engineSize
-        String filePath = "src\\test\\resources\\input\\cars_100k.csv";
-        String column1 = "mileage";
-        String column2 = "mpg";
-        String delimiter = ",";
+//        String filePath = "src\\test\\resources\\input\\cars_100k.csv";
+//        String column1 = "mileage";
+//        String column2 = "mpg";
+//        String delimiter = ",";
         
       //619,040 tuples
 //        String filePath = "src\\test\\resources\\input\\all_stocks_5yr.csv";

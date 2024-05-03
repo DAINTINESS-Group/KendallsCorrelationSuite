@@ -63,7 +63,7 @@ public class AlgoSimpleTilesAndPointComparison {
 
         if(tilePairs.size() != tilePairsCount) {
         	System.err.println("Tileprocessor.processTile error, parCount and list do not match: " +tilePairsCount + "\t" + tilePairs.size());
-        	System.err.println("TileSimple: " +tile.toString());
+        	System.err.println("TileInMemSimple: " +tile.toString());
         }
         	long startTime = System.currentTimeMillis();
         compareTileWithSelf(tilePairs, tilePairsCount);
