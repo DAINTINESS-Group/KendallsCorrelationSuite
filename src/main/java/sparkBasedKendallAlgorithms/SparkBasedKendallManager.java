@@ -1,5 +1,7 @@
 package sparkBasedKendallAlgorithms;
 
+import java.io.File;
+
 import org.apache.spark.sql.AnalysisException;
 import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
@@ -29,4 +31,23 @@ public class SparkBasedKendallManager {
         TileStoredBasedCalculatorService calculatorService = new TileStoredBasedCalculatorService(tilesManagerSparkReaderTilesStoredSimple);
         return calculatorService.calculateKendallTauCorrelation();
     }
+    
+    public boolean deleteSubFolders(File folder) {
+    	String path = folder.getAbsolutePath();  
+    	System.err.println("Cleaning up folder " + path);
+    	boolean deletionFlag = false;
+        if (folder.exists()) {
+            File[] files = folder.listFiles();
+            if (files != null) {
+                for (File file : files) {
+                    if (file.isDirectory()) {
+                        deleteSubFolders(file);
+                    }
+                    file.delete();
+                }
+            }
+            deletionFlag = folder.delete();
+        }//end if
+        return deletionFlag;
+    }//end delete()
 }

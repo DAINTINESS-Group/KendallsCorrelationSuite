@@ -58,7 +58,8 @@ public class SparkBasedKendallManagerTest extends SparkSessionTestSetup {
         WriterSetup.OUTPUT_CUR_DIR = "try" + timeStamp + File.separator;
         System.err.println("Writing tiles at " + WriterSetup.getOutputExecDir());
         double actual = sparkBasedKendallManager.calculateKendallTau(column1, column2);
-
+        boolean deletionFlag = sparkBasedKendallManager.deleteSubFolders(new File(WriterSetup.getOutputExecDir()));
+        System.err.println("Cleanup of tiles at " + WriterSetup.getOutputExecDir() + " was " + deletionFlag);
         // Assert
         double delta = 0.0;
 		System.out.println("\nHard-Disk Tiles Kendall (Tau B)");

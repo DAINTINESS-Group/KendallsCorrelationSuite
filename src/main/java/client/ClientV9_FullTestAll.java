@@ -145,8 +145,13 @@ public class ClientV9_FullTestAll {
         double sparkTileKendallResult = sparkBasedKendallManager.calculateKendallTau(column1, column2);
         endTime = System.currentTimeMillis();
         elapsedTimeSeconds = (endTime - startTime) / 1000.0;
-        printResults("Spark w. Simple Stored Tiles", filePath, sparkTileKendallResult, elapsedTimeSeconds);
+        printResults("Spark: Simple Structure + Stored Tiles", filePath, sparkTileKendallResult, elapsedTimeSeconds);
         
+        Thread deleteThread = new Thread(() -> {
+        	boolean deletionFlag = sparkBasedKendallManager.deleteSubFolders(new File(WriterSetup.getOutputExecDir()));
+            System.err.println("Cleanup of tiles at " + WriterSetup.getOutputExecDir() + " was " + deletionFlag);
+        });
+        deleteThread.start();
     }
 
 
