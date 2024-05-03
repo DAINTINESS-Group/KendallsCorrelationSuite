@@ -66,14 +66,17 @@ public class ClientV1_ApacheVsSpark {
         // Get the Java runtime
 
         checkMemory();
-        Reader reader = new Reader();        
-        ColumnPair columnPair = reader.read(filePath, column1, column2, delimiter);
-
         long startTime = -1;
         long endTime = -1;
         double elapsedTimeSeconds = -1.0;
 
         ListBasedKendallFactory methods = new ListBasedKendallFactory();
+        startTime = System.currentTimeMillis();
+        Reader reader = new Reader();
+        ColumnPair columnPair = reader.read(filePath, column1, column2, delimiter);
+        endTime = System.currentTimeMillis();
+        elapsedTimeSeconds = (endTime - startTime) / 1000.0;
+        printResults("ValueReader For ALL lists: ", filePath, Double.NaN, elapsedTimeSeconds);
 
         /* APACHE */
         startTime = System.currentTimeMillis();

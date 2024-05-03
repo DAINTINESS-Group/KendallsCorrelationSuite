@@ -17,9 +17,7 @@ import java.util.Calendar;
 public class ClientV9_FullTestAll {
     public static void main(String[] args) throws IOException, AnalysisException {
 
-        Reader reader = new Reader();
-
-        //74001 tuples
+    	//74001 tuples
         String filePath = "src\\test\\resources\\input\\acs2017_census_tract_data.csv";
         String column1 = "Hispanic";
         String column2 = "Native";
@@ -63,14 +61,19 @@ public class ClientV9_FullTestAll {
 //        String delimiter = ",";
 
 
-        ColumnPair columnPair = reader.read(filePath, column1, column2, delimiter);
-
         long startTime = -1;
         long endTime = -1;
         double elapsedTimeSeconds = -1.0;
 
         ListBasedKendallFactory methods = new ListBasedKendallFactory();
+        startTime = System.currentTimeMillis();
+        Reader reader = new Reader();
+        ColumnPair columnPair = reader.read(filePath, column1, column2, delimiter);
+        endTime = System.currentTimeMillis();
+        elapsedTimeSeconds = (endTime - startTime) / 1000.0;
+        printResults("ValueReader For ALL lists: ", filePath, Double.NaN, elapsedTimeSeconds);
 
+         
         /* APACHE */
         startTime = System.currentTimeMillis();
         IListBasedKendallCalculator apacheKendall = methods.createKendallCalculatorByString("Apache kendall");

@@ -11,13 +11,12 @@ import java.io.IOException;
 public class ClientV0_DebugFast {
     public static void main(String[] args) throws IOException  {
 
-        Reader reader = new Reader();
-
         String filePath = "src\\test\\resources\\testInput\\TauAData.tsv";
         String column1 = "X";
         String column2 = "Y";
         String delimiter = "\t";
 
+        Reader reader = new Reader();
         ColumnPair columnPair = reader.read(filePath, column1, column2, delimiter);
         ListBasedKendallFactory methods = new ListBasedKendallFactory();
 
