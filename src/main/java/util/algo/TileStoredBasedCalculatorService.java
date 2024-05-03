@@ -5,7 +5,7 @@ import util.tilemgr.TilesManagerSparkBased;
 import util.tiles.TileStored;
 
 public class TileStoredBasedCalculatorService {
-	protected static final boolean DEBUG_FLAG = false;
+	protected static final boolean DEBUG_FLAG = true;
 
 	private TilesManagerSparkBased tilesManager;
 

@@ -1,7 +1,7 @@
 package listBasedKendallAlgorithms;
 
 import listBasedKendallAlgorithms.listBasedReader.ColumnPair;
-import util.algo.TileXBasedCalculatorService;
+import util.algo.TilesWithCountersBandsWithMemoryCalculatorService;
 import util.tilemgr.TilesManagerListBasedTilesWithCounters;
 
 public class ListBasedBandsWithMemoryManager implements IListBasedKendallCalculator{
@@ -12,7 +12,7 @@ public class ListBasedBandsWithMemoryManager implements IListBasedKendallCalcula
 		TilesManagerListBasedTilesWithCounters tilesManager = new TilesManagerListBasedTilesWithCounters(pair); 
 //		TilesManagerListBasedTilesWithCounters tilesManager = new TilesManagerListBasedTilesWithCounters(pair, 
 //				TilesManagerListBasedTilesWithCounters.RangeMakerMethodEnum.FIXED);
-        TileXBasedCalculatorService calculatorService = new TileXBasedCalculatorService(tilesManager);
+        TilesWithCountersBandsWithMemoryCalculatorService calculatorService = new TilesWithCountersBandsWithMemoryCalculatorService(tilesManager);
         return calculatorService.calculateKendallTauCorrelation();	}
 
 }

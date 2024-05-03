@@ -59,7 +59,7 @@ public class TileXBasedCalculatorServiceTest extends SparkSessionTestSetup {
 		//TILES WITH COUNTERS
 		TilesManagerListBasedTilesWithCounters tilesManagerWithCounters = new TilesManagerListBasedTilesWithCounters(pair);
         //SERVICE WITH NEW TILES WITH MEMORY
-        TileXBasedCalculatorService service = new TileXBasedCalculatorService(tilesManagerWithCounters);
+        TilesWithCountersBandsWithMemoryCalculatorService service = new TilesWithCountersBandsWithMemoryCalculatorService(tilesManagerWithCounters);
         double actual = service.calculateKendallTauCorrelation();
 
         // Assert

@@ -3,13 +3,13 @@ package util.algo;
 import util.tilemgr.TilesManagerListBasedTilesWithCounters;
 import util.tiles.TileWithCounters;
 
-public class TileXBasedCalculatorService {
+public class TilesWithCountersBandsWithMemoryCalculatorService {
 	protected static final boolean DEBUG_FLAG = false;
 
 	private TilesManagerListBasedTilesWithCounters tilesManager;
 
 
-	public TileXBasedCalculatorService(TilesManagerListBasedTilesWithCounters tilesManager) {
+	public TilesWithCountersBandsWithMemoryCalculatorService(TilesManagerListBasedTilesWithCounters tilesManager) {
 		this.tilesManager = tilesManager;
 	}
 

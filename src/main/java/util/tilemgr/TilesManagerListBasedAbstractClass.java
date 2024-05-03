@@ -7,13 +7,13 @@ import listBasedKendallAlgorithms.listBasedReader.ColumnPair;
 import util.common.ColumnsStatistics;
 import util.common.DoublePair;
 
-public abstract class TilesManagerListBased extends TilesManagerAbstractClass  {
+public abstract class TilesManagerListBasedAbstractClass extends TilesManagerAbstractClass  {
     
     private final ColumnPair pair;
 
     protected abstract void initializeTilesArray();
     
-    public TilesManagerListBased(ColumnPair pair) {
+    public TilesManagerListBasedAbstractClass(ColumnPair pair) {
         this.pair = pair;
     }
 

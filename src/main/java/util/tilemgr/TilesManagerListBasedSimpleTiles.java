@@ -5,7 +5,7 @@ import util.tiles.ITile;
 import util.tiles.ITileFactory;
 import util.tiles.ITileType;
 
-public class TilesManagerListBasedSimpleTiles extends TilesManagerListBased {
+public class TilesManagerListBasedSimpleTiles extends TilesManagerListBasedAbstractClass {
 	
 	public TilesManagerListBasedSimpleTiles(ColumnPair pair) {
 		super(pair);

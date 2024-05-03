@@ -106,8 +106,8 @@ public class TilesManagerSparkBased implements Serializable {
 		//obviously deserves better.
 		//Constructor should get a hashmap of strings with various parameters and move on.
 			case FIXED: 
-				final int BINS_X = 10;
-				final int BINS_Y = 10;
+				final int BINS_X = 100;
+				final int BINS_Y = 100;
 				rangeMaker = factory.makeRangeMakerFixedNumBins(columnsStatistics, BINS_X, BINS_Y);
 				break;
 			default://implies SCOTT too
