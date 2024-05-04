@@ -55,9 +55,9 @@ public class TilesWithSimplePointChecksSparkReaderStoredTilesKendallCalculatorTe
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(Calendar.getInstance().getTime());
-        WriterSetup.OUTPUT_CUR_DIR = "try" + timeStamp + File.separator;
-        System.err.println("Writing tiles at " + WriterSetup.getOutputExecDir());
+//        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(Calendar.getInstance().getTime());
+//        WriterSetup.OUTPUT_CUR_DIR = "try" + timeStamp + File.separator;
+//        System.err.println("Writing tiles at " + WriterSetup.getOutputExecDir());
         double actual = tilesWithSimplePointChecksSparkReaderStoredTilesKendallCalculator.calculateKendallTau(column1, column2);
         boolean deletionFlag = tilesWithSimplePointChecksSparkReaderStoredTilesKendallCalculator.deleteSubFolders(new File(WriterSetup.getOutputExecDir()));
         System.err.println("Cleanup of tiles at " + WriterSetup.getOutputExecDir() + " was " + deletionFlag);

@@ -108,11 +108,7 @@ public class ClientV1_ApacheVsSpark {
          * as it opens one filewriter per tile.
          * And we have thousands of tiles. 
          * If we fix the number of tiles to 100x100, it uses o(150MB) and works*/
-        startTime = System.currentTimeMillis();        
-        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(Calendar.getInstance().getTime());
-        WriterSetup.OUTPUT_CUR_DIR = "try" + timeStamp + File.separator;
-        System.err.println("Writing tiles at " + WriterSetup.getOutputExecDir());
-        
+        startTime = System.currentTimeMillis();  
         TilesWithSimplePointChecksSparkReaderStoredTilesKendallCalculator tilesWithSimplePointChecksSparkReaderStoredTilesKendallCalculator= new TilesWithSimplePointChecksSparkReaderStoredTilesKendallCalculator();
         tilesWithSimplePointChecksSparkReaderStoredTilesKendallCalculator.loadDataset(filePath, column1, column2);
         endTime = System.currentTimeMillis();
