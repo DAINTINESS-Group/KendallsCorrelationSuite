@@ -24,7 +24,7 @@ public class TilesWithSimplePointChecksSparkReaderStoredTilesKendallCalculatorTe
     private final String column2;
 	private final String delimiter;
     private final double expected;
-    private final TilesWithSimplePointChecksSparkReaderStoredTilesKendallCalculator tilesWithSimplePointChecksSparkReaderStoredTilesKendallCalculator = new TilesWithSimplePointChecksSparkReaderStoredTilesKendallCalculator();
+//    private final TilesWithSimplePointChecksSparkReaderStoredTilesKendallCalculator tilesWithSimplePointChecksSparkReaderStoredTilesKendallCalculator = new TilesWithSimplePointChecksSparkReaderStoredTilesKendallCalculator();
 
     public TilesWithSimplePointChecksSparkReaderStoredTilesKendallCalculatorTest(
             String path, String column1, String column2, String delimiter, double expected) {
@@ -47,7 +47,8 @@ public class TilesWithSimplePointChecksSparkReaderStoredTilesKendallCalculatorTe
    
     @Test
     public void testCalculateKendall() {
-        
+    	TilesWithSimplePointChecksSparkReaderStoredTilesKendallCalculator tilesWithSimplePointChecksSparkReaderStoredTilesKendallCalculator 
+    		= new TilesWithSimplePointChecksSparkReaderStoredTilesKendallCalculator();
         try {
 			tilesWithSimplePointChecksSparkReaderStoredTilesKendallCalculator.loadDataset(path, column1, column2);
 		} catch (AnalysisException e) {

@@ -8,7 +8,7 @@ import org.apache.spark.sql.AnalysisException;
 
 import java.io.IOException;
 
-public class ClientV2 {
+public class ClientV2_BandsWithMemory {
     public static void main(String[] args) throws IOException, AnalysisException {
 
         //74001 tuples

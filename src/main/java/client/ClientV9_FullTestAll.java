@@ -11,8 +11,7 @@ import org.apache.spark.sql.AnalysisException;
 
 import java.io.File;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
+
 
 public class ClientV9_FullTestAll {
     public static void main(String[] args) throws IOException, AnalysisException {
@@ -130,11 +129,7 @@ public class ClientV9_FullTestAll {
         
         
         /* Tile Implementation with SPARK and stored tiles*/
-        startTime = System.currentTimeMillis();        
-        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(Calendar.getInstance().getTime());
-        WriterSetup.OUTPUT_CUR_DIR = "try" + timeStamp + File.separator;
-        System.err.println("Writing tiles at " + WriterSetup.getOutputExecDir());
-        
+        startTime = System.currentTimeMillis();            
         TilesWithSimplePointChecksSparkReaderStoredTilesKendallCalculator tilesWithSimplePointChecksSparkReaderStoredTilesKendallCalculator= new TilesWithSimplePointChecksSparkReaderStoredTilesKendallCalculator();
         tilesWithSimplePointChecksSparkReaderStoredTilesKendallCalculator.loadDataset(filePath, column1, column2);
         endTime = System.currentTimeMillis();

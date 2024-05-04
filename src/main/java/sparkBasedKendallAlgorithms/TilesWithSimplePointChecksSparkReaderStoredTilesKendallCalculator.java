@@ -1,6 +1,8 @@
 package sparkBasedKendallAlgorithms;
 
 import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 import org.apache.spark.sql.AnalysisException;
 import org.apache.spark.sql.Dataset;
@@ -10,6 +12,7 @@ import org.apache.spark.sql.SparkSession;
 import sparkBasedKendallAlgorithms.reader.IDatasetReaderFactory;
 import sparkBasedKendallAlgorithms.sparkSetup.SparkSetup;
 import util.tilemgr.TilesManagerSparkReaderTilesStoredSimple;
+import util.writer.WriterSetup;
 import util.algo.TileStoredBasedCalculatorService;
 
 /**
@@ -29,6 +32,10 @@ public class TilesWithSimplePointChecksSparkReaderStoredTilesKendallCalculator {
     public TilesWithSimplePointChecksSparkReaderStoredTilesKendallCalculator() {
         SparkSetup sparkSetup = new SparkSetup();
         sparkSession = sparkSetup.setup();
+        
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(Calendar.getInstance().getTime());
+        WriterSetup.OUTPUT_CUR_DIR = "try" + timeStamp + File.separator;
+        System.err.println("Writing tiles at " + WriterSetup.getOutputExecDir());
     }
 
     public void loadDataset(String filePath, String column1, String column2) throws AnalysisException {
