@@ -11,11 +11,20 @@ import util.tilemgr.TilesManagerSparkReaderTilesInMemSimple;
 import util.algo.AlgoEnum;
 import util.algo.TileBasedCalculatorService;
 
-public class SparkBasedKendallManagerSimple {
+/**
+ * Tiles: Simple (InMem with Simple structure)
+ * TilesManager: SparkReader _  Simple InMem tiles
+ * Tiles Processing Algo: Simple points and checks
+ * 
+ * 
+ * @author pvassil
+ *
+ */
+public class TilesWithSimplePointChecksSparkReaderKendallCalculator {
     private Dataset<Row> dataset;
     private final SparkSession sparkSession;
 
-    public SparkBasedKendallManagerSimple() {
+    public TilesWithSimplePointChecksSparkReaderKendallCalculator() {
         SparkSetup sparkSetup = new SparkSetup();
         sparkSession = sparkSetup.setup();
     }

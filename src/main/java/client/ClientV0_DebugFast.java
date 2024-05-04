@@ -2,9 +2,9 @@ package client;
 
 
 import listBasedKendallAlgorithms.IListBasedKendallCalculator;
-import listBasedKendallAlgorithms.ListBasedKendallFactory;
-import listBasedKendallAlgorithms.listBasedReader.ColumnPair;
-import listBasedKendallAlgorithms.listBasedReader.Reader;
+import listBasedKendallAlgorithms.IListBasedKendallFactory;
+import listBasedKendallAlgorithms.reader.ColumnPair;
+import listBasedKendallAlgorithms.reader.Reader;
 
 import java.io.IOException;
 
@@ -18,7 +18,7 @@ public class ClientV0_DebugFast {
 
         Reader reader = new Reader();
         ColumnPair columnPair = reader.read(filePath, column1, column2, delimiter);
-        ListBasedKendallFactory methods = new ListBasedKendallFactory();
+        IListBasedKendallFactory methods = new IListBasedKendallFactory();
 
         /* APACHE */
         IListBasedKendallCalculator apacheKendall = methods.createKendallCalculatorByString("Apache kendall");

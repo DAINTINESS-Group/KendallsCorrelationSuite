@@ -4,11 +4,13 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
+import listBasedKendallAlgorithms.reader.ReaderTest;
+
 
 @RunWith(Suite.class)
 @SuiteClasses({ 
-	BrophyCalculatorTest.class, BruteForceCalculatorTest.class, ListBasedKendallFactoryTest.class, ReaderTest.class,
-	ListBasedSimpleTileAndPointsManagerTest.class, ListBasedBandsWithMemoryManagerTest.class })
+	BrophyCalculatorTest.class, BruteForceCalculatorTest.class, IListBasedKendallFactoryTest.class, ReaderTest.class,
+	TilesWithSimplePointChecksListReaderKendallCalculatorTest.class, TileBandsWithMemoryKendallCalculatorTest.class })
 public class AllListBasedAlgoTests {
 
 }

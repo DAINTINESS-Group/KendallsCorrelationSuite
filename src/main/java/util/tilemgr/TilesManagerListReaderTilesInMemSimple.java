@@ -1,6 +1,6 @@
 package util.tilemgr;
 
-import listBasedKendallAlgorithms.listBasedReader.ColumnPair;
+import listBasedKendallAlgorithms.reader.ColumnPair;
 import util.tiles.ITile;
 import util.tiles.ITileFactory;
 import util.tiles.ITileType;

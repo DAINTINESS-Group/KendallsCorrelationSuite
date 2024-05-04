@@ -1,10 +1,19 @@
 package listBasedKendallAlgorithms;
 
-import listBasedKendallAlgorithms.listBasedReader.ColumnPair;
+import listBasedKendallAlgorithms.reader.ColumnPair;
 import util.algo.TilesWithCountersBandsWithMemoryCalculatorService;
 import util.tilemgr.TilesManagerListReaderTilesInMemWCounters;
 
-public class ListBasedBandsWithMemoryManager implements IListBasedKendallCalculator{
+/**
+ * Tiles: InMem with Counters
+ * TilesManager: ListReader _ InMemTiles
+ * Tiles Processing Algo: Bands with Memory
+ * 
+ * 
+ * @author pvassil
+ *
+ */
+public class TileBandsWithMemoryKendallCalculator implements IListBasedKendallCalculator{
 
 	@Override
 	public double calculateKendall(ColumnPair pair) {

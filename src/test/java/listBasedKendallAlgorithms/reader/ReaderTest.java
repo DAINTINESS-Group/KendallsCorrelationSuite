@@ -1,8 +1,10 @@
-package listBasedKendallAlgorithms;
+package listBasedKendallAlgorithms.reader;
 
-import listBasedKendallAlgorithms.listBasedReader.ColumnPair;
-import listBasedKendallAlgorithms.listBasedReader.Reader;
 import org.junit.Test;
+
+import listBasedKendallAlgorithms.reader.ColumnPair;
+import listBasedKendallAlgorithms.reader.Reader;
+
 import org.junit.Assert;
 
 import java.io.IOException;

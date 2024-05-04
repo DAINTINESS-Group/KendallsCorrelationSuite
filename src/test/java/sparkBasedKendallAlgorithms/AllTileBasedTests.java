@@ -9,8 +9,8 @@ import sparkBasedKendallAlgorithms.sparkSetup.SparkSetupTest;
 
 @RunWith(Suite.class)
 @SuiteClasses({ 
-	SparkBasedKendallManagerSimpleTest.class, 
-	SparkBasedKendallManagerTest.class, 
+	TilesWithSimplePointChecksSparkReaderKendallCalculatorTest.class, 
+	TilesWithSimplePointChecksSparkReaderStoredTilesKendallCalculatorTest.class, 
 	DatasetReaderTest.class,
 	SparkSetupTest.class	
 })

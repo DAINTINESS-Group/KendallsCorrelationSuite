@@ -2,9 +2,10 @@ package listBasedKendallAlgorithms;
 
 import static org.junit.Assert.*;
 
-import listBasedKendallAlgorithms.listBasedReader.ColumnPair;
-import listBasedKendallAlgorithms.listBasedReader.Reader;
 import org.junit.Test;
+
+import listBasedKendallAlgorithms.reader.ColumnPair;
+import listBasedKendallAlgorithms.reader.Reader;
 
 import java.io.IOException;
 

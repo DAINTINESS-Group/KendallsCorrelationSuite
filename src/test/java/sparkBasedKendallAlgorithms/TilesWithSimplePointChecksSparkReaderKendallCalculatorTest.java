@@ -4,9 +4,9 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
-public class SparkBasedKendallManagerSimpleTest {
+public class TilesWithSimplePointChecksSparkReaderKendallCalculatorTest {
 
-    private final SparkBasedKendallManagerSimple sparkBasedKendallManagerSimple = new SparkBasedKendallManagerSimple();
+    private final TilesWithSimplePointChecksSparkReaderKendallCalculator tilesWithSimplePointChecksSparkReaderKendallCalculator = new TilesWithSimplePointChecksSparkReaderKendallCalculator();
 
     @Test
     public void testRegisterDatasetAndCalculateKendall() throws Exception {
@@ -14,8 +14,8 @@ public class SparkBasedKendallManagerSimpleTest {
         String column1 = "X";
         String column2 = "Y";
 
-        sparkBasedKendallManagerSimple.loadDataset(path, column1, column2);
-        double actual = sparkBasedKendallManagerSimple.calculateKendallTau(column1, column2);
+        tilesWithSimplePointChecksSparkReaderKendallCalculator.loadDataset(path, column1, column2);
+        double actual = tilesWithSimplePointChecksSparkReaderKendallCalculator.calculateKendallTau(column1, column2);
         double expected = 0.23076923076923078;
         double delta = 0.0;
 		System.out.println("\nSpark-Based Kendall (Tau B)");

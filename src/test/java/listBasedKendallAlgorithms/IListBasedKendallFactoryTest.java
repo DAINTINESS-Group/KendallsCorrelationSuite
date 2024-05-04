@@ -3,11 +3,11 @@ package listBasedKendallAlgorithms;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
-public class ListBasedKendallFactoryTest {
+public class IListBasedKendallFactoryTest {
 
     @Test
     public void testGetMethod() {
-        ListBasedKendallFactory service = new ListBasedKendallFactory();
+        IListBasedKendallFactory service = new IListBasedKendallFactory();
 
         // Test BROPHY method
         IListBasedKendallCalculator brophyCalculator = service.createKendallCalculatorByString("Brophy");
@@ -27,7 +27,7 @@ public class ListBasedKendallFactoryTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void testGetMethodWithInvalidMethod() {
-        ListBasedKendallFactory service = new ListBasedKendallFactory();
+        IListBasedKendallFactory service = new IListBasedKendallFactory();
         service.createKendallCalculatorByString("InvalidMethod");
     }
 }

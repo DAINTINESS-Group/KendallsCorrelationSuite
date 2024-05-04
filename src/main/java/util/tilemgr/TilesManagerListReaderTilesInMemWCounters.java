@@ -2,7 +2,7 @@ package util.tilemgr;
 
 import java.util.List;
 
-import listBasedKendallAlgorithms.listBasedReader.ColumnPair;
+import listBasedKendallAlgorithms.reader.ColumnPair;
 import util.common.ColumnsStatistics;
 import util.common.DoublePair;
 import util.tilemgr.rangemaker.RangeMakerFactory;

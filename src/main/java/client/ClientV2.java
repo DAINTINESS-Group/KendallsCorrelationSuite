@@ -1,9 +1,8 @@
 package client;
 
 import listBasedKendallAlgorithms.*;
-import listBasedKendallAlgorithms.listBasedReader.ColumnPair;
-import listBasedKendallAlgorithms.listBasedReader.Reader;
-//import sparkBasedKendallAlgorithms.SparkBasedKendallManagerSimple;
+import listBasedKendallAlgorithms.reader.ColumnPair;
+import listBasedKendallAlgorithms.reader.Reader;
 
 import org.apache.spark.sql.AnalysisException;
 
@@ -60,7 +59,7 @@ public class ClientV2 {
         long endTime = -1;
         double elapsedTimeSeconds = -1.0;
 
-        ListBasedKendallFactory methods = new ListBasedKendallFactory();
+        IListBasedKendallFactory methods = new IListBasedKendallFactory();
         startTime = System.currentTimeMillis();
         Reader reader = new Reader();
         ColumnPair columnPair = reader.read(filePath, column1, column2, delimiter);

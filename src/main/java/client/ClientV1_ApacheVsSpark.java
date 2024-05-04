@@ -1,12 +1,12 @@
 package client;
 
 //import listBasedKendallAlgorithms.IListBasedKendallCalculator;
-//import listBasedKendallAlgorithms.ListBasedKendallFactory;
+//import listBasedKendallAlgorithms.IListBasedKendallFactory;
 import listBasedKendallAlgorithms.*;
-import listBasedKendallAlgorithms.listBasedReader.ColumnPair;
-import listBasedKendallAlgorithms.listBasedReader.Reader;
-import sparkBasedKendallAlgorithms.SparkBasedKendallManager;
-import sparkBasedKendallAlgorithms.SparkBasedKendallManagerSimple;
+import listBasedKendallAlgorithms.reader.ColumnPair;
+import listBasedKendallAlgorithms.reader.Reader;
+import sparkBasedKendallAlgorithms.TilesWithSimplePointChecksSparkReaderStoredTilesKendallCalculator;
+import sparkBasedKendallAlgorithms.TilesWithSimplePointChecksSparkReaderKendallCalculator;
 import util.writer.WriterSetup;
 
 import org.apache.spark.sql.AnalysisException;
@@ -70,7 +70,7 @@ public class ClientV1_ApacheVsSpark {
         long endTime = -1;
         double elapsedTimeSeconds = -1.0;
 
-        ListBasedKendallFactory methods = new ListBasedKendallFactory();
+        IListBasedKendallFactory methods = new IListBasedKendallFactory();
         startTime = System.currentTimeMillis();
         Reader reader = new Reader();
         ColumnPair columnPair = reader.read(filePath, column1, column2, delimiter);
@@ -89,7 +89,7 @@ public class ClientV1_ApacheVsSpark {
         
         /* Tile Implementation with SPARK and valuePairs*/
 //        startTime = System.currentTimeMillis();
-//        SparkBasedKendallManagerSimple sparkBasedKendallManagerSimple = new SparkBasedKendallManagerSimple();
+//        TilesWithSimplePointChecksSparkReaderKendallCalculator sparkBasedKendallManagerSimple = new TilesWithSimplePointChecksSparkReaderKendallCalculator();
 //        sparkBasedKendallManagerSimple.loadDataset(filePath, column1, column2);
 //        endTime = System.currentTimeMillis();
 //        elapsedTimeSeconds = (endTime - startTime) / 1000.0;
@@ -113,20 +113,20 @@ public class ClientV1_ApacheVsSpark {
         WriterSetup.OUTPUT_CUR_DIR = "try" + timeStamp + File.separator;
         System.err.println("Writing tiles at " + WriterSetup.getOutputExecDir());
         
-        SparkBasedKendallManager sparkBasedKendallManager= new SparkBasedKendallManager();
-        sparkBasedKendallManager.loadDataset(filePath, column1, column2);
+        TilesWithSimplePointChecksSparkReaderStoredTilesKendallCalculator tilesWithSimplePointChecksSparkReaderStoredTilesKendallCalculator= new TilesWithSimplePointChecksSparkReaderStoredTilesKendallCalculator();
+        tilesWithSimplePointChecksSparkReaderStoredTilesKendallCalculator.loadDataset(filePath, column1, column2);
         endTime = System.currentTimeMillis();
         elapsedTimeSeconds = (endTime - startTime) / 1000.0;
         System.out.println("Spark InitialSetup and Dataset loading took: " + elapsedTimeSeconds + "\n");
 
         startTime = System.currentTimeMillis();
-        double sparkTileKendallResult = sparkBasedKendallManager.calculateKendallTau(column1, column2);
+        double sparkTileKendallResult = tilesWithSimplePointChecksSparkReaderStoredTilesKendallCalculator.calculateKendallTau(column1, column2);
         endTime = System.currentTimeMillis();
         elapsedTimeSeconds = (endTime - startTime) / 1000.0;
         printResults("Spark: Simple Structure + Stored Tiles", filePath, sparkTileKendallResult, elapsedTimeSeconds);
        
         Thread deleteThread = new Thread(() -> {
-        	boolean deletionFlag = sparkBasedKendallManager.deleteSubFolders(new File(WriterSetup.getOutputExecDir()));
+        	boolean deletionFlag = tilesWithSimplePointChecksSparkReaderStoredTilesKendallCalculator.deleteSubFolders(new File(WriterSetup.getOutputExecDir()));
             System.err.println("Cleanup of tiles at " + WriterSetup.getOutputExecDir() + " was " + deletionFlag);
         });
         deleteThread.start();

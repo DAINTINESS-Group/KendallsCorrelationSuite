@@ -12,11 +12,21 @@ import sparkBasedKendallAlgorithms.sparkSetup.SparkSetup;
 import util.tilemgr.TilesManagerSparkReaderTilesStoredSimple;
 import util.algo.TileStoredBasedCalculatorService;
 
-public class SparkBasedKendallManager {
+/**
+ * Tiles: Simple (InMem with Simple structure)
+ * TilesManager: SparkReader _  Stored Tiles
+ * Tiles Processing Algo: Simple points and checks
+ * 
+ * 
+ * @author pvassil
+ *
+ */
+
+public class TilesWithSimplePointChecksSparkReaderStoredTilesKendallCalculator {
     private Dataset<Row> dataset;
     private final SparkSession sparkSession;
 
-    public SparkBasedKendallManager() {
+    public TilesWithSimplePointChecksSparkReaderStoredTilesKendallCalculator() {
         SparkSetup sparkSetup = new SparkSetup();
         sparkSession = sparkSetup.setup();
     }

@@ -1,16 +1,17 @@
 package listBasedKendallAlgorithms;
 
 import org.junit.Test;
+
+import listBasedKendallAlgorithms.reader.ColumnPair;
+import listBasedKendallAlgorithms.reader.Reader;
+
 import static org.junit.Assert.assertEquals;
 
 import java.io.IOException;
 
-import listBasedKendallAlgorithms.listBasedReader.ColumnPair;
-import listBasedKendallAlgorithms.listBasedReader.Reader;
-
-public class ListBasedSimpleTileAndPointsManagerTest {
+public class TilesWithSimplePointChecksListReaderKendallCalculatorTest {
 	private static 	Reader reader = new Reader();
-	private static ListBasedSimpleTileAndPointsManager lbtbMgr = new ListBasedSimpleTileAndPointsManager();
+	private static TilesWithSimplePointChecksListReaderKendallCalculator lbtbMgr = new TilesWithSimplePointChecksListReaderKendallCalculator();
 	
 	@Test
 	public final void testCalculateKendallTauA() {

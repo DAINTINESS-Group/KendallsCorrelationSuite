@@ -1,6 +1,6 @@
 package listBasedKendallAlgorithms;
 
-import listBasedKendallAlgorithms.listBasedReader.ColumnPair;
+import listBasedKendallAlgorithms.reader.ColumnPair;
 
 public interface IListBasedKendallCalculator {
     /**

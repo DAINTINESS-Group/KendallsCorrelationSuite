@@ -1,16 +1,17 @@
 package listBasedKendallAlgorithms;
 
 import org.junit.Test;
+
+import listBasedKendallAlgorithms.reader.ColumnPair;
+import listBasedKendallAlgorithms.reader.Reader;
+
 import static org.junit.Assert.assertEquals;
 
 import java.io.IOException;
 
-import listBasedKendallAlgorithms.listBasedReader.ColumnPair;
-import listBasedKendallAlgorithms.listBasedReader.Reader;
-
-public class ListBasedBandsWithMemoryManagerTest {
+public class TileBandsWithMemoryKendallCalculatorTest {
 	private static 	Reader reader = new Reader();
-	private static ListBasedBandsWithMemoryManager bwmMgr = new ListBasedBandsWithMemoryManager();
+	private static TileBandsWithMemoryKendallCalculator bwmMgr = new TileBandsWithMemoryKendallCalculator();
 	
 	@Test
 	public final void testCalculateKendallTauA() {

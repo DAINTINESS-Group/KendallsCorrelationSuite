@@ -17,16 +17,16 @@ import static org.junit.Assert.assertEquals;
 
 @SuppressWarnings("unused")
 @RunWith(Parameterized.class)
-public class SparkBasedKendallManagerTest extends SparkSessionTestSetup {
+public class TilesWithSimplePointChecksSparkReaderStoredTilesKendallCalculatorTest extends SparkSessionTestSetup {
 
     private final String path;
     private final String column1;
     private final String column2;
 	private final String delimiter;
     private final double expected;
-    private final SparkBasedKendallManager sparkBasedKendallManager = new SparkBasedKendallManager();
+    private final TilesWithSimplePointChecksSparkReaderStoredTilesKendallCalculator tilesWithSimplePointChecksSparkReaderStoredTilesKendallCalculator = new TilesWithSimplePointChecksSparkReaderStoredTilesKendallCalculator();
 
-    public SparkBasedKendallManagerTest(
+    public TilesWithSimplePointChecksSparkReaderStoredTilesKendallCalculatorTest(
             String path, String column1, String column2, String delimiter, double expected) {
         this.path = path;
         this.column1 = column1;
@@ -49,7 +49,7 @@ public class SparkBasedKendallManagerTest extends SparkSessionTestSetup {
     public void testCalculateKendall() {
         
         try {
-			sparkBasedKendallManager.loadDataset(path, column1, column2);
+			tilesWithSimplePointChecksSparkReaderStoredTilesKendallCalculator.loadDataset(path, column1, column2);
 		} catch (AnalysisException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -57,8 +57,8 @@ public class SparkBasedKendallManagerTest extends SparkSessionTestSetup {
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(Calendar.getInstance().getTime());
         WriterSetup.OUTPUT_CUR_DIR = "try" + timeStamp + File.separator;
         System.err.println("Writing tiles at " + WriterSetup.getOutputExecDir());
-        double actual = sparkBasedKendallManager.calculateKendallTau(column1, column2);
-        boolean deletionFlag = sparkBasedKendallManager.deleteSubFolders(new File(WriterSetup.getOutputExecDir()));
+        double actual = tilesWithSimplePointChecksSparkReaderStoredTilesKendallCalculator.calculateKendallTau(column1, column2);
+        boolean deletionFlag = tilesWithSimplePointChecksSparkReaderStoredTilesKendallCalculator.deleteSubFolders(new File(WriterSetup.getOutputExecDir()));
         System.err.println("Cleanup of tiles at " + WriterSetup.getOutputExecDir() + " was " + deletionFlag);
         // Assert
         double delta = 0.0;

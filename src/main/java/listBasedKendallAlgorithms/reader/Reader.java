@@ -1,4 +1,4 @@
-package listBasedKendallAlgorithms.listBasedReader;
+package listBasedKendallAlgorithms.reader;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
