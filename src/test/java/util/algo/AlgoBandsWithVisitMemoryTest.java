@@ -4,11 +4,12 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 
+import listBasedKendallAlgorithms.TileBandsWithMemoryKendallCalculator;
 import listBasedKendallAlgorithms.reader.ColumnPair;
 import listBasedKendallAlgorithms.reader.Reader;
 import sparkBasedKendallAlgorithms.SparkSessionTestSetup;
 
-import util.tilemgr.TilesManagerListReaderTilesInMemWCounters;
+//import util.tilemgr.TilesManagerListReaderTilesInMemWCounters;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -17,7 +18,7 @@ import java.util.Collection;
 import static org.junit.Assert.assertEquals;
 
 @RunWith(Parameterized.class)
-public class TileXBasedCalculatorServiceTest extends SparkSessionTestSetup {
+public class AlgoBandsWithVisitMemoryTest extends SparkSessionTestSetup {
 
     private final String path;
     private final String column1;
@@ -25,7 +26,7 @@ public class TileXBasedCalculatorServiceTest extends SparkSessionTestSetup {
     private final String delimiter;
     private final double expected;
 
-    public TileXBasedCalculatorServiceTest(
+    public AlgoBandsWithVisitMemoryTest(
             String path, String column1, String column2, String delimiter, double expected) {
         this.path = path;
         this.column1 = column1;
@@ -57,10 +58,12 @@ public class TileXBasedCalculatorServiceTest extends SparkSessionTestSetup {
 		}
         
 		//TILES WITH COUNTERS
-		TilesManagerListReaderTilesInMemWCounters tilesManagerWithCounters = new TilesManagerListReaderTilesInMemWCounters(pair);
-        //SERVICE WITH NEW TILES WITH MEMORY
-        TilesWithCountersBandsWithMemoryCalculatorService service = new TilesWithCountersBandsWithMemoryCalculatorService(tilesManagerWithCounters);
-        double actual = service.calculateKendallTauCorrelation();
+//		TilesManagerListReaderTilesInMemWCounters tilesManagerWithCounters = new TilesManagerListReaderTilesInMemWCounters(pair);
+		TileBandsWithMemoryKendallCalculator calculator = new TileBandsWithMemoryKendallCalculator();
+		double actual = calculator.calculateKendall(pair);
+//        //SERVICE WITH NEW TILES WITH MEMORY
+//        TilesWithCountersBandsWithMemoryCalculatorService service = new TilesWithCountersBandsWithMemoryCalculatorService(tilesManagerWithCounters);
+//        double actual = service.calculateKendallTauCorrelation();
 
         // Assert
         double delta = 0.0;

@@ -1,8 +1,12 @@
-package util.algo;
+package util.algo.deprecated;
 
+import util.algo.AlgoBandsWithVisitMemory;
+import util.algo.CalculationTimer;
+import util.algo.CorrelationStatistics;
 import util.tilemgr.TilesManagerListReaderTilesInMemWCounters;
 import util.tiles.TileInMemWCounters;
 
+@Deprecated
 public class TilesWithCountersBandsWithMemoryCalculatorService {
 	protected static final boolean DEBUG_FLAG = false;
 

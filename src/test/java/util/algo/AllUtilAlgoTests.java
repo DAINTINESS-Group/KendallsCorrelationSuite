@@ -8,8 +8,8 @@ import org.junit.runners.Suite.SuiteClasses;
 
 @RunWith(Suite.class)
 @SuiteClasses({ 
-	TileXBasedCalculatorServiceTest.class,
-	TileBasedCalculatorServiceTest.class
+	AlgoBandsWithVisitMemoryTest.class,
+	AlgoSimpleTilesAndPointComparisonTest.class
 })
 public class AllUtilAlgoTests {
 

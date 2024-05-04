@@ -12,8 +12,12 @@ import org.apache.spark.sql.SparkSession;
 import sparkBasedKendallAlgorithms.reader.IDatasetReaderFactory;
 import sparkBasedKendallAlgorithms.sparkSetup.SparkSetup;
 import util.tilemgr.TilesManagerSparkReaderTilesStoredSimple;
+import util.tiles.TileStoredSimple;
 import util.writer.WriterSetup;
-import util.algo.TileStoredBasedCalculatorService;
+import util.algo.AlgoSimpleTilesAndPointComparison;
+import util.algo.CalculationTimer;
+import util.algo.CorrelationStatistics;
+//import util.algo.TileStoredBasedCalculatorService;
 
 /**
  * Tiles: Simple (InMem with Simple structure)
@@ -26,6 +30,7 @@ import util.algo.TileStoredBasedCalculatorService;
  */
 
 public class TilesWithSimplePointChecksSparkReaderStoredTilesKendallCalculator {
+	protected static final boolean DEBUG_FLAG = false;
     private Dataset<Row> dataset;
     private final SparkSession sparkSession;
 
@@ -44,10 +49,25 @@ public class TilesWithSimplePointChecksSparkReaderStoredTilesKendallCalculator {
     }
 
     public double calculateKendallTau(String column1, String column2) {
-        TilesManagerSparkReaderTilesStoredSimple tilesManagerSparkReaderTilesStoredSimple = new TilesManagerSparkReaderTilesStoredSimple(dataset, column1, column2);
-        TileStoredBasedCalculatorService calculatorService = new TileStoredBasedCalculatorService(tilesManagerSparkReaderTilesStoredSimple);
-        return calculatorService.calculateKendallTauCorrelation();
-    }
+        TilesManagerSparkReaderTilesStoredSimple tilesManager = new TilesManagerSparkReaderTilesStoredSimple(dataset, column1, column2);
+//        TileStoredBasedCalculatorService calculatorService = new TileStoredBasedCalculatorService(tilesManager);
+//        return calculatorService.calculateKendallTauCorrelation();
+//    }
+//    
+	CorrelationStatistics statistics = new CorrelationStatistics();
+	CalculationTimer timer = new CalculationTimer();
+
+	TileStoredSimple[][] tiles = tilesManager.createTilesArray();
+
+	AlgoSimpleTilesAndPointComparison processorSimpleSpark = new AlgoSimpleTilesAndPointComparison(tiles, statistics);
+	processorSimpleSpark.processAllTiles();
+
+	if(DEBUG_FLAG) {
+		System.out.println(statistics);
+		System.out.println(timer);
+	}
+	return statistics.calculateCorrelationResult();
+}
     
     public boolean deleteSubFolders(File folder) {
     	String path = folder.getAbsolutePath();  

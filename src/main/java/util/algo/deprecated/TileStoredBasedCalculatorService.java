@@ -1,11 +1,15 @@
-package util.algo;
+package util.algo.deprecated;
 
 
+import util.algo.AlgoSimpleTilesAndPointComparison;
+import util.algo.CalculationTimer;
+import util.algo.CorrelationStatistics;
 import util.tilemgr.TilesManagerSparkReaderTilesStoredSimple;
 import util.tiles.TileStoredSimple;
 
+@Deprecated
 public class TileStoredBasedCalculatorService {
-	protected static final boolean DEBUG_FLAG = true;
+	protected static final boolean DEBUG_FLAG = false;
 
 	private TilesManagerSparkReaderTilesStoredSimple tilesManager;
 

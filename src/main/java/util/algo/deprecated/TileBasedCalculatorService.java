@@ -1,9 +1,13 @@
-package util.algo;
+package util.algo.deprecated;
 
 
+import util.algo.AlgoSimpleTilesAndPointComparison;
+import util.algo.CalculationTimer;
+import util.algo.CorrelationStatistics;
 import util.tilemgr.ITilesManager;
 import util.tiles.ITile;
 
+@Deprecated
 public class TileBasedCalculatorService {
 	protected static final boolean DEBUG_FLAG = false;
 
