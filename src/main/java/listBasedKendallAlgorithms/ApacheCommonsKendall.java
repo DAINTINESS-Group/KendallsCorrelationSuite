@@ -2,7 +2,7 @@ package listBasedKendallAlgorithms;
 
 import org.apache.commons.math3.stat.correlation.KendallsCorrelation;
 
-import listBasedKendallAlgorithms.reader.ColumnPair;
+import common.ColumnPair;
 
 public class ApacheCommonsKendall implements IListBasedKendallCalculator{
     public double calculateKendall(ColumnPair pair) {

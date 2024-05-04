@@ -1,12 +1,11 @@
 package listBasedKendallAlgorithms;
 
-import listBasedKendallAlgorithms.reader.ColumnPair;
-import util.algo.AlgoBandsWithVisitMemory;
-import util.algo.CalculationTimer;
-import util.algo.CorrelationStatistics;
-//import util.algo.TilesWithCountersBandsWithMemoryCalculatorService;
-import util.tilemgr.TilesManagerListReaderTilesInMemWCounters;
-import util.tiles.TileInMemWCounters;
+import common.ColumnPair;
+import tiles.algos.AlgoBandsWithVisitMemory;
+import tiles.algos.CalculationTimer;
+import tiles.algos.CorrelationStatistics;
+import tiles.dom.TileInMemWCounters;
+import tiles.tilemgr.TilesManagerListReaderTilesInMemWCounters;
 
 /**
  * Tiles: InMem with Counters

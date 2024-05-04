@@ -4,153 +4,141 @@
   <package id="1" language="java" name="listBasedKendallAlgorithms.reader" project="KendallsCorrelationSuite" 
     file="/KendallsCorrelationSuite/src/main/java/listBasedKendallAlgorithms/reader" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="847" y="370"/>    
+    <position height="-1" width="-1" x="1099" y="212"/>    
     <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
   </package>  
   <package id="2" language="java" name="sparkBasedKendallAlgorithms" project="KendallsCorrelationSuite" 
     file="/KendallsCorrelationSuite/src/main/java/sparkBasedKendallAlgorithms" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="277" y="151"/>    
+    <position height="50" width="197" x="550" y="127"/>    
     <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
   </package>  
   <package id="3" language="java" name="sparkBasedKendallAlgorithms.reader" project="KendallsCorrelationSuite" 
     file="/KendallsCorrelationSuite/src/main/java/sparkBasedKendallAlgorithms/reader" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="147" y="280"/>    
+    <position height="-1" width="-1" x="491" y="368"/>    
     <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
   </package>  
   <package id="4" language="java" name="sparkBasedKendallAlgorithms.sparkSetup" project="KendallsCorrelationSuite" 
     file="/KendallsCorrelationSuite/src/main/java/sparkBasedKendallAlgorithms/sparkSetup" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="277" y="364"/>    
+    <position height="-1" width="-1" x="435" y="239"/>    
     <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
   </package>  
-  <package id="5" language="java" name="util" project="KendallsCorrelationSuite" 
-    file="/KendallsCorrelationSuite/src/main/java/util" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="392" y="471"/>    
+  <package id="5" language="java" name="tiles" project="KendallsCorrelationSuite" 
+    file="/KendallsCorrelationSuite/src/main/java/tiles" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="968" y="394"/>    
     <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
   </package>  
   <package id="6" language="java" name="client" project="KendallsCorrelationSuite" 
     file="/KendallsCorrelationSuite/src/main/java/client" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="431" y="39"/>    
+    <position height="50" width="101" x="1008" y="37"/>    
     <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
   </package>  
-  <package id="7" language="java" name="util.common" project="KendallsCorrelationSuite" 
-    file="/KendallsCorrelationSuite/src/main/java/util/common" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="548" y="510"/>    
-    <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
-  </package>  
-  <package id="8" language="java" name="util.tiles" project="KendallsCorrelationSuite" 
-    file="/KendallsCorrelationSuite/src/main/java/util/tiles" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="537" y="351"/>    
-    <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
-  </package>  
-  <package id="9" language="java" name="util.algo" project="KendallsCorrelationSuite" 
-    file="/KendallsCorrelationSuite/src/main/java/util/algo" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="525" y="232"/>    
-    <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
-  </package>  
-  <package id="10" language="java" name="util.tilemgr" project="KendallsCorrelationSuite" 
-    file="/KendallsCorrelationSuite/src/main/java/util/tilemgr" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="667" y="274"/>    
-    <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
-  </package>  
-  <package id="11" language="java" name="listBasedKendallAlgorithms" project="KendallsCorrelationSuite" 
+  <package id="7" language="java" name="listBasedKendallAlgorithms" project="KendallsCorrelationSuite" 
     file="/KendallsCorrelationSuite/src/main/java/listBasedKendallAlgorithms" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="50" width="181" x="637" y="120"/>    
+    <position height="-1" width="-1" x="935" y="156"/>    
     <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
   </package>  
-  <package id="12" language="java" name="util.tileband" project="KendallsCorrelationSuite" 
-    file="/KendallsCorrelationSuite/src/main/java/util/tileband" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="420" y="303"/>    
+  <package id="8" language="java" name="tiles.algos" project="KendallsCorrelationSuite" 
+    file="/KendallsCorrelationSuite/src/main/java/tiles/algos" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="50" width="101" x="646" y="217"/>    
     <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
   </package>  
-  <package id="13" language="java" name="util.tilemgr.rangemaker" project="KendallsCorrelationSuite" 
-    file="/KendallsCorrelationSuite/src/main/java/util/tilemgr/rangemaker" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="50" width="156" x="628" y="454"/>    
+  <package id="9" language="java" name="tiles.tileband" project="KendallsCorrelationSuite" 
+    file="/KendallsCorrelationSuite/src/main/java/tiles/tileband" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="50" width="101" x="646" y="307"/>    
     <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
   </package>  
+  <package id="10" language="java" name="tiles.tilemgr" project="KendallsCorrelationSuite" 
+    file="/KendallsCorrelationSuite/src/main/java/tiles/tilemgr" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="50" width="101" x="787" y="217"/>    
+    <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <package id="11" language="java" name="tiles.dom" project="KendallsCorrelationSuite" 
+    file="/KendallsCorrelationSuite/src/main/java/tiles/dom" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="839" y="391"/>    
+    <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <package id="12" language="java" name="common" project="KendallsCorrelationSuite" 
+    file="/KendallsCorrelationSuite/src/main/java/common" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="50" width="101" x="1008" y="307"/>    
+    <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <dependency id="13">    
+    <bendpoint x="949" y="227"/>    
+    <end type="SOURCE" refId="7"/>    
+    <end type="TARGET" refId="12"/>  
+  </dependency>  
   <dependency id="14">    
     <end type="SOURCE" refId="2"/>    
-    <end type="TARGET" refId="9"/>  
-  </dependency>  
-  <dependency id="15">    
-    <bendpoint x="871" y="96"/>    
-    <end type="SOURCE" refId="6"/>    
-    <end type="TARGET" refId="1"/>  
-  </dependency>  
-  <dependency id="16">    
-    <end type="SOURCE" refId="8"/>    
-    <end type="TARGET" refId="7"/>  
-  </dependency>  
-  <dependency id="17">    
-    <end type="SOURCE" refId="13"/>    
-    <end type="TARGET" refId="7"/>  
-  </dependency>  
-  <dependency id="18">    
-    <end type="SOURCE" refId="10"/>    
     <end type="TARGET" refId="8"/>  
   </dependency>  
-  <dependency id="19">    
-    <end type="SOURCE" refId="11"/>    
-    <end type="TARGET" refId="9"/>  
-  </dependency>  
-  <dependency id="20">    
-    <bendpoint x="598" y="192"/>    
+  <dependency id="15">    
     <end type="SOURCE" refId="2"/>    
     <end type="TARGET" refId="10"/>  
   </dependency>  
-  <dependency id="21">    
-    <end type="SOURCE" refId="9"/>    
-    <end type="TARGET" refId="8"/>  
-  </dependency>  
-  <dependency id="22">    
-    <bendpoint x="609" y="361"/>    
-    <end type="SOURCE" refId="9"/>    
-    <end type="TARGET" refId="7"/>  
-  </dependency>  
-  <dependency id="23">    
-    <end type="SOURCE" refId="6"/>    
-    <end type="TARGET" refId="2"/>  
-  </dependency>  
-  <dependency id="24">    
+  <dependency id="16">    
     <end type="SOURCE" refId="10"/>    
-    <end type="TARGET" refId="13"/>  
-  </dependency>  
-  <dependency id="25">    
-    <end type="SOURCE" refId="2"/>    
-    <end type="TARGET" refId="3"/>  
-  </dependency>  
-  <dependency id="26">    
-    <end type="SOURCE" refId="10"/>    
-    <end type="TARGET" refId="7"/>  
-  </dependency>  
-  <dependency id="27">    
-    <end type="SOURCE" refId="6"/>    
     <end type="TARGET" refId="11"/>  
   </dependency>  
-  <dependency id="28">    
-    <end type="SOURCE" refId="11"/>    
-    <end type="TARGET" refId="1"/>  
+  <dependency id="17">    
+    <bendpoint x="636" y="391"/>    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="11"/>  
   </dependency>  
-  <dependency id="29">    
+  <dependency id="18">    
+    <end type="SOURCE" refId="7"/>    
+    <end type="TARGET" refId="10"/>  
+  </dependency>  
+  <dependency id="19">    
+    <end type="SOURCE" refId="6"/>    
+    <end type="TARGET" refId="7"/>  
+  </dependency>  
+  <dependency id="20">    
     <end type="SOURCE" refId="2"/>    
     <end type="TARGET" refId="4"/>  
   </dependency>  
-  <dependency id="30">    
-    <end type="SOURCE" refId="9"/>    
+  <dependency id="21">    
+    <end type="SOURCE" refId="6"/>    
+    <end type="TARGET" refId="1"/>  
+  </dependency>  
+  <dependency id="22">    
+    <end type="SOURCE" refId="6"/>    
+    <end type="TARGET" refId="2"/>  
+  </dependency>  
+  <dependency id="23">    
+    <end type="SOURCE" refId="8"/>    
+    <end type="TARGET" refId="11"/>  
+  </dependency>  
+  <dependency id="24">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="3"/>  
+  </dependency>  
+  <dependency id="25">    
+    <bendpoint x="1260" y="127"/>    
+    <bendpoint x="1260" y="217"/>    
+    <end type="SOURCE" refId="6"/>    
     <end type="TARGET" refId="12"/>  
   </dependency>  
-  <dependency id="31">    
-    <end type="SOURCE" refId="11"/>    
-    <end type="TARGET" refId="10"/>  
+  <dependency id="26">    
+    <end type="SOURCE" refId="7"/>    
+    <end type="TARGET" refId="11"/>  
   </dependency>  
-  <dependency id="32">    
-    <end type="SOURCE" refId="9"/>    
-    <end type="TARGET" refId="10"/>  
+  <dependency id="27">    
+    <end type="SOURCE" refId="7"/>    
+    <end type="TARGET" refId="8"/>  
   </dependency>  
-  <dependency id="33">    
+  <dependency id="28">    
+    <end type="SOURCE" refId="1"/>    
+    <end type="TARGET" refId="12"/>  
+  </dependency>  
+  <dependency id="29">    
     <end type="SOURCE" refId="10"/>    
-    <end type="TARGET" refId="1"/>  
+    <end type="TARGET" refId="12"/>  
+  </dependency>  
+  <dependency id="30">    
+    <end type="SOURCE" refId="8"/>    
+    <end type="TARGET" refId="9"/>  
   </dependency>  
   <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
     sort-features="false" accessors="true" visibility="true">    

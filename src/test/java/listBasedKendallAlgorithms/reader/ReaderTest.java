@@ -2,6 +2,8 @@ package listBasedKendallAlgorithms.reader;
 
 import org.junit.Test;
 
+import common.ColumnPair;
+
 import org.junit.Assert;
 
 import java.io.IOException;

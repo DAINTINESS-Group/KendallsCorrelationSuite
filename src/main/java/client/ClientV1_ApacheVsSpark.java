@@ -3,13 +3,14 @@ package client;
 //import listBasedKendallAlgorithms.IListBasedKendallCalculator;
 //import listBasedKendallAlgorithms.IListBasedKendallFactory;
 import listBasedKendallAlgorithms.*;
-import listBasedKendallAlgorithms.reader.ColumnPair;
 import listBasedKendallAlgorithms.reader.Reader;
 import sparkBasedKendallAlgorithms.TilesWithSimplePointChecksSparkReaderStoredTilesKendallCalculator;
+import tiles.dom.writer.WriterSetup;
 import sparkBasedKendallAlgorithms.TilesWithSimplePointChecksSparkReaderKendallCalculator;
-import util.writer.WriterSetup;
 
 import org.apache.spark.sql.AnalysisException;
+
+import common.ColumnPair;
 
 import java.io.File;
 import java.io.IOException;

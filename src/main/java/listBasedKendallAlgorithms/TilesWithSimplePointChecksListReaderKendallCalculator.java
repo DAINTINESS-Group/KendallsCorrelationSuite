@@ -1,14 +1,12 @@
 package listBasedKendallAlgorithms;
 
-import listBasedKendallAlgorithms.reader.ColumnPair;
-//import util.algo.AlgoEnum;
-import util.algo.AlgoSimpleTilesAndPointComparison;
-import util.algo.CalculationTimer;
-import util.algo.CorrelationStatistics;
-//import util.algo.TileBasedCalculatorService;
-import util.tilemgr.ITilesManager;
-import util.tilemgr.TilesManagerListReaderTilesInMemSimple;
-import util.tiles.ITile;
+import common.ColumnPair;
+import tiles.algos.AlgoSimpleTilesAndPointComparison;
+import tiles.algos.CalculationTimer;
+import tiles.algos.CorrelationStatistics;
+import tiles.dom.ITile;
+import tiles.tilemgr.ITilesManager;
+import tiles.tilemgr.TilesManagerListReaderTilesInMemSimple;
 
 /**
  * Tiles: Simple (InMem with Simple structure)

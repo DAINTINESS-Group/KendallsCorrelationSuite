@@ -7,13 +7,11 @@ import org.apache.spark.sql.SparkSession;
 
 import sparkBasedKendallAlgorithms.reader.IDatasetReaderFactory;
 import sparkBasedKendallAlgorithms.sparkSetup.SparkSetup;
-import util.tilemgr.TilesManagerSparkReaderTilesInMemSimple;
-import util.tiles.ITile;
-//import util.algo.AlgoEnum;
-import util.algo.AlgoSimpleTilesAndPointComparison;
-import util.algo.CalculationTimer;
-import util.algo.CorrelationStatistics;
-//import util.algo.TileBasedCalculatorService;
+import tiles.algos.AlgoSimpleTilesAndPointComparison;
+import tiles.algos.CalculationTimer;
+import tiles.algos.CorrelationStatistics;
+import tiles.dom.ITile;
+import tiles.tilemgr.TilesManagerSparkReaderTilesInMemSimple;
 
 /**
  * Tiles: Simple (InMem with Simple structure)

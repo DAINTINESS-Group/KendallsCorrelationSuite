@@ -5,7 +5,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 
-import util.writer.WriterSetup;
+import tiles.dom.writer.WriterSetup;
 
 import java.io.File;
 import java.text.SimpleDateFormat;

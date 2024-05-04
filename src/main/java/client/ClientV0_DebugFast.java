@@ -3,10 +3,11 @@ package client;
 
 import listBasedKendallAlgorithms.IListBasedKendallCalculator;
 import listBasedKendallAlgorithms.IListBasedKendallFactory;
-import listBasedKendallAlgorithms.reader.ColumnPair;
 import listBasedKendallAlgorithms.reader.Reader;
 
 import java.io.IOException;
+
+import common.ColumnPair;
 
 public class ClientV0_DebugFast {
     public static void main(String[] args) throws IOException  {

@@ -2,7 +2,7 @@ package listBasedKendallAlgorithms;
 
 import org.junit.Test;
 
-import listBasedKendallAlgorithms.reader.ColumnPair;
+import common.ColumnPair;
 import listBasedKendallAlgorithms.reader.Reader;
 
 import static org.junit.Assert.assertEquals;

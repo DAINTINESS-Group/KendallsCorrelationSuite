@@ -4,7 +4,7 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import listBasedKendallAlgorithms.reader.ColumnPair;
+import common.ColumnPair;
 import listBasedKendallAlgorithms.reader.Reader;
 
 import java.io.IOException;

@@ -5,6 +5,8 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 
+import common.ColumnPair;
+
 public class Reader {
 
     public Reader() {

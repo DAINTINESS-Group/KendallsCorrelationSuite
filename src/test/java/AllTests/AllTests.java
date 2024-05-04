@@ -6,13 +6,13 @@ import org.junit.runners.Suite.SuiteClasses;
 
 import listBasedKendallAlgorithms.AllListBasedAlgoTests;
 import sparkBasedKendallAlgorithms.AllTileBasedTests;
-import util.algo.AllUtilAlgoTests;
+import tiles.algos.AllAlgoTests;
 
 @RunWith(Suite.class)
 @SuiteClasses({
 	AllListBasedAlgoTests.class,
 	AllTileBasedTests.class,
-	AllUtilAlgoTests.class,
+	AllAlgoTests.class,
 })
 public class AllTests {
 

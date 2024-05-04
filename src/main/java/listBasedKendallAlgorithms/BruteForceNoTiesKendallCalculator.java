@@ -1,6 +1,6 @@
 package listBasedKendallAlgorithms;
 
-import listBasedKendallAlgorithms.reader.ColumnPair;
+import common.ColumnPair;
 
 /*
  * This class calculates kendall's tau_a which means that it does not account for ties

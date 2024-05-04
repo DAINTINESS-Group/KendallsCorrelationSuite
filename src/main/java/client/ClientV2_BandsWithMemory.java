@@ -1,10 +1,11 @@
 package client;
 
 import listBasedKendallAlgorithms.*;
-import listBasedKendallAlgorithms.reader.ColumnPair;
 import listBasedKendallAlgorithms.reader.Reader;
 
 import org.apache.spark.sql.AnalysisException;
+
+import common.ColumnPair;
 
 import java.io.IOException;
 

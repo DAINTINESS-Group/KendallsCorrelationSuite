@@ -2,7 +2,7 @@ package listBasedKendallAlgorithms;
 
 import java.util.Objects;
 
-import listBasedKendallAlgorithms.reader.ColumnPair;
+import common.ColumnPair;
 
 /*
  * This class calculates kendall's tau b following the algorithm by ALFRED L. BROPHY */
