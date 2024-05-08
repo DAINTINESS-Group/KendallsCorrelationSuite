@@ -19,6 +19,7 @@ public class ClientV0_DebugFastNewAlgo {
         String column2 = "Y";
         String delimiter = "\t";
 
+
         Reader reader = new Reader();
         ColumnPair columnPair = reader.read(filePath, column1, column2, delimiter);
         IListBasedKendallFactory methods = new IListBasedKendallFactory();
@@ -38,6 +39,12 @@ public class ClientV0_DebugFastNewAlgo {
        double bandsWithMemoryKendallResult	= bwMMgr.calculateKendall(columnPair);
        printResults("BandsWithMemory", filePath, bandsWithMemoryKendallResult, Double.NaN);
       
+       /* SIMPLE TILES WITH MERGESORT*/
+       IListBasedKendallCalculator msMgr	= methods.createKendallCalculatorByString("MergeSort");
+       double msTileKendallResult 		= msMgr.calculateKendall(columnPair);
+       printResults("Simple Tiles, SortMerge", filePath, msTileKendallResult, Double.NaN);
+       
+       
        
     }//end main
 

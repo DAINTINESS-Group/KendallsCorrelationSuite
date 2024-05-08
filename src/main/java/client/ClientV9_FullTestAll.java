@@ -98,6 +98,15 @@ public class ClientV9_FullTestAll {
         elapsedTimeSeconds = (endTime - startTime) / 1000.0; 
         printResults("Bands With Memory", filePath, bandsWithMemoryKendallResult, elapsedTimeSeconds);
         
+        
+        /* SIMPLE TILES WITH MERGESORT*/
+        startTime = System.currentTimeMillis();
+        IListBasedKendallCalculator msMgr	= methods.createKendallCalculatorByString("MergeSort");
+        double msTileKendallResult 		= msMgr.calculateKendall(columnPair);
+        endTime = System.currentTimeMillis();
+        elapsedTimeSeconds = (endTime - startTime) / 1000.0; 
+        printResults("Simple Tiles, SortMerge", filePath, msTileKendallResult, elapsedTimeSeconds);
+        
         /* BRUTE */
         IListBasedKendallCalculator bruteForceTauA = methods.createKendallCalculatorByString("BruteForce");
         startTime = System.currentTimeMillis();

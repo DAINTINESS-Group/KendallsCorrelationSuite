@@ -10,7 +10,8 @@ import listBasedKendallAlgorithms.reader.ReaderTest;
 @RunWith(Suite.class)
 @SuiteClasses({ 
 	BrophyCalculatorTest.class, BruteForceCalculatorTest.class, IListBasedKendallFactoryTest.class, ReaderTest.class,
-	TilesWithSimplePointChecksListReaderKendallCalculatorTest.class, TileBandsWithMemoryKendallCalculatorTest.class })
+	TilesWithSimplePointChecksListReaderKendallCalculatorTest.class, TileBandsWithMemoryKendallCalculatorTest.class,
+	TilesMergeSortListReaderKendallCalculatorTest.class })
 public class AllListBasedAlgoTests {
 
 }

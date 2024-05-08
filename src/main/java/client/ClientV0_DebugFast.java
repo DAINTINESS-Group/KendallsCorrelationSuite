@@ -46,6 +46,10 @@ public class ClientV0_DebugFast {
        double actualBrophy = brophyKendallTauB.calculateKendall(columnPair);
        printResults("Brophy", filePath, actualBrophy, Double.NaN);
        
+       /* SIMPLE TILES WITH MERGESORT*/
+       IListBasedKendallCalculator msMgr	= methods.createKendallCalculatorByString("MergeSort");
+       double msTileKendallResult 		= msMgr.calculateKendall(columnPair);
+       printResults("Simple Tiles, SortMerge", filePath, msTileKendallResult, Double.NaN);
        
     }//end main
 

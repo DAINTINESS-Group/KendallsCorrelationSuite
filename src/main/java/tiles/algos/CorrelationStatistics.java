@@ -2,10 +2,10 @@ package tiles.algos;
 
 public class CorrelationStatistics {
 
-    private long concordantPairsCount;
-    private long discordantPairsCount;
-    private long tiedXPairsCount;
-    private long tiedYPairsCount;
+    protected long concordantPairsCount;
+    protected long discordantPairsCount;
+    protected long tiedXPairsCount;
+    protected long tiedYPairsCount;
 
     public CorrelationStatistics() {
         concordantPairsCount = 0;

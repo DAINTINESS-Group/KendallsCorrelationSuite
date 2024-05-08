@@ -1,7 +1,7 @@
 package listBasedKendallAlgorithms;
 
 public class IListBasedKendallFactory {
-    public enum KendallCalculatorMethods {BRUTEFORCE, BROPHY, APACHE_KENDALL, SIMPLE_TILES_LIST, BANDS_WITH_MEMORY}
+    public enum KendallCalculatorMethods {BRUTEFORCE, BROPHY, APACHE_KENDALL, SIMPLE_TILES_LIST, BANDS_WITH_MEMORY, MERGESORT}
     
     public IListBasedKendallCalculator createKendallCalculatorByString(String method) {
         
@@ -15,6 +15,8 @@ public class IListBasedKendallFactory {
             return createKendallCalculator(KendallCalculatorMethods.SIMPLE_TILES_LIST);
         }else if ("BandsWithMemory".equals(method)) {
             return createKendallCalculator(KendallCalculatorMethods.BANDS_WITH_MEMORY);
+        }else if ("MergeSort".equals(method)) {
+            return createKendallCalculator(KendallCalculatorMethods.MERGESORT);
         }
         throw new IllegalArgumentException(
         		String.format("%s is not a supported calculation method.", method));
@@ -32,6 +34,8 @@ public class IListBasedKendallFactory {
             	return new TilesWithSimplePointChecksListReaderKendallCalculator();
             case BANDS_WITH_MEMORY:
             	return new TileBandsWithMemoryKendallCalculator();	
+            case MERGESORT:
+            	return new TilesMergeSortListReaderKendallCalculator();
             default:
                 throw new IllegalArgumentException(
                         String.format("%s is not a supported calculation method.", method));
