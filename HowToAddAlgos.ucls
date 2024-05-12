@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class-diagram version="1.2.4" icons="true" automaticImage="PNG" always-add-relationships="true" generalizations="true" 
+  realizations="true" associations="true" dependencies="true" nesting-relationships="true" router="FAN">  
+  <class id="1" language="java" name="listBasedKendallAlgorithms.TilesMergeSortListReaderKendallCalculator" 
+    project="KendallsCorrelationSuite" 
+    file="/KendallsCorrelationSuite/src/main/java/listBasedKendallAlgorithms/TilesMergeSortListReaderKendallCalculator.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="117" width="273" x="2591" y="37"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="2" language="java" name="listBasedKendallAlgorithms.TilesWithSimplePointChecksListReaderKendallCalculator" 
+    project="KendallsCorrelationSuite" 
+    file="/KendallsCorrelationSuite/src/main/java/listBasedKendallAlgorithms/TilesWithSimplePointChecksListReaderKendallCalculator.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="117" width="350" x="2201" y="37"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="3" language="java" name="listBasedKendallAlgorithms.TileBandsWithMemoryKendallCalculator" 
+    project="KendallsCorrelationSuite" 
+    file="/KendallsCorrelationSuite/src/main/java/listBasedKendallAlgorithms/TileBandsWithMemoryKendallCalculator.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="117" width="252" x="289" y="37"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="4" language="java" name="tiles.algos.AlgoIntraTileMergeSort" project="KendallsCorrelationSuite" 
+    file="/KendallsCorrelationSuite/src/main/java/tiles/algos/AlgoIntraTileMergeSort.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="351" width="327" x="2674" y="266"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="5" language="java" name="tiles.algos.AlgoBandsWithVisitMemory" project="KendallsCorrelationSuite" 
+    file="/KendallsCorrelationSuite/src/main/java/tiles/algos/AlgoBandsWithVisitMemory.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="720" y="488"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="6" language="java" name="tiles.algos.AlgoSimpleTilesAndPointComparison" project="KendallsCorrelationSuite" 
+    file="/KendallsCorrelationSuite/src/main/java/tiles/algos/AlgoSimpleTilesAndPointComparison.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="2157" y="831"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="7" language="java" name="tiles.tilemgr.TilesManagerListReaderTilesInMemSimple" 
+    project="KendallsCorrelationSuite" 
+    file="/KendallsCorrelationSuite/src/main/java/tiles/tilemgr/TilesManagerListReaderTilesInMemSimple.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="99" width="286" x="2348" y="266"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="8" language="java" name="tiles.tilemgr.TilesManagerListReaderTilesInMemWCounters" 
+    project="KendallsCorrelationSuite" 
+    file="/KendallsCorrelationSuite/src/main/java/tiles/tilemgr/TilesManagerListReaderTilesInMemWCounters.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="249" y="454"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="9" language="java" name="tiles.tilemgr.TilesManagerSparkReaderTilesStoredSimple" 
+    project="KendallsCorrelationSuite" 
+    file="/KendallsCorrelationSuite/src/main/java/tiles/tilemgr/TilesManagerSparkReaderTilesStoredSimple.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="477" width="504" x="1008" y="266"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="10" language="java" name="tiles.tilemgr.TilesManagerSparkReaderTilesInMemSimple" 
+    project="KendallsCorrelationSuite" 
+    file="/KendallsCorrelationSuite/src/main/java/tiles/tilemgr/TilesManagerSparkReaderTilesInMemSimple.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="1923" y="414"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="11" language="java" 
+    name="sparkBasedKendallAlgorithms.TilesWithSimplePointChecksSparkReaderStoredTilesKendallCalculator" 
+    project="KendallsCorrelationSuite" 
+    file="/KendallsCorrelationSuite/src/main/java/sparkBasedKendallAlgorithms/TilesWithSimplePointChecksSparkReaderStoredTilesKendallCalculator.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="189" width="428" x="1330" y="37"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="12" language="java" 
+    name="sparkBasedKendallAlgorithms.TilesWithSimplePointChecksSparkReaderKendallCalculator" 
+    project="KendallsCorrelationSuite" 
+    file="/KendallsCorrelationSuite/src/main/java/sparkBasedKendallAlgorithms/TilesWithSimplePointChecksSparkReaderKendallCalculator.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="171" width="363" x="1798" y="37"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <dependency id="13">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="6"/>  
+  </dependency>  
+  <dependency id="14">    
+    <end type="SOURCE" refId="11"/>    
+    <end type="TARGET" refId="9"/>  
+  </dependency>  
+  <dependency id="15">    
+    <bendpoint x="2208" y="342"/>    
+    <end type="SOURCE" refId="12"/>    
+    <end type="TARGET" refId="6"/>  
+  </dependency>  
+  <dependency id="16">    
+    <end type="SOURCE" refId="12"/>    
+    <end type="TARGET" refId="10"/>  
+  </dependency>  
+  <dependency id="17">    
+    <bendpoint x="1720" y="736"/>    
+    <end type="SOURCE" refId="11"/>    
+    <end type="TARGET" refId="6"/>  
+  </dependency>  
+  <dependency id="18">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="7"/>  
+  </dependency>  
+  <dependency id="19">    
+    <end type="SOURCE" refId="1"/>    
+    <end type="TARGET" refId="4"/>  
+  </dependency>  
+  <dependency id="20">    
+    <end type="SOURCE" refId="3"/>    
+    <end type="TARGET" refId="5"/>  
+  </dependency>  
+  <dependency id="21">    
+    <end type="SOURCE" refId="1"/>    
+    <end type="TARGET" refId="7"/>  
+  </dependency>  
+  <dependency id="22">    
+    <end type="SOURCE" refId="3"/>    
+    <end type="TARGET" refId="8"/>  
+  </dependency>  
+  <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+    sort-features="false" accessors="true" visibility="true">    
+    <attributes public="true" package="true" protected="true" private="true" static="true"/>    
+    <operations public="true" package="true" protected="true" private="true" static="true"/>  
+  </classifier-display>  
+  <association-display labels="true" multiplicity="true"/>
+</class-diagram>
