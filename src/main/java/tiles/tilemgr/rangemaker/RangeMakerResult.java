@@ -1,6 +1,9 @@
 package tiles.tilemgr.rangemaker;
 
-public class RangeMakerResult{
+import java.io.Serializable;
+
+public class RangeMakerResult implements Serializable{
+	private static final long serialVersionUID = 8875557647891915627L;
 	int numberOfBinsX;
 	double rangeWidthX;
 	int numberOfBinsY;

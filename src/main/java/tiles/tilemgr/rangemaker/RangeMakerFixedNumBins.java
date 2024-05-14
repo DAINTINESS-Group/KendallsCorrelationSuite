@@ -1,10 +1,11 @@
 package tiles.tilemgr.rangemaker;
 
+import java.io.Serializable;
+
 import common.ColumnsStatistics;
 
-public class RangeMakerFixedNumBins implements RangeMakerInterface {
-
-	
+public class RangeMakerFixedNumBins implements RangeMakerInterface, Serializable {
+	private static final long serialVersionUID = 4458658934547833255L;
 	private ColumnsStatistics columnStatistics;
 	private int numBinsX;
 	private int numBinsY;

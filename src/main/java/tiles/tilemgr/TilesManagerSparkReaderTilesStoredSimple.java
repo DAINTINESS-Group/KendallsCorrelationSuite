@@ -12,6 +12,7 @@ import tiles.tilemgr.TilesManagerListReaderTilesInMemWCounters.RangeMakerMethodE
 import tiles.tilemgr.rangemaker.RangeMakerFactory;
 import tiles.tilemgr.rangemaker.RangeMakerInterface;
 import tiles.tilemgr.rangemaker.RangeMakerResult;
+import util.TileConstructionParameters;
 
 import static org.apache.spark.sql.functions.*;
 
@@ -19,36 +20,39 @@ import static org.apache.spark.sql.functions.*;
 
 public class TilesManagerSparkReaderTilesStoredSimple implements Serializable, ITilesManager {
     private static final long serialVersionUID = 8765154256335271048L;
-	protected static final boolean DEBUG_FLAG = false;
-	
+	protected boolean DEBUG_FLAG ;
+	protected boolean EXPERIMENT_FLAG ;
 	protected static TileStoredSimple[][] tiles;
 	protected long datasetRowCount;
 	protected int numOfBinsX;
 	protected int numOfBinsY;
 	protected double rangeWidthX;
 	protected double rangeWidthY;
+	protected RangeMakerInterface rangeMaker = null;
 	protected ColumnsStatistics columnsStatistics;
-
 	protected RangeMakerMethodEnum rangeMakerMethod;
+	protected TileConstructionParameters parameters; 
 	
     private final String column1;
     private final String column2;
     private final Dataset<Row> dataset;
 
-    public TilesManagerSparkReaderTilesStoredSimple(Dataset<Row> dataset, String column1, String column2) {
+    public TilesManagerSparkReaderTilesStoredSimple(Dataset<Row> dataset, String column1, String column2, TileConstructionParameters parameters) {
         this.column1 = column1;
         this.column2 = column2;
         this.dataset = dataset;
-		this.rangeMakerMethod = RangeMakerMethodEnum.FIXED; //DECIDE: FIXED or SCOTT?
+        this.DEBUG_FLAG = parameters.isDebugModeOn();
+        this.EXPERIMENT_FLAG = parameters.isExperimentModeOn();
+        this.parameters = parameters;
     }
 
     
-    public TilesManagerSparkReaderTilesStoredSimple(Dataset<Row> dataset, String column1, String column2, RangeMakerMethodEnum method) {
-        this.column1 = column1;
-        this.column2 = column2;
-        this.dataset = dataset;
-    	this.rangeMakerMethod = method;
-    }
+//    public TilesManagerSparkReaderTilesStoredSimple(Dataset<Row> dataset, String column1, String column2, RangeMakerMethodEnum method) {
+//        this.column1 = column1;
+//        this.column2 = column2;
+//        this.dataset = dataset;
+//    	this.rangeMakerMethod = method;
+//    }
 
 	public TileStoredSimple[][] createTilesArray() {
 		
@@ -101,19 +105,23 @@ public class TilesManagerSparkReaderTilesStoredSimple implements Serializable, I
 
 	protected void setupTilesArrayMetadata() {
 		RangeMakerFactory factory = new RangeMakerFactory();
-		RangeMakerInterface rangeMaker = null;
-		switch(this.rangeMakerMethod) {
-		//TODO IMPROVE IMPROVE IMPROVE
-		//obviously deserves better.
-		//Constructor should get a hashmap of strings with various parameters and move on.
-			case FIXED: 
-				final int BINS_X = 100;
-				final int BINS_Y = 100;
+		switch(parameters.getRangeMakingMode()) {
+			case SCOTT_RULE: 
+				this.rangeMakerMethod = RangeMakerMethodEnum.SCOTT; 
+				rangeMaker = factory.makeRangeMakerScottRule(columnsStatistics);
+				break;
+			case FIXED:
+				this.rangeMakerMethod = RangeMakerMethodEnum.FIXED; //DECIDE: FIXED or SCOTT?
+				final int BINS_X = parameters.getNumBinsX();
+				final int BINS_Y = parameters.getNumBinsY();
 				rangeMaker = factory.makeRangeMakerFixedNumBins(columnsStatistics, BINS_X, BINS_Y);
 				break;
-			default://implies SCOTT too
-				rangeMaker = factory.makeRangeMakerScottRule(columnsStatistics);
+			default:
+				System.err.println("TilesManagerSparkReaderTilesStoredSimple: error in constructor parameters.\n"  + parameters.toString() +"\nAborting.");
+				System.exit(-1);
 		}
+		
+
 		RangeMakerResult result = rangeMaker.divideColumnsInBinsAndRanges();
 		rangeWidthX = result.getRangeWidthX();
 		rangeWidthY = result.getRangeWidthY();
@@ -136,16 +144,16 @@ public class TilesManagerSparkReaderTilesStoredSimple implements Serializable, I
 	    }
 	}
 
-	protected int calculateRangesCount(double rangeWidth, double min, double max) {
-	    double range = max - min;
-	    return (int) Math.ceil(range / rangeWidth);
-	}
-
-	protected double calculateRangesWidth(double stdDev, double datasetCount) {
-		double denominator = Math.pow(datasetCount, 1.0 / 3.0);
-		double scottRuleRangeWidth = 3.49 * stdDev / denominator;		
-	    return scottRuleRangeWidth;
-	}
+//	protected int calculateRangesCount(double rangeWidth, double min, double max) {
+//	    double range = max - min;
+//	    return (int) Math.ceil(range / rangeWidth);
+//	}
+//
+//	protected double calculateRangesWidth(double stdDev, double datasetCount) {
+//		double denominator = Math.pow(datasetCount, 1.0 / 3.0);
+//		double scottRuleRangeWidth = 3.49 * stdDev / denominator;		
+//	    return scottRuleRangeWidth;
+//	}
 
 
     

@@ -6,6 +6,8 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 
 import tiles.dom.writer.WriterSetup;
+import util.TileConstructionParameters;
+import util.TileConstructionParameters.RangeMakingMode;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -46,7 +48,8 @@ public class TilesWithSimplePointChecksSparkReaderStoredTilesKendallCalculatorTe
 
    
     @Test
-    public void testCalculateKendall() {
+    public void testCalculateKendallFixed() {   	
+    	checkMemory();
     	TilesWithSimplePointChecksSparkReaderStoredTilesKendallCalculator tilesWithSimplePointChecksSparkReaderStoredTilesKendallCalculator 
     		= new TilesWithSimplePointChecksSparkReaderStoredTilesKendallCalculator();
         try {
@@ -58,9 +61,17 @@ public class TilesWithSimplePointChecksSparkReaderStoredTilesKendallCalculatorTe
 //        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(Calendar.getInstance().getTime());
 //        WriterSetup.OUTPUT_CUR_DIR = "try" + timeStamp + File.separator;
 //        System.err.println("Writing tiles at " + WriterSetup.getOutputExecDir());
-        double actual = tilesWithSimplePointChecksSparkReaderStoredTilesKendallCalculator.calculateKendallTau(column1, column2);
+   	 TileConstructionParameters params = new TileConstructionParameters.Builder(false)
+		       .rangeMakingMode(RangeMakingMode.FIXED)
+		       .numBinsX(50)
+		       .numBinsY(50)
+		       .build();
+        double actual = tilesWithSimplePointChecksSparkReaderStoredTilesKendallCalculator.calculateKendallTau(column1, column2, params);
+
+        //delete temp folders
         boolean deletionFlag = tilesWithSimplePointChecksSparkReaderStoredTilesKendallCalculator.deleteSubFolders(new File(WriterSetup.getOutputExecDir()));
         System.err.println("Cleanup of tiles at " + WriterSetup.getOutputExecDir() + " was " + deletionFlag);
+  
         // Assert
         double delta = 0.0;
 		System.out.println("\nHard-Disk Tiles Kendall (Tau B)");
@@ -69,4 +80,47 @@ public class TilesWithSimplePointChecksSparkReaderStoredTilesKendallCalculatorTe
         assertEquals(expected, actual, delta);
     }
     
-}
+    
+    @Test
+    public void testCalculateKendallScott() {   	
+    	checkMemory();
+    	TilesWithSimplePointChecksSparkReaderStoredTilesKendallCalculator tilesWithSimplePointChecksSparkReaderStoredTilesKendallCalculator 
+    		= new TilesWithSimplePointChecksSparkReaderStoredTilesKendallCalculator();
+        try {
+			tilesWithSimplePointChecksSparkReaderStoredTilesKendallCalculator.loadDataset(path, column1, column2);
+		} catch (AnalysisException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+//        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(Calendar.getInstance().getTime());
+//        WriterSetup.OUTPUT_CUR_DIR = "try" + timeStamp + File.separator;
+//        System.err.println("Writing tiles at " + WriterSetup.getOutputExecDir());
+   	 TileConstructionParameters params = new TileConstructionParameters.Builder(false)
+		       .rangeMakingMode(RangeMakingMode.SCOTT_RULE)
+		       .build();
+        double actual = tilesWithSimplePointChecksSparkReaderStoredTilesKendallCalculator.calculateKendallTau(column1, column2, params);
+
+      //delete temp folders
+        boolean deletionFlag = tilesWithSimplePointChecksSparkReaderStoredTilesKendallCalculator.deleteSubFolders(new File(WriterSetup.getOutputExecDir()));
+        System.err.println("Cleanup of tiles at " + WriterSetup.getOutputExecDir() + " was " + deletionFlag);
+       
+        // Assert
+        double delta = 0.0;
+		System.out.println("\nHard-Disk Tiles Kendall (Tau B)");
+		System.out.println("Expected:\t" + expected);
+		System.out.println("Actual  :\t" + actual);
+        assertEquals(expected, actual, delta);
+    }
+
+
+	private static void checkMemory() {
+		System.out.println("Calling garbageCollector");
+		Runtime runtime = Runtime.getRuntime();
+		runtime.gc();
+		long total = runtime.totalMemory() / (1024L * 1024L);
+		long free = runtime.freeMemory() / (1024L * 1024L);
+		long usedMemory= total - free;
+		System.out.println("Used/Free/Total Memory (MB): "+ usedMemory + 
+				"\t" + free + "\t" + total);
+	}
+}//end class

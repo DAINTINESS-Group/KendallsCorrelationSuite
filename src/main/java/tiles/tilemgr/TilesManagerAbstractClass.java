@@ -9,6 +9,8 @@ import tiles.dom.ITileType;
 public abstract class TilesManagerAbstractClass implements ITilesManager{
 
 	protected static final boolean DEBUG_FLAG = false;
+	protected static final boolean EXPERIMENT_FLAG = false;
+
 	protected static ITile[][] tiles;
 	protected long datasetRowCount;
 	protected int numOfBinsX;
