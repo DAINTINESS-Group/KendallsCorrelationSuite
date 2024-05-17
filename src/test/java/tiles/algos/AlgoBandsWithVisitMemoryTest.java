@@ -8,6 +8,8 @@ import common.ColumnPair;
 import listBasedKendallAlgorithms.TileBandsWithMemoryKendallCalculator;
 import listBasedKendallAlgorithms.reader.Reader;
 import sparkBasedKendallAlgorithms.SparkSessionTestSetup;
+import util.TileConstructionParameters;
+import util.TileConstructionParameters.RangeMakingMode;
 
 //import tiles.tilemgr.TilesManagerListReaderTilesInMemWCounters;
 
@@ -46,7 +48,7 @@ public class AlgoBandsWithVisitMemoryTest extends SparkSessionTestSetup {
 
    
     @Test
-    public void testCalculateListTilesWithCounters() {
+    public void testCalculateListTilesWithCountersFixed() {
         Reader reader = new Reader();
 		ColumnPair pair = null;
 		try {
@@ -57,13 +59,13 @@ public class AlgoBandsWithVisitMemoryTest extends SparkSessionTestSetup {
 			e.printStackTrace();
 		}
         
-		//TILES WITH COUNTERS
-//		TilesManagerListReaderTilesInMemWCounters tilesManagerWithCounters = new TilesManagerListReaderTilesInMemWCounters(pair);
-		TileBandsWithMemoryKendallCalculator calculator = new TileBandsWithMemoryKendallCalculator();
+		TileConstructionParameters paramsTileList = new TileConstructionParameters.Builder(false)
+				.rangeMakingMode(RangeMakingMode.FIXED)
+				.numBinsX(50)
+				.numBinsY(50)
+				.build();
+		TileBandsWithMemoryKendallCalculator calculator = new TileBandsWithMemoryKendallCalculator(paramsTileList);
 		double actual = calculator.calculateKendall(pair);
-//        //SERVICE WITH NEW TILES WITH MEMORY
-//        TilesWithCountersBandsWithMemoryCalculatorService service = new TilesWithCountersBandsWithMemoryCalculatorService(tilesManagerWithCounters);
-//        double actual = service.calculateKendallTauCorrelation();
 
         // Assert
         double delta = 0.0;
@@ -72,5 +74,32 @@ public class AlgoBandsWithVisitMemoryTest extends SparkSessionTestSetup {
 		System.out.println("Actual  :\t" + actual);
         assertEquals(expected, actual, delta);
     }
+
     
+    @Test
+    public void testCalculateListTilesWithCountersScott() {
+        Reader reader = new Reader();
+		ColumnPair pair = null;
+		try {
+			pair = reader.read(path, column1, column2, delimiter);
+		} catch (IllegalArgumentException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+        
+		TileConstructionParameters paramsTileList = new TileConstructionParameters.Builder(false)
+				.rangeMakingMode(RangeMakingMode.SCOTT_RULE)
+				.build();
+		TileBandsWithMemoryKendallCalculator calculator = new TileBandsWithMemoryKendallCalculator(paramsTileList);
+		double actual = calculator.calculateKendall(pair);
+
+        // Assert
+        double delta = 0.0;
+		System.out.println("\nBands With Memory Kendall (Tau B)");
+		System.out.println("Expected:\t" + expected);
+		System.out.println("Actual  :\t" + actual);
+        assertEquals(expected, actual, delta);
+    }
+
 }

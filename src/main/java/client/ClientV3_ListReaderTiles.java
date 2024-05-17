@@ -1,7 +1,10 @@
 package client;
 
 import listBasedKendallAlgorithms.*;
+import listBasedKendallAlgorithms.IListBasedKendallFactory.KendallCalculatorMethods;
 import listBasedKendallAlgorithms.reader.Reader;
+import util.TileConstructionParameters;
+import util.TileConstructionParameters.RangeMakingMode;
 
 import java.io.IOException;
 
@@ -20,10 +23,10 @@ public class ClientV3_ListReaderTiles {
 //        String delimiter = ",";
 
         //74001 tuples
-//        String filePath = "src\\test\\resources\\input\\acs2017_census_tract_data.csv";
-//        String column1 = "Men";
-//        String column2 = "Women";
-//        String delimiter = ",";
+        String filePath = "src\\test\\resources\\input\\acs2017_census_tract_data.csv";
+        String column1 = "Men";
+        String column2 = "Women";
+        String delimiter = ",";
         
         //108,539 tuples
         // manufacturer,model,year,price,transmission,mileage,fuelType,tax,mpg,engineSize
@@ -39,10 +42,10 @@ public class ClientV3_ListReaderTiles {
 //        String delimiter = ",";
         
         //619,040 tuples
-        String filePath = "src\\test\\resources\\input\\all_stocks_5yr.csv";
-        String column1 = "close";
-        String column2 = "volume";
-        String delimiter = ",";
+//        String filePath = "src\\test\\resources\\input\\all_stocks_5yr.csv";
+//        String column1 = "close";
+//        String column2 = "volume";
+//        String delimiter = ",";
 
         //1,000,000 = 1 million tuples
 //        String filePath = "src\\test\\resources\\input\\Random1Mil.csv";
@@ -56,7 +59,8 @@ public class ClientV3_ListReaderTiles {
 //        String column2 = "DEPARTURE_TIME";
 //        String delimiter = ",";
 
-
+		int NUM_BINS_X = 50;
+		int NUM_BINS_Y = 50;
         long startTime = -1;
         long endTime = -1;
         double elapsedTimeSeconds = -1.0;
@@ -70,37 +74,45 @@ public class ClientV3_ListReaderTiles {
         printResults("ValueReader For ALL lists: ", filePath, Double.NaN, elapsedTimeSeconds);
 
          
-        /* APACHE */
-        startTime = System.currentTimeMillis();
-        IListBasedKendallCalculator apacheKendall = methods.createKendallCalculatorByString("Apache kendall");
-        double apacheResult = apacheKendall.calculateKendall(columnPair);
-        endTime = System.currentTimeMillis();
-        elapsedTimeSeconds = (endTime - startTime) / 1000.0;
-        printResults("Apache", filePath, apacheResult, elapsedTimeSeconds);
+		/* APACHE */
+		startTime = System.currentTimeMillis();
+		IListBasedKendallCalculator apacheKendall = methods.createKendallCalculator(KendallCalculatorMethods.APACHE, null);
+		double apacheResult = apacheKendall.calculateKendall(columnPair);
+		endTime = System.currentTimeMillis();
+		elapsedTimeSeconds = (endTime - startTime) / 1000.0;
+		printResults("Apache", filePath, apacheResult, elapsedTimeSeconds);
 
-        /* TILES WITH LISTS*/
-        startTime = System.currentTimeMillis();
-        IListBasedKendallCalculator lbtbMgr = methods.createKendallCalculatorByString("ListBasedTiles");
-        double listTileKendallResult =lbtbMgr.calculateKendall(columnPair);
-        endTime = System.currentTimeMillis();
-        elapsedTimeSeconds = (endTime - startTime) / 1000.0; 
-        printResults("List Tiles", filePath, listTileKendallResult, elapsedTimeSeconds);
 
-        /* SIMPLE TILES WITH MERGESORT*/
-        startTime = System.currentTimeMillis();
-        IListBasedKendallCalculator msMgr	= methods.createKendallCalculatorByString("MergeSort");
-        double msTileKendallResult 		= msMgr.calculateKendall(columnPair);
-        endTime = System.currentTimeMillis();
-        elapsedTimeSeconds = (endTime - startTime) / 1000.0; 
-        printResults("Simple Tiles, SortMerge", filePath, msTileKendallResult, elapsedTimeSeconds);
-        
-        /* TILES WITH MEMORY*/
-        startTime = System.currentTimeMillis();
-        IListBasedKendallCalculator bwmMgr = methods.createKendallCalculatorByString("BandsWithMemory");
-        double bandsWithMemoryKendallResult =bwmMgr.calculateKendall(columnPair);
-        endTime = System.currentTimeMillis();
-        elapsedTimeSeconds = (endTime - startTime) / 1000.0; 
-        printResults("Bands With Memory", filePath, bandsWithMemoryKendallResult, elapsedTimeSeconds);
+		TileConstructionParameters paramsTileList = new TileConstructionParameters.Builder(false)
+				.rangeMakingMode(RangeMakingMode.FIXED)
+				.numBinsX(NUM_BINS_X)
+				.numBinsY(NUM_BINS_Y)
+				.build();
+		
+		/* TILES WITH LISTS*/
+		startTime = System.currentTimeMillis();
+		IListBasedKendallCalculator lbtbMgr = methods.createKendallCalculator(KendallCalculatorMethods.SIMPLE_TILES_LIST, paramsTileList);
+		double listTileKendallResult =lbtbMgr.calculateKendall(columnPair);
+		endTime = System.currentTimeMillis();
+		elapsedTimeSeconds = (endTime - startTime) / 1000.0; 
+		printResults("List Tiles", filePath, listTileKendallResult, elapsedTimeSeconds);
+
+		/* TILES WITH MEMORY*/
+		startTime = System.currentTimeMillis();
+		IListBasedKendallCalculator bwmMgr = methods.createKendallCalculator(KendallCalculatorMethods.BANDS_WITH_MEMORY, paramsTileList);
+		double bandsWithMemoryKendallResult =bwmMgr.calculateKendall(columnPair);
+		endTime = System.currentTimeMillis();
+		elapsedTimeSeconds = (endTime - startTime) / 1000.0; 
+		printResults("Bands With Memory", filePath, bandsWithMemoryKendallResult, elapsedTimeSeconds);
+
+		/* SIMPLE TILES WITH MERGESORT*/
+		startTime = System.currentTimeMillis();
+		IListBasedKendallCalculator msMgr	= methods.createKendallCalculator(KendallCalculatorMethods.MERGESORT, paramsTileList);
+		double msTileKendallResult 	= msMgr.calculateKendall(columnPair);
+		endTime = System.currentTimeMillis();
+		elapsedTimeSeconds = (endTime - startTime) / 1000.0; 
+		printResults("Simple Tiles, SortMerge", filePath, msTileKendallResult, elapsedTimeSeconds);
+
              
 
         

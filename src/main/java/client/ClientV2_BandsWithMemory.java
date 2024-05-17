@@ -1,7 +1,10 @@
 package client;
 
 import listBasedKendallAlgorithms.*;
+import listBasedKendallAlgorithms.IListBasedKendallFactory.KendallCalculatorMethods;
 import listBasedKendallAlgorithms.reader.Reader;
+import util.TileConstructionParameters;
+import util.TileConstructionParameters.RangeMakingMode;
 
 import org.apache.spark.sql.AnalysisException;
 
@@ -59,7 +62,17 @@ public class ClientV2_BandsWithMemory {
         long startTime = -1;
         long endTime = -1;
         double elapsedTimeSeconds = -1.0;
-
+		int NUM_BINS_X = 50;
+		int NUM_BINS_Y = 50;
+		
+        
+		TileConstructionParameters paramsTileList = new TileConstructionParameters.Builder(false)
+				.rangeMakingMode(RangeMakingMode.FIXED)
+				.numBinsX(NUM_BINS_X)
+				.numBinsY(NUM_BINS_Y)
+				.build();
+		
+		
         IListBasedKendallFactory methods = new IListBasedKendallFactory();
         startTime = System.currentTimeMillis();
         Reader reader = new Reader();
@@ -70,7 +83,8 @@ public class ClientV2_BandsWithMemory {
 
         /* APACHE */
         startTime = System.currentTimeMillis();
-        IListBasedKendallCalculator apacheKendall = methods.createKendallCalculatorByString("Apache kendall");
+
+		IListBasedKendallCalculator apacheKendall = methods.createKendallCalculator(KendallCalculatorMethods.APACHE, null);
         double apacheResult = apacheKendall.calculateKendall(columnPair);
         endTime = System.currentTimeMillis();
         elapsedTimeSeconds = (endTime - startTime) / 1000.0;
@@ -78,7 +92,7 @@ public class ClientV2_BandsWithMemory {
 
         /* TILES WITH LISTS*/
         startTime = System.currentTimeMillis();
-        IListBasedKendallCalculator lbtbMgr = methods.createKendallCalculatorByString("ListBasedTiles");
+		IListBasedKendallCalculator lbtbMgr = methods.createKendallCalculator(KendallCalculatorMethods.SIMPLE_TILES_LIST, paramsTileList);
         double listTileKendallResult =lbtbMgr.calculateKendall(columnPair);
         endTime = System.currentTimeMillis();
         elapsedTimeSeconds = (endTime - startTime) / 1000.0; 
@@ -86,7 +100,7 @@ public class ClientV2_BandsWithMemory {
         
         /* TILES WITH MEMORY*/
         startTime = System.currentTimeMillis();
-        IListBasedKendallCalculator bwmMgr = methods.createKendallCalculatorByString("BandsWithMemory");
+		IListBasedKendallCalculator bwmMgr = methods.createKendallCalculator(KendallCalculatorMethods.BANDS_WITH_MEMORY, paramsTileList);
         double bandsWithMemoryKendallResult =bwmMgr.calculateKendall(columnPair);
         endTime = System.currentTimeMillis();
         elapsedTimeSeconds = (endTime - startTime) / 1000.0; 

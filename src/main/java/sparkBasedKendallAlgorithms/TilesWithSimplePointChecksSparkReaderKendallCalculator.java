@@ -12,6 +12,7 @@ import tiles.algos.CalculationTimer;
 import tiles.algos.CorrelationStatistics;
 import tiles.dom.ITile;
 import tiles.tilemgr.TilesManagerSparkReaderTilesInMemSimple;
+import util.TileConstructionParameters;
 
 /**
  * Tiles: Simple (InMem with Simple structure)
@@ -23,8 +24,9 @@ import tiles.tilemgr.TilesManagerSparkReaderTilesInMemSimple;
  *
  */
 public class TilesWithSimplePointChecksSparkReaderKendallCalculator {
-	protected static final boolean DEBUG_FLAG = false;
-    private Dataset<Row> dataset;
+	protected boolean DEBUG_FLAG = false;
+	protected boolean EXPERIMENT_FLAG = false;
+	private Dataset<Row> dataset;
     private final SparkSession sparkSession;
 
     public TilesWithSimplePointChecksSparkReaderKendallCalculator() {
@@ -37,8 +39,8 @@ public class TilesWithSimplePointChecksSparkReaderKendallCalculator {
         dataset = datasetReaderFactory.createDatasetReader(filePath).read(column1, column2);
     }
 
-    public double calculateKendallTau(String column1, String column2) {
-        TilesManagerSparkReaderTilesInMemSimple tilesManager = new TilesManagerSparkReaderTilesInMemSimple(dataset, column1, column2);
+    public double calculateKendallTau(String column1, String column2, TileConstructionParameters parameters) {
+        TilesManagerSparkReaderTilesInMemSimple tilesManager = new TilesManagerSparkReaderTilesInMemSimple(dataset, column1, column2, parameters);
 //        TileBasedCalculatorService calculatorService = new TileBasedCalculatorService(tilesManagerSparkReaderTilesInMemSimple);
 //        return calculatorService.calculateKendallTauCorrelation(AlgoEnum.SPARK_TILES_ALGO);
 //    }

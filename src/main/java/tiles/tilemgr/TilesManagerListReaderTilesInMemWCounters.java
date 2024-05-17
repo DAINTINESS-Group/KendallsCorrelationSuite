@@ -9,14 +9,18 @@ import tiles.dom.TileInMemWCounters;
 import tiles.tilemgr.rangemaker.RangeMakerFactory;
 import tiles.tilemgr.rangemaker.RangeMakerInterface;
 import tiles.tilemgr.rangemaker.RangeMakerResult;
+import util.TileConstructionParameters;
+import util.TileConstructionParameters.RangeMakingMode;
 
 public class TilesManagerListReaderTilesInMemWCounters implements ITilesManager  {
-	public enum RangeMakerMethodEnum{FIXED, SCOTT};
+	//protected RangeMakerMethodEnum rangeMakerMethod;
+	
+	protected boolean DEBUG_FLAG = false;
+	protected boolean EXPERIMENT_FLAG = false;
+	protected TileConstructionParameters parameters; 
+	protected RangeMakingMode rangeMakerMethod;
 	
 	protected final ColumnPair pair;
-	protected RangeMakerMethodEnum rangeMakerMethod;
-	protected static final boolean DEBUG_FLAG = false;
-	protected static final boolean EXP_FLAG = false;
 	protected static TileInMemWCounters[][] tiles;
 	protected long datasetRowCount;
 	protected int numOfBinsX;
@@ -24,17 +28,14 @@ public class TilesManagerListReaderTilesInMemWCounters implements ITilesManager 
 	protected double rangeWidthX;
 	protected double rangeWidthY;
 	protected ColumnsStatistics columnsStatistics;
-	//	    protected ITileType tileType;
-	//	    protected ITileFactory tileFactory;
 
-	public TilesManagerListReaderTilesInMemWCounters(ColumnPair pair) {
-		this.pair = pair;
-		this.rangeMakerMethod = RangeMakerMethodEnum.SCOTT;
-	}
 
-	public TilesManagerListReaderTilesInMemWCounters(ColumnPair pair, RangeMakerMethodEnum method) {
+	public TilesManagerListReaderTilesInMemWCounters(ColumnPair pair, TileConstructionParameters parameters) {
 		this.pair = pair;
-		this.rangeMakerMethod = method;
+        this.DEBUG_FLAG = parameters.isDebugModeOn();
+        this.EXPERIMENT_FLAG = parameters.isExperimentModeOn();
+        this.parameters = parameters;
+        this.rangeMakerMethod = this.parameters.getRangeMakingMode();
 	}
 
 	public TileInMemWCounters[][] createTilesArray() {
@@ -43,7 +44,7 @@ public class TilesManagerListReaderTilesInMemWCounters implements ITilesManager 
 		calculateMinMaxColumnValues();
 			double end = System.currentTimeMillis();
 			double elapsed = (end - start) / 1000.0;
-			if(EXP_FLAG) {
+			if(EXPERIMENT_FLAG) {
 				System.out.println("X,Y min and max and stddev took: " + elapsed + " seconds");
 			}
 
@@ -51,7 +52,7 @@ public class TilesManagerListReaderTilesInMemWCounters implements ITilesManager 
 		setupTilesArrayMetadata();
 			end = System.currentTimeMillis();
 			elapsed = (end - start) / 1000.0;
-			if(EXP_FLAG) {
+			if(EXPERIMENT_FLAG) {
 				System.out.println("Tiles bin number and binWidth calculations took: " + elapsed + " seconds");
 			}
 			if(DEBUG_FLAG) {
@@ -63,7 +64,7 @@ public class TilesManagerListReaderTilesInMemWCounters implements ITilesManager 
 		initializeTilesArray();
 			end = System.currentTimeMillis();
 			elapsed = (end - start) / 1000.0;
-			if(EXP_FLAG) {
+			if(EXPERIMENT_FLAG) {
 				System.out.println("Tiles initialization took: " + elapsed + " seconds");
 			}
 
@@ -71,7 +72,7 @@ public class TilesManagerListReaderTilesInMemWCounters implements ITilesManager 
 		populateTiles();
 			end = System.currentTimeMillis();
 			elapsed = (end - start) / 1000.0;
-			if(EXP_FLAG) {
+			if(EXPERIMENT_FLAG) {
 				System.out.println("Tiles Population took " + elapsed + " seconds\n");
 			}
 			if(DEBUG_FLAG) {
@@ -94,15 +95,16 @@ public class TilesManagerListReaderTilesInMemWCounters implements ITilesManager 
 		RangeMakerFactory factory = new RangeMakerFactory();
 		RangeMakerInterface rangeMaker = null;
 		switch(this.rangeMakerMethod) {
-		//TODO IMPROVE IMPROVE IMPROVE
-		//obviously deserves better.
-		//Constructor should get a hashmap of strings with various parameters and move on.
 			case FIXED: 
-				final int BINS_X = 1000;
-				final int BINS_Y = 1000;
+				final int BINS_X = parameters.getNumBinsX();
+				final int BINS_Y = parameters.getNumBinsY();
 				rangeMaker = factory.makeRangeMakerFixedNumBins(columnsStatistics, BINS_X, BINS_Y);
 				break;
+			case SCOTT_RULE:  
+				rangeMaker = factory.makeRangeMakerScottRule(columnsStatistics);
+				break;
 			default://implies SCOTT too
+				this.rangeMakerMethod = RangeMakingMode.SCOTT_RULE;
 				rangeMaker = factory.makeRangeMakerScottRule(columnsStatistics);
 		}
 		RangeMakerResult result = rangeMaker.divideColumnsInBinsAndRanges();

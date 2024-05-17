@@ -12,6 +12,8 @@ import listBasedKendallAlgorithms.TilesWithSimplePointChecksListReaderKendallCal
 import listBasedKendallAlgorithms.reader.Reader;
 import sparkBasedKendallAlgorithms.SparkSessionTestSetup;
 import sparkBasedKendallAlgorithms.TilesWithSimplePointChecksSparkReaderKendallCalculator;
+import util.TileConstructionParameters;
+import util.TileConstructionParameters.RangeMakingMode;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -58,7 +60,12 @@ public class AlgoSimpleTilesAndPointComparisonTest extends SparkSessionTestSetup
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-        double actual = tilesWithSimplePointChecksSparkReaderKendallCalculator.calculateKendallTau(column1, column2);
+		TileConstructionParameters paramsSparkTileList = new TileConstructionParameters.Builder(false)
+				.rangeMakingMode(RangeMakingMode.FIXED)
+				.numBinsX(50)
+				.numBinsY(50)
+				.build();
+        double actual = tilesWithSimplePointChecksSparkReaderKendallCalculator.calculateKendallTau(column1, column2, paramsSparkTileList);
 //        
 //        TileBasedCalculatorService service = new TileBasedCalculatorService(tilesManagerSparkBased);
 //        double actual = service.calculateKendallTauCorrelation(AlgoEnum.SPARK_TILES_ALGO);

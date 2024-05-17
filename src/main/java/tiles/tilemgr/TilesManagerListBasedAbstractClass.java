@@ -8,12 +8,11 @@ import common.ColumnsStatistics;
 import tiles.dom.DoublePair;
 
 public abstract class TilesManagerListBasedAbstractClass extends TilesManagerAbstractClass  {
-    
+	protected abstract void initializeTilesArray();
     private final ColumnPair pair;
-
-    protected abstract void initializeTilesArray();
     
     public TilesManagerListBasedAbstractClass(ColumnPair pair) {
+    	super();
         this.pair = pair;
     }
 

@@ -1,6 +1,13 @@
 package client;
 
+import java.io.File;
+import java.io.IOException;
+
+import org.apache.spark.sql.AnalysisException;
+
+import common.ColumnPair;
 import listBasedKendallAlgorithms.*;
+import listBasedKendallAlgorithms.IListBasedKendallFactory.KendallCalculatorMethods;
 import listBasedKendallAlgorithms.reader.Reader;
 import sparkBasedKendallAlgorithms.TilesWithSimplePointChecksSparkReaderStoredTilesKendallCalculator;
 import tiles.dom.writer.WriterSetup;
@@ -8,17 +15,10 @@ import util.TileConstructionParameters;
 import util.TileConstructionParameters.RangeMakingMode;
 import sparkBasedKendallAlgorithms.TilesWithSimplePointChecksSparkReaderKendallCalculator;
 
-import org.apache.spark.sql.AnalysisException;
-
-import common.ColumnPair;
-
-import java.io.File;
-import java.io.IOException;
-
 
 public class ClientV9_FullTestAll {
 	public static void main(String[] args) throws IOException, AnalysisException {
-
+	
 		//74001 tuples
 		String filePath = "src\\test\\resources\\input\\acs2017_census_tract_data.csv";
 		String column1 = "Hispanic";
@@ -62,7 +62,8 @@ public class ClientV9_FullTestAll {
 		//        String column2 = "DEPARTURE_TIME";
 		//        String delimiter = ",";
 
-
+		int NUM_BINS_X = 50;
+		int NUM_BINS_Y = 50;
 		long startTime = -1;
 		long endTime = -1;
 		double elapsedTimeSeconds = -1.0;
@@ -75,42 +76,8 @@ public class ClientV9_FullTestAll {
 		elapsedTimeSeconds = (endTime - startTime) / 1000.0;
 		printResults("ValueReader For ALL lists: ", filePath, Double.NaN, elapsedTimeSeconds);
 
-
-		/* APACHE */
-		startTime = System.currentTimeMillis();
-		IListBasedKendallCalculator apacheKendall = methods.createKendallCalculatorByString("Apache kendall");
-		double apacheResult = apacheKendall.calculateKendall(columnPair);
-		endTime = System.currentTimeMillis();
-		elapsedTimeSeconds = (endTime - startTime) / 1000.0;
-		printResults("Apache", filePath, apacheResult, elapsedTimeSeconds);
-
-		/* TILES WITH LISTS*/
-		startTime = System.currentTimeMillis();
-		IListBasedKendallCalculator lbtbMgr = methods.createKendallCalculatorByString("ListBasedTiles");
-		double listTileKendallResult =lbtbMgr.calculateKendall(columnPair);
-		endTime = System.currentTimeMillis();
-		elapsedTimeSeconds = (endTime - startTime) / 1000.0; 
-		printResults("List Tiles", filePath, listTileKendallResult, elapsedTimeSeconds);
-
-		/* TILES WITH MEMORY*/
-		startTime = System.currentTimeMillis();
-		IListBasedKendallCalculator bwmMgr = methods.createKendallCalculatorByString("BandsWithMemory");
-		double bandsWithMemoryKendallResult =bwmMgr.calculateKendall(columnPair);
-		endTime = System.currentTimeMillis();
-		elapsedTimeSeconds = (endTime - startTime) / 1000.0; 
-		printResults("Bands With Memory", filePath, bandsWithMemoryKendallResult, elapsedTimeSeconds);
-
-
-		/* SIMPLE TILES WITH MERGESORT*/
-		startTime = System.currentTimeMillis();
-		IListBasedKendallCalculator msMgr	= methods.createKendallCalculatorByString("MergeSort");
-		double msTileKendallResult 		= msMgr.calculateKendall(columnPair);
-		endTime = System.currentTimeMillis();
-		elapsedTimeSeconds = (endTime - startTime) / 1000.0; 
-		printResults("Simple Tiles, SortMerge", filePath, msTileKendallResult, elapsedTimeSeconds);
-
 		/* BRUTE */
-		IListBasedKendallCalculator bruteForceTauA = methods.createKendallCalculatorByString("BruteForce");
+		IListBasedKendallCalculator bruteForceTauA = methods.createKendallCalculator(KendallCalculatorMethods.BRUTEFORCE, null);
 		startTime = System.currentTimeMillis();
 		double actualBruteForce = bruteForceTauA.calculateKendall(columnPair);
 		endTime = System.currentTimeMillis();
@@ -118,13 +85,54 @@ public class ClientV9_FullTestAll {
 		printResults("Brute Force", filePath, actualBruteForce, elapsedTimeSeconds);      
 
 		/* BROPHY */
-		IListBasedKendallCalculator brophyKendallTauB = methods.createKendallCalculatorByString("Brophy");
+		IListBasedKendallCalculator brophyKendallTauB = methods.createKendallCalculator(KendallCalculatorMethods.BROPHY, null);
 		startTime = System.currentTimeMillis();
 		double actualBrophy = brophyKendallTauB.calculateKendall(columnPair);
 		endTime = System.currentTimeMillis();
 		elapsedTimeSeconds = (endTime - startTime) / 1000.0;
 		printResults("Brophy", filePath, actualBrophy, elapsedTimeSeconds);
 
+		
+		/* APACHE */
+		startTime = System.currentTimeMillis();
+		IListBasedKendallCalculator apacheKendall = methods.createKendallCalculator(KendallCalculatorMethods.APACHE, null);
+		double apacheResult = apacheKendall.calculateKendall(columnPair);
+		endTime = System.currentTimeMillis();
+		elapsedTimeSeconds = (endTime - startTime) / 1000.0;
+		printResults("Apache", filePath, apacheResult, elapsedTimeSeconds);
+
+
+		TileConstructionParameters paramsTileList = new TileConstructionParameters.Builder(false)
+				.rangeMakingMode(RangeMakingMode.FIXED)
+				.numBinsX(NUM_BINS_X)
+				.numBinsY(NUM_BINS_Y)
+				.build();
+		
+		/* TILES WITH LISTS*/
+		startTime = System.currentTimeMillis();
+		IListBasedKendallCalculator lbtbMgr = methods.createKendallCalculator(KendallCalculatorMethods.SIMPLE_TILES_LIST, paramsTileList);
+		double listTileKendallResult =lbtbMgr.calculateKendall(columnPair);
+		endTime = System.currentTimeMillis();
+		elapsedTimeSeconds = (endTime - startTime) / 1000.0; 
+		printResults("List Tiles", filePath, listTileKendallResult, elapsedTimeSeconds);
+
+		/* TILES WITH MEMORY*/
+		startTime = System.currentTimeMillis();
+		IListBasedKendallCalculator bwmMgr = methods.createKendallCalculator(KendallCalculatorMethods.BANDS_WITH_MEMORY, paramsTileList);
+		double bandsWithMemoryKendallResult =bwmMgr.calculateKendall(columnPair);
+		endTime = System.currentTimeMillis();
+		elapsedTimeSeconds = (endTime - startTime) / 1000.0; 
+		printResults("Bands With Memory", filePath, bandsWithMemoryKendallResult, elapsedTimeSeconds);
+
+		/* SIMPLE TILES WITH MERGESORT*/
+		startTime = System.currentTimeMillis();
+		IListBasedKendallCalculator msMgr	= methods.createKendallCalculator(KendallCalculatorMethods.MERGESORT, paramsTileList);
+		double msTileKendallResult 	= msMgr.calculateKendall(columnPair);
+		endTime = System.currentTimeMillis();
+		elapsedTimeSeconds = (endTime - startTime) / 1000.0; 
+		printResults("Simple Tiles, SortMerge", filePath, msTileKendallResult, elapsedTimeSeconds);
+	
+		
 		/* Tile Implementation with SPARK and valuePairs*/
 		startTime = System.currentTimeMillis();
 		TilesWithSimplePointChecksSparkReaderKendallCalculator tilesWithSimplePointChecksSparkReaderKendallCalculator = new TilesWithSimplePointChecksSparkReaderKendallCalculator();
@@ -132,14 +140,18 @@ public class ClientV9_FullTestAll {
 		endTime = System.currentTimeMillis();
 		elapsedTimeSeconds = (endTime - startTime) / 1000.0;
 		System.out.println("Spark InitialSetup and Dataset loading took: " + elapsedTimeSeconds + "\n");
-
+	
+		TileConstructionParameters paramsSparkTileList = new TileConstructionParameters.Builder(false)
+				.rangeMakingMode(RangeMakingMode.FIXED)
+				.numBinsX(NUM_BINS_X)
+				.numBinsY(NUM_BINS_Y)
+				.build();
 		startTime = System.currentTimeMillis();
-		double sparkKendall = tilesWithSimplePointChecksSparkReaderKendallCalculator.calculateKendallTau(column1, column2);
+		double sparkListKendall = tilesWithSimplePointChecksSparkReaderKendallCalculator.calculateKendallTau(column1, column2, paramsSparkTileList);
 		endTime = System.currentTimeMillis();
 		elapsedTimeSeconds = (endTime - startTime) / 1000.0;
-		printResults("Spark w. Simple InMem Tiles", filePath, sparkKendall, elapsedTimeSeconds);
-
-
+		printResults("Spark w. Simple InMem Tiles", filePath, sparkListKendall, elapsedTimeSeconds);
+	
 		/* Tile Implementation with SPARK and stored tiles*/
 		startTime = System.currentTimeMillis();            
 		TilesWithSimplePointChecksSparkReaderStoredTilesKendallCalculator tilesWithSimplePointChecksSparkReaderStoredTilesKendallCalculator= new TilesWithSimplePointChecksSparkReaderStoredTilesKendallCalculator();
@@ -148,16 +160,16 @@ public class ClientV9_FullTestAll {
 		elapsedTimeSeconds = (endTime - startTime) / 1000.0;
 		System.out.println("Spark InitialSetup and Dataset loading took: " + elapsedTimeSeconds + "\n");
 
-		TileConstructionParameters params = new TileConstructionParameters.Builder(false)
+		TileConstructionParameters paramsSparkTileStored = new TileConstructionParameters.Builder(false)
 				.rangeMakingMode(RangeMakingMode.FIXED)
-				.numBinsX(50)
-				.numBinsY(50)
+				.numBinsX(NUM_BINS_X)
+				.numBinsY(NUM_BINS_Y)
 				.build();
 		startTime = System.currentTimeMillis();
-		double sparkTileKendallResult = tilesWithSimplePointChecksSparkReaderStoredTilesKendallCalculator.calculateKendallTau(column1, column2, params);
+		double sparkTileStoredResult = tilesWithSimplePointChecksSparkReaderStoredTilesKendallCalculator.calculateKendallTau(column1, column2, paramsSparkTileStored);
 		endTime = System.currentTimeMillis();
 		elapsedTimeSeconds = (endTime - startTime) / 1000.0;
-		printResults("Spark: Simple Structure + Stored Tiles", filePath, sparkTileKendallResult, elapsedTimeSeconds);
+		printResults("Spark: Simple Structure + Stored Tiles", filePath, sparkTileStoredResult, elapsedTimeSeconds);
 
 		Thread deleteThread = new Thread(() -> {
 			boolean deletionFlag = tilesWithSimplePointChecksSparkReaderStoredTilesKendallCalculator.deleteSubFolders(new File(WriterSetup.getOutputExecDir()));

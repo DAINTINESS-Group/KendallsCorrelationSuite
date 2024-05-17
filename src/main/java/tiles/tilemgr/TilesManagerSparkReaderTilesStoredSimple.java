@@ -8,11 +8,11 @@ import org.apache.spark.sql.Row;
 import common.ColumnsStatistics;
 import tiles.dom.DoublePair;
 import tiles.dom.TileStoredSimple;
-import tiles.tilemgr.TilesManagerListReaderTilesInMemWCounters.RangeMakerMethodEnum;
 import tiles.tilemgr.rangemaker.RangeMakerFactory;
 import tiles.tilemgr.rangemaker.RangeMakerInterface;
 import tiles.tilemgr.rangemaker.RangeMakerResult;
 import util.TileConstructionParameters;
+import util.TileConstructionParameters.RangeMakingMode;
 
 import static org.apache.spark.sql.functions.*;
 
@@ -30,7 +30,7 @@ public class TilesManagerSparkReaderTilesStoredSimple implements Serializable, I
 	protected double rangeWidthY;
 	protected RangeMakerInterface rangeMaker = null;
 	protected ColumnsStatistics columnsStatistics;
-	protected RangeMakerMethodEnum rangeMakerMethod;
+	protected RangeMakingMode rangeMakerMethod;
 	protected TileConstructionParameters parameters; 
 	
     private final String column1;
@@ -105,13 +105,14 @@ public class TilesManagerSparkReaderTilesStoredSimple implements Serializable, I
 
 	protected void setupTilesArrayMetadata() {
 		RangeMakerFactory factory = new RangeMakerFactory();
+		
 		switch(parameters.getRangeMakingMode()) {
 			case SCOTT_RULE: 
-				this.rangeMakerMethod = RangeMakerMethodEnum.SCOTT; 
+				this.rangeMakerMethod =parameters.getRangeMakingMode(); 
 				rangeMaker = factory.makeRangeMakerScottRule(columnsStatistics);
 				break;
 			case FIXED:
-				this.rangeMakerMethod = RangeMakerMethodEnum.FIXED; //DECIDE: FIXED or SCOTT?
+				this.rangeMakerMethod =parameters.getRangeMakingMode();
 				final int BINS_X = parameters.getNumBinsX();
 				final int BINS_Y = parameters.getNumBinsY();
 				rangeMaker = factory.makeRangeMakerFixedNumBins(columnsStatistics, BINS_X, BINS_Y);

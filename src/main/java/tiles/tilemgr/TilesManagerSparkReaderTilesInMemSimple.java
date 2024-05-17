@@ -10,22 +10,29 @@ import org.apache.spark.sql.Row;
 import tiles.dom.ITile;
 import tiles.dom.ITileFactory;
 import tiles.dom.ITileType;
+import util.TileConstructionParameters;
 
 //import static org.apache.spark.sql.functions.*;
 
 
 public class TilesManagerSparkReaderTilesInMemSimple extends TilesManagerSparkBasedAbstractClass implements Serializable {
     private static final long serialVersionUID = 8765154256335271048L;
+	protected boolean DEBUG_FLAG ;
+	protected boolean EXPERIMENT_FLAG ;
+	protected TileConstructionParameters parameters; 
 
 //    private final String column1;
 //    private final String column2;
 //    private final Dataset<Row> dataset;
 
-    public TilesManagerSparkReaderTilesInMemSimple(Dataset<Row> dataset, String column1, String column2) {
+    public TilesManagerSparkReaderTilesInMemSimple(Dataset<Row> dataset, String column1, String column2, TileConstructionParameters parameters) {
     	super(column1, column2, dataset);
 
         this.tileType = ITileType.WITH_COUNTER_MAPS;
         this.tileFactory = new ITileFactory();
+        this.DEBUG_FLAG = parameters.isDebugModeOn();
+        this.EXPERIMENT_FLAG = parameters.isExperimentModeOn();
+        this.parameters = parameters;
     }
 
     @Override
