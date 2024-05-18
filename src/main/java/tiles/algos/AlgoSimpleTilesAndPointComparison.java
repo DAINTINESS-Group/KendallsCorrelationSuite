@@ -172,6 +172,17 @@ public class AlgoSimpleTilesAndPointComparison {
         }
     }
 
+    /**
+     * compares two tuples and increases the respective counter
+     * 
+     * Attn: if (x1==x2 && y1==y2) we do not increase anything.
+     * Whenever two points are "identical" they do not count as a tie
+     * The tests with external code that also computes Kendall also confirm this.
+     * Do NOT fix
+     * 
+     * @param pair1 the first DoublePair <x,y> tuple
+     * @param pair2 the second DoublePair <x,y> tuple
+     */
     protected void compareValuePairs(DoublePair pair1, DoublePair pair2) {
         double x1 = pair1.getX(), y1 = pair1.getY();
         double x2 = pair2.getX(), y2 = pair2.getY();
