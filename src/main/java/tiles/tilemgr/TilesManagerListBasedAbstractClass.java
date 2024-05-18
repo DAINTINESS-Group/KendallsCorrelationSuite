@@ -6,15 +6,22 @@ import java.util.List;
 import common.ColumnPair;
 import common.ColumnsStatistics;
 import tiles.dom.DoublePair;
+import util.TileConstructionParameters;
 
 public abstract class TilesManagerListBasedAbstractClass extends TilesManagerAbstractClass  {
+	public TilesManagerListBasedAbstractClass(ColumnPair pair, TileConstructionParameters parameters) {
+		super(parameters);
+		this.pair = pair;
+	}
+
+
 	protected abstract void initializeTilesArray();
     private final ColumnPair pair;
     
-    public TilesManagerListBasedAbstractClass(ColumnPair pair) {
-    	super();
-        this.pair = pair;
-    }
+//    public TilesManagerListBasedAbstractClass(ColumnPair pair) {
+//    	super();
+//        this.pair = pair;
+//    }
 
     protected final void populateTiles() {
     	List<Double> xList = pair.getXColumn();

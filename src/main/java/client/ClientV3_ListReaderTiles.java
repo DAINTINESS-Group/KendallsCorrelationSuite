@@ -17,16 +17,16 @@ public class ClientV3_ListReaderTiles {
     public static void main(String[] args) throws IllegalArgumentException, IOException {
 
     	//74001 tuples
-//        String filePath = "src\\test\\resources\\input\\acs2017_census_tract_data.csv";
-//        String column1 = "Hispanic";
-//        String column2 = "Native";
-//        String delimiter = ",";
+        String filePath = "src\\test\\resources\\input\\acs2017_census_tract_data.csv";
+        String column1 = "Hispanic";
+        String column2 = "Native";
+        String delimiter = ",";
 
         //74001 tuples
-        String filePath = "src\\test\\resources\\input\\acs2017_census_tract_data.csv";
-        String column1 = "Men";
-        String column2 = "Women";
-        String delimiter = ",";
+//        String filePath = "src\\test\\resources\\input\\acs2017_census_tract_data.csv";
+//        String column1 = "Men";
+//        String column2 = "Women";
+//        String delimiter = ",";
         
         //108,539 tuples
         // manufacturer,model,year,price,transmission,mileage,fuelType,tax,mpg,engineSize
@@ -40,7 +40,7 @@ public class ClientV3_ListReaderTiles {
 //        String column1 = "low";
 //        String column2 = "high";
 //        String delimiter = ",";
-        
+//        
         //619,040 tuples
 //        String filePath = "src\\test\\resources\\input\\all_stocks_5yr.csv";
 //        String column1 = "close";
@@ -59,8 +59,6 @@ public class ClientV3_ListReaderTiles {
 //        String column2 = "DEPARTURE_TIME";
 //        String delimiter = ",";
 
-		int NUM_BINS_X = 50;
-		int NUM_BINS_Y = 50;
         long startTime = -1;
         long endTime = -1;
         double elapsedTimeSeconds = -1.0;
@@ -81,9 +79,12 @@ public class ClientV3_ListReaderTiles {
 		endTime = System.currentTimeMillis();
 		elapsedTimeSeconds = (endTime - startTime) / 1000.0;
 		printResults("Apache", filePath, apacheResult, elapsedTimeSeconds);
+		checkMemory();
 
-
+		int NUM_BINS_X = 100;
+		int NUM_BINS_Y = 100;
 		TileConstructionParameters paramsTileList = new TileConstructionParameters.Builder(false)
+//				.rangeMakingMode(RangeMakingMode.SCOTT_RULE)
 				.rangeMakingMode(RangeMakingMode.FIXED)
 				.numBinsX(NUM_BINS_X)
 				.numBinsY(NUM_BINS_Y)
@@ -96,14 +97,7 @@ public class ClientV3_ListReaderTiles {
 		endTime = System.currentTimeMillis();
 		elapsedTimeSeconds = (endTime - startTime) / 1000.0; 
 		printResults("List Tiles", filePath, listTileKendallResult, elapsedTimeSeconds);
-
-		/* TILES WITH MEMORY*/
-		startTime = System.currentTimeMillis();
-		IListBasedKendallCalculator bwmMgr = methods.createKendallCalculator(KendallCalculatorMethods.BANDS_WITH_MEMORY, paramsTileList);
-		double bandsWithMemoryKendallResult =bwmMgr.calculateKendall(columnPair);
-		endTime = System.currentTimeMillis();
-		elapsedTimeSeconds = (endTime - startTime) / 1000.0; 
-		printResults("Bands With Memory", filePath, bandsWithMemoryKendallResult, elapsedTimeSeconds);
+		checkMemory();
 
 		/* SIMPLE TILES WITH MERGESORT*/
 		startTime = System.currentTimeMillis();
@@ -112,10 +106,17 @@ public class ClientV3_ListReaderTiles {
 		endTime = System.currentTimeMillis();
 		elapsedTimeSeconds = (endTime - startTime) / 1000.0; 
 		printResults("Simple Tiles, SortMerge", filePath, msTileKendallResult, elapsedTimeSeconds);
-
-             
-
-        
+		checkMemory();
+		
+		/* TILES WITH MEMORY*/
+		startTime = System.currentTimeMillis();
+		IListBasedKendallCalculator bwmMgr = methods.createKendallCalculator(KendallCalculatorMethods.BANDS_WITH_MEMORY, paramsTileList);
+		double bandsWithMemoryKendallResult =bwmMgr.calculateKendall(columnPair);
+		endTime = System.currentTimeMillis();
+		elapsedTimeSeconds = (endTime - startTime) / 1000.0; 
+		printResults("Bands With Memory", filePath, bandsWithMemoryKendallResult, elapsedTimeSeconds);
+		checkMemory();
+		
     }//end main
 
 
@@ -127,4 +128,22 @@ public class ClientV3_ListReaderTiles {
         System.out.println(methodName+" elapsed time (sec):\t" + elapsedTimeSeconds + " seconds");
         System.out.println(" ----- \n");
 	}
-}
+    
+	private static void checkMemory() {
+		System.out.println("Calling garbageCollector");
+		Runtime runtime = Runtime.getRuntime();
+		runtime.gc();
+		long total = runtime.totalMemory();
+		long free = runtime.freeMemory();
+		long usedMemory= total - free;
+		System.out.println("Used/Free/Total Memory (MB): "+ bytesToMegabytes(usedMemory) + 
+				"\t" + bytesToMegabytes(free) + "\t" + bytesToMegabytes(total));
+	}
+
+
+	public static long bytesToMegabytes(long bytes) {
+		final long MEGABYTE = 1024L * 1024L;
+		return bytes / MEGABYTE;
+	}
+    
+}//end class

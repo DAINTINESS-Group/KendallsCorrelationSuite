@@ -7,6 +7,7 @@ import tiles.algos.CorrelationStatisticsMergeSort;
 import tiles.dom.ITile;
 import tiles.tilemgr.ITilesManager;
 import tiles.tilemgr.TilesManagerListReaderTilesInMemSimple;
+import util.TileConstructionParameters;
 
 /**
  * Tiles: Simple (InMem with Simple structure)
@@ -19,11 +20,15 @@ import tiles.tilemgr.TilesManagerListReaderTilesInMemSimple;
  */
 public class TilesMergeSortListReaderKendallCalculator implements IListBasedKendallCalculator{
 	protected static final boolean DEBUG_FLAG = false;
-	//	private ITilesManager tilesManager;
+	protected TileConstructionParameters parameters;
+
+	public TilesMergeSortListReaderKendallCalculator(TileConstructionParameters parameters) {
+		this.parameters = parameters;
+	}
 
 	@Override
 	public double calculateKendall(ColumnPair pair) {
-		ITilesManager tilesManager = new TilesManagerListReaderTilesInMemSimple(pair);
+		ITilesManager tilesManager = new TilesManagerListReaderTilesInMemSimple(pair, parameters);
 		int numTuples = pair.getSize();
 		CorrelationStatisticsMergeSort statistics = new CorrelationStatisticsMergeSort(numTuples);
 		CalculationTimer timer = new CalculationTimer();

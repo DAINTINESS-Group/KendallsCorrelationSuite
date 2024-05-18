@@ -26,13 +26,13 @@ public class TilesManagerSparkReaderTilesInMemSimple extends TilesManagerSparkBa
 //    private final Dataset<Row> dataset;
 
     public TilesManagerSparkReaderTilesInMemSimple(Dataset<Row> dataset, String column1, String column2, TileConstructionParameters parameters) {
-    	super(column1, column2, dataset);
+    	super(column1, column2, dataset, parameters);
 
         this.tileType = ITileType.WITH_COUNTER_MAPS;
         this.tileFactory = new ITileFactory();
-        this.DEBUG_FLAG = parameters.isDebugModeOn();
-        this.EXPERIMENT_FLAG = parameters.isExperimentModeOn();
-        this.parameters = parameters;
+//        this.DEBUG_FLAG = parameters.isDebugModeOn();
+//        this.EXPERIMENT_FLAG = parameters.isExperimentModeOn();
+//        this.parameters = parameters;
     }
 
     @Override

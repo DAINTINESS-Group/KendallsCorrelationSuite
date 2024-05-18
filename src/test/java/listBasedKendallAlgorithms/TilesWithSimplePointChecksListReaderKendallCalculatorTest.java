@@ -1,17 +1,31 @@
 package listBasedKendallAlgorithms;
 
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import common.ColumnPair;
 import listBasedKendallAlgorithms.reader.Reader;
+import util.TileConstructionParameters;
+import util.TileConstructionParameters.RangeMakingMode;
 
 import static org.junit.Assert.assertEquals;
 
 import java.io.IOException;
 
 public class TilesWithSimplePointChecksListReaderKendallCalculatorTest {
-	private static 	Reader reader = new Reader();
-	private static TilesWithSimplePointChecksListReaderKendallCalculator lbtbMgr = new TilesWithSimplePointChecksListReaderKendallCalculator();
+	private static 	Reader reader;
+	private static TilesWithSimplePointChecksListReaderKendallCalculator lbtbMgr;
+	
+	@BeforeClass
+	public static void setup() {
+		TileConstructionParameters params = new TileConstructionParameters.Builder(false)
+				.rangeMakingMode(RangeMakingMode.FIXED)
+				.numBinsX(50)
+				.numBinsY(50)
+				.build();
+		reader = new Reader();
+		lbtbMgr = new TilesWithSimplePointChecksListReaderKendallCalculator(params);
+	}
 	
 	@Test
 	public final void testCalculateKendallTauA() {

@@ -13,6 +13,7 @@ import org.apache.spark.sql.Row;
 
 import common.ColumnsStatistics;
 import tiles.dom.DoublePair;
+import util.TileConstructionParameters;
 
 public abstract class TilesManagerSparkBasedAbstractClass extends TilesManagerAbstractClass implements Serializable {
 	private static final long serialVersionUID = -5974793799395000583L;
@@ -23,8 +24,8 @@ public abstract class TilesManagerSparkBasedAbstractClass extends TilesManagerAb
     protected abstract void initializeTilesArray();
 
 	
-	public TilesManagerSparkBasedAbstractClass(String column1, String column2, Dataset<Row> dataset) {
-		super();
+	public TilesManagerSparkBasedAbstractClass(String column1, String column2, Dataset<Row> dataset, TileConstructionParameters parameters) {
+		super(parameters);
 		this.column1 = column1;
 		this.column2 = column2;
 		this.dataset = dataset;

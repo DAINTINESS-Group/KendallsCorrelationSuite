@@ -90,9 +90,15 @@ public class AlgoSimpleTilesAndPointComparisonTest extends SparkSessionTestSetup
 			e.printStackTrace();
 		}
         
+		TileConstructionParameters params = new TileConstructionParameters.Builder(false)
+				.rangeMakingMode(RangeMakingMode.FIXED)
+				.numBinsX(50)
+				.numBinsY(50)
+				.build();
+
 		//SIMPLE TILES MANAGER
 //		ITilesManager tilesManagerListBased = new TilesManagerListReaderTilesInMemSimple(pair);
-        TilesWithSimplePointChecksListReaderKendallCalculator calculator = new TilesWithSimplePointChecksListReaderKendallCalculator();
+        TilesWithSimplePointChecksListReaderKendallCalculator calculator = new TilesWithSimplePointChecksListReaderKendallCalculator(params);
         double actual = calculator.calculateKendall(pair);
 //        //SIMPLE TILES SERVICE
 //        TileBasedCalculatorService service = new TileBasedCalculatorService(tilesManagerListBased);

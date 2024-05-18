@@ -8,6 +8,8 @@ import org.junit.runners.Parameterized;
 import common.ColumnPair;
 import listBasedKendallAlgorithms.TilesMergeSortListReaderKendallCalculator;
 import listBasedKendallAlgorithms.reader.Reader;
+import util.TileConstructionParameters;
+import util.TileConstructionParameters.RangeMakingMode;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -53,8 +55,12 @@ public class AlgoTilesMergeSortTest  {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
-		TilesMergeSortListReaderKendallCalculator calculator = new TilesMergeSortListReaderKendallCalculator();
+		TileConstructionParameters params = new TileConstructionParameters.Builder(false)
+				.rangeMakingMode(RangeMakingMode.FIXED)
+				.numBinsX(50)
+				.numBinsY(50)
+				.build();
+		TilesMergeSortListReaderKendallCalculator calculator = new TilesMergeSortListReaderKendallCalculator(params);
         double actual = calculator.calculateKendall(pair);
 
         double delta = 0.0;

@@ -1,6 +1,10 @@
 package tiles.dom;
 
-public class ITileFactory {
+import java.io.Serializable;
+
+public class ITileFactory implements Serializable{
+	private static final long serialVersionUID = -637091881044696511L;
+
 	public ITile createTile(ITileType type, int row, int column) {
 		switch(type) {
 			case SIMPLE: 

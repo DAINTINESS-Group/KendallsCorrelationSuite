@@ -33,11 +33,11 @@ public class IListBasedKendallFactory {
             case APACHE:
                 return new ApacheCommonsKendall();
             case SIMPLE_TILES_LIST:
-            	return new TilesWithSimplePointChecksListReaderKendallCalculator();
+            	return new TilesWithSimplePointChecksListReaderKendallCalculator(parameters);
             case BANDS_WITH_MEMORY:
             	return new TileBandsWithMemoryKendallCalculator(parameters);	
             case MERGESORT:
-            	return new TilesMergeSortListReaderKendallCalculator();
+            	return new TilesMergeSortListReaderKendallCalculator(parameters);
             default:
                 throw new IllegalArgumentException(
                         String.format("%s is not a supported calculation method.", method));

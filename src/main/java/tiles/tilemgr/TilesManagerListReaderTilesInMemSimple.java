@@ -4,11 +4,12 @@ import common.ColumnPair;
 import tiles.dom.ITile;
 import tiles.dom.ITileFactory;
 import tiles.dom.ITileType;
+import util.TileConstructionParameters;
 
 public class TilesManagerListReaderTilesInMemSimple extends TilesManagerListBasedAbstractClass {
 	
-	public TilesManagerListReaderTilesInMemSimple(ColumnPair pair) {
-		super(pair);
+	public TilesManagerListReaderTilesInMemSimple(ColumnPair pair, TileConstructionParameters parameters) {
+		super(pair, parameters);
         this.tileType = ITileType.SIMPLE;
         this.tileFactory = new ITileFactory();
 

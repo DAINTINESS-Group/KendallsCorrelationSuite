@@ -1,17 +1,32 @@
 package listBasedKendallAlgorithms;
 
 import org.junit.Test;
+import org.junit.BeforeClass;
 
 import common.ColumnPair;
 import listBasedKendallAlgorithms.reader.Reader;
+import util.TileConstructionParameters;
+import util.TileConstructionParameters.RangeMakingMode;
 
 import static org.junit.Assert.assertEquals;
 
 import java.io.IOException;
 
 public class TilesMergeSortListReaderKendallCalculatorTest {
-	private static 	Reader reader = new Reader();
-	private static TilesMergeSortListReaderKendallCalculator mslrCalc = new TilesMergeSortListReaderKendallCalculator();
+	private static 	Reader reader;
+	private static TilesMergeSortListReaderKendallCalculator mslrCalc;
+	
+	@BeforeClass
+	public static void setup() {
+		TileConstructionParameters params = new TileConstructionParameters.Builder(false)
+				.rangeMakingMode(RangeMakingMode.FIXED)
+				.numBinsX(50)
+				.numBinsY(50)
+				.build();
+		reader = new Reader();
+		mslrCalc = new TilesMergeSortListReaderKendallCalculator(params);
+	}
+	
 	
 	@Test
 	public final void testCalculateKendallTauA() {

@@ -1,5 +1,7 @@
 package tiles.tilemgr;
 
+import java.io.Serializable;
+
 import common.ColumnsStatistics;
 import tiles.dom.ITile;
 import tiles.dom.ITileFactory;
@@ -11,8 +13,8 @@ import util.TileConstructionParameters;
 import util.TileConstructionParameters.RangeMakingMode;
 
 
-public abstract class TilesManagerAbstractClass implements ITilesManager{
-
+public abstract class TilesManagerAbstractClass implements ITilesManager, Serializable{
+	private static final long serialVersionUID = -7101153627955226882L;
 	protected boolean DEBUG_FLAG = false;
 	protected boolean EXPERIMENT_FLAG = false;
 
@@ -36,13 +38,13 @@ public abstract class TilesManagerAbstractClass implements ITilesManager{
 
 	
 	
-	public TilesManagerAbstractClass() {
-		this.DEBUG_FLAG = false;
-		this.EXPERIMENT_FLAG = false;
-		this.parameters = new TileConstructionParameters.Builder(false)
-				.rangeMakingMode(RangeMakingMode.SCOTT_RULE)
-				.build();
-	}
+//	public TilesManagerAbstractClass() {
+//		this.DEBUG_FLAG = false;
+//		this.EXPERIMENT_FLAG = false;				
+//		this.parameters = new TileConstructionParameters.Builder(false)
+//				.rangeMakingMode(RangeMakingMode.SCOTT_RULE)
+//				.build();
+//	}
 	
 	public TilesManagerAbstractClass(TileConstructionParameters parameters) {
         this.DEBUG_FLAG = parameters.isDebugModeOn();
@@ -67,10 +69,12 @@ public abstract class TilesManagerAbstractClass implements ITilesManager{
 	    setupTilesArrayMetadata();
     		end = System.currentTimeMillis();
     		elapsed = (end - start) / 1000.0;
+    		if(!EXPERIMENT_FLAG) {
+    			System.err.println("\n#BinsX: " + numOfBinsX + "\n#BinsY: " + numOfBinsY + "\nTotal tiles: " + numOfBinsX * numOfBinsY);
+    			System.err.println("RangeWidthX: " + rangeWidthX + "\nRangeWidthY: " + rangeWidthY + "\nTotal #tuples: " + datasetRowCount);    			
+    		}
     		if(DEBUG_FLAG) {
     			System.out.println("Tiles bin number and binWidth calculations took: " + elapsed + " seconds");
-    			System.out.println("#SubRangesX: " + numOfBinsX + "\n#SubRangesY: " + numOfBinsY + "\nTotal tiles: " + numOfBinsX * numOfBinsY);
-    			System.out.println("RangeWidthX: " + rangeWidthX + "\n#RangeWidthY: " + rangeWidthY + "\nTotal #tuples: " + datasetRowCount);
     		}
     		
     		start = System.currentTimeMillis();
@@ -100,6 +104,7 @@ public abstract class TilesManagerAbstractClass implements ITilesManager{
 				rangeMaker = factory.makeRangeMakerScottRule(columnsStatistics);
 				break;
 			case FIXED:
+				
 				this.rangeMakerMethod =parameters.getRangeMakingMode();
 				final int BINS_X = parameters.getNumBinsX();
 				final int BINS_Y = parameters.getNumBinsY();
