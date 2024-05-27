@@ -9,6 +9,9 @@ import tiles.dom.DoublePair;
 import util.TileConstructionParameters;
 
 public abstract class TilesManagerListBasedAbstractClass extends TilesManagerAbstractClass  {
+
+	private static final long serialVersionUID = 2957877049568054393L;
+
 	public TilesManagerListBasedAbstractClass(ColumnPair pair, TileConstructionParameters parameters) {
 		super(parameters);
 		this.pair = pair;

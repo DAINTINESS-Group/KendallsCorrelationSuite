@@ -7,7 +7,8 @@ import tiles.dom.ITileType;
 import util.TileConstructionParameters;
 
 public class TilesManagerListReaderTilesInMemSimple extends TilesManagerListBasedAbstractClass {
-	
+	private static final long serialVersionUID = -6083682790111358108L;
+
 	public TilesManagerListReaderTilesInMemSimple(ColumnPair pair, TileConstructionParameters parameters) {
 		super(pair, parameters);
         this.tileType = ITileType.SIMPLE;
