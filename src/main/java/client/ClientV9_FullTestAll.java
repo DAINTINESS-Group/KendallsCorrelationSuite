@@ -40,12 +40,14 @@ public class ClientV9_FullTestAll {
 
 		//619,040 tuples
 		//        String filePath = "src\\test\\resources\\input\\all_stocks_5yr.csv";
+		//        String filePathClean = "src\\test\\resources\\input\\all_stocks_5yr_clean.csv";
 		//        String column1 = "low";
 		//        String column2 = "high";
 		//        String delimiter = ",";
 
 		//619,040 tuples
 		//        String filePath = "src\\test\\resources\\input\\all_stocks_5yr.csv";
+		//        String filePathClean = "src\\test\\resources\\input\\all_stocks_5yr_clean.csv";
 		//        String column1 = "close";
 		//        String column2 = "volume";
 		//        String delimiter = ",";
