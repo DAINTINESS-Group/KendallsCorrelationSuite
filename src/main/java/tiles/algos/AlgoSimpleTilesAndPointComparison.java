@@ -122,10 +122,10 @@ public class AlgoSimpleTilesAndPointComparison {
 
     protected void compareWithSouthTile(List<DoublePair> tilePairs, List<DoublePair> southTilePairs) {
         southTilePairs.sort(Comparator.comparingDouble(DoublePair::getX));
-        double southPairsCount = southTilePairs.size();
+        long southPairsCount = southTilePairs.size();
 
         for (DoublePair referencePair : tilePairs) {
-            double concordant = 0, discordant = 0, tiedOnX = 0;
+            long concordant = 0, discordant = 0, tiedOnX = 0;
 
             double referenceTileXValue = referencePair.getX();
             for (DoublePair southPair : southTilePairs) {
@@ -148,10 +148,10 @@ public class AlgoSimpleTilesAndPointComparison {
 
     protected void compareWithEastTile(List<DoublePair> tilePairs, List<DoublePair> eastTilePairs) {
         eastTilePairs.sort(Comparator.comparingDouble(DoublePair::getY));
-        double eastPairsCount = eastTilePairs.size();
+        long eastPairsCount = eastTilePairs.size();
 
         for (DoublePair referencePair : tilePairs) {
-            double concordant = 0, discordant = 0, tiedOnY = 0;
+            long concordant = 0, discordant = 0, tiedOnY = 0;
             double referenceTileYValue = referencePair.getY();
 
             for (DoublePair eastPair : eastTilePairs) {
@@ -195,6 +195,8 @@ public class AlgoSimpleTilesAndPointComparison {
             correlationStats.incrementTiedXCount();
         } else if (x1 != x2 && y1 == y2) {
             correlationStats.incrementTiedYCount();
+        } else if (x1 == x2 && y1 == y2) {
+            correlationStats.incrementTiedXYCount();
         }
     }
 
@@ -204,7 +206,7 @@ public class AlgoSimpleTilesAndPointComparison {
     }
 
     protected void processSouthEastTiles(int tilePairsCount, int tileRow, int tileColumn) {
-        int southEastTilesPairsCount;
+        long southEastTilesPairsCount;
 
         for (int row = tileRow + 1; row < maxRows; row++) {
             for (int column = tileColumn + 1; column < maxColumns; column++) {
@@ -218,7 +220,7 @@ public class AlgoSimpleTilesAndPointComparison {
     }
 
     protected void processSouthWestTiles(int tilePairCount, int tileRow, int tileColumn) {
-        int southWestTilePairsCount;
+        long southWestTilePairsCount;
 
         for (int row = tileRow + 1; row < maxRows; row++) {
             for (int column = tileColumn - 1; column >= 0; column--) {

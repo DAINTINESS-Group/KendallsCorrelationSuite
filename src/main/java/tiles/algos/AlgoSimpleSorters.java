@@ -158,10 +158,10 @@ public class AlgoSimpleSorters {
     protected void compareWithSouthTile(List<DoublePair> tilePairs, List<DoublePair> southTilePairs) {
     	//already sorted on X
     	//southTilePairs.sort(Comparator.comparingDouble(DoublePair::getX));
-        double southPairsCount = southTilePairs.size();
+        long southPairsCount = southTilePairs.size();
 
         for (DoublePair referencePair : tilePairs) {
-            double concordant = 0, discordant = 0, tiedOnX = 0;
+            long concordant = 0, discordant = 0, tiedOnX = 0;
 
             double referenceTileXValue = referencePair.getX();
             for (DoublePair southPair : southTilePairs) {
@@ -271,10 +271,10 @@ public class AlgoSimpleSorters {
 //System.err.println(eastTilePairs.toString());    	
     	eastTilePairs.sort(Comparator.comparingDouble(DoublePair::getY));
         
-    	double eastPairsCount = eastTilePairs.size();
+    	long eastPairsCount = eastTilePairs.size();
 
         for (DoublePair referencePair : tilePairs) {
-            double concordant = 0, discordant = 0, tiedOnY = 0;
+            long concordant = 0, discordant = 0, tiedOnY = 0;
             double referenceTileYValue = referencePair.getY();
 
             for (DoublePair eastPair : eastTilePairs) {
@@ -300,8 +300,8 @@ public class AlgoSimpleSorters {
         processSouthWestTiles(tilePairCount, tileRow, tileColumn);
     }
 
-    protected void processSouthEastTiles(int tilePairsCount, int tileRow, int tileColumn) {
-        int southEastTilesPairsCount;
+    protected void processSouthEastTiles(long tilePairsCount, int tileRow, int tileColumn) {
+        long southEastTilesPairsCount;
 
         for (int row = tileRow + 1; row < maxRows; row++) {
             for (int column = tileColumn + 1; column < maxColumns; column++) {
@@ -316,7 +316,7 @@ public class AlgoSimpleSorters {
     }
 
     protected void processSouthWestTiles(int tilePairsCount, int tileRow, int tileColumn) {
-        int southWestTilePairsCount;
+        long southWestTilePairsCount;
 
         for (int row = tileRow + 1; row < maxRows; row++) {
             for (int column = tileColumn - 1; column >= 0; column--) {

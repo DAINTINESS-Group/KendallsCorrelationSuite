@@ -116,7 +116,7 @@ public class AlgoBandsWithVisitMemory {
 	protected void processTile(TileInMemWCounters tile) {    	
 		int tileRow = tile.getRow();
 		int tileColumn = tile.getColumn();
-		int tilePairsCount = tile.getCount();
+		long tilePairsCount = tile.getCount();
 		List<DoublePair> tilePairs = tile.getValuePairs();
 //System.err.printf("@@@@PROCESSING [%d][%d]\n", tileRow,tileColumn);
 
@@ -154,7 +154,7 @@ public class AlgoBandsWithVisitMemory {
 		//must have zero values
 	}
 
-	protected void compareTileWithSelf(List<DoublePair> tilePairs, int tilePairsCount) {    	
+	protected void compareTileWithSelf(List<DoublePair> tilePairs, long tilePairsCount) {    	
 		for (int i = 0; i < tilePairsCount - 1; i++) {
 			DoublePair pair1 = tilePairs.get(i);
 			for (int j = i + 1; j < tilePairsCount; j++) {
@@ -298,10 +298,10 @@ public class AlgoBandsWithVisitMemory {
 	@Deprecated
 	protected void compareWithEastTile(List<DoublePair> tilePairs, List<DoublePair> eastTilePairs) {
 		eastTilePairs.sort(Comparator.comparingDouble(DoublePair::getY));
-		double eastPairsCount = eastTilePairs.size();
+		long eastPairsCount = eastTilePairs.size();
 
 		for (DoublePair referencePair : tilePairs) {
-			double concordant = 0, discordant = 0, tiedOnY = 0;
+			long concordant = 0, discordant = 0, tiedOnY = 0;
 			double referenceTileYValue = referencePair.getY();
 
 			for (DoublePair eastPair : eastTilePairs) {
@@ -339,10 +339,10 @@ public class AlgoBandsWithVisitMemory {
 
 	protected void compareWithSouthTile(List<DoublePair> tilePairs, List<DoublePair> southTilePairs) {
 		southTilePairs.sort(Comparator.comparingDouble(DoublePair::getX));
-		double southPairsCount = southTilePairs.size();
+		long southPairsCount = southTilePairs.size();
 
 		for (DoublePair referencePair : tilePairs) {
-			double concordant = 0, discordant = 0, tiedOnX = 0;
+			long concordant = 0, discordant = 0, tiedOnX = 0;
 
 			double referenceTileXValue = referencePair.getX();
 			for (DoublePair southPair : southTilePairs) {
@@ -379,16 +379,17 @@ public class AlgoBandsWithVisitMemory {
 		} else if (x1 != x2 && y1 == y2) {
 			correlationStats.incrementTiedYCount();
 //System.err.println("@@@@@@@@@@@@@@@@@@Same y: " + y1);	
-		}
+		} else
+			correlationStats.incrementTiedXYCount();
 	}
 
-	protected void processNonCrossTiles(int tilePairCount, int tileRow, int tileColumn) {
-		processSouthEastTiles(tilePairCount, tileRow, tileColumn);
-		processSouthWestTiles(tilePairCount, tileRow, tileColumn);
+	protected void processNonCrossTiles(long tilePairsCount, int tileRow, int tileColumn) {
+		processSouthEastTiles(tilePairsCount, tileRow, tileColumn);
+		processSouthWestTiles(tilePairsCount, tileRow, tileColumn);
 	}
 
-	protected void processSouthEastTiles(int tilePairsCount, int tileRow, int tileColumn) {
-		int southEastTilesPairsCount;
+	protected void processSouthEastTiles(long tilePairsCount, int tileRow, int tileColumn) {
+		long southEastTilesPairsCount;
 
 		for (int row = tileRow + 1; row < maxRows; row++) {
 			for (int column = tileColumn + 1; column < maxColumns; column++) {
@@ -401,8 +402,8 @@ public class AlgoBandsWithVisitMemory {
 		}
 	}
 
-	protected void processSouthWestTiles(int tilePairCount, int tileRow, int tileColumn) {
-		int southWestTilePairsCount;
+	protected void processSouthWestTiles(long tilePairCount, int tileRow, int tileColumn) {
+		long southWestTilePairsCount;
 
 		for (int row = tileRow + 1; row < maxRows; row++) {
 			for (int column = tileColumn - 1; column >= 0; column--) {

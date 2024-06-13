@@ -15,7 +15,7 @@ public interface ITile {
 	 * 
 	 * @return
 	 */
-	public int getCount();
+	public long getCount();
 
 	/**
 	 * 

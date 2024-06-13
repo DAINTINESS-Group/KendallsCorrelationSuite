@@ -12,7 +12,7 @@ public class TileInMemWCounters implements Serializable, ITile{
 	private final int row;
     private final int column;
     private final List<DoublePair> valuePairs;
-    private int pairCounter = 0;
+    private long pairCounter = 0L;
     private SortedMap<Double,Integer> occurencesPerX;
     private SortedMap<Double,Integer> occurencesPerY;
     
@@ -30,7 +30,7 @@ public class TileInMemWCounters implements Serializable, ITile{
     }
 
     @Override
-	public int getCount() {
+	public long getCount() {
         return pairCounter;
     }
 

@@ -18,7 +18,15 @@ import sparkBasedKendallAlgorithms.TilesWithSimplePointChecksSparkReaderKendallC
 
 public class ClientV9_FullTestAll {
 	public static void main(String[] args) throws IOException, AnalysisException {
-	
+		boolean runBruteFlag = true;
+		boolean runBrophyFlag = true;
+    	boolean runApacheFlag = true;
+    	boolean runTilesWithLists = true;   	
+    	boolean runTilesWithBandMemory = true;
+    	boolean runTilesWithMergeSort = true;
+    	boolean runSiplestSparkTilesMMFlag = true;
+    	boolean sparkStoredReaderFlag = true;
+    			
 		//74001 tuples
 		String filePath = "src\\test\\resources\\input\\acs2017_census_tract_data.csv";
 		String column1 = "Hispanic";
@@ -79,23 +87,27 @@ public class ClientV9_FullTestAll {
 		printResults("ValueReader For ALL lists: ", filePath, Double.NaN, elapsedTimeSeconds);
 
 		/* BRUTE */
+		if(runBruteFlag) {
 		IListBasedKendallCalculator bruteForceTauA = methods.createKendallCalculator(KendallCalculatorMethods.BRUTEFORCE, null);
 		startTime = System.currentTimeMillis();
 		double actualBruteForce = bruteForceTauA.calculateKendall(columnPair);
 		endTime = System.currentTimeMillis();
 		elapsedTimeSeconds = (endTime - startTime) / 1000.0;
 		printResults("Brute Force", filePath, actualBruteForce, elapsedTimeSeconds);      
-
+		}
+		
 		/* BROPHY */
+		if(runBrophyFlag) {
 		IListBasedKendallCalculator brophyKendallTauB = methods.createKendallCalculator(KendallCalculatorMethods.BROPHY, null);
 		startTime = System.currentTimeMillis();
 		double actualBrophy = brophyKendallTauB.calculateKendall(columnPair);
 		endTime = System.currentTimeMillis();
 		elapsedTimeSeconds = (endTime - startTime) / 1000.0;
 		printResults("Brophy", filePath, actualBrophy, elapsedTimeSeconds);
-
+		}
 		
 		/* APACHE */
+		if(runApacheFlag) {
 		startTime = System.currentTimeMillis();
 		IListBasedKendallCalculator apacheKendall = methods.createKendallCalculator(KendallCalculatorMethods.APACHE, null);
 		double apacheResult = apacheKendall.calculateKendall(columnPair);
@@ -103,7 +115,8 @@ public class ClientV9_FullTestAll {
 		elapsedTimeSeconds = (endTime - startTime) / 1000.0;
 		printResults("Apache", filePath, apacheResult, elapsedTimeSeconds);
 
-
+		}
+		
 		TileConstructionParameters paramsTileList = new TileConstructionParameters.Builder(false)
 				.rangeMakingMode(RangeMakingMode.FIXED)
 				.numBinsX(NUM_BINS_X)
@@ -111,38 +124,44 @@ public class ClientV9_FullTestAll {
 				.build();
 		
 		/* TILES WITH LISTS*/
-		startTime = System.currentTimeMillis();
+		if(runTilesWithLists) {
+    	startTime = System.currentTimeMillis();
 		IListBasedKendallCalculator lbtbMgr = methods.createKendallCalculator(KendallCalculatorMethods.SIMPLE_TILES_LIST, paramsTileList);
 		double listTileKendallResult =lbtbMgr.calculateKendall(columnPair);
 		endTime = System.currentTimeMillis();
 		elapsedTimeSeconds = (endTime - startTime) / 1000.0; 
 		printResults("List Tiles", filePath, listTileKendallResult, elapsedTimeSeconds);
-
-		/* TILES WITH MEMORY*/
+		}
+		
+		/* TILES WITH BAND MEMORY */
+		if(runTilesWithBandMemory) {
 		startTime = System.currentTimeMillis();
 		IListBasedKendallCalculator bwmMgr = methods.createKendallCalculator(KendallCalculatorMethods.BANDS_WITH_MEMORY, paramsTileList);
 		double bandsWithMemoryKendallResult =bwmMgr.calculateKendall(columnPair);
 		endTime = System.currentTimeMillis();
 		elapsedTimeSeconds = (endTime - startTime) / 1000.0; 
 		printResults("Bands With Memory", filePath, bandsWithMemoryKendallResult, elapsedTimeSeconds);
-
-		/* SIMPLE TILES WITH MERGESORT*/
+		}
+		
+		/* SIMPLE TILES WITH MERGESORT */
+		if(runTilesWithMergeSort) {
 		startTime = System.currentTimeMillis();
 		IListBasedKendallCalculator msMgr	= methods.createKendallCalculator(KendallCalculatorMethods.MERGESORT, paramsTileList);
 		double msTileKendallResult 	= msMgr.calculateKendall(columnPair);
 		endTime = System.currentTimeMillis();
 		elapsedTimeSeconds = (endTime - startTime) / 1000.0; 
 		printResults("Simple Tiles, SortMerge", filePath, msTileKendallResult, elapsedTimeSeconds);
-	
+		}
 		
 		/* Tile Implementation with SPARK and valuePairs*/
+		if(runSiplestSparkTilesMMFlag) {
 		startTime = System.currentTimeMillis();
 		TilesWithSimplePointChecksSparkReaderKendallCalculator tilesWithSimplePointChecksSparkReaderKendallCalculator = new TilesWithSimplePointChecksSparkReaderKendallCalculator();
 		tilesWithSimplePointChecksSparkReaderKendallCalculator.loadDataset(filePath, column1, column2);
 		endTime = System.currentTimeMillis();
 		elapsedTimeSeconds = (endTime - startTime) / 1000.0;
 		System.out.println("Spark InitialSetup and Dataset loading took: " + elapsedTimeSeconds + "\n");
-	
+		
 		TileConstructionParameters paramsSparkTileList = new TileConstructionParameters.Builder(false)
 				.rangeMakingMode(RangeMakingMode.FIXED)
 				.numBinsX(NUM_BINS_X)
@@ -153,8 +172,10 @@ public class ClientV9_FullTestAll {
 		endTime = System.currentTimeMillis();
 		elapsedTimeSeconds = (endTime - startTime) / 1000.0;
 		printResults("Spark w. Simple InMem Tiles", filePath, sparkListKendall, elapsedTimeSeconds);
-	
+		}
+		
 		/* Tile Implementation with SPARK and stored tiles*/
+		if(sparkStoredReaderFlag) {
 		startTime = System.currentTimeMillis();            
 		TilesWithSimplePointChecksSparkReaderStoredTilesKendallCalculator tilesWithSimplePointChecksSparkReaderStoredTilesKendallCalculator= new TilesWithSimplePointChecksSparkReaderStoredTilesKendallCalculator();
 		tilesWithSimplePointChecksSparkReaderStoredTilesKendallCalculator.loadDataset(filePath, column1, column2);
@@ -178,6 +199,7 @@ public class ClientV9_FullTestAll {
 			System.err.println("Cleanup of tiles at " + WriterSetup.getOutputExecDir() + " was " + deletionFlag);
 		});
 		deleteThread.start();
+		}
 	}
 
 

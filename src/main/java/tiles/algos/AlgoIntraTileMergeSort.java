@@ -61,7 +61,7 @@ public class AlgoIntraTileMergeSort {
     protected void processTile(ITile tile) {    	
         int tileRow = tile.getRow();
         int tileColumn = tile.getColumn();
-        int tilePairsCount = (int)tile.getCount();
+        long tilePairsCount = tile.getCount();
         List<DoublePair> tilePairs = tile.getValuePairs();
  //System.err.println(tileRow + "\t" + tileColumn +":\t" + tilePairsCount);
  
@@ -116,10 +116,10 @@ public class AlgoIntraTileMergeSort {
 
     protected void compareWithSouthTile(List<DoublePair> tilePairs, List<DoublePair> southTilePairs) {
         southTilePairs.sort(Comparator.comparingDouble(DoublePair::getX));
-        double southPairsCount = southTilePairs.size();
+        long southPairsCount = southTilePairs.size();
 
         for (DoublePair referencePair : tilePairs) {
-            double concordant = 0, discordant = 0, tiedOnX = 0;
+            long concordant = 0, discordant = 0, tiedOnX = 0;
 
             double referenceTileXValue = referencePair.getX();
             for (DoublePair southPair : southTilePairs) {
@@ -142,10 +142,10 @@ public class AlgoIntraTileMergeSort {
 
     protected void compareWithEastTile(List<DoublePair> tilePairs, List<DoublePair> eastTilePairs) {
         eastTilePairs.sort(Comparator.comparingDouble(DoublePair::getY));
-        double eastPairsCount = eastTilePairs.size();
+        long eastPairsCount = eastTilePairs.size();
 
         for (DoublePair referencePair : tilePairs) {
-            double concordant = 0, discordant = 0, tiedOnY = 0;
+            long concordant = 0, discordant = 0, tiedOnY = 0;
             double referenceTileYValue = referencePair.getY();
 
             for (DoublePair eastPair : eastTilePairs) {
@@ -166,13 +166,13 @@ public class AlgoIntraTileMergeSort {
         }
     }
 
-    protected void processNonCrossTiles(int tilePairCount, int tileRow, int tileColumn) {
-        processSouthEastTiles(tilePairCount, tileRow, tileColumn);
-        processSouthWestTiles(tilePairCount, tileRow, tileColumn);
+    protected void processNonCrossTiles(long tilePairsCount, int tileRow, int tileColumn) {
+        processSouthEastTiles(tilePairsCount, tileRow, tileColumn);
+        processSouthWestTiles(tilePairsCount, tileRow, tileColumn);
     }
 
-    protected void processSouthEastTiles(int tilePairsCount, int tileRow, int tileColumn) {
-        int southEastTilesPairsCount;
+    protected void processSouthEastTiles(long tilePairsCount, int tileRow, int tileColumn) {
+        long southEastTilesPairsCount;
 
         for (int row = tileRow + 1; row < maxRows; row++) {
             for (int column = tileColumn + 1; column < maxColumns; column++) {
@@ -186,8 +186,8 @@ public class AlgoIntraTileMergeSort {
         }
     }
 
-    protected void processSouthWestTiles(int tilePairsCount, int tileRow, int tileColumn) {
-        int southWestTilePairsCount;
+    protected void processSouthWestTiles(long tilePairsCount, int tileRow, int tileColumn) {
+        long southWestTilePairsCount;
 
         for (int row = tileRow + 1; row < maxRows; row++) {
             for (int column = tileColumn - 1; column >= 0; column--) {
@@ -213,9 +213,9 @@ public class AlgoIntraTileMergeSort {
      * @return Returns Kendall's Tau rank correlation coefficient for the two arrays
      * @throws DimensionMismatchException if the arrays lengths do not match
      */
-    protected void compareTileWithSelf(List<DoublePair> tilePairs, int tilePairsCount) {    	
+    protected void compareTileWithSelf(List<DoublePair> tilePairs, long tilePairsCount) {    	
         
-        final int n = tilePairsCount;
+        final long n = tilePairsCount;
         final long numPairs = numOfAllPairs(n - 1);
         //if there is a single tuple in the tile, count it as a discordant
         if(1 == tilePairsCount) {	
@@ -264,23 +264,23 @@ public class AlgoIntraTileMergeSort {
         tiedXYPairs += numOfAllPairs(consecutiveXYTies - 1);
 
         long swaps = 0;
-        DoublePair[] pairsDestination = new DoublePair[n];
+        DoublePair[] pairsDestination = new DoublePair[(int) n];
         for (int segmentSize = 1; segmentSize < n; segmentSize <<= 1) {
             for (int offset = 0; offset < n; offset += 2 * segmentSize) {
                 int i = offset;
-                final int iEnd = Math.min(i + segmentSize, n);
-                int j = iEnd;
-                final int jEnd = Math.min(j + segmentSize, n);
+                final long iEnd = Math.min(i + segmentSize, n);
+                long j = iEnd;
+                final long jEnd = Math.min(j + segmentSize, n);
 
                 int copyLocation = offset;
                 while (i < iEnd || j < jEnd) {
                     if (i < iEnd) {
                         if (j < jEnd) {
-                            if (pairs[i].getY() - pairs[j].getY() <= 0) {
+                            if (pairs[i].getY() - pairs[(int) j].getY() <= 0) {
                                 pairsDestination[copyLocation] = pairs[i];
                                 i++;
                             } else {
-                                pairsDestination[copyLocation] = pairs[j];
+                                pairsDestination[copyLocation] = pairs[(int) j];
 //System.err.println("swaps: " + (iEnd - i) + "\t" + pairsDestination[copyLocation].toString() + "\t" + pairs[i]);
                                 j++;
                                 swaps += iEnd - i;
@@ -290,7 +290,7 @@ public class AlgoIntraTileMergeSort {
                             i++;
                         }
                     } else {
-                        pairsDestination[copyLocation] = pairs[j];
+                        pairsDestination[copyLocation] = pairs[(int) j];
                         j++;
                     }
                     copyLocation++;

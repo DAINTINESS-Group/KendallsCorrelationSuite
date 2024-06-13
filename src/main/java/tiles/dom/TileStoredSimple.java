@@ -19,7 +19,7 @@ public class TileStoredSimple implements Serializable, ITile {
 	private final int row;
     private final int column;
     private final List<DoublePair> valuePairs;
-    private int pairCounter = 0;
+    private long pairCounter = 0;
     
     private String fileName = null;
     private String fullFilePath = null;
@@ -48,7 +48,7 @@ public class TileStoredSimple implements Serializable, ITile {
     }
 
     @Override
-	public int getCount() {
+	public long getCount() {
         return pairCounter;
     }
 

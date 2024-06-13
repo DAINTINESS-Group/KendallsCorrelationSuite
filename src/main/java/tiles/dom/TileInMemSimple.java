@@ -11,7 +11,7 @@ public class TileInMemSimple implements Serializable, ITile {
 	private final int row;
     private final int column;
     private final List<DoublePair> valuePairs;
-    private int pairCounter = 0;
+    private long pairCounter = 0L;
 
     public TileInMemSimple(int row, int column) {
         this.valuePairs = new ArrayList<>();
@@ -25,7 +25,7 @@ public class TileInMemSimple implements Serializable, ITile {
     }
 
     @Override
-	public int getCount() {
+	public long getCount() {
         return pairCounter;
     }
 

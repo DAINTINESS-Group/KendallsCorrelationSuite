@@ -76,7 +76,7 @@ public class TilesManagerListReaderTilesInMemWCounters implements ITilesManager 
 				System.out.println("Tiles Population took " + elapsed + " seconds\n");
 			}
 			if(DEBUG_FLAG) {
-				int row, column, count = -1;
+				int row, column; long count = -1;
 				for (TileInMemWCounters[] rowOfTiles : tiles) {
 					for (TileInMemWCounters tile : rowOfTiles) {
 						if (!tile.isEmpty()) {
