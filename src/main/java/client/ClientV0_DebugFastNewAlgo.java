@@ -23,7 +23,8 @@ public class ClientV0_DebugFastNewAlgo {
         String delimiter = "\t";
 
 
-		TileConstructionParameters paramsTileList = new TileConstructionParameters.Builder(false)
+		TileConstructionParameters paramsTileList = new TileConstructionParameters.Builder(true)
+				.debugModeOn(false)
 				.rangeMakingMode(RangeMakingMode.SCOTT_RULE)
 				.build();
 
@@ -41,17 +42,21 @@ public class ClientV0_DebugFastNewAlgo {
         double simpleTileKendallResult 		= lbtbMgr.calculateKendall(columnPair);
         printResults("Simple Tiles, Simple Algo", filePath, simpleTileKendallResult, Double.NaN);
 
-       /* LIST-BASED BANDS WITH MEMORY*/
-       IListBasedKendallCalculator bwMMgr	= methods.createKendallCalculator(KendallCalculatorMethods.BANDS_WITH_MEMORY, paramsTileList);
-       double bandsWithMemoryKendallResult	= bwMMgr.calculateKendall(columnPair);
-       printResults("BandsWithMemory", filePath, bandsWithMemoryKendallResult, Double.NaN);
+//       /* LIST-BASED BANDS WITH MEMORY*/
+//       IListBasedKendallCalculator bwMMgr	= methods.createKendallCalculator(KendallCalculatorMethods.BANDS_WITH_MEMORY, paramsTileList);
+//       double bandsWithMemoryKendallResult	= bwMMgr.calculateKendall(columnPair);
+//       printResults("BandsWithMemory", filePath, bandsWithMemoryKendallResult, Double.NaN);
+//
+//       
+//       /* SIMPLE TILES WITH MERGESORT*/
+//       IListBasedKendallCalculator msMgr	= methods.createKendallCalculator(KendallCalculatorMethods.MERGESORT, paramsTileList);
+//       double msTileKendallResult 		= msMgr.calculateKendall(columnPair);
+//       printResults("Simple Tiles, SortMerge", filePath, msTileKendallResult, Double.NaN);
 
-       
-       /* SIMPLE TILES WITH MERGESORT*/
-       IListBasedKendallCalculator msMgr	= methods.createKendallCalculator(KendallCalculatorMethods.MERGESORT, paramsTileList);
-       double msTileKendallResult 		= msMgr.calculateKendall(columnPair);
-       printResults("Simple Tiles, SortMerge", filePath, msTileKendallResult, Double.NaN);
-
+        /* SIMPLE SORTERS WITH LISTS*/
+        IListBasedKendallCalculator ssMgr	= methods.createKendallCalculator(KendallCalculatorMethods.SIMPLE_SORTERS, paramsTileList);
+        double simpleSortersResult 		= ssMgr.calculateKendall(columnPair);
+        printResults("Simple Tiles, Simple SORTERS Algo", filePath, simpleSortersResult, Double.NaN);
        
        
        

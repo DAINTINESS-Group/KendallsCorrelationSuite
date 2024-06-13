@@ -52,12 +52,16 @@ public class ClientV0_DebugFast {
        IListBasedKendallCalculator bwMMgr	= methods.createKendallCalculator(KendallCalculatorMethods.BANDS_WITH_MEMORY, paramsTileList);
        double bandsWithMemoryKendallResult	= bwMMgr.calculateKendall(columnPair);
        printResults("BandsWithMemory", filePath, bandsWithMemoryKendallResult, Double.NaN);
-
-       
+      
        /* SIMPLE TILES WITH MERGESORT*/
        IListBasedKendallCalculator msMgr	= methods.createKendallCalculator(KendallCalculatorMethods.MERGESORT, paramsTileList);
        double msTileKendallResult 		= msMgr.calculateKendall(columnPair);
        printResults("Simple Tiles, SortMerge", filePath, msTileKendallResult, Double.NaN);
+       
+       /* SIMPLE SORTERS WITH LISTS*/
+       IListBasedKendallCalculator ssMgr	= methods.createKendallCalculator(KendallCalculatorMethods.SIMPLE_SORTERS, paramsTileList);
+       double simpleSortersResult 		= ssMgr.calculateKendall(columnPair);
+       printResults("Simple Tiles, Simple SORTERS Algo", filePath, simpleSortersResult, Double.NaN);
        
     }//end main
 
