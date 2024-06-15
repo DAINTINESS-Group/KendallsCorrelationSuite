@@ -18,20 +18,20 @@ import sparkBasedKendallAlgorithms.TilesWithSimplePointChecksSparkReaderKendallC
 
 public class ClientV9_FullTestAll {
 	public static void main(String[] args) throws IOException, AnalysisException {
-		boolean runBruteFlag = true;
-		boolean runBrophyFlag = true;
-    	boolean runApacheFlag = true;
-    	boolean runTilesWithLists = true;   	
-    	boolean runTilesWithBandMemory = true;
-    	boolean runTilesWithMergeSort = true;
-    	boolean runSiplestSparkTilesMMFlag = true;
-    	boolean sparkStoredReaderFlag = true;
-    			
+		boolean runBruteFlag = false;
+		boolean runBrophyFlag = false;
+		boolean runApacheFlag = true;
+		boolean runTilesWithLists = false;   	
+		boolean runTilesWithBandMemory = false;
+		boolean runTilesWithMergeSort = true;
+		boolean runSiplestSparkTilesMMFlag = false;
+		boolean sparkStoredReaderFlag = false;
+
 		//74001 tuples
-		String filePath = "src\\test\\resources\\input\\acs2017_census_tract_data.csv";
-		String column1 = "Hispanic";
-		String column2 = "Native";
-		String delimiter = ",";
+//		String filePath = "src\\test\\resources\\input\\acs2017_census_tract_data.csv";
+//		String column1 = "Hispanic";
+//		String column2 = "Native";
+//		String delimiter = ",";
 
 		//74001 tuples
 		//        String filePath = "src\\test\\resources\\input\\acs2017_census_tract_data.csv";
@@ -40,11 +40,11 @@ public class ClientV9_FullTestAll {
 		//        String delimiter = ",";
 
 		//108,539 tuples
-		// manufacturer,model,year,price,transmission,mileage,fuelType,tax,mpg,engineSize
-		//        String filePath = "src\\test\\resources\\input\\cars_100k.csv";
-		//        String column1 = "mileage";
-		//        String column2 = "mpg";
-		//        String delimiter = ",";
+		// //manufacturer,model,year,price,transmission,mileage,fuelType,tax,mpg,engineSize
+//		        String filePath = "src\\test\\resources\\input\\cars_100k.csv";
+//		        String column1 = "mileage";
+//		        String column2 = "mpg";
+//		        String delimiter = ",";
 
 		//619,040 tuples
 		//        String filePath = "src\\test\\resources\\input\\all_stocks_5yr.csv";
@@ -54,11 +54,11 @@ public class ClientV9_FullTestAll {
 		//        String delimiter = ",";
 
 		//619,040 tuples
-		//        String filePath = "src\\test\\resources\\input\\all_stocks_5yr.csv";
-		//        String filePathClean = "src\\test\\resources\\input\\all_stocks_5yr_clean.csv";
-		//        String column1 = "close";
-		//        String column2 = "volume";
-		//        String delimiter = ",";
+		        String filePath = "src\\test\\resources\\input\\all_stocks_5yr.csv";
+		        String filePathClean = "src\\test\\resources\\input\\all_stocks_5yr_clean.csv";
+		        String column1 = "close";
+		        String column2 = "volume";
+		        String delimiter = ",";
 
 		//1,000,000 = 1 million tuples
 		//        String filePath = "src\\test\\resources\\input\\Random1Mil.csv";
@@ -72,8 +72,8 @@ public class ClientV9_FullTestAll {
 		//        String column2 = "DEPARTURE_TIME";
 		//        String delimiter = ",";
 
-		int NUM_BINS_X = 50;
-		int NUM_BINS_Y = 50;
+		int NUM_BINS_X = 100;
+		int NUM_BINS_Y = 100;
 		long startTime = -1;
 		long endTime = -1;
 		double elapsedTimeSeconds = -1.0;
@@ -88,117 +88,117 @@ public class ClientV9_FullTestAll {
 
 		/* BRUTE */
 		if(runBruteFlag) {
-		IListBasedKendallCalculator bruteForceTauA = methods.createKendallCalculator(KendallCalculatorMethods.BRUTEFORCE, null);
-		startTime = System.currentTimeMillis();
-		double actualBruteForce = bruteForceTauA.calculateKendall(columnPair);
-		endTime = System.currentTimeMillis();
-		elapsedTimeSeconds = (endTime - startTime) / 1000.0;
-		printResults("Brute Force", filePath, actualBruteForce, elapsedTimeSeconds);      
+			IListBasedKendallCalculator bruteForceTauA = methods.createKendallCalculator(KendallCalculatorMethods.BRUTEFORCE, null);
+			startTime = System.currentTimeMillis();
+			double actualBruteForce = bruteForceTauA.calculateKendall(columnPair);
+			endTime = System.currentTimeMillis();
+			elapsedTimeSeconds = (endTime - startTime) / 1000.0;
+			printResults("Brute Force", filePath, actualBruteForce, elapsedTimeSeconds);      
 		}
-		
+
 		/* BROPHY */
 		if(runBrophyFlag) {
-		IListBasedKendallCalculator brophyKendallTauB = methods.createKendallCalculator(KendallCalculatorMethods.BROPHY, null);
-		startTime = System.currentTimeMillis();
-		double actualBrophy = brophyKendallTauB.calculateKendall(columnPair);
-		endTime = System.currentTimeMillis();
-		elapsedTimeSeconds = (endTime - startTime) / 1000.0;
-		printResults("Brophy", filePath, actualBrophy, elapsedTimeSeconds);
+			IListBasedKendallCalculator brophyKendallTauB = methods.createKendallCalculator(KendallCalculatorMethods.BROPHY, null);
+			startTime = System.currentTimeMillis();
+			double actualBrophy = brophyKendallTauB.calculateKendall(columnPair);
+			endTime = System.currentTimeMillis();
+			elapsedTimeSeconds = (endTime - startTime) / 1000.0;
+			printResults("Brophy", filePath, actualBrophy, elapsedTimeSeconds);
 		}
-		
+
 		/* APACHE */
 		if(runApacheFlag) {
-		startTime = System.currentTimeMillis();
-		IListBasedKendallCalculator apacheKendall = methods.createKendallCalculator(KendallCalculatorMethods.APACHE, null);
-		double apacheResult = apacheKendall.calculateKendall(columnPair);
-		endTime = System.currentTimeMillis();
-		elapsedTimeSeconds = (endTime - startTime) / 1000.0;
-		printResults("Apache", filePath, apacheResult, elapsedTimeSeconds);
+			startTime = System.currentTimeMillis();
+			IListBasedKendallCalculator apacheKendall = methods.createKendallCalculator(KendallCalculatorMethods.APACHE, null);
+			double apacheResult = apacheKendall.calculateKendall(columnPair);
+			endTime = System.currentTimeMillis();
+			elapsedTimeSeconds = (endTime - startTime) / 1000.0;
+			printResults("Apache", filePath, apacheResult, elapsedTimeSeconds);
 
 		}
-		
+
 		TileConstructionParameters paramsTileList = new TileConstructionParameters.Builder(false)
 				.rangeMakingMode(RangeMakingMode.FIXED)
 				.numBinsX(NUM_BINS_X)
 				.numBinsY(NUM_BINS_Y)
 				.build();
-		
+
 		/* TILES WITH LISTS*/
 		if(runTilesWithLists) {
-    	startTime = System.currentTimeMillis();
-		IListBasedKendallCalculator lbtbMgr = methods.createKendallCalculator(KendallCalculatorMethods.SIMPLE_TILES_LIST, paramsTileList);
-		double listTileKendallResult =lbtbMgr.calculateKendall(columnPair);
-		endTime = System.currentTimeMillis();
-		elapsedTimeSeconds = (endTime - startTime) / 1000.0; 
-		printResults("List Tiles", filePath, listTileKendallResult, elapsedTimeSeconds);
+			startTime = System.currentTimeMillis();
+			IListBasedKendallCalculator lbtbMgr = methods.createKendallCalculator(KendallCalculatorMethods.SIMPLE_TILES_LIST, paramsTileList);
+			double listTileKendallResult =lbtbMgr.calculateKendall(columnPair);
+			endTime = System.currentTimeMillis();
+			elapsedTimeSeconds = (endTime - startTime) / 1000.0; 
+			printResults("List Tiles", filePath, listTileKendallResult, elapsedTimeSeconds);
 		}
-		
+
 		/* TILES WITH BAND MEMORY */
 		if(runTilesWithBandMemory) {
-		startTime = System.currentTimeMillis();
-		IListBasedKendallCalculator bwmMgr = methods.createKendallCalculator(KendallCalculatorMethods.BANDS_WITH_MEMORY, paramsTileList);
-		double bandsWithMemoryKendallResult =bwmMgr.calculateKendall(columnPair);
-		endTime = System.currentTimeMillis();
-		elapsedTimeSeconds = (endTime - startTime) / 1000.0; 
-		printResults("Bands With Memory", filePath, bandsWithMemoryKendallResult, elapsedTimeSeconds);
+			startTime = System.currentTimeMillis();
+			IListBasedKendallCalculator bwmMgr = methods.createKendallCalculator(KendallCalculatorMethods.BANDS_WITH_MEMORY, paramsTileList);
+			double bandsWithMemoryKendallResult =bwmMgr.calculateKendall(columnPair);
+			endTime = System.currentTimeMillis();
+			elapsedTimeSeconds = (endTime - startTime) / 1000.0; 
+			printResults("Bands With Memory", filePath, bandsWithMemoryKendallResult, elapsedTimeSeconds);
 		}
-		
+
 		/* SIMPLE TILES WITH MERGESORT */
 		if(runTilesWithMergeSort) {
-		startTime = System.currentTimeMillis();
-		IListBasedKendallCalculator msMgr	= methods.createKendallCalculator(KendallCalculatorMethods.MERGESORT, paramsTileList);
-		double msTileKendallResult 	= msMgr.calculateKendall(columnPair);
-		endTime = System.currentTimeMillis();
-		elapsedTimeSeconds = (endTime - startTime) / 1000.0; 
-		printResults("Simple Tiles, SortMerge", filePath, msTileKendallResult, elapsedTimeSeconds);
+			startTime = System.currentTimeMillis();
+			IListBasedKendallCalculator msMgr	= methods.createKendallCalculator(KendallCalculatorMethods.MERGESORT, paramsTileList);
+			double msTileKendallResult 	= msMgr.calculateKendall(columnPair);
+			endTime = System.currentTimeMillis();
+			elapsedTimeSeconds = (endTime - startTime) / 1000.0; 
+			printResults("Simple Tiles, SortMerge", filePath, msTileKendallResult, elapsedTimeSeconds);
 		}
-		
+
 		/* Tile Implementation with SPARK and valuePairs*/
 		if(runSiplestSparkTilesMMFlag) {
-		startTime = System.currentTimeMillis();
-		TilesWithSimplePointChecksSparkReaderKendallCalculator tilesWithSimplePointChecksSparkReaderKendallCalculator = new TilesWithSimplePointChecksSparkReaderKendallCalculator();
-		tilesWithSimplePointChecksSparkReaderKendallCalculator.loadDataset(filePath, column1, column2);
-		endTime = System.currentTimeMillis();
-		elapsedTimeSeconds = (endTime - startTime) / 1000.0;
-		System.out.println("Spark InitialSetup and Dataset loading took: " + elapsedTimeSeconds + "\n");
-		
-		TileConstructionParameters paramsSparkTileList = new TileConstructionParameters.Builder(false)
-				.rangeMakingMode(RangeMakingMode.FIXED)
-				.numBinsX(NUM_BINS_X)
-				.numBinsY(NUM_BINS_Y)
-				.build();
-		startTime = System.currentTimeMillis();
-		double sparkListKendall = tilesWithSimplePointChecksSparkReaderKendallCalculator.calculateKendallTau(column1, column2, paramsSparkTileList);
-		endTime = System.currentTimeMillis();
-		elapsedTimeSeconds = (endTime - startTime) / 1000.0;
-		printResults("Spark w. Simple InMem Tiles", filePath, sparkListKendall, elapsedTimeSeconds);
+			startTime = System.currentTimeMillis();
+			TilesWithSimplePointChecksSparkReaderKendallCalculator tilesWithSimplePointChecksSparkReaderKendallCalculator = new TilesWithSimplePointChecksSparkReaderKendallCalculator();
+			tilesWithSimplePointChecksSparkReaderKendallCalculator.loadDataset(filePath, column1, column2);
+			endTime = System.currentTimeMillis();
+			elapsedTimeSeconds = (endTime - startTime) / 1000.0;
+			System.out.println("Spark InitialSetup and Dataset loading took: " + elapsedTimeSeconds + "\n");
+
+			TileConstructionParameters paramsSparkTileList = new TileConstructionParameters.Builder(false)
+					.rangeMakingMode(RangeMakingMode.FIXED)
+					.numBinsX(NUM_BINS_X)
+					.numBinsY(NUM_BINS_Y)
+					.build();
+			startTime = System.currentTimeMillis();
+			double sparkListKendall = tilesWithSimplePointChecksSparkReaderKendallCalculator.calculateKendallTau(column1, column2, paramsSparkTileList);
+			endTime = System.currentTimeMillis();
+			elapsedTimeSeconds = (endTime - startTime) / 1000.0;
+			printResults("Spark w. Simple InMem Tiles", filePath, sparkListKendall, elapsedTimeSeconds);
 		}
-		
+
 		/* Tile Implementation with SPARK and stored tiles*/
 		if(sparkStoredReaderFlag) {
-		startTime = System.currentTimeMillis();            
-		TilesWithSimplePointChecksSparkReaderStoredTilesKendallCalculator tilesWithSimplePointChecksSparkReaderStoredTilesKendallCalculator= new TilesWithSimplePointChecksSparkReaderStoredTilesKendallCalculator();
-		tilesWithSimplePointChecksSparkReaderStoredTilesKendallCalculator.loadDataset(filePath, column1, column2);
-		endTime = System.currentTimeMillis();
-		elapsedTimeSeconds = (endTime - startTime) / 1000.0;
-		System.out.println("Spark InitialSetup and Dataset loading took: " + elapsedTimeSeconds + "\n");
+			startTime = System.currentTimeMillis();            
+			TilesWithSimplePointChecksSparkReaderStoredTilesKendallCalculator tilesWithSimplePointChecksSparkReaderStoredTilesKendallCalculator= new TilesWithSimplePointChecksSparkReaderStoredTilesKendallCalculator();
+			tilesWithSimplePointChecksSparkReaderStoredTilesKendallCalculator.loadDataset(filePath, column1, column2);
+			endTime = System.currentTimeMillis();
+			elapsedTimeSeconds = (endTime - startTime) / 1000.0;
+			System.out.println("Spark InitialSetup and Dataset loading took: " + elapsedTimeSeconds + "\n");
 
-		TileConstructionParameters paramsSparkTileStored = new TileConstructionParameters.Builder(false)
-				.rangeMakingMode(RangeMakingMode.FIXED)
-				.numBinsX(NUM_BINS_X)
-				.numBinsY(NUM_BINS_Y)
-				.build();
-		startTime = System.currentTimeMillis();
-		double sparkTileStoredResult = tilesWithSimplePointChecksSparkReaderStoredTilesKendallCalculator.calculateKendallTau(column1, column2, paramsSparkTileStored);
-		endTime = System.currentTimeMillis();
-		elapsedTimeSeconds = (endTime - startTime) / 1000.0;
-		printResults("Spark: Simple Structure + Stored Tiles", filePath, sparkTileStoredResult, elapsedTimeSeconds);
+			TileConstructionParameters paramsSparkTileStored = new TileConstructionParameters.Builder(false)
+					.rangeMakingMode(RangeMakingMode.FIXED)
+					.numBinsX(NUM_BINS_X)
+					.numBinsY(NUM_BINS_Y)
+					.build();
+			startTime = System.currentTimeMillis();
+			double sparkTileStoredResult = tilesWithSimplePointChecksSparkReaderStoredTilesKendallCalculator.calculateKendallTau(column1, column2, paramsSparkTileStored);
+			endTime = System.currentTimeMillis();
+			elapsedTimeSeconds = (endTime - startTime) / 1000.0;
+			printResults("Spark: Simple Structure + Stored Tiles", filePath, sparkTileStoredResult, elapsedTimeSeconds);
 
-		Thread deleteThread = new Thread(() -> {
-			boolean deletionFlag = tilesWithSimplePointChecksSparkReaderStoredTilesKendallCalculator.deleteSubFolders(new File(WriterSetup.getOutputExecDir()));
-			System.err.println("Cleanup of tiles at " + WriterSetup.getOutputExecDir() + " was " + deletionFlag);
-		});
-		deleteThread.start();
+			Thread deleteThread = new Thread(() -> {
+				boolean deletionFlag = tilesWithSimplePointChecksSparkReaderStoredTilesKendallCalculator.deleteSubFolders(new File(WriterSetup.getOutputExecDir()));
+				System.err.println("Cleanup of tiles at " + WriterSetup.getOutputExecDir() + " was " + deletionFlag);
+			});
+			deleteThread.start();
 		}
 	}
 
