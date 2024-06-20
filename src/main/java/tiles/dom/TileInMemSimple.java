@@ -10,7 +10,7 @@ public class TileInMemSimple implements Serializable, ITile {
     private static final long serialVersionUID = 4581980665140154578L;
 	private final int row;
     private final int column;
-    private final List<DoublePair> valuePairs;
+    private List<DoublePair> valuePairs;
     private long pairCounter = 0L;
 
     public TileInMemSimple(int row, int column) {
@@ -40,6 +40,13 @@ public class TileInMemSimple implements Serializable, ITile {
         pairCounter++;
     }
 
+
+	@Override
+	public int setValuePairs(List<DoublePair> pairList) {
+		this.valuePairs = pairList;
+		return this.valuePairs.size();
+	}
+    
     @Override
 	public int getRow() {
         return row;

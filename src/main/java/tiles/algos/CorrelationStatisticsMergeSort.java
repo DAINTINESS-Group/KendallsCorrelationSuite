@@ -26,11 +26,12 @@ public class CorrelationStatisticsMergeSort extends CorrelationStatistics{
     @Override
     public String toString() {
         return "CorrelationStatisticsMergeSort:\n{ " +
-        		"Total #pairs = " + this.numPairs + "\n" +
-                "Concordant - Discordant PairsCount = " + (concordantPairsCount - discordantPairsCount) +
-                ",\nTiedXPairsCount = " + tiedXPairsCount +
-                ",\nTiedYPairsCount = " + tiedYPairsCount +
-                " }\n";
+        		"Total #pairs: \t" 	+ this.numPairs + "\n" +
+                "Concordant: \t" 	+ concordantPairsCount  + "\n" +
+                "Discordant: \t"	+ discordantPairsCount + "\n" +
+                "TiedXPairs: \t"	+ tiedXPairsCount + "\n" +
+                "TiedYPairs: \t"	+ tiedYPairsCount +"\n" +
+                "}\n";
     }
 
     

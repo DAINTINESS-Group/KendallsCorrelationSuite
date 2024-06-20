@@ -5,7 +5,7 @@ import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 
-import org.apache.commons.math3.util.Pair;
+//import org.apache.commons.math3.util.Pair;
 
 import tiles.dom.DoublePair;
 import tiles.dom.ITile;
@@ -53,8 +53,10 @@ public class AlgoSimpleSorters {
 
     public void processAllTiles() {
     	//System.out.println("running AlgoSimpleTilesAndPoints");
-    	
+    	long startTime = 0L; long endTime = 0L; double elapsedTimeSeconds = 0.0;
     	CalculationTimer.reset();
+    	
+    	startTime = System.currentTimeMillis();
         for (ITile[] rowOfTiles : tiles) {
             for (ITile tile : rowOfTiles) {
                 if (!tile.isEmpty()) {
@@ -62,32 +64,52 @@ public class AlgoSimpleSorters {
                 }
             }
         }//@end: SW, SE, sortBy X
+    	endTime = System.currentTimeMillis();
+    	elapsedTimeSeconds = (endTime - startTime) / 1000.0;
+    	CalculationTimer.incrementCompareWithNonCrossTime(elapsedTimeSeconds);    
+        
         for (ITile[] rowOfTiles : tiles) {
             for (ITile tile : rowOfTiles) {
                 if (!tile.isEmpty()) {
                     int tileRow = tile.getRow();
                     int tileColumn = tile.getColumn();
-                    //int tilePairsCount = (int)tile.getCount();
                     List<DoublePair> tilePairs = tile.getValuePairs();             	
-                	compareTileWithSouthTiles(tilePairs, tileRow, tileColumn);
+//System.err.println("SS\tTT["+tileRow+","+tileColumn+"]:\t"+tilePairs.size());
+                    	startTime = System.currentTimeMillis();
+                    compareTileWithSouthTiles(tilePairs, tileRow, tileColumn);
+                		endTime = System.currentTimeMillis();
+                		elapsedTimeSeconds = (endTime - startTime) / 1000.0;
+                		CalculationTimer.incrementCompareWithSouthTime(elapsedTimeSeconds);
+                    
+                		startTime = System.currentTimeMillis();
                 	compareTileWithSelf(tile);
-                	//compareTileWithSelf(tilePairs, tilePairsCount);
-//System.err.println(tilePairs.toString());              	
+                		endTime = System.currentTimeMillis();
+                		elapsedTimeSeconds = (endTime - startTime) / 1000.0;
+                		CalculationTimer.incrementCompareWithSelfTime(elapsedTimeSeconds);             	
+// no need for sorting any more
+//                	tilePairs.sort(Comparator.comparingDouble(DoublePair::getY));
                 }
             }
         }//@end: South, self => sorted by Y
+        
+        
+    	startTime = System.currentTimeMillis();
         for (ITile[] rowOfTiles : tiles) {
             for (ITile tile : rowOfTiles) {
                 if (!tile.isEmpty()) {
                     int tileRow = tile.getRow();
                     int tileColumn = tile.getColumn();
-//                    int tilePairsCount = (int)tile.getCount();
                     List<DoublePair> tilePairs = tile.getValuePairs();
+                    
+//System.err.println("EA\tTT["+tileRow+","+tileColumn+"]:\t"+tilePairs.size());                    
                 	compareTileWithEastTiles(tilePairs, tileRow, tileColumn);
                 }
             }
         }//@end: east, still sortedBy Y        
-        
+    	endTime = System.currentTimeMillis();
+    	elapsedTimeSeconds = (endTime - startTime) / 1000.0;
+    	CalculationTimer.incrementCompareWithEastTime(elapsedTimeSeconds);
+
     }//end processAllTiles
     
     protected void processNonCrossAndSortByX(ITile tile) {
@@ -108,41 +130,6 @@ public class AlgoSimpleSorters {
         
     } // end processNonCrossAndSortByX
     
-//    protected void processTile(ITile tile) {    	
-//        int tileRow = tile.getRow();
-//        int tileColumn = tile.getColumn();
-//        int tilePairsCount = (int)tile.getCount();
-//        List<DoublePair> tilePairs = tile.getValuePairs();
-// //System.err.println(tileRow + "\t" + tileColumn +":\t" + tilePairsCount);
-// 
-//        if(tilePairs.size() != tilePairsCount) {
-//        	System.err.println("Tileprocessor.processTile error, parCount and list do not match: " +tilePairsCount + "\t" + tilePairs.size());
-//        	System.err.println("TileInMemSimple: " +tile.toString());
-//        }
-//        	long startTime = System.currentTimeMillis();
-//        compareTileWithSelf(tilePairs, tilePairsCount);
-//        	long endTime = System.currentTimeMillis();
-//        	double elapsedTimeSeconds = (endTime - startTime) / 1000.0;
-//        	CalculationTimer.incrementCompareWithSelfTime(elapsedTimeSeconds);
-//
-//        	startTime = System.currentTimeMillis();
-//        compareTileWithEastTiles(tilePairs, tileRow, tileColumn);
-//        	endTime = System.currentTimeMillis();
-//        	elapsedTimeSeconds = (endTime - startTime) / 1000.0;
-//        	CalculationTimer.incrementCompareWithEastTime(elapsedTimeSeconds);
-//
-//        	startTime = System.currentTimeMillis();
-//        compareTileWithSouthTiles(tilePairs, tileRow, tileColumn);
-//        	endTime = System.currentTimeMillis();
-//        	elapsedTimeSeconds = (endTime - startTime) / 1000.0;
-//        	CalculationTimer.incrementCompareWithSouthTime(elapsedTimeSeconds);
-//
-//        	startTime = System.currentTimeMillis();
-//        processNonCrossTiles(tilePairsCount, tileRow, tileColumn);
-//        	endTime = System.currentTimeMillis();
-//        	elapsedTimeSeconds = (endTime - startTime) / 1000.0;
-//        	CalculationTimer.incrementCompareWithNonCrossTime(elapsedTimeSeconds);
-//    }
 
     protected void compareTileWithSouthTiles(List<DoublePair> tilePairs, int tileRow, int tileColumn) {
         for (int row = tileRow + 1; row < maxRows; row++) {
@@ -260,26 +247,22 @@ public class AlgoSimpleSorters {
             ITile eastTile = tiles[tileRow][column];
             if (!eastTile.isEmpty()) {
                 List<DoublePair> eastTilePairs = eastTile.getValuePairs();
-                compareWithEastTile(tilePairs, eastTilePairs);
+                //compareWithEastTile(tilePairs, eastTilePairs);
+                compareWithEastTileSMJ(tilePairs, eastTilePairs);
             }
         }
     }
 
     
     protected void compareWithEastTile(List<DoublePair> tilePairs, List<DoublePair> eastTilePairs) {
-    	//not already sorted by self for some reason, so we sort
-//System.err.println(eastTilePairs.toString());    	
-    	eastTilePairs.sort(Comparator.comparingDouble(DoublePair::getY));
-        
+    	//System.err.println(eastTilePairs.toString());
     	long eastPairsCount = eastTilePairs.size();
 
         for (DoublePair referencePair : tilePairs) {
             long concordant = 0, discordant = 0, tiedOnY = 0;
             double referenceTileYValue = referencePair.getY();
-
             for (DoublePair eastPair : eastTilePairs) {
                 double eastTileYValue = eastPair.getY();
-
                 if (referenceTileYValue < eastTileYValue)
                     break; // Break for the rest are concordant
                 else if (referenceTileYValue > eastTileYValue)
@@ -295,6 +278,61 @@ public class AlgoSimpleSorters {
         }
     }
 
+    public void compareWithEastTileSMJ(List<DoublePair> tilePairs, List<DoublePair> eastTilePairs) {
+        
+        int cursor1 = 0, cursor2 = 0;
+        int counterTieOnOtherAttribute = 0;
+        int counterPairsWithOtherAttributeConcordant = 0;
+        int counterPairsWithOtherAttributeDiscordant = 0;
+        int numberTuplesTile1 = tilePairs.size();
+        int numberTuplesTile2 = eastTilePairs.size();
+              
+        // Merge phase
+        while (cursor1 < numberTuplesTile1 && cursor2 < numberTuplesTile2) {
+            double key1 = tilePairs.get(cursor1).getY();
+            double key2 = eastTilePairs.get(cursor2).getY();
+
+            if (key1 == key2) {
+                // Find all matching rows in table1
+                int startI = cursor1;
+                while (cursor1 < numberTuplesTile1 && tilePairs.get(cursor1).getY() == key1) {
+                    cursor1++;
+                }
+                
+                // Find all matching rows in table2
+                int startJ = cursor2;
+                while (cursor2 < numberTuplesTile2 && eastTilePairs.get(cursor2).getY() == key2) {
+                    cursor2++;
+                }
+                
+                // Join each matching row from table1 with all matching rows from table2
+                for (int m = startI; m < cursor1; m++) {
+                    counterPairsWithOtherAttributeConcordant += (numberTuplesTile2 - cursor2);
+                    for (int n = startJ; n < cursor2; n++) {
+                        counterTieOnOtherAttribute++;
+                    }
+                }
+                
+                // Reset j to continue checking for more matches in table1
+                cursor2 = startJ;
+            } else if (key1 < key2) {
+                cursor1++;
+                counterPairsWithOtherAttributeConcordant += (numberTuplesTile2 - cursor2);
+            } else {
+                cursor2++;
+                counterPairsWithOtherAttributeDiscordant += (numberTuplesTile1 - cursor1);
+                //WHICH ONE? (cursor1); //
+            }
+        }
+        
+
+        correlationStats.incrementConcordantCount(counterPairsWithOtherAttributeConcordant);
+        correlationStats.incrementDiscordantCount(counterPairsWithOtherAttributeDiscordant);
+        correlationStats.incrementTiedYCount(counterTieOnOtherAttribute);
+    }
+    
+
+    
     protected void processNonCrossTiles(int tilePairCount, int tileRow, int tileColumn) {
         processSouthEastTiles(tilePairCount, tileRow, tileColumn);
         processSouthWestTiles(tilePairCount, tileRow, tileColumn);
@@ -344,22 +382,20 @@ public class AlgoSimpleSorters {
         
     	List<DoublePair> tilePairs = tile.getValuePairs();
     	int tilePairsCount = tilePairs.size();
-    	
-        final int n = tilePairsCount;
-        final long numPairs = numOfAllPairs(n - 1);
-        //if there is a single tuple in the tile, count it as a discordant
-        if(1 == tilePairsCount) {	
-//System.err.println("0\t0\t0\t\t1 tuple in tiles " + tilePairs.get(0).toString());
-        	//correlationStats.incrementConcordantCount(-1);
+
+        if(1 == tilePairsCount) {
         	return;
         }
+
+        final int n = tilePairsCount;
+        final long numPairs = numOfAllPairs(n - 1);
         
         DoublePair [] pairs = //(DoublePair[]) tilePairs.toArray();
         		tilePairs.stream().toArray(DoublePair[] ::new);
         Arrays.sort(pairs, new Comparator<DoublePair>() {
             @Override
             public int compare(DoublePair pair1, DoublePair pair2) {
-                int  compareFirst = (int) Math.signum(pair1.getX() - pair2.getX());
+                int compareFirst = (int) Math.signum(pair1.getX() - pair2.getX());
                 return compareFirst != 0 ? compareFirst : (int)Math.signum(pair1.getY() - pair2.getY());
             }
         });
@@ -446,21 +482,19 @@ public class AlgoSimpleSorters {
         }
         tiedYPairs += numOfAllPairs(consecutiveYTies - 1);
 
-        //now tilePairs must be sorted by Y
+        //now tilePairs must now being sorted by Y
         tilePairs = new ArrayList<>(Arrays.asList(pairs));
-        
-        //TODO FIX FIX FIX
-        //ULTRA ISSUE: THE TILE NEVER LEARNS THE NEW LIST!
-        //you cannot say 
-        //		tile.setValuePairs(tilePairs);
-        //this woudl mean ITile also has a setter => all its implementations should have
-        //So, you have to re-sort later
-        
-        
+        //!! THE TILE LEARNS THE NEW LIST BY EXPLICIT ASSIGNMENT AND NOT OTHERWISE!
+        tile.setValuePairs(tilePairs);
+
         
         final long concordantMinusDiscordantAndTies = numPairs + tiedXYPairs - 2 * swaps - tiedXPairs - tiedYPairs;
 //System.err.println(numPairs + "\t" + tiedXYPairs + "\t" + swaps + "\t" + concordantMinusDiscordantAndTies);
-        	correlationStats.incrementConcordantCount(concordantMinusDiscordantAndTies);
+    	//correlationStats.incrementConcordantCount(concordantMinusDiscordantAndTies);
+        //REplaced by genuine concordant and discirdant
+        //KEEP IN MIND: SWAPS are DISCORDANT
+        	correlationStats.incrementConcordantCount(concordantMinusDiscordantAndTies+swaps);
+        	correlationStats.incrementDiscordantCount(swaps);
         	correlationStats.incrementTiedXCount(tiedXPairs);
         	correlationStats.incrementTiedYCount(tiedYPairs);
 

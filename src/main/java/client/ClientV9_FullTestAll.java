@@ -23,6 +23,7 @@ public class ClientV9_FullTestAll {
 		boolean runApacheFlag = true;
 		boolean runTilesWithLists = false;   	
 		boolean runTilesWithBandMemory = false;
+		boolean runTilesWithIntraMergeSort = false;
 		boolean runTilesWithMergeSort = true;
 		boolean runSiplestSparkTilesMMFlag = false;
 		boolean sparkStoredReaderFlag = false;
@@ -85,7 +86,7 @@ public class ClientV9_FullTestAll {
 		endTime = System.currentTimeMillis();
 		elapsedTimeSeconds = (endTime - startTime) / 1000.0;
 		printResults("ValueReader For ALL lists: ", filePath, Double.NaN, elapsedTimeSeconds);
-
+		
 		/* BRUTE */
 		if(runBruteFlag) {
 			IListBasedKendallCalculator bruteForceTauA = methods.createKendallCalculator(KendallCalculatorMethods.BRUTEFORCE, null);
@@ -114,15 +115,16 @@ public class ClientV9_FullTestAll {
 			endTime = System.currentTimeMillis();
 			elapsedTimeSeconds = (endTime - startTime) / 1000.0;
 			printResults("Apache", filePath, apacheResult, elapsedTimeSeconds);
-
 		}
 
 		TileConstructionParameters paramsTileList = new TileConstructionParameters.Builder(false)
+				.debugModeOn(true)
 				.rangeMakingMode(RangeMakingMode.FIXED)
 				.numBinsX(NUM_BINS_X)
 				.numBinsY(NUM_BINS_Y)
 				.build();
 
+		
 		/* TILES WITH LISTS*/
 		if(runTilesWithLists) {
 			startTime = System.currentTimeMillis();
@@ -143,16 +145,27 @@ public class ClientV9_FullTestAll {
 			printResults("Bands With Memory", filePath, bandsWithMemoryKendallResult, elapsedTimeSeconds);
 		}
 
-		/* SIMPLE TILES WITH MERGESORT */
-		if(runTilesWithMergeSort) {
+		/* SIMPLE TILES WITH MERGESORT, INTRA-TILE */
+		if(runTilesWithIntraMergeSort) {
 			startTime = System.currentTimeMillis();
 			IListBasedKendallCalculator msMgr	= methods.createKendallCalculator(KendallCalculatorMethods.MERGESORT, paramsTileList);
 			double msTileKendallResult 	= msMgr.calculateKendall(columnPair);
 			endTime = System.currentTimeMillis();
 			elapsedTimeSeconds = (endTime - startTime) / 1000.0; 
-			printResults("Simple Tiles, SortMerge", filePath, msTileKendallResult, elapsedTimeSeconds);
+			printResults("Simple Tiles, MergeSort, INTRA", filePath, msTileKendallResult, elapsedTimeSeconds);
 		}
 
+		/* SIMPLE TILES WITH TWO SORTINGS */
+		if(runTilesWithMergeSort) {
+			startTime = System.currentTimeMillis();
+			IListBasedKendallCalculator mssMgr	= methods.createKendallCalculator(KendallCalculatorMethods.SIMPLE_SORTERS, paramsTileList);
+			double mssTileKendallResult 	= mssMgr.calculateKendall(columnPair);
+			endTime = System.currentTimeMillis();
+			elapsedTimeSeconds = (endTime - startTime) / 1000.0; 
+			printResults("Simple Tiles, FULL MergeSort everywhere", filePath, mssTileKendallResult, elapsedTimeSeconds);
+		}
+
+		
 		/* Tile Implementation with SPARK and valuePairs*/
 		if(runSiplestSparkTilesMMFlag) {
 			startTime = System.currentTimeMillis();

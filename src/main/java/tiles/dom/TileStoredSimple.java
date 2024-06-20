@@ -18,7 +18,7 @@ public class TileStoredSimple implements Serializable, ITile {
     
 	private final int row;
     private final int column;
-    private final List<DoublePair> valuePairs;
+    private List<DoublePair> valuePairs;
     private long pairCounter = 0;
     
     private String fileName = null;
@@ -120,6 +120,13 @@ public class TileStoredSimple implements Serializable, ITile {
 			System.exit(-1);
 		}
     }
+
+
+	@Override
+	public int setValuePairs(List<DoublePair> pairList) {
+		this.valuePairs = pairList;
+		return this.valuePairs.size();
+	}
     
     @Override
     public String toString() {
@@ -134,4 +141,5 @@ public class TileStoredSimple implements Serializable, ITile {
                 ", pairs=" + vStr +
                 '}';
     }
+
 }

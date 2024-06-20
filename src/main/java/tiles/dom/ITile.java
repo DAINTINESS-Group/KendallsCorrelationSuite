@@ -30,6 +30,14 @@ public interface ITile {
 	public void addValuePair(DoublePair pair);
 
 	/**
+	 * completely renews the contents of a tile with a pre-made List of double pairs
+	 * 
+	 * @param pairList a List of Double Pairs
+	 * @return the size of the tile's contents
+	 */
+	public int setValuePairs(List<DoublePair> pairList);
+	
+	/**
 	 * 
 	 * @return
 	 */

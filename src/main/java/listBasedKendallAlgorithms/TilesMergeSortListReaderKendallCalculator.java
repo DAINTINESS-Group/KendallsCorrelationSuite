@@ -19,11 +19,12 @@ import util.TileConstructionParameters;
  *
  */
 public class TilesMergeSortListReaderKendallCalculator implements IListBasedKendallCalculator{
-	protected static final boolean DEBUG_FLAG = false;
+	protected boolean DEBUG_FLAG = true;
 	protected TileConstructionParameters parameters;
 
 	public TilesMergeSortListReaderKendallCalculator(TileConstructionParameters parameters) {
 		this.parameters = parameters;
+		DEBUG_FLAG = this.parameters.isDebugModeOn();
 	}
 
 	@Override
