@@ -7,7 +7,7 @@ import org.junit.runners.Suite.SuiteClasses;
 @RunWith(Suite.class)
 @SuiteClasses({ 
 	AlgoBandsWithVisitMemoryTest.class, AlgoTilesMergeSortTest.class,
-	AlgoSimpleTilesAndPointComparisonTest.class
+	AlgoSimpleTilesAndPointComparisonTest.class, AlgoSimpleSortersTest.class
 })
 public class AllAlgoTests {
 
