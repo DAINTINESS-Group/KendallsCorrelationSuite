@@ -175,9 +175,9 @@ public class AlgoSimpleSorters {
 //        List<Pair<DoublePair,DoublePair>> tied = new ArrayList<>();
         
         int cursor1 = 0, cursor2 = 0;
-        int counterTieOnOtherAttribute = 0;
-        int counterPairsWithOtherAttributeSmaller = 0;
-        int counterPairsWithOtherAttributeLarger = 0;
+        long counterTieOnOtherAttribute = 0;
+        long counterPairsWithOtherAttributeSmaller = 0;
+        long counterPairsWithOtherAttributeLarger = 0;
         int numberTuplesTile1 = tilePairs.size();
         int numberTuplesTile2 = southTilePairs.size();
         
@@ -281,9 +281,9 @@ public class AlgoSimpleSorters {
     public void compareWithEastTileSMJ(List<DoublePair> tilePairs, List<DoublePair> eastTilePairs) {
         
         int cursor1 = 0, cursor2 = 0;
-        int counterTieOnOtherAttribute = 0;
-        int counterPairsWithOtherAttributeConcordant = 0;
-        int counterPairsWithOtherAttributeDiscordant = 0;
+        long counterTieOnOtherAttribute = 0;
+        long counterPairsWithOtherAttributeConcordant = 0;
+        long counterPairsWithOtherAttributeDiscordant = 0;
         int numberTuplesTile1 = tilePairs.size();
         int numberTuplesTile2 = eastTilePairs.size();
               

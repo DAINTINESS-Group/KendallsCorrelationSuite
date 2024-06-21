@@ -28,50 +28,50 @@ public class ClientV9_FullTestAll {
 		boolean runSiplestSparkTilesMMFlag = false;
 		boolean sparkStoredReaderFlag = false;
 
-		//74001 tuples
-//		String filePath = "src\\test\\resources\\input\\acs2017_census_tract_data.csv";
-//		String column1 = "Hispanic";
-//		String column2 = "Native";
-//		String delimiter = ",";
+		//74001 tuples -- tau_b: -0.0015270058352773051
+		String filePath = "src\\test\\resources\\input\\acs2017_census_tract_data.csv";
+		String column1 = "Hispanic";
+		String column2 = "Native";
+		String delimiter = ",";
 
-		//74001 tuples
-		//        String filePath = "src\\test\\resources\\input\\acs2017_census_tract_data.csv";
-		//        String column1 = "Men";
-		//        String column2 = "Women";
-		//        String delimiter = ",";
+		//74001 tuples  -- tau_b: 0.809021444650184
+//        String filePath = "src\\test\\resources\\input\\acs2017_census_tract_data.csv";
+//        String column1 = "Men";
+//        String column2 = "Women";
+//        String delimiter = ",";
 
 		//108,539 tuples
 		// //manufacturer,model,year,price,transmission,mileage,fuelType,tax,mpg,engineSize
-//		        String filePath = "src\\test\\resources\\input\\cars_100k.csv";
-//		        String column1 = "mileage";
-//		        String column2 = "mpg";
-//		        String delimiter = ",";
+//      String filePath = "src\\test\\resources\\input\\cars_100k.csv";
+//      String column1 = "mileage";
+//      String column2 = "mpg";
+//      String delimiter = ",";
 
 		//619,040 tuples
-		//        String filePath = "src\\test\\resources\\input\\all_stocks_5yr.csv";
-		//        String filePathClean = "src\\test\\resources\\input\\all_stocks_5yr_clean.csv";
-		//        String column1 = "low";
-		//        String column2 = "high";
-		//        String delimiter = ",";
+//		String filePath = "src\\test\\resources\\input\\all_stocks_5yr.csv";
+//		String filePathClean = "src\\test\\resources\\input\\all_stocks_5yr_clean.csv";
+//		String column1 = "low";
+//		String column2 = "high";
+//		String delimiter = ",";
 
 		//619,040 tuples
-		        String filePath = "src\\test\\resources\\input\\all_stocks_5yr.csv";
-		        String filePathClean = "src\\test\\resources\\input\\all_stocks_5yr_clean.csv";
-		        String column1 = "close";
-		        String column2 = "volume";
-		        String delimiter = ",";
+//		String filePath = "src\\test\\resources\\input\\all_stocks_5yr.csv";
+//		//String filePathClean = "src\\test\\resources\\input\\all_stocks_5yr_clean.csv";
+//		String column1 = "close";
+//		String column2 = "volume";
+//		String delimiter = ",";
 
 		//1,000,000 = 1 million tuples
-		//        String filePath = "src\\test\\resources\\input\\Random1Mil.csv";
-		//        String column1 = "X";
-		//        String column2 = "Y";
-		//        String delimiter = ",";
+//		String filePath = "src\\test\\resources\\input\\Random1Mil.csv";
+//		String column1 = "X";
+//		String column2 = "Y";
+//		String delimiter = ",";
 
 		//5,819,079 tuples
-		//        String filePath = "src\\test\\resources\\input\\flights5_7m.csv"; // flight cancels 2015
-		//        String column1 = "FLIGHT_NUMBER";
-		//        String column2 = "DEPARTURE_TIME";
-		//        String delimiter = ",";
+//		String filePath = "src\\test\\resources\\input\\flights5_7m.csv"; // flight cancels 2015
+//		String column1 = "FLIGHT_NUMBER";
+//		String column2 = "DEPARTURE_TIME";
+//		String delimiter = ",";
 
 		int NUM_BINS_X = 100;
 		int NUM_BINS_Y = 100;
